@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="web安全," />
 
 
 
@@ -81,16 +81,17 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+<meta name="description" content="什么是XSS&#x2F;XSS原理 攻击者嵌入恶意脚本代码到用户会访问到的页面中，用户访问该页面的时候，就引起恶意脚本代码的执行，从而达到恶意攻击用户的目的。攻击者可以使用户在浏览器中执行其预定义的恶意脚本，变量接受数据的时候，数据可以写成js脚本代码，进行回显操作  本质上属于前端漏洞，产生在浏览器和js代码中的漏洞">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://example.com/2022/01/16/hello-world/index.html">
+<meta property="og:title" content="XSS跨站脚本攻击">
+<meta property="og:url" content="http://example.com/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/index.html">
 <meta property="og:site_name" content="Ax-x">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+<meta property="og:description" content="什么是XSS&#x2F;XSS原理 攻击者嵌入恶意脚本代码到用户会访问到的页面中，用户访问该页面的时候，就引起恶意脚本代码的执行，从而达到恶意攻击用户的目的。攻击者可以使用户在浏览器中执行其预定义的恶意脚本，变量接受数据的时候，数据可以写成js脚本代码，进行回显操作  本质上属于前端漏洞，产生在浏览器和js代码中的漏洞">
 <meta property="og:locale">
-<meta property="article:published_time" content="2022-01-16T13:04:27.622Z">
-<meta property="article:modified_time" content="2022-01-17T12:27:41.231Z">
+<meta property="article:published_time" content="2022-01-17T14:56:33.000Z">
+<meta property="article:modified_time" content="2022-01-17T14:57:49.665Z">
 <meta property="article:author" content="Ax-x">
+<meta property="article:tag" content="web安全">
 <meta name="twitter:card" content="summary">
 
 
@@ -121,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2022/01/16/hello-world/"/>
+  <link rel="canonical" href="http://example.com/2022/01/17/XSS跨站脚本攻击/"/>
 
 
 
 
 
-  <title>Hello World | Ax-x</title>
+  <title>XSS跨站脚本攻击 | Ax-x</title>
   
 
 
@@ -183,7 +184,7 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/#%20" rel="section">
+          <a href="/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
@@ -193,7 +194,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/about#/%20" rel="section">
+          <a href="/about/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
@@ -203,7 +204,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags#/%20" rel="section">
+          <a href="/tags/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -213,7 +214,7 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories#/%20" rel="section">
+          <a href="/categories/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
@@ -223,7 +224,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives#/%20" rel="section">
+          <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -233,7 +234,7 @@
       
         
         <li class="menu-item menu-item-schedule">
-          <a href="/schedule#/%20" rel="section">
+          <a href="/schedule/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
             
@@ -308,7 +309,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/16/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -325,7 +326,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">XSS跨站脚本攻击</h1>
         
 
         <div class="post-meta">
@@ -337,8 +338,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-16T21:04:27+08:00">
-                2022-01-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-17T22:56:33+08:00">
+                2022-01-17
               </time>
             
 
@@ -347,6 +348,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -369,7 +392,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  75
+                  1k
                 </span>
               
 
@@ -385,7 +408,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  3
                 </span>
               
             </div>
@@ -406,20 +429,94 @@
       
 
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<span id="more"></span>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+        <h1 id="什么是XSS-XSS原理"><a href="#什么是XSS-XSS原理" class="headerlink" title="什么是XSS/XSS原理"></a>什么是XSS/XSS原理</h1><ul>
+<li><p>攻击者嵌入恶意脚本代码到用户会访问到的页面中，用户访问该页面的时候，就引起恶意脚本代码的执行，从而达到恶意攻击用户的目的。攻击者可以使用户在浏览器中执行其预定义的恶意脚本，变量接受数据的时候，数据可以写成js脚本代码，进行回显操作</p>
+</li>
+<li><p>本质上属于前端漏洞，产生在浏览器和js代码中的漏洞</p>
+<span id="more"></span></li>
+</ul>
+<h1 id="XSS类型"><a href="#XSS类型" class="headerlink" title="XSS类型"></a>XSS类型</h1><ul>
+<li><p>反射型XSS(非持续型XSS)</p>
+</li>
+<li><p>储存型XSS(持续型XSS）</p>
+</li>
+<li><p>DOM XSS</p>
+</li>
+</ul>
+<h1 id="具体区别"><a href="#具体区别" class="headerlink" title="具体区别"></a>具体区别</h1><ul>
+<li><p>反射型：数据提交过去时，会在代码执行之后直接反馈回来发包x=zzx=&gt;x.php=&gt;回包</p>
+</li>
+<li><p>存储型：数据提交过去时，会在代码执行之后储存到数据库的某个表里，然后反馈回来发包x=zzx=&gt;x.php=&gt;写到数据库某个表=&gt;x.php&gt;回显</p>
+</li>
+<li><p>DOM型：发包x=zzx=&gt;本地浏览器静态前端代码=&gt;x.php</p>
+</li>
+<li><p>反射型和储存型属于后端语言进行数据处理，而DOM型是用js代码进行处理 </p>
+</li>
+</ul>
+<h1 id="三者原理"><a href="#三者原理" class="headerlink" title="三者原理"></a>三者原理</h1><ul>
+<li><p>反射型XSS：应用或API没有对用户输入数据进行验证或没进行转义然后作为HTML的输出的一部分，能够使得攻击者在受害者的浏览器上执行任意HTML和JavaScript。</p>
+</li>
+<li><p>存储型XSS：应用或API存储未格式化的用户输入，且该输入之后会被其他用户或管理员浏览到。</p>
+</li>
+<li><p>DOM XSS：动态包含攻击者可控制数据到页面中的JavaScript框架， 单页应用，API易受DOM XSS。</p>
+</li>
+<li><p>涉及函数类：常见的输出类函数</p>
+</li>
+</ul>
+<h1 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h1><ul>
+<li><p>方法一： 查看代码，查找关键的变量,   客户端将数据传送给Web 服务端一般通过三种方式 Querystring, Form表单，以及cookie.  例如在ASP的程序中，通过Request对象获取客户端的变量。 假如变量没有经过htmlEncode处理， 那么这个变量就存在一个XSS漏洞</p>
+</li>
+<li><p>方法二：xss跨站漏洞测试语句， 在网页中的Textbox或者其他能输入数据的地方，输入测试语句， 看能不能弹出对话框，能弹出的话说明存在XSS漏洞， 在URL中查看有那些变量通过URL把值传给Web服务器， 把这些变量的值退换成测试语句。  然后看是否能执行</p>
+</li>
+<li><p>方法三:  自动化测试XSS漏洞</p>
+</li>
+</ul>
+<h1 id="可能存在XSS漏洞点"><a href="#可能存在XSS漏洞点" class="headerlink" title="可能存在XSS漏洞点"></a>可能存在XSS漏洞点</h1><ul>
+<li>用户能够输入提交数据的地方，文本框，url，请求头等等</li>
+</ul>
+<h1 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h1><ul>
+<li><p>如劫持用户会话，插入恶意内容、重定向用户、使用恶意软件劫持用户浏览器、繁殖XSS蠕虫，甚至破坏网站、修改路由器配置信息等。</p>
+</li>
+<li><p>XSS实质上就是JS脚本，任何JS脚本能实现的功能，XSS也能实现能做到的Cookie劫持、构造GET和POST请求、XSS钓鱼、识别用户浏览器、识别用户安装的软件等</p>
+</li>
+</ul>
+<h1 id="防范修复"><a href="#防范修复" class="headerlink" title="防范修复"></a>防范修复</h1><ul>
+<li><p>前端采用大型框架Angular,Vue,React等等。</p>
+</li>
+<li><p>用session代替cookie。</p>
+</li>
+<li><p>对于用户输入的数据要严格过滤写入数据库的数据，一定要保证合理过滤。</p>
+</li>
+<li><p>对于所有输出的地方，一定要做好过滤工作，比如采用模版渲染等等。</p>
+</li>
+<li><p>使用Token</p>
+</li>
+<li><p>使用HttpOnly</p>
+</li>
+</ul>
+<h1 id="什么是HttpOnly？"><a href="#什么是HttpOnly？" class="headerlink" title="什么是HttpOnly？"></a>什么是HttpOnly？</h1><ul>
+<li>如果在cookie中设置了HTTPonly属性，那么通过js脚本将无法读取到cookie信息，这样能有效防止XSS攻击。</li>
+</ul>
+<h1 id="绕过httponly"><a href="#绕过httponly" class="headerlink" title="绕过httponly"></a>绕过httponly</h1><ul>
+<li><p>浏览器未保存账号密码：需要XSS产生登录地址，利用表单劫持</p>
+</li>
+<li><p>浏览器保存了账号密码：产生后台的XSS，储存型XSS，如留言等，利用浏览器读取账号密码</p>
+</li>
+</ul>
+<h1 id="如何绕过"><a href="#如何绕过" class="headerlink" title="如何绕过"></a>如何绕过</h1><ul>
+<li><p>修改编码格式</p>
+</li>
+<li><p>加密解密算法</p>
+</li>
+<li><p>结合其他漏洞绕过</p>
+</li>
+<li><p>大小写onerror函数</p>
+</li>
+<li><p>配合平台，例如<a target="_blank" rel="noopener" href="http://xssfuzzer.com/">xssfuzzer.com</a>生成语句</p>
+</li>
+<li><p>工具：Xwaf,XSStrike</p>
+</li>
+</ul>
 
       
     </div>
@@ -444,6 +541,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/web%E5%AE%89%E5%85%A8/" rel="tag"><i class="fa fa-tag"></i> web安全</a>
+          
+        </div>
+      
 
       
       
@@ -453,15 +556,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2022/01/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83/" rel="next" title="逻辑越权">
+                <i class="fa fa-chevron-left"></i> 逻辑越权
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2022/01/16/%E5%8D%9A%E5%AE%A2%E5%90%8D%E5%AD%97/" rel="prev" title="博客名字">
-                博客名字 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -540,9 +643,9 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives#/%20%7C%7C%20archive">
+                <a href="/archives/%7C%7Carchive">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -620,7 +723,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFXSS-XSS%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">什么是XSS&#x2F;XSS原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XSS%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">XSS类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%8C%BA%E5%88%AB"><span class="nav-number">3.</span> <span class="nav-text">具体区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E8%80%85%E5%8E%9F%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">三者原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%A3%80%E6%B5%8B"><span class="nav-number">5.</span> <span class="nav-text">如何检测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E5%AD%98%E5%9C%A8XSS%E6%BC%8F%E6%B4%9E%E7%82%B9"><span class="nav-number">6.</span> <span class="nav-text">可能存在XSS漏洞点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%B1%E5%AE%B3"><span class="nav-number">7.</span> <span class="nav-text">危害</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%98%B2%E8%8C%83%E4%BF%AE%E5%A4%8D"><span class="nav-number">8.</span> <span class="nav-text">防范修复</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFHttpOnly%EF%BC%9F"><span class="nav-number">9.</span> <span class="nav-text">什么是HttpOnly？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%95%E8%BF%87httponly"><span class="nav-number">10.</span> <span class="nav-text">绕过httponly</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%BB%95%E8%BF%87"><span class="nav-number">11.</span> <span class="nav-text">如何绕过</span></a></li></ol></div>
             
 
           </div>
@@ -661,7 +764,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">75</span>
+    <span title="Site words total count">7.8k</span>
   
 </div>
 

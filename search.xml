@@ -1,33 +1,507 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2022/01/16/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<span id="more"></span>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+    <title>逻辑越权</title>
+    <url>/2022/01/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83/</url>
+    <content><![CDATA[<h1 id="逻辑漏洞"><a href="#逻辑漏洞" class="headerlink" title="逻辑漏洞"></a><strong>逻辑漏洞</strong></h1><ul>
+<li> 攻击者利用业务的设计缺陷，获取敏感信息或破坏业务的完整性， 其本质就是程序逻辑输入管控不严，没有对用户数据进行严格把控，导致程序不能够正常处理或处理错误，一般出现在登录注册、密码找回、信息查看、交易支付金额等。<span id="more"></span></li>
+</ul>
+<h1 id="逻辑漏洞类型"><a href="#逻辑漏洞类型" class="headerlink" title="逻辑漏洞类型"></a>逻辑漏洞类型</h1><h2 id="越权"><a href="#越权" class="headerlink" title="越权"></a>越权</h2><h3 id="水平越权"><a href="#水平越权" class="headerlink" title="水平越权"></a>水平越权</h3><ul>
+<li>漏洞介绍：即普通用户/管理员能访问其他普通用户/管理员才能够访问的系统信息或者系统功能</li>
+<li>形成原因：在进行方法调用时候未进行请求用户和目标信息拥有者是否匹配一致，直接用userid/email之类的容易遍历的参数进行数据库查询</li>
+<li>漏洞点：在普通用户/管理员登录后的能访问的链接或者功能中都可能存在</li>
+<li>漏洞修复：在权限管理中，平行越权的权限管理颗粒度最小修复思路需要在方法中进行相关的获取请求request再利用getAttribute(“userid”)获取其userid直接使用该userid作为参数进行数据增删查改，避免userid参数传输</li>
+</ul>
+<h3 id="垂直越权"><a href="#垂直越权" class="headerlink" title="垂直越权"></a>垂直越权</h3><ul>
+<li><p>漏洞介绍：即普通用户能够访问管理员甚至超级管理员才能够访问的系统信息或者系统功能</p>
+</li>
+<li><p>形成原因：程序再方法调用时候，缺少角色等级校验</p>
+</li>
+<li><p>漏洞点：在任何用户登录后才能访问的链接或者功能中都可能存在对每一个传输的参数都要了解参数的目的，尝试将用户名改为admin尝试绕过</p>
+</li>
+<li><p>漏洞修复：需要校验用户是否有权限访问这个方法修复思路：获取请求request再利用getAuttribute(“roleid”)获取其角色等级检查角色等级是否合法，错误则直接返回错误跳转，返回页面必须仍然从Attribute中获取userid再进一步查询相关信息值得注意的是切勿将错误跳转写到Javascript里面，还返回目标URL页面的相关信息。</p>
+</li>
+</ul>
+<h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><h3 id="本地加密传输"><a href="#本地加密传输" class="headerlink" title="本地加密传输"></a>本地加密传输</h3><h3 id="cookie脆弱"><a href="#cookie脆弱" class="headerlink" title="cookie脆弱"></a>cookie脆弱</h3><ul>
+<li><p>漏洞介绍：通过伪造cookie信息能够伪造其他用户进行登录。</p>
+</li>
+<li><p>漏洞原理：开发者为了方便将身份信息/登录信息明文或者只是简单编码、哈希之后存放在cookies中，网站通过获取得到的cookies进行授权或者身份验证</p>
+</li>
+<li><p>漏洞点：cookie中有明显或者只是简单编码、哈希的字段时候 修改lsLogin值为1可以判定为用户已经登录 修改cookie为asp163=UserName=admin</p>
+</li>
+<li><p>漏洞修复： Cookie不应该存储可理解的身份信息和登录信息 按照规定，cookie对身份信息和登录信息的存储只能通过存储足够长度的随机字符串进行，避免篡改</p>
+</li>
+</ul>
+<h3 id="Session劫持"><a href="#Session劫持" class="headerlink" title="Session劫持"></a>Session劫持</h3><ul>
+<li><p>漏洞介绍：会话固定攻击是利用服务器的session不变机制，借他人之手获得认证和授权，然后冒充他人</p>
+</li>
+<li><p>漏洞原理：在请求登录过程时候，URL带有一个session，登录成功之后会将登录成功的信息绑定到这个session中，攻击者可以发送带有session的URL给相关工作人员诱导其登录，相当于获取了其身份信息</p>
+</li>
+<li><p>漏洞点：在GET方法请求登录时候带有session值</p>
+</li>
+<li><p>修复思路：只要避免在URL中带入session信息即可比较有效的防御另外也要注意POST请求中带有sessionid进行session固定攻击，虽然可利用性比较低，但是建议修复</p>
+</li>
+</ul>
+<h3 id="密文对比认证"><a href="#密文对比认证" class="headerlink" title="密文对比认证"></a>密文对比认证</h3><h3 id="暴力破解"><a href="#暴力破解" class="headerlink" title="暴力破解"></a>暴力破解</h3><ul>
+<li><p>漏洞介绍：攻击者可以通过该漏洞获取用户名和对应弱口令密码，并进行登录操作漏洞原理：由于没有设置登录失败次数限制，导致攻击者可以通过口令字典进行特定用户的密码爆破或通过用户名字典进行特定弱口令的用户枚举</p>
+</li>
+<li><p>漏洞点：系统登录点</p>
+</li>
+<li><p>漏洞修复： 对于固定用户名爆破密码可以针对用户名进行错误次数计算，高于一定阈值账号锁定一段时间，或者添加验证码但是不能永久锁定，可能被用来进行账户恶意锁定对于固定密码枚举用户名、 需要计算IP对URL的请求情况，某个IP短时间大量请求登录应该加入黑名单 进行传输数据加密有一定的防护效果</p>
+</li>
+</ul>
+<h2 id="业务"><a href="#业务" class="headerlink" title="业务"></a>业务</h2><h3 id="订单ID"><a href="#订单ID" class="headerlink" title="订单ID"></a>订单ID</h3><h3 id="用户ID"><a href="#用户ID" class="headerlink" title="用户ID"></a>用户ID</h3><ul>
+<li>在支付当中会出现当前用户的ID，比如：username=XXXXX，如果没有加以验证，其支付也是一次性支付没有要求输入密码什么的机制，那么就可以修改这个用户ID为其它用户ID，达到用其他用户的账号进行支付你的商品。</li>
+</ul>
+<h3 id="订单号码"><a href="#订单号码" class="headerlink" title="订单号码"></a>订单号码</h3><h3 id="商品ID"><a href="#商品ID" class="headerlink" title="商品ID"></a>商品ID</h3><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><h3 id="暴力破解-1"><a href="#暴力破解-1" class="headerlink" title="暴力破解"></a>暴力破解</h3><ul>
+<li><p>漏洞介绍：攻击者可以通过该漏洞获取用户名和对应弱口令密码，并进行登录操作</p>
+</li>
+<li><p>漏洞原理：由于没有设置登录失败次数限制，导致攻击者可以通过口令字典进行特定用户的密码爆破或通过用户名字典进行特定弱口令的用户枚举 </p>
+</li>
+<li><p>漏洞点：系统登录点</p>
+</li>
+<li><p>漏洞修复： 对于固定用户名爆破密码可以针对用户名进行错误次数计算，高于一定阈值账号锁定一段时间，或者添加验证码但是不能永久锁定，可能被用来进行账户恶意锁定对于固定密码枚举用户名、 需要计算IP对URL的请求情况，某个IP短时间大量请求登录应该加入黑名单 进行传输数据加密有一定的防护效果</p>
+</li>
+</ul>
+<h3 id="绕过验证"><a href="#绕过验证" class="headerlink" title="绕过验证"></a>绕过验证</h3><ul>
+<li><p>漏洞介绍：攻击者通过篡改分步逻辑中的步骤数字，达到绕过支付、校验等效果</p>
+</li>
+<li><p>漏洞原理：程序逻辑分布进行，但是对步骤、验证信息、支付信息没有做好严格校验，导致修改步骤就直接绕过验证或者支付</p>
+</li>
+<li><p>漏洞点：任何分布逻辑且带步骤数字，或者利用JS进行步骤控制的功能中</p>
+</li>
+<li><p>漏洞修复：在请求最后一步时候需要带入前面的验证信息，服务端再进行一次校验信息的验证，验证正确方能继续执行数据操作也可以及通过getAttributr(“userid”)获取userid进行userid和验证结果绑定，最后一步不带入验证信息，但是仍然要获取userid进行校验再最后一步通过验证之后或者服务器收到支付信息后再生成相应的数据交给用户</p>
+</li>
+</ul>
+<h3 id="自动识别"><a href="#自动识别" class="headerlink" title="自动识别"></a>自动识别</h3><h3 id="图形验证码绕过"><a href="#图形验证码绕过" class="headerlink" title="图形验证码绕过"></a>图形验证码绕过</h3><ul>
+<li><p>漏洞介绍：攻击者通过突破图形验证码的验证，可以实现如登录爆破、验证码绕过等攻击</p>
+</li>
+<li><p>漏洞原理：图形验证码在错误后未失效返回验证码信息分步验证验证码</p>
+</li>
+<li><p>漏洞点：任何存在图形验证码的功能中</p>
+</li>
+<li><p>漏洞修复一旦验证码使用过了，必须要进行删除，重新生成验证码，可以梵高attribute中验证码需要设置超时，时间一到立即删除旧验证码，用户需要获取新的验证码验证码只需要返回图片，切勿将生成验证码的字符串也一并返回验证码不应该进行分布校验，应该连同请求数据一起发送到目标服务器进行校验，服务器校验通过则返回合法数据，否则返回错误</p>
+</li>
+</ul>
+<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><h3 id="支付篡改"><a href="#支付篡改" class="headerlink" title="支付篡改"></a>支付篡改</h3><ul>
+<li>在支付当中，购买商品一般分为三步骤：订购、确认信息、付款。那么这个修改价格具体是修改哪一步时的价格呢？可以在这三个步骤当中的随便一个步骤进行修改价格测试，如果前面两步有验证机制，那么可在最后一步付款时进行抓包尝试修改金额，如果没有在最后一步做好检验，那么问题就会存在，其修改的金额值你可以尝试小数目或者尝试负数。</li>
+</ul>
+<h3 id="数量篡改"><a href="#数量篡改" class="headerlink" title="数量篡改"></a>数量篡改</h3><ul>
+<li>在支付的过程中，数量也同时决定着价格，比如：1个数量商品对应的是100，2个数据就是200，那么当你修改这个值数量值为负数时，那么其金额也会变为负数，最后就会导致支付问题的产生。</li>
+</ul>
+<h3 id="请求重放"><a href="#请求重放" class="headerlink" title="请求重放"></a>请求重放</h3><ul>
+<li><p>漏洞介绍：通过数据包重放，可以造成短信轰炸、邮件轰炸、重复提交订单等</p>
+</li>
+<li><p>漏洞原理：后台未进行相关操作的技术导致数据包重放</p>
+</li>
+<li><p>漏洞点：短信验证码、邮件校验、提交订单等功能。</p>
+</li>
+<li><p>修复方案：修复思路（针对短信、邮件）构造一个Hashmap&lt;String，short&gt;，存放邮箱或电话号码及对应次数只要某个邮箱或者电话号码次数够了，就不能继续发送了或者计算两次发送的时间间隔，时间过短就不继续发送了通用修复方案需要建立token机制或验证码机制，一次有效</p>
+</li>
+</ul>
+<h3 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a>其他</h3><h2 id="找回机制"><a href="#找回机制" class="headerlink" title="找回机制"></a>找回机制</h2><h3 id="客户端回显"><a href="#客户端回显" class="headerlink" title="客户端回显"></a>客户端回显</h3><h3 id="Response状态值"><a href="#Response状态值" class="headerlink" title="Response状态值"></a>Response状态值</h3><h3 id="Session覆盖"><a href="#Session覆盖" class="headerlink" title="Session覆盖"></a>Session覆盖</h3><h3 id="弱Token缺陷"><a href="#弱Token缺陷" class="headerlink" title="弱Token缺陷"></a>弱Token缺陷</h3><ul>
+<li>token可爆破</li>
+</ul>
+<h3 id="找回流程绕过"><a href="#找回流程绕过" class="headerlink" title="找回流程绕过"></a>找回流程绕过</h3><ul>
+<li>通过两个不同账号的找回，获得验证码之后部分的数据包，而另一个账号找回密码时跳过验证码的部分直接进入成功验证之后的部分，等</li>
+</ul>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><h3 id="调用遍历"><a href="#调用遍历" class="headerlink" title="调用遍历"></a>调用遍历</h3><h3 id="参数篡改"><a href="#参数篡改" class="headerlink" title="参数篡改"></a>参数篡改</h3><ul>
+<li><p>漏洞介绍：攻击者通过进行数值篡改进行攻击，从而获利</p>
+</li>
+<li><p>漏洞原理：没有对传输数据添加相关的校验参数后台未对参数值进行校验并直接使用数据包中的参数</p>
+</li>
+<li><p>漏洞点：抽奖、购买、转账、返现等功能</p>
+</li>
+<li><p>漏洞修复：对于软件来说，需要保护好内存数据，防止内存数据篡改计算传输数据的哈希，并将哈希附加在传输数据中作为校验值，避免被篡改先校验数值，防止大整数和负数；接着利用传输的商品ID从数据库中获取商品单价重新进行价格计算；最后生成订单（订单号应为随机值）</p>
+</li>
+</ul>
+<h3 id="未授权访问"><a href="#未授权访问" class="headerlink" title="未授权访问"></a>未授权访问</h3><ul>
+<li><p>漏洞介绍：即游客能够访问普通用户甚至超级管理员才能访问的系统信息或者系统功能</p>
+</li>
+<li><p>形成原因：主要是系统设计期间没有进行全局用户身份校验；或者校验存在缺陷</p>
+</li>
+<li><p>漏洞点：在任何用户登录后才能访问的链接或者功能中都可能存在</p>
+</li>
+<li><p>漏洞修复：J2EE中存在filter，可以获取用户的cookie等信息修复思路：建立LoginList，值是当前在线用户的id对所有需要登录访问到URL，获取请求request再利用 getAttribute(“userid”) 获取其userid检查userid是否存在于LoginList中，不存在则直接返回错误跳转值得注意的是切勿将错误跳转写到Javascript里面，还返回目标URL页面的相关信息</p>
+</li>
+</ul>
+<h3 id="Webservice测试"><a href="#Webservice测试" class="headerlink" title="Webservice测试"></a>Webservice测试</h3><h3 id="callback自定义"><a href="#callback自定义" class="headerlink" title="callback自定义"></a>callback自定义</h3><h2 id="回退"><a href="#回退" class="headerlink" title="回退"></a>回退</h2><ul>
+<li><h3 id="回退重放"><a href="#回退重放" class="headerlink" title="回退重放"></a>回退重放</h3></li>
+</ul>
+<h2 id="条件竞争"><a href="#条件竞争" class="headerlink" title="条件竞争"></a>条件竞争</h2><ul>
+<li><p>漏洞介绍：可以通过同时重放大量数据包进行漏洞利用，通常用于突破限量、限额的问题都有奇效</p>
+</li>
+<li><p>漏洞原理：由于目标函数中，判断与数据修复两个步骤之间，或者两个数据修改步骤之间存在时间差，且函数未进行同步锁定，则可以造成漏洞</p>
+</li>
+<li><p>漏洞点：程序中存在限制，可以猜测到后台有判断与修改操作的方法</p>
+</li>
+<li><p>漏洞修复：修复思路：使用synchronized关键字，可以限制同一时间内访问方法的只有单一线程并不是每个条件竞争都必须修复</p>
+</li>
+</ul>
 ]]></content>
-  </entry>
-  <entry>
-    <title>博客名字</title>
-    <url>/2022/01/16/%E5%8D%9A%E5%AE%A2%E5%90%8D%E5%AD%97/</url>
-    <content><![CDATA[]]></content>
       <categories>
-        <category>aaaa</category>
+        <category>学习笔记</category>
       </categories>
       <tags>
-        <tag>categories</tag>
+        <tag>web安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>XSS跨站脚本攻击</title>
+    <url>/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/</url>
+    <content><![CDATA[<h1 id="什么是XSS-XSS原理"><a href="#什么是XSS-XSS原理" class="headerlink" title="什么是XSS/XSS原理"></a>什么是XSS/XSS原理</h1><ul>
+<li><p>攻击者嵌入恶意脚本代码到用户会访问到的页面中，用户访问该页面的时候，就引起恶意脚本代码的执行，从而达到恶意攻击用户的目的。攻击者可以使用户在浏览器中执行其预定义的恶意脚本，变量接受数据的时候，数据可以写成js脚本代码，进行回显操作</p>
+</li>
+<li><p>本质上属于前端漏洞，产生在浏览器和js代码中的漏洞</p>
+<span id="more"></span></li>
+</ul>
+<h1 id="XSS类型"><a href="#XSS类型" class="headerlink" title="XSS类型"></a>XSS类型</h1><ul>
+<li><p>反射型XSS(非持续型XSS)</p>
+</li>
+<li><p>储存型XSS(持续型XSS）</p>
+</li>
+<li><p>DOM XSS</p>
+</li>
+</ul>
+<h1 id="具体区别"><a href="#具体区别" class="headerlink" title="具体区别"></a>具体区别</h1><ul>
+<li><p>反射型：数据提交过去时，会在代码执行之后直接反馈回来发包x=zzx=&gt;x.php=&gt;回包</p>
+</li>
+<li><p>存储型：数据提交过去时，会在代码执行之后储存到数据库的某个表里，然后反馈回来发包x=zzx=&gt;x.php=&gt;写到数据库某个表=&gt;x.php&gt;回显</p>
+</li>
+<li><p>DOM型：发包x=zzx=&gt;本地浏览器静态前端代码=&gt;x.php</p>
+</li>
+<li><p>反射型和储存型属于后端语言进行数据处理，而DOM型是用js代码进行处理 </p>
+</li>
+</ul>
+<h1 id="三者原理"><a href="#三者原理" class="headerlink" title="三者原理"></a>三者原理</h1><ul>
+<li><p>反射型XSS：应用或API没有对用户输入数据进行验证或没进行转义然后作为HTML的输出的一部分，能够使得攻击者在受害者的浏览器上执行任意HTML和JavaScript。</p>
+</li>
+<li><p>存储型XSS：应用或API存储未格式化的用户输入，且该输入之后会被其他用户或管理员浏览到。</p>
+</li>
+<li><p>DOM XSS：动态包含攻击者可控制数据到页面中的JavaScript框架， 单页应用，API易受DOM XSS。</p>
+</li>
+<li><p>涉及函数类：常见的输出类函数</p>
+</li>
+</ul>
+<h1 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h1><ul>
+<li><p>方法一： 查看代码，查找关键的变量,   客户端将数据传送给Web 服务端一般通过三种方式 Querystring, Form表单，以及cookie.  例如在ASP的程序中，通过Request对象获取客户端的变量。 假如变量没有经过htmlEncode处理， 那么这个变量就存在一个XSS漏洞</p>
+</li>
+<li><p>方法二：xss跨站漏洞测试语句， 在网页中的Textbox或者其他能输入数据的地方，输入测试语句， 看能不能弹出对话框，能弹出的话说明存在XSS漏洞， 在URL中查看有那些变量通过URL把值传给Web服务器， 把这些变量的值退换成测试语句。  然后看是否能执行</p>
+</li>
+<li><p>方法三:  自动化测试XSS漏洞</p>
+</li>
+</ul>
+<h1 id="可能存在XSS漏洞点"><a href="#可能存在XSS漏洞点" class="headerlink" title="可能存在XSS漏洞点"></a>可能存在XSS漏洞点</h1><ul>
+<li>用户能够输入提交数据的地方，文本框，url，请求头等等</li>
+</ul>
+<h1 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h1><ul>
+<li><p>如劫持用户会话，插入恶意内容、重定向用户、使用恶意软件劫持用户浏览器、繁殖XSS蠕虫，甚至破坏网站、修改路由器配置信息等。</p>
+</li>
+<li><p>XSS实质上就是JS脚本，任何JS脚本能实现的功能，XSS也能实现能做到的Cookie劫持、构造GET和POST请求、XSS钓鱼、识别用户浏览器、识别用户安装的软件等</p>
+</li>
+</ul>
+<h1 id="防范修复"><a href="#防范修复" class="headerlink" title="防范修复"></a>防范修复</h1><ul>
+<li><p>前端采用大型框架Angular,Vue,React等等。</p>
+</li>
+<li><p>用session代替cookie。</p>
+</li>
+<li><p>对于用户输入的数据要严格过滤写入数据库的数据，一定要保证合理过滤。</p>
+</li>
+<li><p>对于所有输出的地方，一定要做好过滤工作，比如采用模版渲染等等。</p>
+</li>
+<li><p>使用Token</p>
+</li>
+<li><p>使用HttpOnly</p>
+</li>
+</ul>
+<h1 id="什么是HttpOnly？"><a href="#什么是HttpOnly？" class="headerlink" title="什么是HttpOnly？"></a>什么是HttpOnly？</h1><ul>
+<li>如果在cookie中设置了HTTPonly属性，那么通过js脚本将无法读取到cookie信息，这样能有效防止XSS攻击。</li>
+</ul>
+<h1 id="绕过httponly"><a href="#绕过httponly" class="headerlink" title="绕过httponly"></a>绕过httponly</h1><ul>
+<li><p>浏览器未保存账号密码：需要XSS产生登录地址，利用表单劫持</p>
+</li>
+<li><p>浏览器保存了账号密码：产生后台的XSS，储存型XSS，如留言等，利用浏览器读取账号密码</p>
+</li>
+</ul>
+<h1 id="如何绕过"><a href="#如何绕过" class="headerlink" title="如何绕过"></a>如何绕过</h1><ul>
+<li><p>修改编码格式</p>
+</li>
+<li><p>加密解密算法</p>
+</li>
+<li><p>结合其他漏洞绕过</p>
+</li>
+<li><p>大小写onerror函数</p>
+</li>
+<li><p>配合平台，例如<a href="http://xssfuzzer.com/">xssfuzzer.com</a>生成语句</p>
+</li>
+<li><p>工具：Xwaf,XSStrike</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>web安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SQL注入</title>
+    <url>/2022/01/16/SQL%E6%B3%A8%E5%85%A5/</url>
+    <content><![CDATA[<h1 id="sql注入是什么？"><a href="#sql注入是什么？" class="headerlink" title="sql注入是什么？"></a>sql注入是什么？</h1><ul>
+<li>web应用对用户输入数据的合法性没有判断或过滤不严，sql语句中的变量是可控的，导致攻击者可以在web应用程序中事先定义好的查询语句的结尾上添加额外的SQL语句，实现非法操作，以此来实现欺骗数据库服务器执行非授权的任意查询，从而进一步得到相应的数据信息。<span id="more"></span></li>
+</ul>
+<h1 id="sql注入原理"><a href="#sql注入原理" class="headerlink" title="sql注入原理"></a>sql注入原理</h1><ul>
+<li>对用户输入，传递的数据没有进行进一步的过滤，对执行的数据库语句没有进行过滤防护而导致，攻击者能够从输入的数据当中插入其他的数据库语句达到获取信息的效果。</li>
+</ul>
+<h1 id="sql注入危害"><a href="#sql注入危害" class="headerlink" title="sql注入危害"></a>sql注入危害</h1><ul>
+<li><p>猜解后台数据库，这是利用最多的方式，盗取网站的敏感信息</p>
+</li>
+<li><p>绕过认证，列如绕过验证登录网站后台。</p>
+</li>
+<li><p>注入可以借助数据库的存储过程进行提权等操作</p>
+</li>
+</ul>
+<h1 id="恶意用户利用SQL注入可以做到"><a href="#恶意用户利用SQL注入可以做到" class="headerlink" title="恶意用户利用SQL注入可以做到"></a>恶意用户利用SQL注入可以做到</h1><ul>
+<li><p>1、可读取数据库中的库和表</p>
+</li>
+<li><p>2、可执行系统命令</p>
+</li>
+<li><p>3、可以修改任意文件</p>
+</li>
+<li><p>4、可以安装木马后门</p>
+</li>
+</ul>
+<h1 id="sql注入类型"><a href="#sql注入类型" class="headerlink" title="sql注入类型"></a>sql注入类型</h1><h2 id="一、参数类型分类"><a href="#一、参数类型分类" class="headerlink" title="一、参数类型分类"></a>一、参数类型分类</h2><h3 id="数字型注入"><a href="#数字型注入" class="headerlink" title="数字型注入"></a>数字型注入</h3><ul>
+<li>输入参数为整型时，如Id、年龄和页码等；</li>
+</ul>
+<h3 id="字符型注入"><a href="#字符型注入" class="headerlink" title="字符型注入"></a>字符型注入</h3><ul>
+<li>输入参数为字符串型时，如姓名、职业、住址等；</li>
+</ul>
+<p>两者最大的区别：字符型注入一般要使用单双引号进行闭合，而数字型注入则不需要；</p>
+<h2 id="二、数据提交的方式来分类"><a href="#二、数据提交的方式来分类" class="headerlink" title="二、数据提交的方式来分类"></a>二、数据提交的方式来分类</h2><h3 id="（1）GET-注入"><a href="#（1）GET-注入" class="headerlink" title="（1）GET 注入"></a>（1）GET 注入</h3><ul>
+<li>提交数据的方式是 GET , 注入点的位置在 GET 参数部分。比如有这样的一个链接<a href="http://xxx.com/news.php?id=1">http://xxx.com/news.php?id=1</a> , id 是注入点。</li>
+</ul>
+<h3 id="（2）POST-注入"><a href="#（2）POST-注入" class="headerlink" title="（2）POST 注入"></a>（2）POST 注入</h3><ul>
+<li>使用 POST 方式提交数据，注入点位置在 POST 数据部分，常发生在表单中。</li>
+</ul>
+<h3 id="（3）Cookie-注入"><a href="#（3）Cookie-注入" class="headerlink" title="（3）Cookie 注入"></a>（3）Cookie 注入</h3><ul>
+<li>HTTP 请求的时候会带上客户端的 Cookie, 注入点存在 Cookie 当中的某个字段中。</li>
+</ul>
+<h3 id="（4）HTTP-头部注入"><a href="#（4）HTTP-头部注入" class="headerlink" title="（4）HTTP 头部注入"></a>（4）HTTP 头部注入</h3><ul>
+<li>注入点在 HTTP 请求头部的某个字段中。比如存在 User-Agent 字段中。严格讲的话，Cookie 其实应该也是算头部注入的一种形式。因为在 HTTP 请求的时候，Cookie 是头部的一个字段。</li>
+</ul>
+<h2 id="三、按照执行效果来分类"><a href="#三、按照执行效果来分类" class="headerlink" title="三、按照执行效果来分类"></a>三、按照执行效果来分类</h2><h3 id="（1）基于布尔的盲注"><a href="#（1）基于布尔的盲注" class="headerlink" title="（1）基于布尔的盲注"></a>（1）基于布尔的盲注</h3><ul>
+<li>即可以根据返回页面判断条件真假的注入。</li>
+</ul>
+<h3 id="（2）基于时间的盲注"><a href="#（2）基于时间的盲注" class="headerlink" title="（2）基于时间的盲注"></a>（2）基于时间的盲注</h3><ul>
+<li>即不能根据页面返回内容判断任何信息，用条件语句查看时间延迟语句是否执行（即页面返回时间是否增加）来判断。</li>
+</ul>
+<h3 id="（3）基于报错注入"><a href="#（3）基于报错注入" class="headerlink" title="（3）基于报错注入"></a>（3）基于报错注入</h3><ul>
+<li><p>即页面会返回错误信息，或者把注入的语句的结果直接返回在页面中。</p>
+<ul>
+<li><p>单引号</p>
+</li>
+<li><p>双引号</p>
+</li>
+<li><p>基于数字型注入</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="（4）联合查询注入"><a href="#（4）联合查询注入" class="headerlink" title="（4）联合查询注入"></a>（4）联合查询注入</h3><ul>
+<li>可以使用union的情况下的注入。</li>
+</ul>
+<h3 id="（5）堆查询注入"><a href="#（5）堆查询注入" class="headerlink" title="（5）堆查询注入"></a>（5）堆查询注入</h3><ul>
+<li>可以同时执行多条语句的执行时的注入。</li>
+</ul>
+<h3 id="（6）宽字节注入"><a href="#（6）宽字节注入" class="headerlink" title="（6）宽字节注入"></a>（6）宽字节注入</h3><ul>
+<li>宽字节注入原理即是利用编码转换，将服务器端强制添加的本来用于转义的\符号吃掉，从而能使攻击者输入的引号起到闭合作用，以至于可以进行SQL注入。</li>
+</ul>
+<p>宽字节介绍</p>
+<ul>
+<li>GB2312、GBK、GB18030、BIG5、Shift_JIS等这些都是常说的宽字节，实际上只有两字节。宽字节带来的安全问题主要是吃ASCII字符(一字节)的现象，即将两个ascii字符误认为是一个宽字节字符。而我们的网站开发一般使用的是utf-8的编码，个别会使用gbk，而UTF-8是用的ASCII编码，由于ASCII表示的字符只有128个，因此网络世界的规范是使用UNICODE编码，但是用ASCII表示的字符使用UNICODE并不高效。因此出现了中间格式字符集，被称为通用转换格式，及UTF。而字符与字符集的关系是字符是组成字符集的基本单位。对字符赋予一个数值来确定这个字符在该字符集中的位置。一个gbk编码汉字，占用2个字节。一个utf-8编码的汉字，占用3个字节。 gbk 首字节对应0×81-0xFE，尾字节对应0×40-0xFE（除0×7F），所以使用宽字节能够覆盖转移符号对应的编码。</li>
+</ul>
+<h1 id="各个类型的注入简介"><a href="#各个类型的注入简介" class="headerlink" title="各个类型的注入简介"></a>各个类型的注入简介</h1><ul>
+<li><h2 id="最基础的注入-union注入攻击"><a href="#最基础的注入-union注入攻击" class="headerlink" title="最基础的注入-union注入攻击"></a>最基础的注入-union注入攻击</h2><ul>
+<li><p>判断是get型还是post型注入；</p>
+</li>
+<li><p>找到正确的闭合规则；order by 查询字段数；</p>
+</li>
+<li><p>union select 1,2…..查看显示位是第几位，没有的话就试试把id=1的显示位让出来，让其等于id=-1；第二、三位显示出来了，那么即可在这两个位置写入sql语句；</p>
+</li>
+<li><p>查询当前数据库,当前mysql用户 union select 1,user(),database()；</p>
+</li>
+<li><p>查询当前数据库里面的表 union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=”data_name”;</p>
+</li>
+<li><p>查询到敏感表名user，继续查询表里面的字段 union select 1,2,group_concat(column_name) from information_schema.columns where table_name=”user”;</p>
+</li>
+<li><p>查询字段，例如“id”、”passwd”的内容 union select 1,id,passwd from user;</p>
+</li>
+<li><p>拿到用户、密码登入后台。</p>
+</li>
+</ul>
+</li>
+<li><h2 id="Boolean注入攻击-布尔盲注"><a href="#Boolean注入攻击-布尔盲注" class="headerlink" title="Boolean注入攻击-布尔盲注"></a>Boolean注入攻击-布尔盲注</h2><ul>
+<li><p>查看现象，能报错，但没有报错信息，正确查询也显示不了查询内容就属于布尔盲注，只存在两种状态，对或错；</p>
+</li>
+<li><p>由页面的两种不同返回的状态来判定我们的闭合规则；</p>
+</li>
+<li><p>为了方便，我们这里假设返回正确用“yes”，返回错误用“no”来表示这两种状态找到闭合规则后，我们在闭合规则里面  and 1=1 和 and 1=2 测试一下，看看最后返回是不是两种状态；</p>
+</li>
+<li><p>布尔盲注要用到length()和substr()语句，用两种状态来猜解数据库、表名等的长度和正确字母；</p>
+</li>
+<li><p>先用 and length(database())&gt;2 来猜数据库的长度，使用的是二分法；</p>
+</li>
+<li><p>再用 and substr(database(),1,1)=’t’ 来确定第一个字母，可用burp跑，26个字母,哪个字母返回yes则代表第一个字母就是它；</p>
+</li>
+<li><p>and substr(database(),2,1)=’t’ 代表当前数据库的第二个字母；</p>
+</li>
+<li><p>最后结合长度，成功的将数据库猜解出来；</p>
+</li>
+<li><p>后面的操作跟union注入的步骤差不多了，只是sql语句写在 上文的 database() 处。</p>
+</li>
+</ul>
+</li>
+<li><h2 id="报错注入攻击"><a href="#报错注入攻击" class="headerlink" title="报错注入攻击"></a>报错注入攻击</h2><ul>
+<li><p>只要注入点有sql报错信息，那么就可以使用报错注入；</p>
+</li>
+<li><p>还是一样，引号报错，然后找到闭合规则，页面正常显示，则可以在闭合规则中开始写入报错注入的sql语句；</p>
+</li>
+<li><p>updatexml报错获取当前数据库：and updatexml(1,concat(0x7e,(select database()),0x7e),1)</p>
+</li>
+<li><p>floor报错获取当前数据库：and (select 1 from (select count(*),concat((database()),floor (rand(0)*2))x from information_schema.tables group by x)a)</p>
+</li>
+<li><p>两种方式都可行，如果第一个不行就试试第二个</p>
+</li>
+<li><p>接着可以利用select语句替换掉上面database()来继续获取数据库中的表名、字段名，查询语句和union注入攻击的语句相同；</p>
+</li>
+<li><p>只不过这里不能再使用group_concat了，因为报错注入只显示一条结果，所以需要使用limit语句；</p>
+</li>
+</ul>
+</li>
+<li><h2 id="时间注入攻击-延时盲注"><a href="#时间注入攻击-延时盲注" class="headerlink" title="时间注入攻击-延时盲注"></a>时间注入攻击-延时盲注</h2><ul>
+<li><p>没有明确的现象，不管是对是错都返回一个状态；</p>
+</li>
+<li><p>但是如果用sleep(5)方法，能让响应时间延迟为5秒以上，那么就为时间盲注；</p>
+</li>
+<li><p>我们用sleep(5)函数构造了一个时间延时的状态，因此，我们又有了两种状态，像布尔盲注一样可以根据这两种状态来判定数据库、表名和字段名的长度和正确的每个字母；</p>
+</li>
+<li><p>同样的找到正确的闭合规则，当然，这个闭合规则得配合着 and sleep(5)语句来构造，哪一个闭合规则执行了sleep(5)，那么就是正确得闭合规则；</p>
+</li>
+<li><p>时间盲注配合着  if(A,B,C)  语句结合使用，含义是：如果A是 true，则返回B（也就是执行B），否则返回C（执行C）；</p>
+</li>
+<li><p>那么判断当前数据库名的长度的语句为：if (length(database())&gt;1,sleep(5),1)就是说如果数据库长度大于1，那么响应延时5秒，否则执行select 1(也就是不延时)，由此来推出数据库长度。</p>
+</li>
+<li><p>判断当前数据库名的第一个和第二个字母的语句：</p>
+</li>
+<li><p>if(substr(database(),1,1)=’s’,sleep(5),1)</p>
+</li>
+<li><p>if(substr(database(),2,1)=’s’,sleep(5),1)</p>
+</li>
+<li><p>只有第一个字母等于26个字母中正确的字母时，才会延时5秒，因此可以通过burp或者sqlmap来跑。</p>
+</li>
+<li><p>根据数据库名长度以此内推即可得出完整的数据库的库命、表名、字段名和具体内容。</p>
+</li>
+</ul>
+</li>
+<li><h2 id="堆叠查询注入攻击"><a href="#堆叠查询注入攻击" class="headerlink" title="堆叠查询注入攻击"></a>堆叠查询注入攻击</h2><ul>
+<li><p>可以使用堆叠注入的地方也可以使用布尔盲注与时间盲注；</p>
+</li>
+<li><p>同样先找出正确的闭合规则，然后也看两种状态来猜解库名、表名等；</p>
+</li>
+<li><p>类似与下面在分号后面可执行新的语句：</p>
+</li>
+<li><p>;select if(length(database())&gt;1,sleep(3),1);select if(substr(database(),1,1)=’r’,sleep(3),1)</p>
+</li>
+<li><p>堆叠的;分号后可以执行新的sql语句，因此在知道网站根目录的情况下可以直接写日志拿shell。</p>
+</li>
+</ul>
+</li>
+<li><h2 id="二次注入攻击"><a href="#二次注入攻击" class="headerlink" title="二次注入攻击"></a>二次注入攻击</h2><ul>
+<li><p>二次注入一共有两个url，url一用来注入，也就是注入点，插入sql语句的地方，另外一个url用来返回信息；</p>
+</li>
+<li><p>也就是url一插入了sql语句，url一的响应里面就会返回这条信息对应的id值，然后url二就传入这个新id值，然后访问，响应回来之后将会爆出sql语句查询的结果，正确或者错误的sql信息；</p>
+</li>
+<li><p>就相当于url是一个用户注册的地方，用户注册后会在数据库里面加入新id存放用户的注册信息，那么这个id可以传给url二来访问，url二就可以显示出用户的注册信息，但如果注册信息含义恶意sql语句，url二就会显示出敏感的数据库信息；</p>
+</li>
+<li><p>跟union注入攻击差不多，只是回显的信息需要在另外的url中显示出来了；</p>
+</li>
+<li><p>后面就是union注入攻击的常规操作。</p>
+</li>
+</ul>
+</li>
+<li><h2 id="宽字节注入攻击"><a href="#宽字节注入攻击" class="headerlink" title="宽字节注入攻击"></a>宽字节注入攻击</h2><ul>
+<li><p>如果遇到单、双引号被转义，变成了反斜杠，导致参数id无法逃逸单引号的包围；</p>
+</li>
+<li><p>一般情况下，此处就不存在sql注入漏洞的；但是如果数据库的编码为GBK时，就可以使用宽字节注入，因此在不知道是否是GBK编码时，都可以尝试去使用宽字节注入；</p>
+</li>
+<li><p>宽字节的格式是在地址后先加一个  %df  ，再加单引号，因为反斜杠的编码为%5c，在GBK编码中，%df%5c是繁体字“連”，因此，单引号成功逃逸，爆出sql错误；</p>
+</li>
+<li><p>因此构造闭合规则时，在单引号前面加上  %df 就行了；</p>
+</li>
+<li><p>之后在闭合规则中写入同union注入的一些查询语句就行了；</p>
+</li>
+</ul>
+</li>
+<li><h2 id="base64注入攻击"><a href="#base64注入攻击" class="headerlink" title="base64注入攻击"></a>base64注入攻击</h2><ul>
+<li><p>如果遇到url的参数id的值看起来像base64的，先拿去url解码，然后如果是base64，拿去base64解码，解出来的应该就是id的值（1，2等数字）；</p>
+</li>
+<li><p>那么如果要对这个url进行sql注入测试，就需要对id后面的所有值进行base64编码；</p>
+</li>
+<li><p>注入的方式步骤都是跟union注入一样的，只不过后面的所有值（整个payload）都要进行base64编码后传给url的c参数提交，包括闭合规则。</p>
+</li>
+</ul>
+</li>
+<li><h2 id="HTTP请求头参数注入-cookie注入攻击"><a href="#HTTP请求头参数注入-cookie注入攻击" class="headerlink" title="HTTP请求头参数注入-cookie注入攻击"></a>HTTP请求头参数注入-cookie注入攻击</h2><ul>
+<li><p>抓包对一个url的http请求头的所有参数进行sql注入测试，里面的所有参数都有可能存在注入点，如果响应包出现sql报错，那么测试的这个参数就是注入点；</p>
+</li>
+<li><p>常见的http头部注入的参数有：【Referer】、【X-Forwarded-For】、【Cookie】、【X-Real-IP】、【Accept-Language】、【Authorization】如果测试到cookie参数的时候，响应有报sql错误，那么就是cookie注入攻击；</p>
+</li>
+<li><p>和union注入的差别就在于注入点不一样，之后使用union注入的方法即可。</p>
+</li>
+</ul>
+</li>
+<li><h2 id="HTTP请求头参数注入-XFF注入攻击"><a href="#HTTP请求头参数注入-XFF注入攻击" class="headerlink" title="HTTP请求头参数注入-XFF注入攻击"></a>HTTP请求头参数注入-XFF注入攻击</h2><ul>
+<li><p>XFF注入即HTTP头部的X-Forwarded-for参数存在sql注入；</p>
+</li>
+<li><p>例如测试此参数的值  X-Forwarded-for:127.0.0.1’  响应有sql报错，那么此处就是注入点；</p>
+</li>
+<li><p>之后使用union注入的方法完成即可。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="SQL注入修复方案"><a href="#SQL注入修复方案" class="headerlink" title="SQL注入修复方案"></a>SQL注入修复方案</h1><ul>
+<li><p>解决SQL注入问题的关键是对所有可能来自用户输入的数据进行严格的检查、对数据库配置使用最小权限原则。</p>
+</li>
+<li><p>1、所有的查询语句都使用数据库提供的参数化查询接口，参数化的语句使用参数而不是将用户输入变量嵌入到SQL语句中。当前几乎所有的数据库系统都提供了参数化SQL语句执行接口，使用此接口可以非常有效的防止SQL注入攻击。</p>
+</li>
+<li><p>2、对进入数据库的特殊字符（’”\，括号&amp;*;等）进行转义处理，或编码转换。</p>
+</li>
+<li><p>3、严格限制变量类型，比如整型变量就采用intval()函数过滤，数据库中的存储字段必须对应为int型。</p>
+</li>
+<li><p>4、数据长度应该严格规定，能在一定程度上防止比较长的SQL注入语句无法正确执行。</p>
+</li>
+<li><p>5、网站每个数据层的编码统一，建议全部使用UTF-8编码，上下层编码不一致有可能导致一些过滤模型被绕过。</p>
+</li>
+<li><p>6、严格限制网站用户的数据库的操作权限，给此用户提供仅仅能够满足其工作的权限，从而最大限度的减少注入攻击对数据库的危害。</p>
+</li>
+<li><p>7、避免网站显示SQL错误信息，比如类型错误、字段不匹配等，防止攻击者利用这些错误信息进行一些判断。</p>
+</li>
+<li><p>8、在网站发布之前建议使用一些专业的SQL注入检测工具进行检测，及时修补这些SQL注入漏洞。</p>
+</li>
+<li><p>9、确认PHP配置文件中的magicquotesgpc选项保持开启</p>
+</li>
+<li><p>10、配置安全狗，阿里云盾，等网络安全公司的产品</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>web安全</tag>
       </tags>
   </entry>
 </search>

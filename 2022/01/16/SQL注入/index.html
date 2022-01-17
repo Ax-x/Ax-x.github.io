@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/hacker-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/hacker-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="web安全," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Ax-x" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="sql注入是什么？ web应用对用户输入数据的合法性没有判断或过滤不严，sql语句中的变量是可控的，导致攻击者可以在web应用程序中事先定义好的查询语句的结尾上添加额外的SQL语句，实现非法操作，以此来实现欺骗数据库服务器执行非授权的任意查询，从而进一步得到相应的数据信息。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL注入">
+<meta property="og:url" content="http://example.com/2022/01/16/SQL%E6%B3%A8%E5%85%A5/index.html">
+<meta property="og:site_name" content="Ax-x">
+<meta property="og:description" content="sql注入是什么？ web应用对用户输入数据的合法性没有判断或过滤不严，sql语句中的变量是可控的，导致攻击者可以在web应用程序中事先定义好的查询语句的结尾上添加额外的SQL语句，实现非法操作，以此来实现欺骗数据库服务器执行非授权的任意查询，从而进一步得到相应的数据信息。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-01-16T12:32:30.000Z">
+<meta property="article:modified_time" content="2022-01-17T14:51:47.037Z">
+<meta property="article:author" content="Ax-x">
+<meta property="article:tag" content="web安全">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/01/16/SQL注入/"/>
+
+
+
+
+
+  <title>SQL注入 | Ax-x</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ax-x</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">以有限的时间，做无限的事情</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/16/SQL%E6%B3%A8%E5%85%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head_portrait.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ax-x">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SQL注入</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-16T20:32:30+08:00">
+                2022-01-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  13
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="sql注入是什么？"><a href="#sql注入是什么？" class="headerlink" title="sql注入是什么？"></a>sql注入是什么？</h1><ul>
+<li>web应用对用户输入数据的合法性没有判断或过滤不严，sql语句中的变量是可控的，导致攻击者可以在web应用程序中事先定义好的查询语句的结尾上添加额外的SQL语句，实现非法操作，以此来实现欺骗数据库服务器执行非授权的任意查询，从而进一步得到相应的数据信息。<span id="more"></span></li>
+</ul>
+<h1 id="sql注入原理"><a href="#sql注入原理" class="headerlink" title="sql注入原理"></a>sql注入原理</h1><ul>
+<li>对用户输入，传递的数据没有进行进一步的过滤，对执行的数据库语句没有进行过滤防护而导致，攻击者能够从输入的数据当中插入其他的数据库语句达到获取信息的效果。</li>
+</ul>
+<h1 id="sql注入危害"><a href="#sql注入危害" class="headerlink" title="sql注入危害"></a>sql注入危害</h1><ul>
+<li><p>猜解后台数据库，这是利用最多的方式，盗取网站的敏感信息</p>
+</li>
+<li><p>绕过认证，列如绕过验证登录网站后台。</p>
+</li>
+<li><p>注入可以借助数据库的存储过程进行提权等操作</p>
+</li>
+</ul>
+<h1 id="恶意用户利用SQL注入可以做到"><a href="#恶意用户利用SQL注入可以做到" class="headerlink" title="恶意用户利用SQL注入可以做到"></a>恶意用户利用SQL注入可以做到</h1><ul>
+<li><p>1、可读取数据库中的库和表</p>
+</li>
+<li><p>2、可执行系统命令</p>
+</li>
+<li><p>3、可以修改任意文件</p>
+</li>
+<li><p>4、可以安装木马后门</p>
+</li>
+</ul>
+<h1 id="sql注入类型"><a href="#sql注入类型" class="headerlink" title="sql注入类型"></a>sql注入类型</h1><h2 id="一、参数类型分类"><a href="#一、参数类型分类" class="headerlink" title="一、参数类型分类"></a>一、参数类型分类</h2><h3 id="数字型注入"><a href="#数字型注入" class="headerlink" title="数字型注入"></a>数字型注入</h3><ul>
+<li>输入参数为整型时，如Id、年龄和页码等；</li>
+</ul>
+<h3 id="字符型注入"><a href="#字符型注入" class="headerlink" title="字符型注入"></a>字符型注入</h3><ul>
+<li>输入参数为字符串型时，如姓名、职业、住址等；</li>
+</ul>
+<p>两者最大的区别：字符型注入一般要使用单双引号进行闭合，而数字型注入则不需要；</p>
+<h2 id="二、数据提交的方式来分类"><a href="#二、数据提交的方式来分类" class="headerlink" title="二、数据提交的方式来分类"></a>二、数据提交的方式来分类</h2><h3 id="（1）GET-注入"><a href="#（1）GET-注入" class="headerlink" title="（1）GET 注入"></a>（1）GET 注入</h3><ul>
+<li>提交数据的方式是 GET , 注入点的位置在 GET 参数部分。比如有这样的一个链接<a target="_blank" rel="noopener" href="http://xxx.com/news.php?id=1">http://xxx.com/news.php?id=1</a> , id 是注入点。</li>
+</ul>
+<h3 id="（2）POST-注入"><a href="#（2）POST-注入" class="headerlink" title="（2）POST 注入"></a>（2）POST 注入</h3><ul>
+<li>使用 POST 方式提交数据，注入点位置在 POST 数据部分，常发生在表单中。</li>
+</ul>
+<h3 id="（3）Cookie-注入"><a href="#（3）Cookie-注入" class="headerlink" title="（3）Cookie 注入"></a>（3）Cookie 注入</h3><ul>
+<li>HTTP 请求的时候会带上客户端的 Cookie, 注入点存在 Cookie 当中的某个字段中。</li>
+</ul>
+<h3 id="（4）HTTP-头部注入"><a href="#（4）HTTP-头部注入" class="headerlink" title="（4）HTTP 头部注入"></a>（4）HTTP 头部注入</h3><ul>
+<li>注入点在 HTTP 请求头部的某个字段中。比如存在 User-Agent 字段中。严格讲的话，Cookie 其实应该也是算头部注入的一种形式。因为在 HTTP 请求的时候，Cookie 是头部的一个字段。</li>
+</ul>
+<h2 id="三、按照执行效果来分类"><a href="#三、按照执行效果来分类" class="headerlink" title="三、按照执行效果来分类"></a>三、按照执行效果来分类</h2><h3 id="（1）基于布尔的盲注"><a href="#（1）基于布尔的盲注" class="headerlink" title="（1）基于布尔的盲注"></a>（1）基于布尔的盲注</h3><ul>
+<li>即可以根据返回页面判断条件真假的注入。</li>
+</ul>
+<h3 id="（2）基于时间的盲注"><a href="#（2）基于时间的盲注" class="headerlink" title="（2）基于时间的盲注"></a>（2）基于时间的盲注</h3><ul>
+<li>即不能根据页面返回内容判断任何信息，用条件语句查看时间延迟语句是否执行（即页面返回时间是否增加）来判断。</li>
+</ul>
+<h3 id="（3）基于报错注入"><a href="#（3）基于报错注入" class="headerlink" title="（3）基于报错注入"></a>（3）基于报错注入</h3><ul>
+<li><p>即页面会返回错误信息，或者把注入的语句的结果直接返回在页面中。</p>
+<ul>
+<li><p>单引号</p>
+</li>
+<li><p>双引号</p>
+</li>
+<li><p>基于数字型注入</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="（4）联合查询注入"><a href="#（4）联合查询注入" class="headerlink" title="（4）联合查询注入"></a>（4）联合查询注入</h3><ul>
+<li>可以使用union的情况下的注入。</li>
+</ul>
+<h3 id="（5）堆查询注入"><a href="#（5）堆查询注入" class="headerlink" title="（5）堆查询注入"></a>（5）堆查询注入</h3><ul>
+<li>可以同时执行多条语句的执行时的注入。</li>
+</ul>
+<h3 id="（6）宽字节注入"><a href="#（6）宽字节注入" class="headerlink" title="（6）宽字节注入"></a>（6）宽字节注入</h3><ul>
+<li>宽字节注入原理即是利用编码转换，将服务器端强制添加的本来用于转义的\符号吃掉，从而能使攻击者输入的引号起到闭合作用，以至于可以进行SQL注入。</li>
+</ul>
+<p>宽字节介绍</p>
+<ul>
+<li>GB2312、GBK、GB18030、BIG5、Shift_JIS等这些都是常说的宽字节，实际上只有两字节。宽字节带来的安全问题主要是吃ASCII字符(一字节)的现象，即将两个ascii字符误认为是一个宽字节字符。而我们的网站开发一般使用的是utf-8的编码，个别会使用gbk，而UTF-8是用的ASCII编码，由于ASCII表示的字符只有128个，因此网络世界的规范是使用UNICODE编码，但是用ASCII表示的字符使用UNICODE并不高效。因此出现了中间格式字符集，被称为通用转换格式，及UTF。而字符与字符集的关系是字符是组成字符集的基本单位。对字符赋予一个数值来确定这个字符在该字符集中的位置。一个gbk编码汉字，占用2个字节。一个utf-8编码的汉字，占用3个字节。 gbk 首字节对应0×81-0xFE，尾字节对应0×40-0xFE（除0×7F），所以使用宽字节能够覆盖转移符号对应的编码。</li>
+</ul>
+<h1 id="各个类型的注入简介"><a href="#各个类型的注入简介" class="headerlink" title="各个类型的注入简介"></a>各个类型的注入简介</h1><ul>
+<li><h2 id="最基础的注入-union注入攻击"><a href="#最基础的注入-union注入攻击" class="headerlink" title="最基础的注入-union注入攻击"></a>最基础的注入-union注入攻击</h2><ul>
+<li><p>判断是get型还是post型注入；</p>
+</li>
+<li><p>找到正确的闭合规则；order by 查询字段数；</p>
+</li>
+<li><p>union select 1,2…..查看显示位是第几位，没有的话就试试把id=1的显示位让出来，让其等于id=-1；第二、三位显示出来了，那么即可在这两个位置写入sql语句；</p>
+</li>
+<li><p>查询当前数据库,当前mysql用户 union select 1,user(),database()；</p>
+</li>
+<li><p>查询当前数据库里面的表 union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=”data_name”;</p>
+</li>
+<li><p>查询到敏感表名user，继续查询表里面的字段 union select 1,2,group_concat(column_name) from information_schema.columns where table_name=”user”;</p>
+</li>
+<li><p>查询字段，例如“id”、”passwd”的内容 union select 1,id,passwd from user;</p>
+</li>
+<li><p>拿到用户、密码登入后台。</p>
+</li>
+</ul>
+</li>
+<li><h2 id="Boolean注入攻击-布尔盲注"><a href="#Boolean注入攻击-布尔盲注" class="headerlink" title="Boolean注入攻击-布尔盲注"></a>Boolean注入攻击-布尔盲注</h2><ul>
+<li><p>查看现象，能报错，但没有报错信息，正确查询也显示不了查询内容就属于布尔盲注，只存在两种状态，对或错；</p>
+</li>
+<li><p>由页面的两种不同返回的状态来判定我们的闭合规则；</p>
+</li>
+<li><p>为了方便，我们这里假设返回正确用“yes”，返回错误用“no”来表示这两种状态找到闭合规则后，我们在闭合规则里面  and 1=1 和 and 1=2 测试一下，看看最后返回是不是两种状态；</p>
+</li>
+<li><p>布尔盲注要用到length()和substr()语句，用两种状态来猜解数据库、表名等的长度和正确字母；</p>
+</li>
+<li><p>先用 and length(database())&gt;2 来猜数据库的长度，使用的是二分法；</p>
+</li>
+<li><p>再用 and substr(database(),1,1)=’t’ 来确定第一个字母，可用burp跑，26个字母,哪个字母返回yes则代表第一个字母就是它；</p>
+</li>
+<li><p>and substr(database(),2,1)=’t’ 代表当前数据库的第二个字母；</p>
+</li>
+<li><p>最后结合长度，成功的将数据库猜解出来；</p>
+</li>
+<li><p>后面的操作跟union注入的步骤差不多了，只是sql语句写在 上文的 database() 处。</p>
+</li>
+</ul>
+</li>
+<li><h2 id="报错注入攻击"><a href="#报错注入攻击" class="headerlink" title="报错注入攻击"></a>报错注入攻击</h2><ul>
+<li><p>只要注入点有sql报错信息，那么就可以使用报错注入；</p>
+</li>
+<li><p>还是一样，引号报错，然后找到闭合规则，页面正常显示，则可以在闭合规则中开始写入报错注入的sql语句；</p>
+</li>
+<li><p>updatexml报错获取当前数据库：and updatexml(1,concat(0x7e,(select database()),0x7e),1)</p>
+</li>
+<li><p>floor报错获取当前数据库：and (select 1 from (select count(*),concat((database()),floor (rand(0)*2))x from information_schema.tables group by x)a)</p>
+</li>
+<li><p>两种方式都可行，如果第一个不行就试试第二个</p>
+</li>
+<li><p>接着可以利用select语句替换掉上面database()来继续获取数据库中的表名、字段名，查询语句和union注入攻击的语句相同；</p>
+</li>
+<li><p>只不过这里不能再使用group_concat了，因为报错注入只显示一条结果，所以需要使用limit语句；</p>
+</li>
+</ul>
+</li>
+<li><h2 id="时间注入攻击-延时盲注"><a href="#时间注入攻击-延时盲注" class="headerlink" title="时间注入攻击-延时盲注"></a>时间注入攻击-延时盲注</h2><ul>
+<li><p>没有明确的现象，不管是对是错都返回一个状态；</p>
+</li>
+<li><p>但是如果用sleep(5)方法，能让响应时间延迟为5秒以上，那么就为时间盲注；</p>
+</li>
+<li><p>我们用sleep(5)函数构造了一个时间延时的状态，因此，我们又有了两种状态，像布尔盲注一样可以根据这两种状态来判定数据库、表名和字段名的长度和正确的每个字母；</p>
+</li>
+<li><p>同样的找到正确的闭合规则，当然，这个闭合规则得配合着 and sleep(5)语句来构造，哪一个闭合规则执行了sleep(5)，那么就是正确得闭合规则；</p>
+</li>
+<li><p>时间盲注配合着  if(A,B,C)  语句结合使用，含义是：如果A是 true，则返回B（也就是执行B），否则返回C（执行C）；</p>
+</li>
+<li><p>那么判断当前数据库名的长度的语句为：if (length(database())&gt;1,sleep(5),1)就是说如果数据库长度大于1，那么响应延时5秒，否则执行select 1(也就是不延时)，由此来推出数据库长度。</p>
+</li>
+<li><p>判断当前数据库名的第一个和第二个字母的语句：</p>
+</li>
+<li><p>if(substr(database(),1,1)=’s’,sleep(5),1)</p>
+</li>
+<li><p>if(substr(database(),2,1)=’s’,sleep(5),1)</p>
+</li>
+<li><p>只有第一个字母等于26个字母中正确的字母时，才会延时5秒，因此可以通过burp或者sqlmap来跑。</p>
+</li>
+<li><p>根据数据库名长度以此内推即可得出完整的数据库的库命、表名、字段名和具体内容。</p>
+</li>
+</ul>
+</li>
+<li><h2 id="堆叠查询注入攻击"><a href="#堆叠查询注入攻击" class="headerlink" title="堆叠查询注入攻击"></a>堆叠查询注入攻击</h2><ul>
+<li><p>可以使用堆叠注入的地方也可以使用布尔盲注与时间盲注；</p>
+</li>
+<li><p>同样先找出正确的闭合规则，然后也看两种状态来猜解库名、表名等；</p>
+</li>
+<li><p>类似与下面在分号后面可执行新的语句：</p>
+</li>
+<li><p>;select if(length(database())&gt;1,sleep(3),1);select if(substr(database(),1,1)=’r’,sleep(3),1)</p>
+</li>
+<li><p>堆叠的;分号后可以执行新的sql语句，因此在知道网站根目录的情况下可以直接写日志拿shell。</p>
+</li>
+</ul>
+</li>
+<li><h2 id="二次注入攻击"><a href="#二次注入攻击" class="headerlink" title="二次注入攻击"></a>二次注入攻击</h2><ul>
+<li><p>二次注入一共有两个url，url一用来注入，也就是注入点，插入sql语句的地方，另外一个url用来返回信息；</p>
+</li>
+<li><p>也就是url一插入了sql语句，url一的响应里面就会返回这条信息对应的id值，然后url二就传入这个新id值，然后访问，响应回来之后将会爆出sql语句查询的结果，正确或者错误的sql信息；</p>
+</li>
+<li><p>就相当于url是一个用户注册的地方，用户注册后会在数据库里面加入新id存放用户的注册信息，那么这个id可以传给url二来访问，url二就可以显示出用户的注册信息，但如果注册信息含义恶意sql语句，url二就会显示出敏感的数据库信息；</p>
+</li>
+<li><p>跟union注入攻击差不多，只是回显的信息需要在另外的url中显示出来了；</p>
+</li>
+<li><p>后面就是union注入攻击的常规操作。</p>
+</li>
+</ul>
+</li>
+<li><h2 id="宽字节注入攻击"><a href="#宽字节注入攻击" class="headerlink" title="宽字节注入攻击"></a>宽字节注入攻击</h2><ul>
+<li><p>如果遇到单、双引号被转义，变成了反斜杠，导致参数id无法逃逸单引号的包围；</p>
+</li>
+<li><p>一般情况下，此处就不存在sql注入漏洞的；但是如果数据库的编码为GBK时，就可以使用宽字节注入，因此在不知道是否是GBK编码时，都可以尝试去使用宽字节注入；</p>
+</li>
+<li><p>宽字节的格式是在地址后先加一个  %df  ，再加单引号，因为反斜杠的编码为%5c，在GBK编码中，%df%5c是繁体字“連”，因此，单引号成功逃逸，爆出sql错误；</p>
+</li>
+<li><p>因此构造闭合规则时，在单引号前面加上  %df 就行了；</p>
+</li>
+<li><p>之后在闭合规则中写入同union注入的一些查询语句就行了；</p>
+</li>
+</ul>
+</li>
+<li><h2 id="base64注入攻击"><a href="#base64注入攻击" class="headerlink" title="base64注入攻击"></a>base64注入攻击</h2><ul>
+<li><p>如果遇到url的参数id的值看起来像base64的，先拿去url解码，然后如果是base64，拿去base64解码，解出来的应该就是id的值（1，2等数字）；</p>
+</li>
+<li><p>那么如果要对这个url进行sql注入测试，就需要对id后面的所有值进行base64编码；</p>
+</li>
+<li><p>注入的方式步骤都是跟union注入一样的，只不过后面的所有值（整个payload）都要进行base64编码后传给url的c参数提交，包括闭合规则。</p>
+</li>
+</ul>
+</li>
+<li><h2 id="HTTP请求头参数注入-cookie注入攻击"><a href="#HTTP请求头参数注入-cookie注入攻击" class="headerlink" title="HTTP请求头参数注入-cookie注入攻击"></a>HTTP请求头参数注入-cookie注入攻击</h2><ul>
+<li><p>抓包对一个url的http请求头的所有参数进行sql注入测试，里面的所有参数都有可能存在注入点，如果响应包出现sql报错，那么测试的这个参数就是注入点；</p>
+</li>
+<li><p>常见的http头部注入的参数有：【Referer】、【X-Forwarded-For】、【Cookie】、【X-Real-IP】、【Accept-Language】、【Authorization】如果测试到cookie参数的时候，响应有报sql错误，那么就是cookie注入攻击；</p>
+</li>
+<li><p>和union注入的差别就在于注入点不一样，之后使用union注入的方法即可。</p>
+</li>
+</ul>
+</li>
+<li><h2 id="HTTP请求头参数注入-XFF注入攻击"><a href="#HTTP请求头参数注入-XFF注入攻击" class="headerlink" title="HTTP请求头参数注入-XFF注入攻击"></a>HTTP请求头参数注入-XFF注入攻击</h2><ul>
+<li><p>XFF注入即HTTP头部的X-Forwarded-for参数存在sql注入；</p>
+</li>
+<li><p>例如测试此参数的值  X-Forwarded-for:127.0.0.1’  响应有sql报错，那么此处就是注入点；</p>
+</li>
+<li><p>之后使用union注入的方法完成即可。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="SQL注入修复方案"><a href="#SQL注入修复方案" class="headerlink" title="SQL注入修复方案"></a>SQL注入修复方案</h1><ul>
+<li><p>解决SQL注入问题的关键是对所有可能来自用户输入的数据进行严格的检查、对数据库配置使用最小权限原则。</p>
+</li>
+<li><p>1、所有的查询语句都使用数据库提供的参数化查询接口，参数化的语句使用参数而不是将用户输入变量嵌入到SQL语句中。当前几乎所有的数据库系统都提供了参数化SQL语句执行接口，使用此接口可以非常有效的防止SQL注入攻击。</p>
+</li>
+<li><p>2、对进入数据库的特殊字符（’”\，括号&amp;*;等）进行转义处理，或编码转换。</p>
+</li>
+<li><p>3、严格限制变量类型，比如整型变量就采用intval()函数过滤，数据库中的存储字段必须对应为int型。</p>
+</li>
+<li><p>4、数据长度应该严格规定，能在一定程度上防止比较长的SQL注入语句无法正确执行。</p>
+</li>
+<li><p>5、网站每个数据层的编码统一，建议全部使用UTF-8编码，上下层编码不一致有可能导致一些过滤模型被绕过。</p>
+</li>
+<li><p>6、严格限制网站用户的数据库的操作权限，给此用户提供仅仅能够满足其工作的权限，从而最大限度的减少注入攻击对数据库的危害。</p>
+</li>
+<li><p>7、避免网站显示SQL错误信息，比如类型错误、字段不匹配等，防止攻击者利用这些错误信息进行一些判断。</p>
+</li>
+<li><p>8、在网站发布之前建议使用一些专业的SQL注入检测工具进行检测，及时修补这些SQL注入漏洞。</p>
+</li>
+<li><p>9、确认PHP配置文件中的magicquotesgpc选项保持开启</p>
+</li>
+<li><p>10、配置安全狗，阿里云盾，等网络安全公司的产品</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+	
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/wx_gongzhongh.jpg" alt=" wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎各位大佬关注团队公众号，求带！</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web%E5%AE%89%E5%85%A8/" rel="tag"><i class="fa fa-tag"></i> web安全</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/01/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83/" rel="prev" title="逻辑越权">
+                逻辑越权 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/head_portrait.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7Carchive">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Ax-x" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:z-zx@foxmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#sql%E6%B3%A8%E5%85%A5%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">sql注入是什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql%E6%B3%A8%E5%85%A5%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">sql注入原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql%E6%B3%A8%E5%85%A5%E5%8D%B1%E5%AE%B3"><span class="nav-number">3.</span> <span class="nav-text">sql注入危害</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%81%B6%E6%84%8F%E7%94%A8%E6%88%B7%E5%88%A9%E7%94%A8SQL%E6%B3%A8%E5%85%A5%E5%8F%AF%E4%BB%A5%E5%81%9A%E5%88%B0"><span class="nav-number">4.</span> <span class="nav-text">恶意用户利用SQL注入可以做到</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.</span> <span class="nav-text">sql注入类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B%E5%88%86%E7%B1%BB"><span class="nav-number">5.1.</span> <span class="nav-text">一、参数类型分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E5%9E%8B%E6%B3%A8%E5%85%A5"><span class="nav-number">5.1.1.</span> <span class="nav-text">数字型注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E5%9E%8B%E6%B3%A8%E5%85%A5"><span class="nav-number">5.1.2.</span> <span class="nav-text">字符型注入</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%95%B0%E6%8D%AE%E6%8F%90%E4%BA%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E6%9D%A5%E5%88%86%E7%B1%BB"><span class="nav-number">5.2.</span> <span class="nav-text">二、数据提交的方式来分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%881%EF%BC%89GET-%E6%B3%A8%E5%85%A5"><span class="nav-number">5.2.1.</span> <span class="nav-text">（1）GET 注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%882%EF%BC%89POST-%E6%B3%A8%E5%85%A5"><span class="nav-number">5.2.2.</span> <span class="nav-text">（2）POST 注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%883%EF%BC%89Cookie-%E6%B3%A8%E5%85%A5"><span class="nav-number">5.2.3.</span> <span class="nav-text">（3）Cookie 注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%884%EF%BC%89HTTP-%E5%A4%B4%E9%83%A8%E6%B3%A8%E5%85%A5"><span class="nav-number">5.2.4.</span> <span class="nav-text">（4）HTTP 头部注入</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%8C%89%E7%85%A7%E6%89%A7%E8%A1%8C%E6%95%88%E6%9E%9C%E6%9D%A5%E5%88%86%E7%B1%BB"><span class="nav-number">5.3.</span> <span class="nav-text">三、按照执行效果来分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E5%9F%BA%E4%BA%8E%E5%B8%83%E5%B0%94%E7%9A%84%E7%9B%B2%E6%B3%A8"><span class="nav-number">5.3.1.</span> <span class="nav-text">（1）基于布尔的盲注</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E5%9F%BA%E4%BA%8E%E6%97%B6%E9%97%B4%E7%9A%84%E7%9B%B2%E6%B3%A8"><span class="nav-number">5.3.2.</span> <span class="nav-text">（2）基于时间的盲注</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E5%9F%BA%E4%BA%8E%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5"><span class="nav-number">5.3.3.</span> <span class="nav-text">（3）基于报错注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%884%EF%BC%89%E8%81%94%E5%90%88%E6%9F%A5%E8%AF%A2%E6%B3%A8%E5%85%A5"><span class="nav-number">5.3.4.</span> <span class="nav-text">（4）联合查询注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%885%EF%BC%89%E5%A0%86%E6%9F%A5%E8%AF%A2%E6%B3%A8%E5%85%A5"><span class="nav-number">5.3.5.</span> <span class="nav-text">（5）堆查询注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%886%EF%BC%89%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5"><span class="nav-number">5.3.6.</span> <span class="nav-text">（6）宽字节注入</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%84%E4%B8%AA%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%B3%A8%E5%85%A5%E7%AE%80%E4%BB%8B"><span class="nav-number">6.</span> <span class="nav-text">各个类型的注入简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%9F%BA%E7%A1%80%E7%9A%84%E6%B3%A8%E5%85%A5-union%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="nav-number">6.1.</span> <span class="nav-text">最基础的注入-union注入攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Boolean%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB-%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8"><span class="nav-number">6.2.</span> <span class="nav-text">Boolean注入攻击-布尔盲注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="nav-number">6.3.</span> <span class="nav-text">报错注入攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB-%E5%BB%B6%E6%97%B6%E7%9B%B2%E6%B3%A8"><span class="nav-number">6.4.</span> <span class="nav-text">时间注入攻击-延时盲注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86%E5%8F%A0%E6%9F%A5%E8%AF%A2%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="nav-number">6.5.</span> <span class="nav-text">堆叠查询注入攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="nav-number">6.6.</span> <span class="nav-text">二次注入攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="nav-number">6.7.</span> <span class="nav-text">宽字节注入攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#base64%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="nav-number">6.8.</span> <span class="nav-text">base64注入攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP%E8%AF%B7%E6%B1%82%E5%A4%B4%E5%8F%82%E6%95%B0%E6%B3%A8%E5%85%A5-cookie%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="nav-number">6.9.</span> <span class="nav-text">HTTP请求头参数注入-cookie注入攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP%E8%AF%B7%E6%B1%82%E5%A4%B4%E5%8F%82%E6%95%B0%E6%B3%A8%E5%85%A5-XFF%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="nav-number">6.10.</span> <span class="nav-text">HTTP请求头参数注入-XFF注入攻击</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL%E6%B3%A8%E5%85%A5%E4%BF%AE%E5%A4%8D%E6%96%B9%E6%A1%88"><span class="nav-number">7.</span> <span class="nav-text">SQL注入修复方案</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ax-x</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">7.8k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

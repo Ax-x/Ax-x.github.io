@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="web安全," />
 
 
 
@@ -81,14 +81,17 @@
 
 
 
-<meta name="description" content="你总需要做点什么，或多或少总归是收获">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Ax-x">
-<meta property="og:url" content="http://example.com/index.html">
+<meta name="description" content="逻辑漏洞  攻击者利用业务的设计缺陷，获取敏感信息或破坏业务的完整性， 其本质就是程序逻辑输入管控不严，没有对用户数据进行严格把控，导致程序不能够正常处理或处理错误，一般出现在登录注册、密码找回、信息查看、交易支付金额等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逻辑越权">
+<meta property="og:url" content="http://example.com/2022/01/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83/index.html">
 <meta property="og:site_name" content="Ax-x">
-<meta property="og:description" content="你总需要做点什么，或多或少总归是收获">
+<meta property="og:description" content="逻辑漏洞  攻击者利用业务的设计缺陷，获取敏感信息或破坏业务的完整性， 其本质就是程序逻辑输入管控不严，没有对用户数据进行严格把控，导致程序不能够正常处理或处理错误，一般出现在登录注册、密码找回、信息查看、交易支付金额等。">
 <meta property="og:locale">
+<meta property="article:published_time" content="2022-01-16T13:32:30.000Z">
+<meta property="article:modified_time" content="2022-01-17T14:50:17.454Z">
 <meta property="article:author" content="Ax-x">
+<meta property="article:tag" content="web安全">
 <meta name="twitter:card" content="summary">
 
 
@@ -119,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/"/>
+  <link rel="canonical" href="http://example.com/2022/01/16/逻辑越权/"/>
 
 
 
 
 
-  <title>Ax-x</title>
+  <title>逻辑越权 | Ax-x</title>
   
 
 
@@ -144,8 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -292,190 +294,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head_portrait.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ax-x">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/" itemprop="url">XSS跨站脚本攻击</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-17T22:56:33+08:00">
-                2022-01-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">学习笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="什么是XSS-XSS原理"><a href="#什么是XSS-XSS原理" class="headerlink" title="什么是XSS/XSS原理"></a>什么是XSS/XSS原理</h1><ul>
-<li><p>攻击者嵌入恶意脚本代码到用户会访问到的页面中，用户访问该页面的时候，就引起恶意脚本代码的执行，从而达到恶意攻击用户的目的。攻击者可以使用户在浏览器中执行其预定义的恶意脚本，变量接受数据的时候，数据可以写成js脚本代码，进行回显操作</p>
-</li>
-<li><p>本质上属于前端漏洞，产生在浏览器和js代码中的漏洞</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
 
   
 
@@ -505,9 +326,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/01/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83/" itemprop="url">逻辑越权</a></h1>
+          <h1 class="post-title" itemprop="name headline">逻辑越权</h1>
         
 
         <div class="post-meta">
@@ -610,17 +429,142 @@
       
 
       
-        
-          <h1 id="逻辑漏洞"><a href="#逻辑漏洞" class="headerlink" title="逻辑漏洞"></a><strong>逻辑漏洞</strong></h1><ul>
-<li> 攻击者利用业务的设计缺陷，获取敏感信息或破坏业务的完整性， 其本质就是程序逻辑输入管控不严，没有对用户数据进行严格把控，导致程序不能够正常处理或处理错误，一般出现在登录注册、密码找回、信息查看、交易支付金额等。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2022/01/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <h1 id="逻辑漏洞"><a href="#逻辑漏洞" class="headerlink" title="逻辑漏洞"></a><strong>逻辑漏洞</strong></h1><ul>
+<li> 攻击者利用业务的设计缺陷，获取敏感信息或破坏业务的完整性， 其本质就是程序逻辑输入管控不严，没有对用户数据进行严格把控，导致程序不能够正常处理或处理错误，一般出现在登录注册、密码找回、信息查看、交易支付金额等。<span id="more"></span></li>
+</ul>
+<h1 id="逻辑漏洞类型"><a href="#逻辑漏洞类型" class="headerlink" title="逻辑漏洞类型"></a>逻辑漏洞类型</h1><h2 id="越权"><a href="#越权" class="headerlink" title="越权"></a>越权</h2><h3 id="水平越权"><a href="#水平越权" class="headerlink" title="水平越权"></a>水平越权</h3><ul>
+<li>漏洞介绍：即普通用户/管理员能访问其他普通用户/管理员才能够访问的系统信息或者系统功能</li>
+<li>形成原因：在进行方法调用时候未进行请求用户和目标信息拥有者是否匹配一致，直接用userid/email之类的容易遍历的参数进行数据库查询</li>
+<li>漏洞点：在普通用户/管理员登录后的能访问的链接或者功能中都可能存在</li>
+<li>漏洞修复：在权限管理中，平行越权的权限管理颗粒度最小修复思路需要在方法中进行相关的获取请求request再利用getAttribute(“userid”)获取其userid直接使用该userid作为参数进行数据增删查改，避免userid参数传输</li>
+</ul>
+<h3 id="垂直越权"><a href="#垂直越权" class="headerlink" title="垂直越权"></a>垂直越权</h3><ul>
+<li><p>漏洞介绍：即普通用户能够访问管理员甚至超级管理员才能够访问的系统信息或者系统功能</p>
+</li>
+<li><p>形成原因：程序再方法调用时候，缺少角色等级校验</p>
+</li>
+<li><p>漏洞点：在任何用户登录后才能访问的链接或者功能中都可能存在对每一个传输的参数都要了解参数的目的，尝试将用户名改为admin尝试绕过</p>
+</li>
+<li><p>漏洞修复：需要校验用户是否有权限访问这个方法修复思路：获取请求request再利用getAuttribute(“roleid”)获取其角色等级检查角色等级是否合法，错误则直接返回错误跳转，返回页面必须仍然从Attribute中获取userid再进一步查询相关信息值得注意的是切勿将错误跳转写到Javascript里面，还返回目标URL页面的相关信息。</p>
+</li>
+</ul>
+<h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><h3 id="本地加密传输"><a href="#本地加密传输" class="headerlink" title="本地加密传输"></a>本地加密传输</h3><h3 id="cookie脆弱"><a href="#cookie脆弱" class="headerlink" title="cookie脆弱"></a>cookie脆弱</h3><ul>
+<li><p>漏洞介绍：通过伪造cookie信息能够伪造其他用户进行登录。</p>
+</li>
+<li><p>漏洞原理：开发者为了方便将身份信息/登录信息明文或者只是简单编码、哈希之后存放在cookies中，网站通过获取得到的cookies进行授权或者身份验证</p>
+</li>
+<li><p>漏洞点：cookie中有明显或者只是简单编码、哈希的字段时候 修改lsLogin值为1可以判定为用户已经登录 修改cookie为asp163=UserName=admin</p>
+</li>
+<li><p>漏洞修复： Cookie不应该存储可理解的身份信息和登录信息 按照规定，cookie对身份信息和登录信息的存储只能通过存储足够长度的随机字符串进行，避免篡改</p>
+</li>
+</ul>
+<h3 id="Session劫持"><a href="#Session劫持" class="headerlink" title="Session劫持"></a>Session劫持</h3><ul>
+<li><p>漏洞介绍：会话固定攻击是利用服务器的session不变机制，借他人之手获得认证和授权，然后冒充他人</p>
+</li>
+<li><p>漏洞原理：在请求登录过程时候，URL带有一个session，登录成功之后会将登录成功的信息绑定到这个session中，攻击者可以发送带有session的URL给相关工作人员诱导其登录，相当于获取了其身份信息</p>
+</li>
+<li><p>漏洞点：在GET方法请求登录时候带有session值</p>
+</li>
+<li><p>修复思路：只要避免在URL中带入session信息即可比较有效的防御另外也要注意POST请求中带有sessionid进行session固定攻击，虽然可利用性比较低，但是建议修复</p>
+</li>
+</ul>
+<h3 id="密文对比认证"><a href="#密文对比认证" class="headerlink" title="密文对比认证"></a>密文对比认证</h3><h3 id="暴力破解"><a href="#暴力破解" class="headerlink" title="暴力破解"></a>暴力破解</h3><ul>
+<li><p>漏洞介绍：攻击者可以通过该漏洞获取用户名和对应弱口令密码，并进行登录操作漏洞原理：由于没有设置登录失败次数限制，导致攻击者可以通过口令字典进行特定用户的密码爆破或通过用户名字典进行特定弱口令的用户枚举</p>
+</li>
+<li><p>漏洞点：系统登录点</p>
+</li>
+<li><p>漏洞修复： 对于固定用户名爆破密码可以针对用户名进行错误次数计算，高于一定阈值账号锁定一段时间，或者添加验证码但是不能永久锁定，可能被用来进行账户恶意锁定对于固定密码枚举用户名、 需要计算IP对URL的请求情况，某个IP短时间大量请求登录应该加入黑名单 进行传输数据加密有一定的防护效果</p>
+</li>
+</ul>
+<h2 id="业务"><a href="#业务" class="headerlink" title="业务"></a>业务</h2><h3 id="订单ID"><a href="#订单ID" class="headerlink" title="订单ID"></a>订单ID</h3><h3 id="用户ID"><a href="#用户ID" class="headerlink" title="用户ID"></a>用户ID</h3><ul>
+<li>在支付当中会出现当前用户的ID，比如：username=XXXXX，如果没有加以验证，其支付也是一次性支付没有要求输入密码什么的机制，那么就可以修改这个用户ID为其它用户ID，达到用其他用户的账号进行支付你的商品。</li>
+</ul>
+<h3 id="订单号码"><a href="#订单号码" class="headerlink" title="订单号码"></a>订单号码</h3><h3 id="商品ID"><a href="#商品ID" class="headerlink" title="商品ID"></a>商品ID</h3><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><h3 id="暴力破解-1"><a href="#暴力破解-1" class="headerlink" title="暴力破解"></a>暴力破解</h3><ul>
+<li><p>漏洞介绍：攻击者可以通过该漏洞获取用户名和对应弱口令密码，并进行登录操作</p>
+</li>
+<li><p>漏洞原理：由于没有设置登录失败次数限制，导致攻击者可以通过口令字典进行特定用户的密码爆破或通过用户名字典进行特定弱口令的用户枚举 </p>
+</li>
+<li><p>漏洞点：系统登录点</p>
+</li>
+<li><p>漏洞修复： 对于固定用户名爆破密码可以针对用户名进行错误次数计算，高于一定阈值账号锁定一段时间，或者添加验证码但是不能永久锁定，可能被用来进行账户恶意锁定对于固定密码枚举用户名、 需要计算IP对URL的请求情况，某个IP短时间大量请求登录应该加入黑名单 进行传输数据加密有一定的防护效果</p>
+</li>
+</ul>
+<h3 id="绕过验证"><a href="#绕过验证" class="headerlink" title="绕过验证"></a>绕过验证</h3><ul>
+<li><p>漏洞介绍：攻击者通过篡改分步逻辑中的步骤数字，达到绕过支付、校验等效果</p>
+</li>
+<li><p>漏洞原理：程序逻辑分布进行，但是对步骤、验证信息、支付信息没有做好严格校验，导致修改步骤就直接绕过验证或者支付</p>
+</li>
+<li><p>漏洞点：任何分布逻辑且带步骤数字，或者利用JS进行步骤控制的功能中</p>
+</li>
+<li><p>漏洞修复：在请求最后一步时候需要带入前面的验证信息，服务端再进行一次校验信息的验证，验证正确方能继续执行数据操作也可以及通过getAttributr(“userid”)获取userid进行userid和验证结果绑定，最后一步不带入验证信息，但是仍然要获取userid进行校验再最后一步通过验证之后或者服务器收到支付信息后再生成相应的数据交给用户</p>
+</li>
+</ul>
+<h3 id="自动识别"><a href="#自动识别" class="headerlink" title="自动识别"></a>自动识别</h3><h3 id="图形验证码绕过"><a href="#图形验证码绕过" class="headerlink" title="图形验证码绕过"></a>图形验证码绕过</h3><ul>
+<li><p>漏洞介绍：攻击者通过突破图形验证码的验证，可以实现如登录爆破、验证码绕过等攻击</p>
+</li>
+<li><p>漏洞原理：图形验证码在错误后未失效返回验证码信息分步验证验证码</p>
+</li>
+<li><p>漏洞点：任何存在图形验证码的功能中</p>
+</li>
+<li><p>漏洞修复一旦验证码使用过了，必须要进行删除，重新生成验证码，可以梵高attribute中验证码需要设置超时，时间一到立即删除旧验证码，用户需要获取新的验证码验证码只需要返回图片，切勿将生成验证码的字符串也一并返回验证码不应该进行分布校验，应该连同请求数据一起发送到目标服务器进行校验，服务器校验通过则返回合法数据，否则返回错误</p>
+</li>
+</ul>
+<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><h3 id="支付篡改"><a href="#支付篡改" class="headerlink" title="支付篡改"></a>支付篡改</h3><ul>
+<li>在支付当中，购买商品一般分为三步骤：订购、确认信息、付款。那么这个修改价格具体是修改哪一步时的价格呢？可以在这三个步骤当中的随便一个步骤进行修改价格测试，如果前面两步有验证机制，那么可在最后一步付款时进行抓包尝试修改金额，如果没有在最后一步做好检验，那么问题就会存在，其修改的金额值你可以尝试小数目或者尝试负数。</li>
+</ul>
+<h3 id="数量篡改"><a href="#数量篡改" class="headerlink" title="数量篡改"></a>数量篡改</h3><ul>
+<li>在支付的过程中，数量也同时决定着价格，比如：1个数量商品对应的是100，2个数据就是200，那么当你修改这个值数量值为负数时，那么其金额也会变为负数，最后就会导致支付问题的产生。</li>
+</ul>
+<h3 id="请求重放"><a href="#请求重放" class="headerlink" title="请求重放"></a>请求重放</h3><ul>
+<li><p>漏洞介绍：通过数据包重放，可以造成短信轰炸、邮件轰炸、重复提交订单等</p>
+</li>
+<li><p>漏洞原理：后台未进行相关操作的技术导致数据包重放</p>
+</li>
+<li><p>漏洞点：短信验证码、邮件校验、提交订单等功能。</p>
+</li>
+<li><p>修复方案：修复思路（针对短信、邮件）构造一个Hashmap&lt;String，short&gt;，存放邮箱或电话号码及对应次数只要某个邮箱或者电话号码次数够了，就不能继续发送了或者计算两次发送的时间间隔，时间过短就不继续发送了通用修复方案需要建立token机制或验证码机制，一次有效</p>
+</li>
+</ul>
+<h3 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a>其他</h3><h2 id="找回机制"><a href="#找回机制" class="headerlink" title="找回机制"></a>找回机制</h2><h3 id="客户端回显"><a href="#客户端回显" class="headerlink" title="客户端回显"></a>客户端回显</h3><h3 id="Response状态值"><a href="#Response状态值" class="headerlink" title="Response状态值"></a>Response状态值</h3><h3 id="Session覆盖"><a href="#Session覆盖" class="headerlink" title="Session覆盖"></a>Session覆盖</h3><h3 id="弱Token缺陷"><a href="#弱Token缺陷" class="headerlink" title="弱Token缺陷"></a>弱Token缺陷</h3><ul>
+<li>token可爆破</li>
+</ul>
+<h3 id="找回流程绕过"><a href="#找回流程绕过" class="headerlink" title="找回流程绕过"></a>找回流程绕过</h3><ul>
+<li>通过两个不同账号的找回，获得验证码之后部分的数据包，而另一个账号找回密码时跳过验证码的部分直接进入成功验证之后的部分，等</li>
+</ul>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><h3 id="调用遍历"><a href="#调用遍历" class="headerlink" title="调用遍历"></a>调用遍历</h3><h3 id="参数篡改"><a href="#参数篡改" class="headerlink" title="参数篡改"></a>参数篡改</h3><ul>
+<li><p>漏洞介绍：攻击者通过进行数值篡改进行攻击，从而获利</p>
+</li>
+<li><p>漏洞原理：没有对传输数据添加相关的校验参数后台未对参数值进行校验并直接使用数据包中的参数</p>
+</li>
+<li><p>漏洞点：抽奖、购买、转账、返现等功能</p>
+</li>
+<li><p>漏洞修复：对于软件来说，需要保护好内存数据，防止内存数据篡改计算传输数据的哈希，并将哈希附加在传输数据中作为校验值，避免被篡改先校验数值，防止大整数和负数；接着利用传输的商品ID从数据库中获取商品单价重新进行价格计算；最后生成订单（订单号应为随机值）</p>
+</li>
+</ul>
+<h3 id="未授权访问"><a href="#未授权访问" class="headerlink" title="未授权访问"></a>未授权访问</h3><ul>
+<li><p>漏洞介绍：即游客能够访问普通用户甚至超级管理员才能访问的系统信息或者系统功能</p>
+</li>
+<li><p>形成原因：主要是系统设计期间没有进行全局用户身份校验；或者校验存在缺陷</p>
+</li>
+<li><p>漏洞点：在任何用户登录后才能访问的链接或者功能中都可能存在</p>
+</li>
+<li><p>漏洞修复：J2EE中存在filter，可以获取用户的cookie等信息修复思路：建立LoginList，值是当前在线用户的id对所有需要登录访问到URL，获取请求request再利用 getAttribute(“userid”) 获取其userid检查userid是否存在于LoginList中，不存在则直接返回错误跳转值得注意的是切勿将错误跳转写到Javascript里面，还返回目标URL页面的相关信息</p>
+</li>
+</ul>
+<h3 id="Webservice测试"><a href="#Webservice测试" class="headerlink" title="Webservice测试"></a>Webservice测试</h3><h3 id="callback自定义"><a href="#callback自定义" class="headerlink" title="callback自定义"></a>callback自定义</h3><h2 id="回退"><a href="#回退" class="headerlink" title="回退"></a>回退</h2><ul>
+<li><h3 id="回退重放"><a href="#回退重放" class="headerlink" title="回退重放"></a>回退重放</h3></li>
+</ul>
+<h2 id="条件竞争"><a href="#条件竞争" class="headerlink" title="条件竞争"></a>条件竞争</h2><ul>
+<li><p>漏洞介绍：可以通过同时重放大量数据包进行漏洞利用，通常用于突破限量、限额的问题都有奇效</p>
+</li>
+<li><p>漏洞原理：由于目标函数中，判断与数据修复两个步骤之间，或者两个数据修改步骤之间存在时间差，且函数未进行同步锁定，则可以造成漏洞</p>
+</li>
+<li><p>漏洞点：程序中存在限制，可以猜测到后台有判断与修改操作的方法</p>
+</li>
+<li><p>漏洞修复：修复思路：使用synchronized关键字，可以限制同一时间内访问方法的只有单一线程并不是每个条件竞争都必须修复</p>
+</li>
+</ul>
+
       
     </div>
     
@@ -629,6 +573,14 @@
 	
 
     
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/wx_gongzhongh.jpg" alt=" wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎各位大佬关注团队公众号，求带！</div>
+</div>
+
+      </div>
+    
 
     
 
@@ -636,193 +588,40 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/16/SQL%E6%B3%A8%E5%85%A5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head_portrait.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ax-x">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/01/16/SQL%E6%B3%A8%E5%85%A5/" itemprop="url">SQL注入</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-16T20:32:30+08:00">
-                2022-01-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">学习笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/web%E5%AE%89%E5%85%A8/" rel="tag"><i class="fa fa-tag"></i> web安全</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  3.7k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  13
-                </span>
-              
-            </div>
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <h1 id="sql注入是什么？"><a href="#sql注入是什么？" class="headerlink" title="sql注入是什么？"></a>sql注入是什么？</h1><ul>
-<li>web应用对用户输入数据的合法性没有判断或过滤不严，sql语句中的变量是可控的，导致攻击者可以在web应用程序中事先定义好的查询语句的结尾上添加额外的SQL语句，实现非法操作，以此来实现欺骗数据库服务器执行非授权的任意查询，从而进一步得到相应的数据信息。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2022/01/16/SQL%E6%B3%A8%E5%85%A5/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/01/16/SQL%E6%B3%A8%E5%85%A5/" rel="next" title="SQL注入">
+                <i class="fa fa-chevron-left"></i> SQL注入
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/" rel="prev" title="XSS跨站脚本攻击">
+                XSS跨站脚本攻击 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -832,10 +631,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -843,6 +643,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -863,8 +667,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -951,6 +764,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.</span> <span class="nav-text">逻辑漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">逻辑漏洞类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B6%8A%E6%9D%83"><span class="nav-number">2.1.</span> <span class="nav-text">越权</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B0%B4%E5%B9%B3%E8%B6%8A%E6%9D%83"><span class="nav-number">2.1.1.</span> <span class="nav-text">水平越权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9E%82%E7%9B%B4%E8%B6%8A%E6%9D%83"><span class="nav-number">2.1.2.</span> <span class="nav-text">垂直越权</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%99%BB%E5%BD%95"><span class="nav-number">2.2.</span> <span class="nav-text">登录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E5%8A%A0%E5%AF%86%E4%BC%A0%E8%BE%93"><span class="nav-number">2.2.1.</span> <span class="nav-text">本地加密传输</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cookie%E8%84%86%E5%BC%B1"><span class="nav-number">2.2.2.</span> <span class="nav-text">cookie脆弱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Session%E5%8A%AB%E6%8C%81"><span class="nav-number">2.2.3.</span> <span class="nav-text">Session劫持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86%E6%96%87%E5%AF%B9%E6%AF%94%E8%AE%A4%E8%AF%81"><span class="nav-number">2.2.4.</span> <span class="nav-text">密文对比认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3"><span class="nav-number">2.2.5.</span> <span class="nav-text">暴力破解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%9A%E5%8A%A1"><span class="nav-number">2.3.</span> <span class="nav-text">业务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A2%E5%8D%95ID"><span class="nav-number">2.3.1.</span> <span class="nav-text">订单ID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7ID"><span class="nav-number">2.3.2.</span> <span class="nav-text">用户ID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A2%E5%8D%95%E5%8F%B7%E7%A0%81"><span class="nav-number">2.3.3.</span> <span class="nav-text">订单号码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%95%86%E5%93%81ID"><span class="nav-number">2.3.4.</span> <span class="nav-text">商品ID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">2.3.5.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81"><span class="nav-number">2.4.</span> <span class="nav-text">验证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3-1"><span class="nav-number">2.4.1.</span> <span class="nav-text">暴力破解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%95%E8%BF%87%E9%AA%8C%E8%AF%81"><span class="nav-number">2.4.2.</span> <span class="nav-text">绕过验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E8%AF%86%E5%88%AB"><span class="nav-number">2.4.3.</span> <span class="nav-text">自动识别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%BD%A2%E9%AA%8C%E8%AF%81%E7%A0%81%E7%BB%95%E8%BF%87"><span class="nav-number">2.4.4.</span> <span class="nav-text">图形验证码绕过</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE"><span class="nav-number">2.5.</span> <span class="nav-text">数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%AF%E4%BB%98%E7%AF%A1%E6%94%B9"><span class="nav-number">2.5.1.</span> <span class="nav-text">支付篡改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E9%87%8F%E7%AF%A1%E6%94%B9"><span class="nav-number">2.5.2.</span> <span class="nav-text">数量篡改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E9%87%8D%E6%94%BE"><span class="nav-number">2.5.3.</span> <span class="nav-text">请求重放</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96-1"><span class="nav-number">2.5.4.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%BE%E5%9B%9E%E6%9C%BA%E5%88%B6"><span class="nav-number">2.6.</span> <span class="nav-text">找回机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%9B%9E%E6%98%BE"><span class="nav-number">2.6.1.</span> <span class="nav-text">客户端回显</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Response%E7%8A%B6%E6%80%81%E5%80%BC"><span class="nav-number">2.6.2.</span> <span class="nav-text">Response状态值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Session%E8%A6%86%E7%9B%96"><span class="nav-number">2.6.3.</span> <span class="nav-text">Session覆盖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%B1Token%E7%BC%BA%E9%99%B7"><span class="nav-number">2.6.4.</span> <span class="nav-text">弱Token缺陷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%BE%E5%9B%9E%E6%B5%81%E7%A8%8B%E7%BB%95%E8%BF%87"><span class="nav-number">2.6.5.</span> <span class="nav-text">找回流程绕过</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.7.</span> <span class="nav-text">接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E9%81%8D%E5%8E%86"><span class="nav-number">2.7.1.</span> <span class="nav-text">调用遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E7%AF%A1%E6%94%B9"><span class="nav-number">2.7.2.</span> <span class="nav-text">参数篡改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE"><span class="nav-number">2.7.3.</span> <span class="nav-text">未授权访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Webservice%E6%B5%8B%E8%AF%95"><span class="nav-number">2.7.4.</span> <span class="nav-text">Webservice测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#callback%E8%87%AA%E5%AE%9A%E4%B9%89"><span class="nav-number">2.7.5.</span> <span class="nav-text">callback自定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9E%E9%80%80"><span class="nav-number">2.8.</span> <span class="nav-text">回退</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E9%80%80%E9%87%8D%E6%94%BE"><span class="nav-number">2.8.1.</span> <span class="nav-text">回退重放</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89"><span class="nav-number">2.9.</span> <span class="nav-text">条件竞争</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1103,6 +932,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
