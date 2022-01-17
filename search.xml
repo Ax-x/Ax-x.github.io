@@ -1,251 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>逻辑越权</title>
-    <url>/2022/01/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83/</url>
-    <content><![CDATA[<h1 id="逻辑漏洞"><a href="#逻辑漏洞" class="headerlink" title="逻辑漏洞"></a><strong>逻辑漏洞</strong></h1><ul>
-<li> 攻击者利用业务的设计缺陷，获取敏感信息或破坏业务的完整性， 其本质就是程序逻辑输入管控不严，没有对用户数据进行严格把控，导致程序不能够正常处理或处理错误，一般出现在登录注册、密码找回、信息查看、交易支付金额等。<span id="more"></span></li>
-</ul>
-<h1 id="逻辑漏洞类型"><a href="#逻辑漏洞类型" class="headerlink" title="逻辑漏洞类型"></a>逻辑漏洞类型</h1><h2 id="越权"><a href="#越权" class="headerlink" title="越权"></a>越权</h2><h3 id="水平越权"><a href="#水平越权" class="headerlink" title="水平越权"></a>水平越权</h3><ul>
-<li>漏洞介绍：即普通用户/管理员能访问其他普通用户/管理员才能够访问的系统信息或者系统功能</li>
-<li>形成原因：在进行方法调用时候未进行请求用户和目标信息拥有者是否匹配一致，直接用userid/email之类的容易遍历的参数进行数据库查询</li>
-<li>漏洞点：在普通用户/管理员登录后的能访问的链接或者功能中都可能存在</li>
-<li>漏洞修复：在权限管理中，平行越权的权限管理颗粒度最小修复思路需要在方法中进行相关的获取请求request再利用getAttribute(“userid”)获取其userid直接使用该userid作为参数进行数据增删查改，避免userid参数传输</li>
-</ul>
-<h3 id="垂直越权"><a href="#垂直越权" class="headerlink" title="垂直越权"></a>垂直越权</h3><ul>
-<li><p>漏洞介绍：即普通用户能够访问管理员甚至超级管理员才能够访问的系统信息或者系统功能</p>
-</li>
-<li><p>形成原因：程序再方法调用时候，缺少角色等级校验</p>
-</li>
-<li><p>漏洞点：在任何用户登录后才能访问的链接或者功能中都可能存在对每一个传输的参数都要了解参数的目的，尝试将用户名改为admin尝试绕过</p>
-</li>
-<li><p>漏洞修复：需要校验用户是否有权限访问这个方法修复思路：获取请求request再利用getAuttribute(“roleid”)获取其角色等级检查角色等级是否合法，错误则直接返回错误跳转，返回页面必须仍然从Attribute中获取userid再进一步查询相关信息值得注意的是切勿将错误跳转写到Javascript里面，还返回目标URL页面的相关信息。</p>
-</li>
-</ul>
-<h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><h3 id="本地加密传输"><a href="#本地加密传输" class="headerlink" title="本地加密传输"></a>本地加密传输</h3><h3 id="cookie脆弱"><a href="#cookie脆弱" class="headerlink" title="cookie脆弱"></a>cookie脆弱</h3><ul>
-<li><p>漏洞介绍：通过伪造cookie信息能够伪造其他用户进行登录。</p>
-</li>
-<li><p>漏洞原理：开发者为了方便将身份信息/登录信息明文或者只是简单编码、哈希之后存放在cookies中，网站通过获取得到的cookies进行授权或者身份验证</p>
-</li>
-<li><p>漏洞点：cookie中有明显或者只是简单编码、哈希的字段时候 修改lsLogin值为1可以判定为用户已经登录 修改cookie为asp163=UserName=admin</p>
-</li>
-<li><p>漏洞修复： Cookie不应该存储可理解的身份信息和登录信息 按照规定，cookie对身份信息和登录信息的存储只能通过存储足够长度的随机字符串进行，避免篡改</p>
-</li>
-</ul>
-<h3 id="Session劫持"><a href="#Session劫持" class="headerlink" title="Session劫持"></a>Session劫持</h3><ul>
-<li><p>漏洞介绍：会话固定攻击是利用服务器的session不变机制，借他人之手获得认证和授权，然后冒充他人</p>
-</li>
-<li><p>漏洞原理：在请求登录过程时候，URL带有一个session，登录成功之后会将登录成功的信息绑定到这个session中，攻击者可以发送带有session的URL给相关工作人员诱导其登录，相当于获取了其身份信息</p>
-</li>
-<li><p>漏洞点：在GET方法请求登录时候带有session值</p>
-</li>
-<li><p>修复思路：只要避免在URL中带入session信息即可比较有效的防御另外也要注意POST请求中带有sessionid进行session固定攻击，虽然可利用性比较低，但是建议修复</p>
-</li>
-</ul>
-<h3 id="密文对比认证"><a href="#密文对比认证" class="headerlink" title="密文对比认证"></a>密文对比认证</h3><h3 id="暴力破解"><a href="#暴力破解" class="headerlink" title="暴力破解"></a>暴力破解</h3><ul>
-<li><p>漏洞介绍：攻击者可以通过该漏洞获取用户名和对应弱口令密码，并进行登录操作漏洞原理：由于没有设置登录失败次数限制，导致攻击者可以通过口令字典进行特定用户的密码爆破或通过用户名字典进行特定弱口令的用户枚举</p>
-</li>
-<li><p>漏洞点：系统登录点</p>
-</li>
-<li><p>漏洞修复： 对于固定用户名爆破密码可以针对用户名进行错误次数计算，高于一定阈值账号锁定一段时间，或者添加验证码但是不能永久锁定，可能被用来进行账户恶意锁定对于固定密码枚举用户名、 需要计算IP对URL的请求情况，某个IP短时间大量请求登录应该加入黑名单 进行传输数据加密有一定的防护效果</p>
-</li>
-</ul>
-<h2 id="业务"><a href="#业务" class="headerlink" title="业务"></a>业务</h2><h3 id="订单ID"><a href="#订单ID" class="headerlink" title="订单ID"></a>订单ID</h3><h3 id="用户ID"><a href="#用户ID" class="headerlink" title="用户ID"></a>用户ID</h3><ul>
-<li>在支付当中会出现当前用户的ID，比如：username=XXXXX，如果没有加以验证，其支付也是一次性支付没有要求输入密码什么的机制，那么就可以修改这个用户ID为其它用户ID，达到用其他用户的账号进行支付你的商品。</li>
-</ul>
-<h3 id="订单号码"><a href="#订单号码" class="headerlink" title="订单号码"></a>订单号码</h3><h3 id="商品ID"><a href="#商品ID" class="headerlink" title="商品ID"></a>商品ID</h3><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><h3 id="暴力破解-1"><a href="#暴力破解-1" class="headerlink" title="暴力破解"></a>暴力破解</h3><ul>
-<li><p>漏洞介绍：攻击者可以通过该漏洞获取用户名和对应弱口令密码，并进行登录操作</p>
-</li>
-<li><p>漏洞原理：由于没有设置登录失败次数限制，导致攻击者可以通过口令字典进行特定用户的密码爆破或通过用户名字典进行特定弱口令的用户枚举 </p>
-</li>
-<li><p>漏洞点：系统登录点</p>
-</li>
-<li><p>漏洞修复： 对于固定用户名爆破密码可以针对用户名进行错误次数计算，高于一定阈值账号锁定一段时间，或者添加验证码但是不能永久锁定，可能被用来进行账户恶意锁定对于固定密码枚举用户名、 需要计算IP对URL的请求情况，某个IP短时间大量请求登录应该加入黑名单 进行传输数据加密有一定的防护效果</p>
-</li>
-</ul>
-<h3 id="绕过验证"><a href="#绕过验证" class="headerlink" title="绕过验证"></a>绕过验证</h3><ul>
-<li><p>漏洞介绍：攻击者通过篡改分步逻辑中的步骤数字，达到绕过支付、校验等效果</p>
-</li>
-<li><p>漏洞原理：程序逻辑分布进行，但是对步骤、验证信息、支付信息没有做好严格校验，导致修改步骤就直接绕过验证或者支付</p>
-</li>
-<li><p>漏洞点：任何分布逻辑且带步骤数字，或者利用JS进行步骤控制的功能中</p>
-</li>
-<li><p>漏洞修复：在请求最后一步时候需要带入前面的验证信息，服务端再进行一次校验信息的验证，验证正确方能继续执行数据操作也可以及通过getAttributr(“userid”)获取userid进行userid和验证结果绑定，最后一步不带入验证信息，但是仍然要获取userid进行校验再最后一步通过验证之后或者服务器收到支付信息后再生成相应的数据交给用户</p>
-</li>
-</ul>
-<h3 id="自动识别"><a href="#自动识别" class="headerlink" title="自动识别"></a>自动识别</h3><h3 id="图形验证码绕过"><a href="#图形验证码绕过" class="headerlink" title="图形验证码绕过"></a>图形验证码绕过</h3><ul>
-<li><p>漏洞介绍：攻击者通过突破图形验证码的验证，可以实现如登录爆破、验证码绕过等攻击</p>
-</li>
-<li><p>漏洞原理：图形验证码在错误后未失效返回验证码信息分步验证验证码</p>
-</li>
-<li><p>漏洞点：任何存在图形验证码的功能中</p>
-</li>
-<li><p>漏洞修复一旦验证码使用过了，必须要进行删除，重新生成验证码，可以梵高attribute中验证码需要设置超时，时间一到立即删除旧验证码，用户需要获取新的验证码验证码只需要返回图片，切勿将生成验证码的字符串也一并返回验证码不应该进行分布校验，应该连同请求数据一起发送到目标服务器进行校验，服务器校验通过则返回合法数据，否则返回错误</p>
-</li>
-</ul>
-<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><h3 id="支付篡改"><a href="#支付篡改" class="headerlink" title="支付篡改"></a>支付篡改</h3><ul>
-<li>在支付当中，购买商品一般分为三步骤：订购、确认信息、付款。那么这个修改价格具体是修改哪一步时的价格呢？可以在这三个步骤当中的随便一个步骤进行修改价格测试，如果前面两步有验证机制，那么可在最后一步付款时进行抓包尝试修改金额，如果没有在最后一步做好检验，那么问题就会存在，其修改的金额值你可以尝试小数目或者尝试负数。</li>
-</ul>
-<h3 id="数量篡改"><a href="#数量篡改" class="headerlink" title="数量篡改"></a>数量篡改</h3><ul>
-<li>在支付的过程中，数量也同时决定着价格，比如：1个数量商品对应的是100，2个数据就是200，那么当你修改这个值数量值为负数时，那么其金额也会变为负数，最后就会导致支付问题的产生。</li>
-</ul>
-<h3 id="请求重放"><a href="#请求重放" class="headerlink" title="请求重放"></a>请求重放</h3><ul>
-<li><p>漏洞介绍：通过数据包重放，可以造成短信轰炸、邮件轰炸、重复提交订单等</p>
-</li>
-<li><p>漏洞原理：后台未进行相关操作的技术导致数据包重放</p>
-</li>
-<li><p>漏洞点：短信验证码、邮件校验、提交订单等功能。</p>
-</li>
-<li><p>修复方案：修复思路（针对短信、邮件）构造一个Hashmap&lt;String，short&gt;，存放邮箱或电话号码及对应次数只要某个邮箱或者电话号码次数够了，就不能继续发送了或者计算两次发送的时间间隔，时间过短就不继续发送了通用修复方案需要建立token机制或验证码机制，一次有效</p>
-</li>
-</ul>
-<h3 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a>其他</h3><h2 id="找回机制"><a href="#找回机制" class="headerlink" title="找回机制"></a>找回机制</h2><h3 id="客户端回显"><a href="#客户端回显" class="headerlink" title="客户端回显"></a>客户端回显</h3><h3 id="Response状态值"><a href="#Response状态值" class="headerlink" title="Response状态值"></a>Response状态值</h3><h3 id="Session覆盖"><a href="#Session覆盖" class="headerlink" title="Session覆盖"></a>Session覆盖</h3><h3 id="弱Token缺陷"><a href="#弱Token缺陷" class="headerlink" title="弱Token缺陷"></a>弱Token缺陷</h3><ul>
-<li>token可爆破</li>
-</ul>
-<h3 id="找回流程绕过"><a href="#找回流程绕过" class="headerlink" title="找回流程绕过"></a>找回流程绕过</h3><ul>
-<li>通过两个不同账号的找回，获得验证码之后部分的数据包，而另一个账号找回密码时跳过验证码的部分直接进入成功验证之后的部分，等</li>
-</ul>
-<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><h3 id="调用遍历"><a href="#调用遍历" class="headerlink" title="调用遍历"></a>调用遍历</h3><h3 id="参数篡改"><a href="#参数篡改" class="headerlink" title="参数篡改"></a>参数篡改</h3><ul>
-<li><p>漏洞介绍：攻击者通过进行数值篡改进行攻击，从而获利</p>
-</li>
-<li><p>漏洞原理：没有对传输数据添加相关的校验参数后台未对参数值进行校验并直接使用数据包中的参数</p>
-</li>
-<li><p>漏洞点：抽奖、购买、转账、返现等功能</p>
-</li>
-<li><p>漏洞修复：对于软件来说，需要保护好内存数据，防止内存数据篡改计算传输数据的哈希，并将哈希附加在传输数据中作为校验值，避免被篡改先校验数值，防止大整数和负数；接着利用传输的商品ID从数据库中获取商品单价重新进行价格计算；最后生成订单（订单号应为随机值）</p>
-</li>
-</ul>
-<h3 id="未授权访问"><a href="#未授权访问" class="headerlink" title="未授权访问"></a>未授权访问</h3><ul>
-<li><p>漏洞介绍：即游客能够访问普通用户甚至超级管理员才能访问的系统信息或者系统功能</p>
-</li>
-<li><p>形成原因：主要是系统设计期间没有进行全局用户身份校验；或者校验存在缺陷</p>
-</li>
-<li><p>漏洞点：在任何用户登录后才能访问的链接或者功能中都可能存在</p>
-</li>
-<li><p>漏洞修复：J2EE中存在filter，可以获取用户的cookie等信息修复思路：建立LoginList，值是当前在线用户的id对所有需要登录访问到URL，获取请求request再利用 getAttribute(“userid”) 获取其userid检查userid是否存在于LoginList中，不存在则直接返回错误跳转值得注意的是切勿将错误跳转写到Javascript里面，还返回目标URL页面的相关信息</p>
-</li>
-</ul>
-<h3 id="Webservice测试"><a href="#Webservice测试" class="headerlink" title="Webservice测试"></a>Webservice测试</h3><h3 id="callback自定义"><a href="#callback自定义" class="headerlink" title="callback自定义"></a>callback自定义</h3><h2 id="回退"><a href="#回退" class="headerlink" title="回退"></a>回退</h2><ul>
-<li><h3 id="回退重放"><a href="#回退重放" class="headerlink" title="回退重放"></a>回退重放</h3></li>
-</ul>
-<h2 id="条件竞争"><a href="#条件竞争" class="headerlink" title="条件竞争"></a>条件竞争</h2><ul>
-<li><p>漏洞介绍：可以通过同时重放大量数据包进行漏洞利用，通常用于突破限量、限额的问题都有奇效</p>
-</li>
-<li><p>漏洞原理：由于目标函数中，判断与数据修复两个步骤之间，或者两个数据修改步骤之间存在时间差，且函数未进行同步锁定，则可以造成漏洞</p>
-</li>
-<li><p>漏洞点：程序中存在限制，可以猜测到后台有判断与修改操作的方法</p>
-</li>
-<li><p>漏洞修复：修复思路：使用synchronized关键字，可以限制同一时间内访问方法的只有单一线程并不是每个条件竞争都必须修复</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>web安全</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>XSS跨站脚本攻击</title>
-    <url>/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/</url>
-    <content><![CDATA[<h1 id="什么是XSS-XSS原理"><a href="#什么是XSS-XSS原理" class="headerlink" title="什么是XSS/XSS原理"></a>什么是XSS/XSS原理</h1><ul>
-<li><p>攻击者嵌入恶意脚本代码到用户会访问到的页面中，用户访问该页面的时候，就引起恶意脚本代码的执行，从而达到恶意攻击用户的目的。攻击者可以使用户在浏览器中执行其预定义的恶意脚本，变量接受数据的时候，数据可以写成js脚本代码，进行回显操作</p>
-</li>
-<li><p>本质上属于前端漏洞，产生在浏览器和js代码中的漏洞</p>
-<span id="more"></span></li>
-</ul>
-<h1 id="XSS类型"><a href="#XSS类型" class="headerlink" title="XSS类型"></a>XSS类型</h1><ul>
-<li><p>反射型XSS(非持续型XSS)</p>
-</li>
-<li><p>储存型XSS(持续型XSS）</p>
-</li>
-<li><p>DOM XSS</p>
-</li>
-</ul>
-<h1 id="具体区别"><a href="#具体区别" class="headerlink" title="具体区别"></a>具体区别</h1><ul>
-<li><p>反射型：数据提交过去时，会在代码执行之后直接反馈回来发包x=zzx=&gt;x.php=&gt;回包</p>
-</li>
-<li><p>存储型：数据提交过去时，会在代码执行之后储存到数据库的某个表里，然后反馈回来发包x=zzx=&gt;x.php=&gt;写到数据库某个表=&gt;x.php&gt;回显</p>
-</li>
-<li><p>DOM型：发包x=zzx=&gt;本地浏览器静态前端代码=&gt;x.php</p>
-</li>
-<li><p>反射型和储存型属于后端语言进行数据处理，而DOM型是用js代码进行处理 </p>
-</li>
-</ul>
-<h1 id="三者原理"><a href="#三者原理" class="headerlink" title="三者原理"></a>三者原理</h1><ul>
-<li><p>反射型XSS：应用或API没有对用户输入数据进行验证或没进行转义然后作为HTML的输出的一部分，能够使得攻击者在受害者的浏览器上执行任意HTML和JavaScript。</p>
-</li>
-<li><p>存储型XSS：应用或API存储未格式化的用户输入，且该输入之后会被其他用户或管理员浏览到。</p>
-</li>
-<li><p>DOM XSS：动态包含攻击者可控制数据到页面中的JavaScript框架， 单页应用，API易受DOM XSS。</p>
-</li>
-<li><p>涉及函数类：常见的输出类函数</p>
-</li>
-</ul>
-<h1 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h1><ul>
-<li><p>方法一： 查看代码，查找关键的变量,   客户端将数据传送给Web 服务端一般通过三种方式 Querystring, Form表单，以及cookie.  例如在ASP的程序中，通过Request对象获取客户端的变量。 假如变量没有经过htmlEncode处理， 那么这个变量就存在一个XSS漏洞</p>
-</li>
-<li><p>方法二：xss跨站漏洞测试语句， 在网页中的Textbox或者其他能输入数据的地方，输入测试语句， 看能不能弹出对话框，能弹出的话说明存在XSS漏洞， 在URL中查看有那些变量通过URL把值传给Web服务器， 把这些变量的值退换成测试语句。  然后看是否能执行</p>
-</li>
-<li><p>方法三:  自动化测试XSS漏洞</p>
-</li>
-</ul>
-<h1 id="可能存在XSS漏洞点"><a href="#可能存在XSS漏洞点" class="headerlink" title="可能存在XSS漏洞点"></a>可能存在XSS漏洞点</h1><ul>
-<li>用户能够输入提交数据的地方，文本框，url，请求头等等</li>
-</ul>
-<h1 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h1><ul>
-<li><p>如劫持用户会话，插入恶意内容、重定向用户、使用恶意软件劫持用户浏览器、繁殖XSS蠕虫，甚至破坏网站、修改路由器配置信息等。</p>
-</li>
-<li><p>XSS实质上就是JS脚本，任何JS脚本能实现的功能，XSS也能实现能做到的Cookie劫持、构造GET和POST请求、XSS钓鱼、识别用户浏览器、识别用户安装的软件等</p>
-</li>
-</ul>
-<h1 id="防范修复"><a href="#防范修复" class="headerlink" title="防范修复"></a>防范修复</h1><ul>
-<li><p>前端采用大型框架Angular,Vue,React等等。</p>
-</li>
-<li><p>用session代替cookie。</p>
-</li>
-<li><p>对于用户输入的数据要严格过滤写入数据库的数据，一定要保证合理过滤。</p>
-</li>
-<li><p>对于所有输出的地方，一定要做好过滤工作，比如采用模版渲染等等。</p>
-</li>
-<li><p>使用Token</p>
-</li>
-<li><p>使用HttpOnly</p>
-</li>
-</ul>
-<h1 id="什么是HttpOnly？"><a href="#什么是HttpOnly？" class="headerlink" title="什么是HttpOnly？"></a>什么是HttpOnly？</h1><ul>
-<li>如果在cookie中设置了HTTPonly属性，那么通过js脚本将无法读取到cookie信息，这样能有效防止XSS攻击。</li>
-</ul>
-<h1 id="绕过httponly"><a href="#绕过httponly" class="headerlink" title="绕过httponly"></a>绕过httponly</h1><ul>
-<li><p>浏览器未保存账号密码：需要XSS产生登录地址，利用表单劫持</p>
-</li>
-<li><p>浏览器保存了账号密码：产生后台的XSS，储存型XSS，如留言等，利用浏览器读取账号密码</p>
-</li>
-</ul>
-<h1 id="如何绕过"><a href="#如何绕过" class="headerlink" title="如何绕过"></a>如何绕过</h1><ul>
-<li><p>修改编码格式</p>
-</li>
-<li><p>加密解密算法</p>
-</li>
-<li><p>结合其他漏洞绕过</p>
-</li>
-<li><p>大小写onerror函数</p>
-</li>
-<li><p>配合平台，例如<a href="http://xssfuzzer.com/">xssfuzzer.com</a>生成语句</p>
-</li>
-<li><p>工具：Xwaf,XSStrike</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>web安全</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SQL注入</title>
     <url>/2022/01/16/SQL%E6%B3%A8%E5%85%A5/</url>
     <content><![CDATA[<h1 id="sql注入是什么？"><a href="#sql注入是什么？" class="headerlink" title="sql注入是什么？"></a>sql注入是什么？</h1><ul>
@@ -494,6 +249,251 @@
 <li><p>9、确认PHP配置文件中的magicquotesgpc选项保持开启</p>
 </li>
 <li><p>10、配置安全狗，阿里云盾，等网络安全公司的产品</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>web安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>XSS跨站脚本攻击</title>
+    <url>/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/</url>
+    <content><![CDATA[<h1 id="什么是XSS-XSS原理"><a href="#什么是XSS-XSS原理" class="headerlink" title="什么是XSS/XSS原理"></a>什么是XSS/XSS原理</h1><ul>
+<li><p>攻击者嵌入恶意脚本代码到用户会访问到的页面中，用户访问该页面的时候，就引起恶意脚本代码的执行，从而达到恶意攻击用户的目的。攻击者可以使用户在浏览器中执行其预定义的恶意脚本，变量接受数据的时候，数据可以写成js脚本代码，进行回显操作</p>
+</li>
+<li><p>本质上属于前端漏洞，产生在浏览器和js代码中的漏洞</p>
+<span id="more"></span></li>
+</ul>
+<h1 id="XSS类型"><a href="#XSS类型" class="headerlink" title="XSS类型"></a>XSS类型</h1><ul>
+<li><p>反射型XSS(非持续型XSS)</p>
+</li>
+<li><p>储存型XSS(持续型XSS）</p>
+</li>
+<li><p>DOM XSS</p>
+</li>
+</ul>
+<h1 id="具体区别"><a href="#具体区别" class="headerlink" title="具体区别"></a>具体区别</h1><ul>
+<li><p>反射型：数据提交过去时，会在代码执行之后直接反馈回来发包x=zzx=&gt;x.php=&gt;回包</p>
+</li>
+<li><p>存储型：数据提交过去时，会在代码执行之后储存到数据库的某个表里，然后反馈回来发包x=zzx=&gt;x.php=&gt;写到数据库某个表=&gt;x.php&gt;回显</p>
+</li>
+<li><p>DOM型：发包x=zzx=&gt;本地浏览器静态前端代码=&gt;x.php</p>
+</li>
+<li><p>反射型和储存型属于后端语言进行数据处理，而DOM型是用js代码进行处理 </p>
+</li>
+</ul>
+<h1 id="三者原理"><a href="#三者原理" class="headerlink" title="三者原理"></a>三者原理</h1><ul>
+<li><p>反射型XSS：应用或API没有对用户输入数据进行验证或没进行转义然后作为HTML的输出的一部分，能够使得攻击者在受害者的浏览器上执行任意HTML和JavaScript。</p>
+</li>
+<li><p>存储型XSS：应用或API存储未格式化的用户输入，且该输入之后会被其他用户或管理员浏览到。</p>
+</li>
+<li><p>DOM XSS：动态包含攻击者可控制数据到页面中的JavaScript框架， 单页应用，API易受DOM XSS。</p>
+</li>
+<li><p>涉及函数类：常见的输出类函数</p>
+</li>
+</ul>
+<h1 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h1><ul>
+<li><p>方法一： 查看代码，查找关键的变量,   客户端将数据传送给Web 服务端一般通过三种方式 Querystring, Form表单，以及cookie.  例如在ASP的程序中，通过Request对象获取客户端的变量。 假如变量没有经过htmlEncode处理， 那么这个变量就存在一个XSS漏洞</p>
+</li>
+<li><p>方法二：xss跨站漏洞测试语句， 在网页中的Textbox或者其他能输入数据的地方，输入测试语句， 看能不能弹出对话框，能弹出的话说明存在XSS漏洞， 在URL中查看有那些变量通过URL把值传给Web服务器， 把这些变量的值退换成测试语句。  然后看是否能执行</p>
+</li>
+<li><p>方法三:  自动化测试XSS漏洞</p>
+</li>
+</ul>
+<h1 id="可能存在XSS漏洞点"><a href="#可能存在XSS漏洞点" class="headerlink" title="可能存在XSS漏洞点"></a>可能存在XSS漏洞点</h1><ul>
+<li>用户能够输入提交数据的地方，文本框，url，请求头等等</li>
+</ul>
+<h1 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h1><ul>
+<li><p>如劫持用户会话，插入恶意内容、重定向用户、使用恶意软件劫持用户浏览器、繁殖XSS蠕虫，甚至破坏网站、修改路由器配置信息等。</p>
+</li>
+<li><p>XSS实质上就是JS脚本，任何JS脚本能实现的功能，XSS也能实现能做到的Cookie劫持、构造GET和POST请求、XSS钓鱼、识别用户浏览器、识别用户安装的软件等</p>
+</li>
+</ul>
+<h1 id="防范修复"><a href="#防范修复" class="headerlink" title="防范修复"></a>防范修复</h1><ul>
+<li><p>前端采用大型框架Angular,Vue,React等等。</p>
+</li>
+<li><p>用session代替cookie。</p>
+</li>
+<li><p>对于用户输入的数据要严格过滤写入数据库的数据，一定要保证合理过滤。</p>
+</li>
+<li><p>对于所有输出的地方，一定要做好过滤工作，比如采用模版渲染等等。</p>
+</li>
+<li><p>使用Token</p>
+</li>
+<li><p>使用HttpOnly</p>
+</li>
+</ul>
+<h1 id="什么是HttpOnly？"><a href="#什么是HttpOnly？" class="headerlink" title="什么是HttpOnly？"></a>什么是HttpOnly？</h1><ul>
+<li>如果在cookie中设置了HTTPonly属性，那么通过js脚本将无法读取到cookie信息，这样能有效防止XSS攻击。</li>
+</ul>
+<h1 id="绕过httponly"><a href="#绕过httponly" class="headerlink" title="绕过httponly"></a>绕过httponly</h1><ul>
+<li><p>浏览器未保存账号密码：需要XSS产生登录地址，利用表单劫持</p>
+</li>
+<li><p>浏览器保存了账号密码：产生后台的XSS，储存型XSS，如留言等，利用浏览器读取账号密码</p>
+</li>
+</ul>
+<h1 id="如何绕过"><a href="#如何绕过" class="headerlink" title="如何绕过"></a>如何绕过</h1><ul>
+<li><p>修改编码格式</p>
+</li>
+<li><p>加密解密算法</p>
+</li>
+<li><p>结合其他漏洞绕过</p>
+</li>
+<li><p>大小写onerror函数</p>
+</li>
+<li><p>配合平台，例如<a href="http://xssfuzzer.com/">xssfuzzer.com</a>生成语句</p>
+</li>
+<li><p>工具：Xwaf,XSStrike</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>web安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>逻辑越权</title>
+    <url>/2022/01/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83/</url>
+    <content><![CDATA[<h1 id="逻辑漏洞"><a href="#逻辑漏洞" class="headerlink" title="逻辑漏洞"></a><strong>逻辑漏洞</strong></h1><ul>
+<li> 攻击者利用业务的设计缺陷，获取敏感信息或破坏业务的完整性， 其本质就是程序逻辑输入管控不严，没有对用户数据进行严格把控，导致程序不能够正常处理或处理错误，一般出现在登录注册、密码找回、信息查看、交易支付金额等。<span id="more"></span></li>
+</ul>
+<h1 id="逻辑漏洞类型"><a href="#逻辑漏洞类型" class="headerlink" title="逻辑漏洞类型"></a>逻辑漏洞类型</h1><h2 id="越权"><a href="#越权" class="headerlink" title="越权"></a>越权</h2><h3 id="水平越权"><a href="#水平越权" class="headerlink" title="水平越权"></a>水平越权</h3><ul>
+<li>漏洞介绍：即普通用户/管理员能访问其他普通用户/管理员才能够访问的系统信息或者系统功能</li>
+<li>形成原因：在进行方法调用时候未进行请求用户和目标信息拥有者是否匹配一致，直接用userid/email之类的容易遍历的参数进行数据库查询</li>
+<li>漏洞点：在普通用户/管理员登录后的能访问的链接或者功能中都可能存在</li>
+<li>漏洞修复：在权限管理中，平行越权的权限管理颗粒度最小修复思路需要在方法中进行相关的获取请求request再利用getAttribute(“userid”)获取其userid直接使用该userid作为参数进行数据增删查改，避免userid参数传输</li>
+</ul>
+<h3 id="垂直越权"><a href="#垂直越权" class="headerlink" title="垂直越权"></a>垂直越权</h3><ul>
+<li><p>漏洞介绍：即普通用户能够访问管理员甚至超级管理员才能够访问的系统信息或者系统功能</p>
+</li>
+<li><p>形成原因：程序再方法调用时候，缺少角色等级校验</p>
+</li>
+<li><p>漏洞点：在任何用户登录后才能访问的链接或者功能中都可能存在对每一个传输的参数都要了解参数的目的，尝试将用户名改为admin尝试绕过</p>
+</li>
+<li><p>漏洞修复：需要校验用户是否有权限访问这个方法修复思路：获取请求request再利用getAuttribute(“roleid”)获取其角色等级检查角色等级是否合法，错误则直接返回错误跳转，返回页面必须仍然从Attribute中获取userid再进一步查询相关信息值得注意的是切勿将错误跳转写到Javascript里面，还返回目标URL页面的相关信息。</p>
+</li>
+</ul>
+<h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><h3 id="本地加密传输"><a href="#本地加密传输" class="headerlink" title="本地加密传输"></a>本地加密传输</h3><h3 id="cookie脆弱"><a href="#cookie脆弱" class="headerlink" title="cookie脆弱"></a>cookie脆弱</h3><ul>
+<li><p>漏洞介绍：通过伪造cookie信息能够伪造其他用户进行登录。</p>
+</li>
+<li><p>漏洞原理：开发者为了方便将身份信息/登录信息明文或者只是简单编码、哈希之后存放在cookies中，网站通过获取得到的cookies进行授权或者身份验证</p>
+</li>
+<li><p>漏洞点：cookie中有明显或者只是简单编码、哈希的字段时候 修改lsLogin值为1可以判定为用户已经登录 修改cookie为asp163=UserName=admin</p>
+</li>
+<li><p>漏洞修复： Cookie不应该存储可理解的身份信息和登录信息 按照规定，cookie对身份信息和登录信息的存储只能通过存储足够长度的随机字符串进行，避免篡改</p>
+</li>
+</ul>
+<h3 id="Session劫持"><a href="#Session劫持" class="headerlink" title="Session劫持"></a>Session劫持</h3><ul>
+<li><p>漏洞介绍：会话固定攻击是利用服务器的session不变机制，借他人之手获得认证和授权，然后冒充他人</p>
+</li>
+<li><p>漏洞原理：在请求登录过程时候，URL带有一个session，登录成功之后会将登录成功的信息绑定到这个session中，攻击者可以发送带有session的URL给相关工作人员诱导其登录，相当于获取了其身份信息</p>
+</li>
+<li><p>漏洞点：在GET方法请求登录时候带有session值</p>
+</li>
+<li><p>修复思路：只要避免在URL中带入session信息即可比较有效的防御另外也要注意POST请求中带有sessionid进行session固定攻击，虽然可利用性比较低，但是建议修复</p>
+</li>
+</ul>
+<h3 id="密文对比认证"><a href="#密文对比认证" class="headerlink" title="密文对比认证"></a>密文对比认证</h3><h3 id="暴力破解"><a href="#暴力破解" class="headerlink" title="暴力破解"></a>暴力破解</h3><ul>
+<li><p>漏洞介绍：攻击者可以通过该漏洞获取用户名和对应弱口令密码，并进行登录操作漏洞原理：由于没有设置登录失败次数限制，导致攻击者可以通过口令字典进行特定用户的密码爆破或通过用户名字典进行特定弱口令的用户枚举</p>
+</li>
+<li><p>漏洞点：系统登录点</p>
+</li>
+<li><p>漏洞修复： 对于固定用户名爆破密码可以针对用户名进行错误次数计算，高于一定阈值账号锁定一段时间，或者添加验证码但是不能永久锁定，可能被用来进行账户恶意锁定对于固定密码枚举用户名、 需要计算IP对URL的请求情况，某个IP短时间大量请求登录应该加入黑名单 进行传输数据加密有一定的防护效果</p>
+</li>
+</ul>
+<h2 id="业务"><a href="#业务" class="headerlink" title="业务"></a>业务</h2><h3 id="订单ID"><a href="#订单ID" class="headerlink" title="订单ID"></a>订单ID</h3><h3 id="用户ID"><a href="#用户ID" class="headerlink" title="用户ID"></a>用户ID</h3><ul>
+<li>在支付当中会出现当前用户的ID，比如：username=XXXXX，如果没有加以验证，其支付也是一次性支付没有要求输入密码什么的机制，那么就可以修改这个用户ID为其它用户ID，达到用其他用户的账号进行支付你的商品。</li>
+</ul>
+<h3 id="订单号码"><a href="#订单号码" class="headerlink" title="订单号码"></a>订单号码</h3><h3 id="商品ID"><a href="#商品ID" class="headerlink" title="商品ID"></a>商品ID</h3><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><h3 id="暴力破解-1"><a href="#暴力破解-1" class="headerlink" title="暴力破解"></a>暴力破解</h3><ul>
+<li><p>漏洞介绍：攻击者可以通过该漏洞获取用户名和对应弱口令密码，并进行登录操作</p>
+</li>
+<li><p>漏洞原理：由于没有设置登录失败次数限制，导致攻击者可以通过口令字典进行特定用户的密码爆破或通过用户名字典进行特定弱口令的用户枚举 </p>
+</li>
+<li><p>漏洞点：系统登录点</p>
+</li>
+<li><p>漏洞修复： 对于固定用户名爆破密码可以针对用户名进行错误次数计算，高于一定阈值账号锁定一段时间，或者添加验证码但是不能永久锁定，可能被用来进行账户恶意锁定对于固定密码枚举用户名、 需要计算IP对URL的请求情况，某个IP短时间大量请求登录应该加入黑名单 进行传输数据加密有一定的防护效果</p>
+</li>
+</ul>
+<h3 id="绕过验证"><a href="#绕过验证" class="headerlink" title="绕过验证"></a>绕过验证</h3><ul>
+<li><p>漏洞介绍：攻击者通过篡改分步逻辑中的步骤数字，达到绕过支付、校验等效果</p>
+</li>
+<li><p>漏洞原理：程序逻辑分布进行，但是对步骤、验证信息、支付信息没有做好严格校验，导致修改步骤就直接绕过验证或者支付</p>
+</li>
+<li><p>漏洞点：任何分布逻辑且带步骤数字，或者利用JS进行步骤控制的功能中</p>
+</li>
+<li><p>漏洞修复：在请求最后一步时候需要带入前面的验证信息，服务端再进行一次校验信息的验证，验证正确方能继续执行数据操作也可以及通过getAttributr(“userid”)获取userid进行userid和验证结果绑定，最后一步不带入验证信息，但是仍然要获取userid进行校验再最后一步通过验证之后或者服务器收到支付信息后再生成相应的数据交给用户</p>
+</li>
+</ul>
+<h3 id="自动识别"><a href="#自动识别" class="headerlink" title="自动识别"></a>自动识别</h3><h3 id="图形验证码绕过"><a href="#图形验证码绕过" class="headerlink" title="图形验证码绕过"></a>图形验证码绕过</h3><ul>
+<li><p>漏洞介绍：攻击者通过突破图形验证码的验证，可以实现如登录爆破、验证码绕过等攻击</p>
+</li>
+<li><p>漏洞原理：图形验证码在错误后未失效返回验证码信息分步验证验证码</p>
+</li>
+<li><p>漏洞点：任何存在图形验证码的功能中</p>
+</li>
+<li><p>漏洞修复一旦验证码使用过了，必须要进行删除，重新生成验证码，可以梵高attribute中验证码需要设置超时，时间一到立即删除旧验证码，用户需要获取新的验证码验证码只需要返回图片，切勿将生成验证码的字符串也一并返回验证码不应该进行分布校验，应该连同请求数据一起发送到目标服务器进行校验，服务器校验通过则返回合法数据，否则返回错误</p>
+</li>
+</ul>
+<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><h3 id="支付篡改"><a href="#支付篡改" class="headerlink" title="支付篡改"></a>支付篡改</h3><ul>
+<li>在支付当中，购买商品一般分为三步骤：订购、确认信息、付款。那么这个修改价格具体是修改哪一步时的价格呢？可以在这三个步骤当中的随便一个步骤进行修改价格测试，如果前面两步有验证机制，那么可在最后一步付款时进行抓包尝试修改金额，如果没有在最后一步做好检验，那么问题就会存在，其修改的金额值你可以尝试小数目或者尝试负数。</li>
+</ul>
+<h3 id="数量篡改"><a href="#数量篡改" class="headerlink" title="数量篡改"></a>数量篡改</h3><ul>
+<li>在支付的过程中，数量也同时决定着价格，比如：1个数量商品对应的是100，2个数据就是200，那么当你修改这个值数量值为负数时，那么其金额也会变为负数，最后就会导致支付问题的产生。</li>
+</ul>
+<h3 id="请求重放"><a href="#请求重放" class="headerlink" title="请求重放"></a>请求重放</h3><ul>
+<li><p>漏洞介绍：通过数据包重放，可以造成短信轰炸、邮件轰炸、重复提交订单等</p>
+</li>
+<li><p>漏洞原理：后台未进行相关操作的技术导致数据包重放</p>
+</li>
+<li><p>漏洞点：短信验证码、邮件校验、提交订单等功能。</p>
+</li>
+<li><p>修复方案：修复思路（针对短信、邮件）构造一个Hashmap&lt;String，short&gt;，存放邮箱或电话号码及对应次数只要某个邮箱或者电话号码次数够了，就不能继续发送了或者计算两次发送的时间间隔，时间过短就不继续发送了通用修复方案需要建立token机制或验证码机制，一次有效</p>
+</li>
+</ul>
+<h3 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a>其他</h3><h2 id="找回机制"><a href="#找回机制" class="headerlink" title="找回机制"></a>找回机制</h2><h3 id="客户端回显"><a href="#客户端回显" class="headerlink" title="客户端回显"></a>客户端回显</h3><h3 id="Response状态值"><a href="#Response状态值" class="headerlink" title="Response状态值"></a>Response状态值</h3><h3 id="Session覆盖"><a href="#Session覆盖" class="headerlink" title="Session覆盖"></a>Session覆盖</h3><h3 id="弱Token缺陷"><a href="#弱Token缺陷" class="headerlink" title="弱Token缺陷"></a>弱Token缺陷</h3><ul>
+<li>token可爆破</li>
+</ul>
+<h3 id="找回流程绕过"><a href="#找回流程绕过" class="headerlink" title="找回流程绕过"></a>找回流程绕过</h3><ul>
+<li>通过两个不同账号的找回，获得验证码之后部分的数据包，而另一个账号找回密码时跳过验证码的部分直接进入成功验证之后的部分，等</li>
+</ul>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><h3 id="调用遍历"><a href="#调用遍历" class="headerlink" title="调用遍历"></a>调用遍历</h3><h3 id="参数篡改"><a href="#参数篡改" class="headerlink" title="参数篡改"></a>参数篡改</h3><ul>
+<li><p>漏洞介绍：攻击者通过进行数值篡改进行攻击，从而获利</p>
+</li>
+<li><p>漏洞原理：没有对传输数据添加相关的校验参数后台未对参数值进行校验并直接使用数据包中的参数</p>
+</li>
+<li><p>漏洞点：抽奖、购买、转账、返现等功能</p>
+</li>
+<li><p>漏洞修复：对于软件来说，需要保护好内存数据，防止内存数据篡改计算传输数据的哈希，并将哈希附加在传输数据中作为校验值，避免被篡改先校验数值，防止大整数和负数；接着利用传输的商品ID从数据库中获取商品单价重新进行价格计算；最后生成订单（订单号应为随机值）</p>
+</li>
+</ul>
+<h3 id="未授权访问"><a href="#未授权访问" class="headerlink" title="未授权访问"></a>未授权访问</h3><ul>
+<li><p>漏洞介绍：即游客能够访问普通用户甚至超级管理员才能访问的系统信息或者系统功能</p>
+</li>
+<li><p>形成原因：主要是系统设计期间没有进行全局用户身份校验；或者校验存在缺陷</p>
+</li>
+<li><p>漏洞点：在任何用户登录后才能访问的链接或者功能中都可能存在</p>
+</li>
+<li><p>漏洞修复：J2EE中存在filter，可以获取用户的cookie等信息修复思路：建立LoginList，值是当前在线用户的id对所有需要登录访问到URL，获取请求request再利用 getAttribute(“userid”) 获取其userid检查userid是否存在于LoginList中，不存在则直接返回错误跳转值得注意的是切勿将错误跳转写到Javascript里面，还返回目标URL页面的相关信息</p>
+</li>
+</ul>
+<h3 id="Webservice测试"><a href="#Webservice测试" class="headerlink" title="Webservice测试"></a>Webservice测试</h3><h3 id="callback自定义"><a href="#callback自定义" class="headerlink" title="callback自定义"></a>callback自定义</h3><h2 id="回退"><a href="#回退" class="headerlink" title="回退"></a>回退</h2><ul>
+<li><h3 id="回退重放"><a href="#回退重放" class="headerlink" title="回退重放"></a>回退重放</h3></li>
+</ul>
+<h2 id="条件竞争"><a href="#条件竞争" class="headerlink" title="条件竞争"></a>条件竞争</h2><ul>
+<li><p>漏洞介绍：可以通过同时重放大量数据包进行漏洞利用，通常用于突破限量、限额的问题都有奇效</p>
+</li>
+<li><p>漏洞原理：由于目标函数中，判断与数据修复两个步骤之间，或者两个数据修改步骤之间存在时间差，且函数未进行同步锁定，则可以造成漏洞</p>
+</li>
+<li><p>漏洞点：程序中存在限制，可以猜测到后台有判断与修改操作的方法</p>
+</li>
+<li><p>漏洞修复：修复思路：使用synchronized关键字，可以限制同一时间内访问方法的只有单一线程并不是每个条件竞争都必须修复</p>
 </li>
 </ul>
 ]]></content>
