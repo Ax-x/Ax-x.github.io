@@ -6,7 +6,7 @@
   <link href="https://ax-x.github.io/atom.xml" rel="self"/>
   
   <link href="https://ax-x.github.io/"/>
-  <updated>2022-01-17T14:57:49.665Z</updated>
+  <updated>2022-01-20T09:13:16.535Z</updated>
   <id>https://ax-x.github.io/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>安全小白怎么从零开始拥有自己的武器库</title>
+    <link href="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/"/>
+    <id>https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/</id>
+    <published>2022-01-20T08:47:24.000Z</published>
+    <updated>2022-01-20T09:13:16.535Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;一、前言&quot;&gt;&lt;a href=&quot;#一、前言&quot; class=&quot;headerlink&quot; title=&quot;一、前言&quot;&gt;&lt;/a&gt;一、前言&lt;/h1&gt;&lt;p&gt;前些日子跟个大佬搞攻防，看着大佬超神我超鬼，不得不佩服大佬，看着大佬用的很多工具都没见过，问了下这些工具是啥，大佬掏出了他的大宝贝给我看，嚯，好家伙，一整个文件夹都是自己开发的工具还有一些魔改的工具，属实羡慕，看着大佬那些工具，陷入沉思，是不是我也可以有自己的武器库🤨总不能当伸手党吧，而且还能熟悉语言，增强自己在代码审计那块的。刚好之前搞过一段时间的开发，对于开发一些工具啥的还是有自己的想法的，说干就干，这个系列是写安全小白怎么从零开始拥有自己的一个工具库的文章，在开发方面我也是菜鸟，所以可能有些工具的开发思路跟那些流行的工具思路可能不一样，有哪写得不好的地方，希望大佬们能带带我。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="安全开发" scheme="https://ax-x.github.io/categories/%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="安全工具" scheme="https://ax-x.github.io/tags/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>XSS跨站脚本攻击</title>
