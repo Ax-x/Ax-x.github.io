@@ -13,6 +13,105 @@
       </tags>
   </entry>
   <entry>
+    <title>XSS跨站脚本攻击</title>
+    <url>/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/</url>
+    <content><![CDATA[<h1 id="什么是XSS-XSS原理"><a href="#什么是XSS-XSS原理" class="headerlink" title="什么是XSS/XSS原理"></a>什么是XSS/XSS原理</h1><ul>
+<li><p>攻击者嵌入恶意脚本代码到用户会访问到的页面中，用户访问该页面的时候，就引起恶意脚本代码的执行，从而达到恶意攻击用户的目的。攻击者可以使用户在浏览器中执行其预定义的恶意脚本，变量接受数据的时候，数据可以写成js脚本代码，进行回显操作</p>
+</li>
+<li><p>本质上属于前端漏洞，产生在浏览器和js代码中的漏洞</p>
+<span id="more"></span></li>
+</ul>
+<h1 id="XSS类型"><a href="#XSS类型" class="headerlink" title="XSS类型"></a>XSS类型</h1><ul>
+<li><p>反射型XSS(非持续型XSS)</p>
+</li>
+<li><p>储存型XSS(持续型XSS）</p>
+</li>
+<li><p>DOM XSS</p>
+</li>
+</ul>
+<h1 id="具体区别"><a href="#具体区别" class="headerlink" title="具体区别"></a>具体区别</h1><ul>
+<li><p>反射型：数据提交过去时，会在代码执行之后直接反馈回来发包x=zzx=&gt;x.php=&gt;回包</p>
+</li>
+<li><p>存储型：数据提交过去时，会在代码执行之后储存到数据库的某个表里，然后反馈回来发包x=zzx=&gt;x.php=&gt;写到数据库某个表=&gt;x.php&gt;回显</p>
+</li>
+<li><p>DOM型：发包x=zzx=&gt;本地浏览器静态前端代码=&gt;x.php</p>
+</li>
+<li><p>反射型和储存型属于后端语言进行数据处理，而DOM型是用js代码进行处理 </p>
+</li>
+</ul>
+<h1 id="三者原理"><a href="#三者原理" class="headerlink" title="三者原理"></a>三者原理</h1><ul>
+<li><p>反射型XSS：应用或API没有对用户输入数据进行验证或没进行转义然后作为HTML的输出的一部分，能够使得攻击者在受害者的浏览器上执行任意HTML和JavaScript。</p>
+</li>
+<li><p>存储型XSS：应用或API存储未格式化的用户输入，且该输入之后会被其他用户或管理员浏览到。</p>
+</li>
+<li><p>DOM XSS：动态包含攻击者可控制数据到页面中的JavaScript框架， 单页应用，API易受DOM XSS。</p>
+</li>
+<li><p>涉及函数类：常见的输出类函数</p>
+</li>
+</ul>
+<h1 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h1><ul>
+<li><p>方法一： 查看代码，查找关键的变量,   客户端将数据传送给Web 服务端一般通过三种方式 Querystring, Form表单，以及cookie.  例如在ASP的程序中，通过Request对象获取客户端的变量。 假如变量没有经过htmlEncode处理， 那么这个变量就存在一个XSS漏洞</p>
+</li>
+<li><p>方法二：xss跨站漏洞测试语句， 在网页中的Textbox或者其他能输入数据的地方，输入测试语句， 看能不能弹出对话框，能弹出的话说明存在XSS漏洞， 在URL中查看有那些变量通过URL把值传给Web服务器， 把这些变量的值退换成测试语句。  然后看是否能执行</p>
+</li>
+<li><p>方法三:  自动化测试XSS漏洞</p>
+</li>
+</ul>
+<h1 id="可能存在XSS漏洞点"><a href="#可能存在XSS漏洞点" class="headerlink" title="可能存在XSS漏洞点"></a>可能存在XSS漏洞点</h1><ul>
+<li>用户能够输入提交数据的地方，文本框，url，请求头等等</li>
+</ul>
+<h1 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h1><ul>
+<li><p>如劫持用户会话，插入恶意内容、重定向用户、使用恶意软件劫持用户浏览器、繁殖XSS蠕虫，甚至破坏网站、修改路由器配置信息等。</p>
+</li>
+<li><p>XSS实质上就是JS脚本，任何JS脚本能实现的功能，XSS也能实现能做到的Cookie劫持、构造GET和POST请求、XSS钓鱼、识别用户浏览器、识别用户安装的软件等</p>
+</li>
+</ul>
+<h1 id="防范修复"><a href="#防范修复" class="headerlink" title="防范修复"></a>防范修复</h1><ul>
+<li><p>前端采用大型框架Angular,Vue,React等等。</p>
+</li>
+<li><p>用session代替cookie。</p>
+</li>
+<li><p>对于用户输入的数据要严格过滤写入数据库的数据，一定要保证合理过滤。</p>
+</li>
+<li><p>对于所有输出的地方，一定要做好过滤工作，比如采用模版渲染等等。</p>
+</li>
+<li><p>使用Token</p>
+</li>
+<li><p>使用HttpOnly</p>
+</li>
+</ul>
+<h1 id="什么是HttpOnly？"><a href="#什么是HttpOnly？" class="headerlink" title="什么是HttpOnly？"></a>什么是HttpOnly？</h1><ul>
+<li>如果在cookie中设置了HTTPonly属性，那么通过js脚本将无法读取到cookie信息，这样能有效防止XSS攻击。</li>
+</ul>
+<h1 id="绕过httponly"><a href="#绕过httponly" class="headerlink" title="绕过httponly"></a>绕过httponly</h1><ul>
+<li><p>浏览器未保存账号密码：需要XSS产生登录地址，利用表单劫持</p>
+</li>
+<li><p>浏览器保存了账号密码：产生后台的XSS，储存型XSS，如留言等，利用浏览器读取账号密码</p>
+</li>
+</ul>
+<h1 id="如何绕过"><a href="#如何绕过" class="headerlink" title="如何绕过"></a>如何绕过</h1><ul>
+<li><p>修改编码格式</p>
+</li>
+<li><p>加密解密算法</p>
+</li>
+<li><p>结合其他漏洞绕过</p>
+</li>
+<li><p>大小写onerror函数</p>
+</li>
+<li><p>配合平台，例如<a href="http://xssfuzzer.com/">xssfuzzer.com</a>生成语句</p>
+</li>
+<li><p>工具：Xwaf,XSStrike</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>web安全</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SQL注入</title>
     <url>/2022/01/16/SQL%E6%B3%A8%E5%85%A5/</url>
     <content><![CDATA[<h1 id="sql注入是什么？"><a href="#sql注入是什么？" class="headerlink" title="sql注入是什么？"></a>sql注入是什么？</h1><ul>
@@ -261,105 +360,6 @@
 <li><p>9、确认PHP配置文件中的magicquotesgpc选项保持开启</p>
 </li>
 <li><p>10、配置安全狗，阿里云盾，等网络安全公司的产品</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>web安全</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>XSS跨站脚本攻击</title>
-    <url>/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/</url>
-    <content><![CDATA[<h1 id="什么是XSS-XSS原理"><a href="#什么是XSS-XSS原理" class="headerlink" title="什么是XSS/XSS原理"></a>什么是XSS/XSS原理</h1><ul>
-<li><p>攻击者嵌入恶意脚本代码到用户会访问到的页面中，用户访问该页面的时候，就引起恶意脚本代码的执行，从而达到恶意攻击用户的目的。攻击者可以使用户在浏览器中执行其预定义的恶意脚本，变量接受数据的时候，数据可以写成js脚本代码，进行回显操作</p>
-</li>
-<li><p>本质上属于前端漏洞，产生在浏览器和js代码中的漏洞</p>
-<span id="more"></span></li>
-</ul>
-<h1 id="XSS类型"><a href="#XSS类型" class="headerlink" title="XSS类型"></a>XSS类型</h1><ul>
-<li><p>反射型XSS(非持续型XSS)</p>
-</li>
-<li><p>储存型XSS(持续型XSS）</p>
-</li>
-<li><p>DOM XSS</p>
-</li>
-</ul>
-<h1 id="具体区别"><a href="#具体区别" class="headerlink" title="具体区别"></a>具体区别</h1><ul>
-<li><p>反射型：数据提交过去时，会在代码执行之后直接反馈回来发包x=zzx=&gt;x.php=&gt;回包</p>
-</li>
-<li><p>存储型：数据提交过去时，会在代码执行之后储存到数据库的某个表里，然后反馈回来发包x=zzx=&gt;x.php=&gt;写到数据库某个表=&gt;x.php&gt;回显</p>
-</li>
-<li><p>DOM型：发包x=zzx=&gt;本地浏览器静态前端代码=&gt;x.php</p>
-</li>
-<li><p>反射型和储存型属于后端语言进行数据处理，而DOM型是用js代码进行处理 </p>
-</li>
-</ul>
-<h1 id="三者原理"><a href="#三者原理" class="headerlink" title="三者原理"></a>三者原理</h1><ul>
-<li><p>反射型XSS：应用或API没有对用户输入数据进行验证或没进行转义然后作为HTML的输出的一部分，能够使得攻击者在受害者的浏览器上执行任意HTML和JavaScript。</p>
-</li>
-<li><p>存储型XSS：应用或API存储未格式化的用户输入，且该输入之后会被其他用户或管理员浏览到。</p>
-</li>
-<li><p>DOM XSS：动态包含攻击者可控制数据到页面中的JavaScript框架， 单页应用，API易受DOM XSS。</p>
-</li>
-<li><p>涉及函数类：常见的输出类函数</p>
-</li>
-</ul>
-<h1 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h1><ul>
-<li><p>方法一： 查看代码，查找关键的变量,   客户端将数据传送给Web 服务端一般通过三种方式 Querystring, Form表单，以及cookie.  例如在ASP的程序中，通过Request对象获取客户端的变量。 假如变量没有经过htmlEncode处理， 那么这个变量就存在一个XSS漏洞</p>
-</li>
-<li><p>方法二：xss跨站漏洞测试语句， 在网页中的Textbox或者其他能输入数据的地方，输入测试语句， 看能不能弹出对话框，能弹出的话说明存在XSS漏洞， 在URL中查看有那些变量通过URL把值传给Web服务器， 把这些变量的值退换成测试语句。  然后看是否能执行</p>
-</li>
-<li><p>方法三:  自动化测试XSS漏洞</p>
-</li>
-</ul>
-<h1 id="可能存在XSS漏洞点"><a href="#可能存在XSS漏洞点" class="headerlink" title="可能存在XSS漏洞点"></a>可能存在XSS漏洞点</h1><ul>
-<li>用户能够输入提交数据的地方，文本框，url，请求头等等</li>
-</ul>
-<h1 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h1><ul>
-<li><p>如劫持用户会话，插入恶意内容、重定向用户、使用恶意软件劫持用户浏览器、繁殖XSS蠕虫，甚至破坏网站、修改路由器配置信息等。</p>
-</li>
-<li><p>XSS实质上就是JS脚本，任何JS脚本能实现的功能，XSS也能实现能做到的Cookie劫持、构造GET和POST请求、XSS钓鱼、识别用户浏览器、识别用户安装的软件等</p>
-</li>
-</ul>
-<h1 id="防范修复"><a href="#防范修复" class="headerlink" title="防范修复"></a>防范修复</h1><ul>
-<li><p>前端采用大型框架Angular,Vue,React等等。</p>
-</li>
-<li><p>用session代替cookie。</p>
-</li>
-<li><p>对于用户输入的数据要严格过滤写入数据库的数据，一定要保证合理过滤。</p>
-</li>
-<li><p>对于所有输出的地方，一定要做好过滤工作，比如采用模版渲染等等。</p>
-</li>
-<li><p>使用Token</p>
-</li>
-<li><p>使用HttpOnly</p>
-</li>
-</ul>
-<h1 id="什么是HttpOnly？"><a href="#什么是HttpOnly？" class="headerlink" title="什么是HttpOnly？"></a>什么是HttpOnly？</h1><ul>
-<li>如果在cookie中设置了HTTPonly属性，那么通过js脚本将无法读取到cookie信息，这样能有效防止XSS攻击。</li>
-</ul>
-<h1 id="绕过httponly"><a href="#绕过httponly" class="headerlink" title="绕过httponly"></a>绕过httponly</h1><ul>
-<li><p>浏览器未保存账号密码：需要XSS产生登录地址，利用表单劫持</p>
-</li>
-<li><p>浏览器保存了账号密码：产生后台的XSS，储存型XSS，如留言等，利用浏览器读取账号密码</p>
-</li>
-</ul>
-<h1 id="如何绕过"><a href="#如何绕过" class="headerlink" title="如何绕过"></a>如何绕过</h1><ul>
-<li><p>修改编码格式</p>
-</li>
-<li><p>加密解密算法</p>
-</li>
-<li><p>结合其他漏洞绕过</p>
-</li>
-<li><p>大小写onerror函数</p>
-</li>
-<li><p>配合平台，例如<a href="http://xssfuzzer.com/">xssfuzzer.com</a>生成语句</p>
-</li>
-<li><p>工具：Xwaf,XSStrike</p>
 </li>
 </ul>
 ]]></content>
