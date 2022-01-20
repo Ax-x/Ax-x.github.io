@@ -1,117 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>First Blog</title>
-    <url>/2022/01/01/First%20Blog/</url>
-    <content><![CDATA[<p>Welcome to my blog! I’m glad to make friends with you. If you can browse my website, I will be grateful. In the future, I will upload my records and learning contents here. I hope the boss will take me with me！</p>
-]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>XSS跨站脚本攻击</title>
-    <url>/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/</url>
-    <content><![CDATA[<h1 id="什么是XSS-XSS原理"><a href="#什么是XSS-XSS原理" class="headerlink" title="什么是XSS/XSS原理"></a>什么是XSS/XSS原理</h1><ul>
-<li><p>攻击者嵌入恶意脚本代码到用户会访问到的页面中，用户访问该页面的时候，就引起恶意脚本代码的执行，从而达到恶意攻击用户的目的。攻击者可以使用户在浏览器中执行其预定义的恶意脚本，变量接受数据的时候，数据可以写成js脚本代码，进行回显操作</p>
-</li>
-<li><p>本质上属于前端漏洞，产生在浏览器和js代码中的漏洞</p>
-<span id="more"></span></li>
-</ul>
-<h1 id="XSS类型"><a href="#XSS类型" class="headerlink" title="XSS类型"></a>XSS类型</h1><ul>
-<li><p>反射型XSS(非持续型XSS)</p>
-</li>
-<li><p>储存型XSS(持续型XSS）</p>
-</li>
-<li><p>DOM XSS</p>
-</li>
-</ul>
-<h1 id="具体区别"><a href="#具体区别" class="headerlink" title="具体区别"></a>具体区别</h1><ul>
-<li><p>反射型：数据提交过去时，会在代码执行之后直接反馈回来发包x=zzx=&gt;x.php=&gt;回包</p>
-</li>
-<li><p>存储型：数据提交过去时，会在代码执行之后储存到数据库的某个表里，然后反馈回来发包x=zzx=&gt;x.php=&gt;写到数据库某个表=&gt;x.php&gt;回显</p>
-</li>
-<li><p>DOM型：发包x=zzx=&gt;本地浏览器静态前端代码=&gt;x.php</p>
-</li>
-<li><p>反射型和储存型属于后端语言进行数据处理，而DOM型是用js代码进行处理 </p>
-</li>
-</ul>
-<h1 id="三者原理"><a href="#三者原理" class="headerlink" title="三者原理"></a>三者原理</h1><ul>
-<li><p>反射型XSS：应用或API没有对用户输入数据进行验证或没进行转义然后作为HTML的输出的一部分，能够使得攻击者在受害者的浏览器上执行任意HTML和JavaScript。</p>
-</li>
-<li><p>存储型XSS：应用或API存储未格式化的用户输入，且该输入之后会被其他用户或管理员浏览到。</p>
-</li>
-<li><p>DOM XSS：动态包含攻击者可控制数据到页面中的JavaScript框架， 单页应用，API易受DOM XSS。</p>
-</li>
-<li><p>涉及函数类：常见的输出类函数</p>
-</li>
-</ul>
-<h1 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h1><ul>
-<li><p>方法一： 查看代码，查找关键的变量,   客户端将数据传送给Web 服务端一般通过三种方式 Querystring, Form表单，以及cookie.  例如在ASP的程序中，通过Request对象获取客户端的变量。 假如变量没有经过htmlEncode处理， 那么这个变量就存在一个XSS漏洞</p>
-</li>
-<li><p>方法二：xss跨站漏洞测试语句， 在网页中的Textbox或者其他能输入数据的地方，输入测试语句， 看能不能弹出对话框，能弹出的话说明存在XSS漏洞， 在URL中查看有那些变量通过URL把值传给Web服务器， 把这些变量的值退换成测试语句。  然后看是否能执行</p>
-</li>
-<li><p>方法三:  自动化测试XSS漏洞</p>
-</li>
-</ul>
-<h1 id="可能存在XSS漏洞点"><a href="#可能存在XSS漏洞点" class="headerlink" title="可能存在XSS漏洞点"></a>可能存在XSS漏洞点</h1><ul>
-<li>用户能够输入提交数据的地方，文本框，url，请求头等等</li>
-</ul>
-<h1 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h1><ul>
-<li><p>如劫持用户会话，插入恶意内容、重定向用户、使用恶意软件劫持用户浏览器、繁殖XSS蠕虫，甚至破坏网站、修改路由器配置信息等。</p>
-</li>
-<li><p>XSS实质上就是JS脚本，任何JS脚本能实现的功能，XSS也能实现能做到的Cookie劫持、构造GET和POST请求、XSS钓鱼、识别用户浏览器、识别用户安装的软件等</p>
-</li>
-</ul>
-<h1 id="防范修复"><a href="#防范修复" class="headerlink" title="防范修复"></a>防范修复</h1><ul>
-<li><p>前端采用大型框架Angular,Vue,React等等。</p>
-</li>
-<li><p>用session代替cookie。</p>
-</li>
-<li><p>对于用户输入的数据要严格过滤写入数据库的数据，一定要保证合理过滤。</p>
-</li>
-<li><p>对于所有输出的地方，一定要做好过滤工作，比如采用模版渲染等等。</p>
-</li>
-<li><p>使用Token</p>
-</li>
-<li><p>使用HttpOnly</p>
-</li>
-</ul>
-<h1 id="什么是HttpOnly？"><a href="#什么是HttpOnly？" class="headerlink" title="什么是HttpOnly？"></a>什么是HttpOnly？</h1><ul>
-<li>如果在cookie中设置了HTTPonly属性，那么通过js脚本将无法读取到cookie信息，这样能有效防止XSS攻击。</li>
-</ul>
-<h1 id="绕过httponly"><a href="#绕过httponly" class="headerlink" title="绕过httponly"></a>绕过httponly</h1><ul>
-<li><p>浏览器未保存账号密码：需要XSS产生登录地址，利用表单劫持</p>
-</li>
-<li><p>浏览器保存了账号密码：产生后台的XSS，储存型XSS，如留言等，利用浏览器读取账号密码</p>
-</li>
-</ul>
-<h1 id="如何绕过"><a href="#如何绕过" class="headerlink" title="如何绕过"></a>如何绕过</h1><ul>
-<li><p>修改编码格式</p>
-</li>
-<li><p>加密解密算法</p>
-</li>
-<li><p>结合其他漏洞绕过</p>
-</li>
-<li><p>大小写onerror函数</p>
-</li>
-<li><p>配合平台，例如<a href="http://xssfuzzer.com/">xssfuzzer.com</a>生成语句</p>
-</li>
-<li><p>工具：Xwaf,XSStrike</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>web安全</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SQL注入</title>
     <url>/2022/01/16/SQL%E6%B3%A8%E5%85%A5/</url>
     <content><![CDATA[<h1 id="sql注入是什么？"><a href="#sql注入是什么？" class="headerlink" title="sql注入是什么？"></a>sql注入是什么？</h1><ul>
@@ -371,6 +260,117 @@
       </tags>
   </entry>
   <entry>
+    <title>First Blog</title>
+    <url>/2022/01/01/First%20Blog/</url>
+    <content><![CDATA[<p>Welcome to my blog! I’m glad to make friends with you. If you can browse my website, I will be grateful. In the future, I will upload my records and learning contents here. I hope the boss will take me with me！</p>
+]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>XSS跨站脚本攻击</title>
+    <url>/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/</url>
+    <content><![CDATA[<h1 id="什么是XSS-XSS原理"><a href="#什么是XSS-XSS原理" class="headerlink" title="什么是XSS/XSS原理"></a>什么是XSS/XSS原理</h1><ul>
+<li><p>攻击者嵌入恶意脚本代码到用户会访问到的页面中，用户访问该页面的时候，就引起恶意脚本代码的执行，从而达到恶意攻击用户的目的。攻击者可以使用户在浏览器中执行其预定义的恶意脚本，变量接受数据的时候，数据可以写成js脚本代码，进行回显操作</p>
+</li>
+<li><p>本质上属于前端漏洞，产生在浏览器和js代码中的漏洞</p>
+<span id="more"></span></li>
+</ul>
+<h1 id="XSS类型"><a href="#XSS类型" class="headerlink" title="XSS类型"></a>XSS类型</h1><ul>
+<li><p>反射型XSS(非持续型XSS)</p>
+</li>
+<li><p>储存型XSS(持续型XSS）</p>
+</li>
+<li><p>DOM XSS</p>
+</li>
+</ul>
+<h1 id="具体区别"><a href="#具体区别" class="headerlink" title="具体区别"></a>具体区别</h1><ul>
+<li><p>反射型：数据提交过去时，会在代码执行之后直接反馈回来发包x=zzx=&gt;x.php=&gt;回包</p>
+</li>
+<li><p>存储型：数据提交过去时，会在代码执行之后储存到数据库的某个表里，然后反馈回来发包x=zzx=&gt;x.php=&gt;写到数据库某个表=&gt;x.php&gt;回显</p>
+</li>
+<li><p>DOM型：发包x=zzx=&gt;本地浏览器静态前端代码=&gt;x.php</p>
+</li>
+<li><p>反射型和储存型属于后端语言进行数据处理，而DOM型是用js代码进行处理 </p>
+</li>
+</ul>
+<h1 id="三者原理"><a href="#三者原理" class="headerlink" title="三者原理"></a>三者原理</h1><ul>
+<li><p>反射型XSS：应用或API没有对用户输入数据进行验证或没进行转义然后作为HTML的输出的一部分，能够使得攻击者在受害者的浏览器上执行任意HTML和JavaScript。</p>
+</li>
+<li><p>存储型XSS：应用或API存储未格式化的用户输入，且该输入之后会被其他用户或管理员浏览到。</p>
+</li>
+<li><p>DOM XSS：动态包含攻击者可控制数据到页面中的JavaScript框架， 单页应用，API易受DOM XSS。</p>
+</li>
+<li><p>涉及函数类：常见的输出类函数</p>
+</li>
+</ul>
+<h1 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h1><ul>
+<li><p>方法一： 查看代码，查找关键的变量,   客户端将数据传送给Web 服务端一般通过三种方式 Querystring, Form表单，以及cookie.  例如在ASP的程序中，通过Request对象获取客户端的变量。 假如变量没有经过htmlEncode处理， 那么这个变量就存在一个XSS漏洞</p>
+</li>
+<li><p>方法二：xss跨站漏洞测试语句， 在网页中的Textbox或者其他能输入数据的地方，输入测试语句， 看能不能弹出对话框，能弹出的话说明存在XSS漏洞， 在URL中查看有那些变量通过URL把值传给Web服务器， 把这些变量的值退换成测试语句。  然后看是否能执行</p>
+</li>
+<li><p>方法三:  自动化测试XSS漏洞</p>
+</li>
+</ul>
+<h1 id="可能存在XSS漏洞点"><a href="#可能存在XSS漏洞点" class="headerlink" title="可能存在XSS漏洞点"></a>可能存在XSS漏洞点</h1><ul>
+<li>用户能够输入提交数据的地方，文本框，url，请求头等等</li>
+</ul>
+<h1 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h1><ul>
+<li><p>如劫持用户会话，插入恶意内容、重定向用户、使用恶意软件劫持用户浏览器、繁殖XSS蠕虫，甚至破坏网站、修改路由器配置信息等。</p>
+</li>
+<li><p>XSS实质上就是JS脚本，任何JS脚本能实现的功能，XSS也能实现能做到的Cookie劫持、构造GET和POST请求、XSS钓鱼、识别用户浏览器、识别用户安装的软件等</p>
+</li>
+</ul>
+<h1 id="防范修复"><a href="#防范修复" class="headerlink" title="防范修复"></a>防范修复</h1><ul>
+<li><p>前端采用大型框架Angular,Vue,React等等。</p>
+</li>
+<li><p>用session代替cookie。</p>
+</li>
+<li><p>对于用户输入的数据要严格过滤写入数据库的数据，一定要保证合理过滤。</p>
+</li>
+<li><p>对于所有输出的地方，一定要做好过滤工作，比如采用模版渲染等等。</p>
+</li>
+<li><p>使用Token</p>
+</li>
+<li><p>使用HttpOnly</p>
+</li>
+</ul>
+<h1 id="什么是HttpOnly？"><a href="#什么是HttpOnly？" class="headerlink" title="什么是HttpOnly？"></a>什么是HttpOnly？</h1><ul>
+<li>如果在cookie中设置了HTTPonly属性，那么通过js脚本将无法读取到cookie信息，这样能有效防止XSS攻击。</li>
+</ul>
+<h1 id="绕过httponly"><a href="#绕过httponly" class="headerlink" title="绕过httponly"></a>绕过httponly</h1><ul>
+<li><p>浏览器未保存账号密码：需要XSS产生登录地址，利用表单劫持</p>
+</li>
+<li><p>浏览器保存了账号密码：产生后台的XSS，储存型XSS，如留言等，利用浏览器读取账号密码</p>
+</li>
+</ul>
+<h1 id="如何绕过"><a href="#如何绕过" class="headerlink" title="如何绕过"></a>如何绕过</h1><ul>
+<li><p>修改编码格式</p>
+</li>
+<li><p>加密解密算法</p>
+</li>
+<li><p>结合其他漏洞绕过</p>
+</li>
+<li><p>大小写onerror函数</p>
+</li>
+<li><p>配合平台，例如<a href="http://xssfuzzer.com/">xssfuzzer.com</a>生成语句</p>
+</li>
+<li><p>工具：Xwaf,XSStrike</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>web安全</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>逻辑越权</title>
     <url>/2022/01/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83/</url>
     <content><![CDATA[<h1 id="逻辑漏洞"><a href="#逻辑漏洞" class="headerlink" title="逻辑漏洞"></a><strong>逻辑漏洞</strong></h1><ul>
@@ -525,13 +525,13 @@
 <h1 id="二、前期准备"><a href="#二、前期准备" class="headerlink" title="二、前期准备"></a>二、前期准备</h1><h2 id="2-1语言选择"><a href="#2-1语言选择" class="headerlink" title="2.1语言选择"></a>2.1语言选择</h2><p>开发工具嘛，肯定要会一两个语言，相信各位大佬肯定掌握了不止三四种的语言，小弟没啥能力，只掌握了C，java，python，php，go这几种，用来开发工具的话比较常见的就是java，python，go了，我比较熟悉那个java和python，而且一些常见的工具也是用的java和python来开发的，这两种语言的区别就不介绍了，大家都懂的，选择哪种主要看个人的需求，如果想省点事的话可以用python，里面的库用到才知道香，但是python虚拟机没有java强，毕竟java虚拟机是java的核心，而且python是全动态性的，可以在运行时自己修改自己的代码，java只能通过变通方法实现。python的变量是动态的，而java的变量是静态的，需要事先声明，所以java ide的代码提示功能优于python ide。</p>
 <p>用java开发工具的话主要是习惯了用java开发有界面的工具，而python的话主要是因为库强大，可以少写很多东西，省很多时间，当然不是说python没办法搞界面，python是推出了一些框架用于开发界面的，其中最常用的就是一个是Django，Django是一个较为高级的Python Web框架，以快速开发和实用简洁的设计闻名，关于语言的选择还是看个人习惯吧，没有谁好谁坏的说法。</p>
 <h2 id="2-2编译器"><a href="#2-2编译器" class="headerlink" title="2.2编译器"></a>2.2编译器</h2><p>java用的编译器是IDEA和eclipse，python用的是PyCharm，这几个都是很不错的编译器，就是有些只能试用或者找破解，下完编译器，先建个项目，这边拿eclipse做下示范，进来先建个项目，这边选的是1.8.0的，然后把名字命名一下，搞一个com.AX.Database_listening，然后直接finish。</p>
-<p><img src="/.io//image-20211220102525498.png" alt="image-20211220102525498"></p>
+<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211220102525498.png" alt="image-20211220102525498"></p>
 <p>搞完建好了，先看下目录结构SRC是我们之后写代码的地方，然后JRE这块是我们导入的包，事先有导入别的包，所以创建完之后会直接存在。</p>
-<p><img src="/.io//image-20211220112758035.png" alt="image-20211220112758035"></p>
+<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211220112758035.png" alt="image-20211220112758035"></p>
 <p>一般我们在开发的时候都会用到别人写好的东西，而有些是需要你导入的，我们下载完别人的jar之后，在自己项目下面创建一个lib，把我们下载好的jar拉进去，然后右键项目，点击Properties，然后选择Java Build Path</p>
-<p><img src="/.io//image-20211220103338819.png" alt="image-20211220103338819"></p>
+<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211220103338819.png" alt="image-20211220103338819"></p>
 <p>找到你刚刚拉进来的jar，选中添加，然后保存，整个流程就结束了，这样我们在写其他功能的时候就会方便很多了。</p>
-<p><img src="/.io//image-20211220112652185.png" alt="image-20211220112652185"></p>
+<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211220112652185.png" alt="image-20211220112652185"></p>
 <p>然后可以开始写你自己代码了。</p>
 <h2 id="2-3语言能力"><a href="#2-3语言能力" class="headerlink" title="2.3语言能力"></a>2.3语言能力</h2><p>语言和编译器选完了，就该有人问了，我这语言得掌握到啥程度才能开发自己的工具，嚯，要问这话我也不知道该怎么回，毕竟我自己学的也不是很深，就JAVA来说，如果你接受过系统的学习的话，基本上都会在学完基础语法之后进入到线程，异常，文件访问，接口，继承等等这些知识，后面可能会学到例如网络通信协议的东西让你写一些通信的小demo，当然要会到什么程度才能开发自己的工具的话，看你个人的需求，我觉得基本上只要你会基础语法，知道函数，类，子类，父类，重写，继承啥的就可以自己去开发一些工具了。</p>
 <p>如果你的工具只是针对于本地的东西的话，你只需了解你想要实现的原理，后面根据这个原理去设计你的开发架构，那你压根不需要用到什么网络通信协议啥的，但是如果你需要对接网络上的一些资源的话，那么通信协议还是得会的，当然，这些对百度工程师是例外的，把你想要实现的去百度上搜索，基本上都会有解答，百度能实现百分之99的困难。</p>
@@ -542,7 +542,7 @@
 <li>数据显示：如果前面数据获取和数据处理都完成了，那么就来到了最简单的地方，怎么呈现你的结果，是命令行还是界面，这个取决于个人喜好。</li>
 </ol>
 <p>所以，根据这三个部分基本上能满足你开发大部分的工具，而且你在开发这些工具的时候思路会很清晰，始终清楚自己在哪一部分，在哪一部分就干哪一部分的事情，找那块的解决方法，网上会有很多教程，其实工具就类似是拼图，你这找一下怎么实现，那找一下怎么实现，然后拼接起来，就成了工具，一句话，CCV，一把梭哈，冲就完事了。这里附下小弟我搞小工具的时候常规的思维导图。</p>
-<p><img src="/.io//image-20211127004010265.png" alt="image-20211127004010265"></p>
+<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211127004010265.png" alt="image-20211127004010265"></p>
 <h1 id="三、开发过程"><a href="#三、开发过程" class="headerlink" title="三、开发过程"></a>三、开发过程</h1><p>这里如果空讲的话会有点空泛，我用我之前搞的一个小工具来做例子吧，直接说我自己开发这个工具的时候的一个开发思路会比较好一点，这是个子域名的一个探测工具，主要功能的话就是根据你输入的域名进行子域名的探测，然后根据页面的状态剔除那些无法访问的，把可以访问的留下来保存数据，这个是我后面用来采集页面样本然后做页面分类的，所以还有其他功能，这里我主要讲下如何探测子域名状态值的设计思路和开发过程。</p>
 <h2 id="3-1开发架构"><a href="#3-1开发架构" class="headerlink" title="3.1开发架构"></a>3.1开发架构</h2><p>架构的话根据三个流程来准备，然后搞个思维导图（虽然也没啥必要，但是可以让后面自己的思路清晰，不会跑偏）</p>
 <ol>
@@ -551,7 +551,7 @@
 <li>数据显示：数据处理完之后通过界面显示出收集的结果，然后把数据导出来，通过固定格式保存，方便之后的操作。</li>
 </ol>
 <p>贴下思维导图，这里只写了探测网站状态值那部分，其他的功能都差不多的，每个人的思路会有所不同，所以这块没啥大问题。</p>
-<p><img src="/.io//image-20211128180018515.png" alt="image-20211128180018515"></p>
+<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211128180018515.png" alt="image-20211128180018515"></p>
 <h2 id="3-2实现目标"><a href="#3-2实现目标" class="headerlink" title="3.2实现目标"></a>3.2实现目标</h2><h3 id="3-2-1获取网站状态值"><a href="#3-2-1获取网站状态值" class="headerlink" title="3.2.1获取网站状态值"></a>3.2.1获取网站状态值</h3><p>如何获取网站状态值在上面的思维导图上面已经写了，通过java的uConnection.getResponseCode()可以获取状态码。进而判断该网站是否存在，具体代码怎么用以及返回的值，类型可以自己百度一下，我这里贴一下关键代码</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">URL u = <span class="keyword">new</span> URL(<span class="string">&quot;http://www.baidu.com&quot;</span>);</span><br><span class="line"><span class="keyword">try</span> &#123;  </span><br><span class="line">	HttpURLConnection uConnection = (HttpURLConnection)u.openConnection();  </span><br><span class="line">	<span class="keyword">try</span> &#123;  </span><br><span class="line">		uConnection.connect();</span><br><span class="line">		System.out.println(uConnection.getResponseCode());  </span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;  </span><br><span class="line">			e.printStackTrace();  </span><br><span class="line">		&#125;                    </span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;  </span><br><span class="line">			e.printStackTrace();  </span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
 
@@ -576,9 +576,9 @@
 
 <p>这样就把按钮和事件响应连接起来，设计相对应的按钮和事件，去达到自己想要实现的目标，基本上这个工具就完成了，当工具写完了之后，不可能每次都进编译器里面去运行吧，把它导出来成为一个.jar的文件，之后直接执行这个文件就行了。</p>
 <p>右键项目，点击Export，选择jar file</p>
-<p><img src="/.io//image-20211220112323902.png" alt="image-20211220112323902"></p>
+<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211220112323902.png" alt="image-20211220112323902"></p>
 <p>然后把自己的项目勾选上，直接finish，就完成了。</p>
-<p><img src="/.io//image-20211220112454283.png" alt="image-20211220112454283"></p>
+<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211220112454283.png" alt="image-20211220112454283"></p>
 <p>至此，整个工具的编写就完成了</p>
 <h1 id="四、实战"><a href="#四、实战" class="headerlink" title="四、实战"></a>四、实战</h1><h2 id="4-1工具说明"><a href="#4-1工具说明" class="headerlink" title="4.1工具说明"></a>4.1工具说明</h2><p>一个Mysql监控工具的思路以及实现方式，实现了指定数据库名监控跟它有关的sql语句，单独显示特定的sql语句,刚开始自己用的那些网上的工具不是很理想，所以就打算自己写一个，目前只实现了这两个功能，后面会把它改成一个代审工具，实现从sql语句跳定位到代码啥的。</p>
 <h2 id="4-2开发思路"><a href="#4-2开发思路" class="headerlink" title="4.2开发思路"></a>4.2开发思路</h2><p>工具的思路其实也很简单，主要就是这四块</p>
@@ -589,7 +589,7 @@
 <li>显示数据</li>
 </ol>
 <p>而工具最终目标是：用户连接上数据库之后，在测试代码或者网站功能的时候，经过该工具过滤能够定位到执行的sql语句，方便进行代码审计</p>
-<p><img src="/.io//20211115165221-5892b92c-45f1-1-16407678891502.png" alt="image.png"></p>
+<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/20211115165221-5892b92c-45f1-1-16407678891502.png" alt="image.png"></p>
 <h2 id="4-3前期准备"><a href="#4-3前期准备" class="headerlink" title="4.3前期准备"></a>4.3前期准备</h2><ul>
 <li>连接数据库实现</li>
 <li>兼容不同的Mysql版本</li>
@@ -618,7 +618,7 @@
 
 <p>到这基本上工具就写完了，这个算是比较简单的工具，开发思路也比较简单，也没用到什么奇奇怪怪的操作，基本上都是基础语法，挺适合小白上手工具开发的，</p>
 <p>排版完面板之后把功能加入到各个按钮事件里面导出称jar文件，运行就可以用了，当然在编译器了也可以直接使用，看个人选择吧。</p>
-<p><img src="/.io//image-20220106231423032-16414820643301.png" alt="image-20220106231423032"></p>
+<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20220106231423032-16414820643301.png" alt="image-20220106231423032"></p>
 <h1 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h1><p>总的来说，开发工具其实没什么难度，把每一块拆分成多个小点去完成，然后拼接起来就行了，第一次写这种关于工具开发的文，有些可能没表达到位，我尽量把需要注意的地方给写出来，这个是针对于小白的，所以有些简单的东西还是选择说得仔细点，大佬们可以选择性的跳一跳，这个是第一篇，后面的话会根据自己平时开发的一些插件，工具啥的写一些开发思路或者教程，后面可能就不会讲面板这些东西了，如果有那里写得不对的，希望大佬们带带我。</p>
 ]]></content>
       <categories>
