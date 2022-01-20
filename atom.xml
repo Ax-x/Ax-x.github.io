@@ -27,7 +27,7 @@
     <summary type="html">&lt;h1 id=&quot;什么是XSS-XSS原理&quot;&gt;&lt;a href=&quot;#什么是XSS-XSS原理&quot; class=&quot;headerlink&quot; title=&quot;什么是XSS/XSS原理&quot;&gt;&lt;/a&gt;什么是XSS/XSS原理&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;&lt;p&gt;攻击者嵌入恶意脚本代码到用户会访问到的页面中，用户访问该页面的时候，就引起恶意脚本代码的执行，从而达到恶意攻击用户的目的。攻击者可以使用户在浏览器中执行其预定义的恶意脚本，变量接受数据的时候，数据可以写成js脚本代码，进行回显操作&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;本质上属于前端漏洞，产生在浏览器和js代码中的漏洞&lt;/p&gt;</summary>
+&lt;li&gt;&lt;p&gt;本质上属于前端漏洞，产生在浏览器和js代码中的漏洞&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</summary>
     
     
     
@@ -47,7 +47,7 @@
     
     
     <summary type="html">&lt;h1 id=&quot;逻辑漏洞&quot;&gt;&lt;a href=&quot;#逻辑漏洞&quot; class=&quot;headerlink&quot; title=&quot;逻辑漏洞&quot;&gt;&lt;/a&gt;&lt;strong&gt;逻辑漏洞&lt;/strong&gt;&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt; 攻击者利用业务的设计缺陷，获取敏感信息或破坏业务的完整性， 其本质就是程序逻辑输入管控不严，没有对用户数据进行严格把控，导致程序不能够正常处理或处理错误，一般出现在登录注册、密码找回、信息查看、交易支付金额等。</summary>
+&lt;li&gt; 攻击者利用业务的设计缺陷，获取敏感信息或破坏业务的完整性， 其本质就是程序逻辑输入管控不严，没有对用户数据进行严格把控，导致程序不能够正常处理或处理错误，一般出现在登录注册、密码找回、信息查看、交易支付金额等。&lt;/li&gt;&lt;/ul&gt;</summary>
     
     
     
@@ -67,7 +67,7 @@
     
     
     <summary type="html">&lt;h1 id=&quot;sql注入是什么？&quot;&gt;&lt;a href=&quot;#sql注入是什么？&quot; class=&quot;headerlink&quot; title=&quot;sql注入是什么？&quot;&gt;&lt;/a&gt;sql注入是什么？&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;web应用对用户输入数据的合法性没有判断或过滤不严，sql语句中的变量是可控的，导致攻击者可以在web应用程序中事先定义好的查询语句的结尾上添加额外的SQL语句，实现非法操作，以此来实现欺骗数据库服务器执行非授权的任意查询，从而进一步得到相应的数据信息。</summary>
+&lt;li&gt;web应用对用户输入数据的合法性没有判断或过滤不严，sql语句中的变量是可控的，导致攻击者可以在web应用程序中事先定义好的查询语句的结尾上添加额外的SQL语句，实现非法操作，以此来实现欺骗数据库服务器执行非授权的任意查询，从而进一步得到相应的数据信息。&lt;/li&gt;&lt;/ul&gt;</summary>
     
     
     
@@ -75,6 +75,31 @@
     
     
     <category term="web安全" scheme="https://ax-x.github.io/tags/web%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>First Blog</title>
+    <link href="https://ax-x.github.io/2022/01/01/First%20Blog/"/>
+    <id>https://ax-x.github.io/2022/01/01/First%20Blog/</id>
+    <published>2022-01-01T08:24:33.000Z</published>
+    <updated>2022-01-20T08:39:23.561Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Welcome to my blog! I’m glad to make friends with you. If you can browse my website, I will be grateful. In the future, I will upload my</summary>
+        
+      
+    
+    
+    
+    <category term="web安全" scheme="https://ax-x.github.io/categories/web%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
