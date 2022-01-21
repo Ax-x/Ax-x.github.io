@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="一、前言上周去现场，大佬说年前要跑主机脚本，就是服务器有点多，问有没有办法一键下发，然后执行脚本去跑，跑完之后回收数据，我听这需求，这不是有手就行？然后就应了下来，说我试试，我本以为就是简单的写个py脚本的事情，确认好需求之后就直接开整，刚开始我写的是使用ssh服务去批量搞。 二、python实现先确定下流程，大概的流程就是这四个：  连接服务器 上传脚本 执行脚本 回收数据  最重要的是先连接上">
+<meta name="description" content="一、前言上周去现场，大佬说年前要跑主机脚本，就是服务器有点多，问有没有办法一键下发，然后执行脚本去跑，跑完之后回收数据，我听这需求，这不是有手就行？然后就应了下来，说我试试，我本以为就是简单的写个py脚本的事情，确认好需求之后就直接开整，刚开始我写的是使用ssh服务去批量搞。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python&amp;&amp;shell--批量跑主机脚本">
 <meta property="og:url" content="https://ax-x.github.io/2022/01/21/python-shell-%E6%89%B9%E9%87%8F%E8%B7%91%E4%B8%BB%E6%9C%BA%E8%84%9A%E6%9C%AC/index.html">
 <meta property="og:site_name" content="Ax-x">
-<meta property="og:description" content="一、前言上周去现场，大佬说年前要跑主机脚本，就是服务器有点多，问有没有办法一键下发，然后执行脚本去跑，跑完之后回收数据，我听这需求，这不是有手就行？然后就应了下来，说我试试，我本以为就是简单的写个py脚本的事情，确认好需求之后就直接开整，刚开始我写的是使用ssh服务去批量搞。 二、python实现先确定下流程，大概的流程就是这四个：  连接服务器 上传脚本 执行脚本 回收数据  最重要的是先连接上">
+<meta property="og:description" content="一、前言上周去现场，大佬说年前要跑主机脚本，就是服务器有点多，问有没有办法一键下发，然后执行脚本去跑，跑完之后回收数据，我听这需求，这不是有手就行？然后就应了下来，说我试试，我本以为就是简单的写个py脚本的事情，确认好需求之后就直接开整，刚开始我写的是使用ssh服务去批量搞。">
 <meta property="og:locale">
 <meta property="og:image" content="https://ax-x.github.io/2022/01/21/python-shell-%E6%89%B9%E9%87%8F%E8%B7%91%E4%B8%BB%E6%9C%BA%E8%84%9A%E6%9C%AC/image-20220109152332407-16417130136852.png">
 <meta property="og:image" content="https://ax-x.github.io/2022/01/21/python-shell-%E6%89%B9%E9%87%8F%E8%B7%91%E4%B8%BB%E6%9C%BA%E8%84%9A%E6%9C%AC/image-20220109152452438-16417130933893.png">
 <meta property="og:image" content="https://ax-x.github.io/2022/01/21/python-shell-%E6%89%B9%E9%87%8F%E8%B7%91%E4%B8%BB%E6%9C%BA%E8%84%9A%E6%9C%AC/image-20220115172343072-164223862468715.png">
 <meta property="article:published_time" content="2022-01-21T07:56:11.000Z">
-<meta property="article:modified_time" content="2022-01-21T08:10:04.006Z">
+<meta property="article:modified_time" content="2022-01-21T09:25:26.636Z">
 <meta property="article:author" content="Ax-x">
 <meta property="article:tag" content="安全工具">
 <meta name="twitter:card" content="summary">
@@ -434,6 +434,8 @@
 
       
         <h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>上周去现场，大佬说年前要跑主机脚本，就是服务器有点多，问有没有办法一键下发，然后执行脚本去跑，跑完之后回收数据，我听这需求，这不是有手就行？然后就应了下来，说我试试，我本以为就是简单的写个py脚本的事情，确认好需求之后就直接开整，刚开始我写的是使用ssh服务去批量搞。</p>
+<span id="more"></span>
+
 <h1 id="二、python实现"><a href="#二、python实现" class="headerlink" title="二、python实现"></a>二、python实现</h1><p>先确定下流程，大概的流程就是这四个：</p>
 <ol>
 <li>连接服务器</li>
