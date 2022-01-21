@@ -40,7 +40,7 @@
     <link href="https://ax-x.github.io/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/"/>
     <id>https://ax-x.github.io/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/</id>
     <published>2022-01-17T14:56:33.000Z</published>
-    <updated>2022-01-17T14:57:49.665Z</updated>
+    <updated>2022-01-21T07:47:53.466Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;什么是XSS-XSS原理&quot;&gt;&lt;a href=&quot;#什么是XSS-XSS原理&quot; class=&quot;headerlink&quot; title=&quot;什么是XSS/XSS原理&quot;&gt;&lt;/a&gt;什么是XSS/XSS原理&lt;/h1&gt;&lt;ul&gt;
@@ -50,10 +50,10 @@
     
     
     
-    <category term="学习笔记" scheme="https://ax-x.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="web安全" scheme="https://ax-x.github.io/categories/web%E5%AE%89%E5%85%A8/"/>
     
     
-    <category term="web安全" scheme="https://ax-x.github.io/tags/web%E5%AE%89%E5%85%A8/"/>
+    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
@@ -62,7 +62,7 @@
     <link href="https://ax-x.github.io/2022/01/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83/"/>
     <id>https://ax-x.github.io/2022/01/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83/</id>
     <published>2022-01-16T13:32:30.000Z</published>
-    <updated>2022-01-17T14:50:17.454Z</updated>
+    <updated>2022-01-21T07:48:06.528Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;逻辑漏洞&quot;&gt;&lt;a href=&quot;#逻辑漏洞&quot; class=&quot;headerlink&quot; title=&quot;逻辑漏洞&quot;&gt;&lt;/a&gt;&lt;strong&gt;逻辑漏洞&lt;/strong&gt;&lt;/h1&gt;&lt;ul&gt;
@@ -70,10 +70,10 @@
     
     
     
-    <category term="学习笔记" scheme="https://ax-x.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="web安全" scheme="https://ax-x.github.io/categories/web%E5%AE%89%E5%85%A8/"/>
     
     
-    <category term="web安全" scheme="https://ax-x.github.io/tags/web%E5%AE%89%E5%85%A8/"/>
+    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
@@ -82,7 +82,7 @@
     <link href="https://ax-x.github.io/2022/01/16/SQL%E6%B3%A8%E5%85%A5/"/>
     <id>https://ax-x.github.io/2022/01/16/SQL%E6%B3%A8%E5%85%A5/</id>
     <published>2022-01-16T12:32:30.000Z</published>
-    <updated>2022-01-17T14:51:47.037Z</updated>
+    <updated>2022-01-21T07:47:44.843Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;sql注入是什么？&quot;&gt;&lt;a href=&quot;#sql注入是什么？&quot; class=&quot;headerlink&quot; title=&quot;sql注入是什么？&quot;&gt;&lt;/a&gt;sql注入是什么？&lt;/h1&gt;&lt;ul&gt;
@@ -90,10 +90,10 @@
     
     
     
-    <category term="学习笔记" scheme="https://ax-x.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="web安全" scheme="https://ax-x.github.io/categories/web%E5%AE%89%E5%85%A8/"/>
     
     
-    <category term="web安全" scheme="https://ax-x.github.io/tags/web%E5%AE%89%E5%85%A8/"/>
+    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
