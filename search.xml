@@ -1,9 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>First Blog</title>
-    <url>/2022/01/01/First%20Blog/</url>
-    <content><![CDATA[<p>Welcome to my blog! I’m glad to make friends with you. If you can browse my website, I will be grateful. In the future, I will upload my records and learning contents here. I hope the boss will take me with me！</p>
+    <title>python&amp;&amp;shell--批量跑主机脚本</title>
+    <url>/2022/01/21/python-shell-%E6%89%B9%E9%87%8F%E8%B7%91%E4%B8%BB%E6%9C%BA%E8%84%9A%E6%9C%AC/</url>
+    <content><![CDATA[<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>上周去现场，大佬说年前要跑主机脚本，就是服务器有点多，问有没有办法一键下发，然后执行脚本去跑，跑完之后回收数据，我听这需求，这不是有手就行？然后就应了下来，说我试试，我本以为就是简单的写个py脚本的事情，确认好需求之后就直接开整，刚开始我写的是使用ssh服务去批量搞。</p>
+<span id="more"></span>
+
+<h1 id="二、python实现"><a href="#二、python实现" class="headerlink" title="二、python实现"></a>二、python实现</h1><p>先确定下流程，大概的流程就是这四个：</p>
+<ol>
+<li>连接服务器</li>
+<li>上传脚本</li>
+<li>执行脚本</li>
+<li>回收数据</li>
+</ol>
+<p>最重要的是先连接上去，不然想得再好都没用，连接的话我用是py的paramiko，功能挺强大的，Paramiko是用py写的一个模块，远程连接到Linux服务器，查看上面的日志状态，批量配置远程服务器，文件上传，文件下载等都可以，除此之外我还用到了pandas，毕竟要批量的话，要去读取表格数据，从表格里面去获取每一台主机的信息，而在paramiko的连接这块有几个坑，首先是连接上去，连接上去有很多种方式，首先分为两大类，一类是SSH，一类是FTP，然后每一类都有两种连接方式，一种是基于密码，一种是基于密钥。先说下SSH连接上去的：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ssh = paramiko.SSHClient()</span><br><span class="line">ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())</span><br><span class="line">ssh.connect(<span class="string">&quot;IP&quot;</span>,<span class="number">22</span>,<span class="string">&quot;user&quot;</span>, <span class="string">&quot;password&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这个的话是没办法上传下载文件的，如果我们要上传文件上去，并且回收数据的话，用这种是没办法实现的，当然也可能是我太菜了，如果有大铁子能实现，麻烦带带小弟。所以这边我使用的是Transport，这种方式连接上去之后能够实现很多功能，可以说是一个小型的putty了。</p>
+<p>关键代码</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> paramiko</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="comment">#获取表格数据</span></span><br><span class="line">df = pd.read_excel(<span class="string">&#x27;server_information.xlsx&#x27;</span>)</span><br><span class="line">data=df.values</span><br><span class="line"><span class="comment">#获取单列长度，之后可以作为循环次数的依据</span></span><br><span class="line">L = <span class="built_in">len</span>(df)</span><br><span class="line"><span class="comment">#------------------------------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">#这里做了个分割，是因为下面这块我把for去掉了，上面的表格是需要循环的时候用的，下面针对单个服务器进行说明</span></span><br><span class="line">IP = data[i][<span class="number">0</span>]</span><br><span class="line">port = data[i][<span class="number">1</span>]</span><br><span class="line">name=data[i][<span class="number">2</span>]</span><br><span class="line">password=data[i][<span class="number">3</span>]</span><br><span class="line"><span class="comment"># 实例化一个transport对象</span></span><br><span class="line">trans = paramiko.Transport((IP, port))</span><br><span class="line"><span class="comment"># 建立连接</span></span><br><span class="line">trans.connect(username=name, password=password)</span><br><span class="line"><span class="comment"># 将sshclient的对象的transport指定为以上的trans</span></span><br><span class="line">ssh = paramiko.SSHClient()</span><br><span class="line">ssh._transport = trans</span><br><span class="line">sftp = paramiko.SFTPClient.from_transport(trans)</span><br><span class="line"><span class="comment">#下面是执行了获取IP的命令，因为回收的数据命名格式有根据本机IP来，所以这里先获取下IP</span></span><br><span class="line"><span class="comment"># stdout 为正确输出，stderr为错误输出，同时是有1个变量有值</span></span><br><span class="line">stdin, stdout, stderr = ssh.exec_command(<span class="string">&#x27;ip a|grep inet|grep brd&#x27;</span>)</span><br><span class="line"><span class="comment"># inet 10.0.20.12/22 brd 10.0.23.255 scope global eth0</span></span><br><span class="line"><span class="comment"># 打印执行结果</span></span><br><span class="line">i_IP = stdout.read().decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">Intranet_IP_str= i_IP.split()</span><br><span class="line">Intranet_IP = Intranet_IP_str[<span class="number">1</span>].split(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line"><span class="comment"># 10.0.20.12 22</span></span><br></pre></td></tr></table></figure>
+
+<p>这两种连接方式我用的都是账号密码连接登录，用密钥的话也可以，具体的可以去百度下用法，其实都差不多。连接上去之后，你以为就搞定了，确实是能上传下载文件的，但是还是有坑，这里离谱的一点就是，连接上去之后你没办法去到别的文件夹下面，也就是说，你始终在根目录下面。</p>
+<p><img src="https://ax-x.github.io/2022/01/21/python-shell-%E6%89%B9%E9%87%8F%E8%B7%91%E4%B8%BB%E6%9C%BA%E8%84%9A%E6%9C%AC/image-20220109152332407-16417130136852.png" alt="image-20220109152332407"></p>
+<p>后面我去找了好久，看了下exec_command的说明才知道，原来每次执行完之后，他都会跳回到原目录下面，也就是说，虽然你执行了cd命令，但是他cd过去之后由于这个函数的原因，他会自己回到原来的目录下面，这就难搞了，我怎么去到我想要的那个文件夹下面去执行文件啊，本来试了下，根据路径去执行文件，但是试了几次发现不行，它只支持执行本目录的文件。</p>
+<p>找了一段时间之后，发现可以cd到别的文件夹下面，但是需要去写别的东西，然后为了偷懒，我开始尝试一次执行多条命令，毕竟两条命令搞不定，我就一条命令完成，但是拼接也不是我们用的那种&amp;&amp;了，这个函数有个独特的地方就是，它自带了一个执行多条命令的功能，在一条命令后面使用“;”就可以把命令隔开，看成是两条命令了，例如</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">stdin, stdout, stderr = ssh.exec_command(<span class="string">&#x27;cd tmp;ls&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2022/01/21/python-shell-%E6%89%B9%E9%87%8F%E8%B7%91%E4%B8%BB%E6%9C%BA%E8%84%9A%E6%9C%AC/image-20220109152452438-16417130933893.png" alt="image-20220109152452438"></p>
+<p>它就会先cd到tmp这个目录下面，然后执行ls命令，到这无法上传下载文件，无法跳转目录两个坑基本上就填上了，这里贴下完整的数据，表格的格式是IP，端口，用户名，密码。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> paramiko</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line">df = pd.read_excel(<span class="string">&#x27;server_information.xlsx&#x27;</span>)</span><br><span class="line">data=df.values</span><br><span class="line">L = <span class="built_in">len</span>(df)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;检测到当前主机数：&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(L)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,L):</span><br><span class="line">    IP = data[i][<span class="number">0</span>]</span><br><span class="line">    port = data[i][<span class="number">1</span>]</span><br><span class="line">    name=data[i][<span class="number">2</span>]</span><br><span class="line">    password=data[i][<span class="number">3</span>]</span><br><span class="line">    <span class="comment"># 实例化一个transport对象</span></span><br><span class="line">    trans = paramiko.Transport((IP, port))</span><br><span class="line">    <span class="comment"># 建立连接</span></span><br><span class="line">    trans.connect(username=name, password=password)</span><br><span class="line">    <span class="comment"># 将sshclient的对象的transport指定为以上的trans</span></span><br><span class="line">    ssh = paramiko.SSHClient()</span><br><span class="line">    ssh._transport = trans</span><br><span class="line">    sftp = paramiko.SFTPClient.from_transport(trans)</span><br><span class="line">    stdin, stdout, stderr = ssh.exec_command(<span class="string">&#x27;ip a|grep inet|grep brd&#x27;</span>)</span><br><span class="line">    <span class="comment"># inet 10.0.20.12/22 brd 10.0.23.255 scope global eth0</span></span><br><span class="line">    i_IP = stdout.read().decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    Intranet_IP_str= i_IP.split()</span><br><span class="line">    Intranet_IP = Intranet_IP_str[<span class="number">1</span>].split(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">    <span class="comment"># 10.0.20.12 22</span></span><br><span class="line">    <span class="comment">#localpath—本地文件地址，remotepath——服务器存放地址</span></span><br><span class="line">    sftp.put(localpath=<span class="string">&#x27;/home/a.sh&#x27;</span>,</span><br><span class="line">             remotepath=<span class="string">&#x27;/tmp/a.sh&#x27;</span>)</span><br><span class="line">    stdin, stdout, stderr = ssh.exec_command(<span class="string">&#x27;cd tmp;./a.sh&#x27;</span>)</span><br><span class="line">    Host_information = stdout.read().decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    time.sleep(<span class="number">10</span>)</span><br><span class="line">    sftp.get(localpath=Intranet_IP[<span class="number">0</span>]+<span class="string">&#x27;.xml&#x27;</span>,</span><br><span class="line">             remotepath=<span class="string">&#x27;/tmp/&#x27;</span>+Intranet_IP[<span class="number">0</span>]+<span class="string">&#x27;.xml&#x27;</span>)</span><br><span class="line">    <span class="comment">#sftp.get—下载文件，sftp.put—上传文件</span></span><br><span class="line">    <span class="built_in">print</span>(IP+<span class="string">&quot;:已完成&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2022/01/21/python-shell-%E6%89%B9%E9%87%8F%E8%B7%91%E4%B8%BB%E6%9C%BA%E8%84%9A%E6%9C%AC/image-20220115172343072-164223862468715.png" alt="image-20220115172343072"></p>
+<p>当我开开心心提交过去给客户的时候，不出意外要有意外了，客户说想要shell脚本，啊这，也行！shell而已，这回先把客户那边开放的端口，服务啥的给问清楚，具体需要我做到什么，先了解清楚了先，然后一番讨价还价下来，客户说他那边有个平台能批量上传和运行文件了，叫我实现下回收就行了，那这还不好办。</p>
+<h1 id="三、shell脚本实现"><a href="#三、shell脚本实现" class="headerlink" title="三、shell脚本实现"></a>三、shell脚本实现</h1><p>回到脚本这来，已知客户需要的是shell脚本，那怎么办呢，其实shell也有支持连接其他服务器的功能，而且方式还很多，写的话也不难写，话不多说，开整。首先我想的还是用ftp服务，毕竟这个能满足所有需求，然后我就搞了个ftp的。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash">用户名</span></span><br><span class="line">user=</span><br><span class="line"><span class="meta">#</span><span class="bash">密码</span></span><br><span class="line">password=</span><br><span class="line"><span class="meta">#</span><span class="bash">本地存在这个文件的目录</span></span><br><span class="line">local_url=/tmp</span><br><span class="line"><span class="meta">#</span><span class="bash">上传的目的目录</span></span><br><span class="line">server_url=/home</span><br><span class="line"><span class="meta">#</span><span class="bash">服务器IP</span></span><br><span class="line">ip=</span><br><span class="line"><span class="meta">#</span><span class="bash">端口</span></span><br><span class="line">port=22</span><br><span class="line">cd $&#123;local_url&#125;;</span><br><span class="line"><span class="meta">#</span><span class="bash">定位在50分钟内生成的xml文件，这个可以根据自己的需求来改需要回收的数据类型</span></span><br><span class="line">files=`find $&#123;local_url&#125; -mmin -50 -name &#x27;*.xml&#x27;`</span><br><span class="line">for file in $&#123;files&#125;</span><br><span class="line">do</span><br><span class="line">	echo $&#123;file&#125;</span><br><span class="line"><span class="meta">	#</span><span class="bash">建立ftp连接</span></span><br><span class="line">	lftp -u $&#123;user&#125;,$&#123;password&#125; sftp://$&#123;ip&#125;:$&#123;port&#125; &lt;&lt;EOF</span><br><span class="line">cd $&#123;server_url&#125;/</span><br><span class="line">lcd $&#123;local_url&#125;</span><br><span class="line">put $&#123;file&#125;</span><br><span class="line">by</span><br><span class="line">EOF</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<p>到这里，我以为就搞定了，开开心心发过去，看了看点，三踮几啦，饮茶先啦，点了杯奶茶。不出意外要出意外了，客户说他那边没lftp这个服务，问我能不能用SCP服务，他们之前用的SCP服务，到手的奶茶突然不香了，也行！不就是SCP嘛，开整！也就是改下服务的事情。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash">用户名</span></span><br><span class="line">user=</span><br><span class="line"><span class="meta">#</span><span class="bash">本地存在这个文件的目录</span></span><br><span class="line">local_url=/tmp</span><br><span class="line"><span class="meta">#</span><span class="bash">上传的目的目录</span></span><br><span class="line">server_url=/home</span><br><span class="line"><span class="meta">#</span><span class="bash">服务器IP</span></span><br><span class="line">ip=</span><br><span class="line"><span class="meta">#</span><span class="bash">端口</span></span><br><span class="line">port=22</span><br><span class="line"></span><br><span class="line">cd $&#123;local_url&#125;</span><br><span class="line">files=`find $&#123;local_url&#125; -mmin -50 -name &#x27;*.xml&#x27;`</span><br><span class="line">for file in $&#123;files&#125;</span><br><span class="line">do</span><br><span class="line">	echo $&#123;file&#125;</span><br><span class="line">	scp -P $&#123;port&#125; $&#123;file&#125; $&#123;user&#125;@$&#123;ip&#125;:$&#123;server_url&#125; &lt;&lt;EOF</span><br><span class="line">by</span><br><span class="line">EOF</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<p>这个的功能实现了，但是跟FTP不一样的是，FTP能够在命令中把密码加进去，而SCP需要自己输入密码。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">lftp -u $&#123;user&#125;,$&#123;password&#125; sftp://$&#123;ip&#125;:$&#123;port&#125; &lt;&lt;EOF</span><br><span class="line"><span class="meta">#</span><span class="bash">账号密码在命令上</span></span><br><span class="line">scp -P $&#123;port&#125; $&#123;file&#125; $&#123;user&#125;@$&#123;ip&#125;:$&#123;server_url&#125; &lt;&lt;EOF</span><br><span class="line"><span class="meta">#</span><span class="bash">账号密码需要自己输入</span></span><br></pre></td></tr></table></figure>
+
+<p>客户看到又有问题了，啊这，能不能让他自己输入密码啊，我这不支持输入密码。也行，用expect写个监测关键字就行了，我没想到就是因为我这句也行，让我头秃了两天。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/usr/bin/expect</span></span><br><span class="line"><span class="meta">#</span><span class="bash">ip=`ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk <span class="string">&#x27;&#123;print $2&#125;&#x27;</span>|tr -d <span class="string">&quot;addr:&quot;</span>`</span></span><br><span class="line">spawn scp -P 22 /home/ax/a.xml 用户名@服务器IP:/tmp</span><br><span class="line">set timeout 20</span><br><span class="line"><span class="meta">#</span><span class="bash">监测下面的命令行中有没有password这个关键字</span></span><br><span class="line">expect &quot;password&quot;</span><br><span class="line">exec sleep 1</span><br><span class="line"><span class="meta">#</span><span class="bash">监测到了就发送密码</span></span><br><span class="line">send &quot;密码\r&quot;</span><br><span class="line">interact</span><br></pre></td></tr></table></figure>
+
+<p>这个只是实现了一部分的功能，上面我说到，跑完主机之后的数据文件是带本机IP的，所以我们需要找到我们的本机IP，而关键点就在这，如果我要使用</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ip=`ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk &#x27;&#123;print $2&#125;&#x27;|tr -d &quot;addr:&quot;`</span><br></pre></td></tr></table></figure>
+
+<p>这句命令来找IP的话，我需要用到bash解释器里面的东西，而我用expect是需要用到/usr/bin/expect这个解释器，而这两个是没办法直接引用到上面的，也就是一个shell脚本无法直接使用两个解释器。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/usr/bin/expect</span></span><br><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br></pre></td></tr></table></figure>
+
+<p>找了两天的解决办法，什么方式都尝试了一遍，文件包含，命令行传参啥的都尝试了，都没办法，我甚至午休躺在椅子上面睡觉还梦到有别的解决办法，然后惊醒，本来已经打算跟客户说让他用ftp那个的时候，我偶然看到一个代码块，里面有个词引起了我的注意，内嵌类型！！！！！！当时就感觉有戏，好像我找的方式就是他，让仔细查了下内嵌类型是个啥，果然！！！！我只需要把我需要用到解释器的部分代码内嵌到我另一个解释器的代码里面，就可以了。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">local_ip=`ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk &#x27;&#123;print $2&#125;&#x27;|tr -d &quot;addr:&quot;`</span><br><span class="line"><span class="meta">#</span><span class="bash">用户名</span></span><br><span class="line">user=</span><br><span class="line"><span class="meta">#</span><span class="bash">密码</span></span><br><span class="line">password=</span><br><span class="line"><span class="meta">#</span><span class="bash">本地存在这个文件的目录，格式例如/home/ax/</span></span><br><span class="line">local_url=</span><br><span class="line"><span class="meta">#</span><span class="bash">上传的目的目录,格式：/tmp</span></span><br><span class="line">server_url=</span><br><span class="line"><span class="meta">#</span><span class="bash">端口</span></span><br><span class="line">port=22</span><br><span class="line"><span class="meta">#</span><span class="bash">服务器IP</span></span><br><span class="line">server_ip=</span><br><span class="line"><span class="meta">#</span><span class="bash">这里一定要加&lt;&lt;<span class="string">EOF,才能将另一个解释器的代码内嵌到这里来</span></span></span><br><span class="line">/usr/bin/expect &lt;&lt;EOF</span><br><span class="line">spawn scp -P $&#123;port&#125; $&#123;local_url&#125;$&#123;local_ip&#125;_a.xml $&#123;user&#125;@$&#123;server_ip&#125;:$&#123;server_url&#125;</span><br><span class="line">set timeout 20</span><br><span class="line">expect &quot;password&quot;</span><br><span class="line">exec sleep 2</span><br><span class="line">send &quot;$&#123;password&#125;\r&quot;</span><br><span class="line">interact</span><br><span class="line">expect eof</span><br><span class="line">EOF</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string">结尾的时候要把EOF</span>给结束掉，也就是将上面的代码包进来</span></span><br></pre></td></tr></table></figure>
+
+<p>这样直接把过滤文件的方式已经自动输入密码给完成了，其实如果想要实现那些自动上传脚本，执行这些也是能完成的，只要解决了两个解释器命令能够在同一个脚本里面执行，其他都很好解决，设计好逻辑思路就可以了，但是这个是属于被白嫖的服务，能少点需求就少点需求。</p>
+]]></content>
+      <categories>
+        <category>安全开发</category>
+      </categories>
+      <tags>
+        <tag>安全工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>XSS跨站脚本攻击</title>
+    <url>/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/</url>
+    <content><![CDATA[<h1 id="什么是XSS-XSS原理"><a href="#什么是XSS-XSS原理" class="headerlink" title="什么是XSS/XSS原理"></a>什么是XSS/XSS原理</h1><ul>
+<li><p>攻击者嵌入恶意脚本代码到用户会访问到的页面中，用户访问该页面的时候，就引起恶意脚本代码的执行，从而达到恶意攻击用户的目的。攻击者可以使用户在浏览器中执行其预定义的恶意脚本，变量接受数据的时候，数据可以写成js脚本代码，进行回显操作</p>
+</li>
+<li><p>本质上属于前端漏洞，产生在浏览器和js代码中的漏洞</p>
+<span id="more"></span></li>
+</ul>
+<h1 id="XSS类型"><a href="#XSS类型" class="headerlink" title="XSS类型"></a>XSS类型</h1><ul>
+<li><p>反射型XSS(非持续型XSS)</p>
+</li>
+<li><p>储存型XSS(持续型XSS）</p>
+</li>
+<li><p>DOM XSS</p>
+</li>
+</ul>
+<h1 id="具体区别"><a href="#具体区别" class="headerlink" title="具体区别"></a>具体区别</h1><ul>
+<li><p>反射型：数据提交过去时，会在代码执行之后直接反馈回来发包x=zzx=&gt;x.php=&gt;回包</p>
+</li>
+<li><p>存储型：数据提交过去时，会在代码执行之后储存到数据库的某个表里，然后反馈回来发包x=zzx=&gt;x.php=&gt;写到数据库某个表=&gt;x.php&gt;回显</p>
+</li>
+<li><p>DOM型：发包x=zzx=&gt;本地浏览器静态前端代码=&gt;x.php</p>
+</li>
+<li><p>反射型和储存型属于后端语言进行数据处理，而DOM型是用js代码进行处理 </p>
+</li>
+</ul>
+<h1 id="三者原理"><a href="#三者原理" class="headerlink" title="三者原理"></a>三者原理</h1><ul>
+<li><p>反射型XSS：应用或API没有对用户输入数据进行验证或没进行转义然后作为HTML的输出的一部分，能够使得攻击者在受害者的浏览器上执行任意HTML和JavaScript。</p>
+</li>
+<li><p>存储型XSS：应用或API存储未格式化的用户输入，且该输入之后会被其他用户或管理员浏览到。</p>
+</li>
+<li><p>DOM XSS：动态包含攻击者可控制数据到页面中的JavaScript框架， 单页应用，API易受DOM XSS。</p>
+</li>
+<li><p>涉及函数类：常见的输出类函数</p>
+</li>
+</ul>
+<h1 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h1><ul>
+<li><p>方法一： 查看代码，查找关键的变量,   客户端将数据传送给Web 服务端一般通过三种方式 Querystring, Form表单，以及cookie.  例如在ASP的程序中，通过Request对象获取客户端的变量。 假如变量没有经过htmlEncode处理， 那么这个变量就存在一个XSS漏洞</p>
+</li>
+<li><p>方法二：xss跨站漏洞测试语句， 在网页中的Textbox或者其他能输入数据的地方，输入测试语句， 看能不能弹出对话框，能弹出的话说明存在XSS漏洞， 在URL中查看有那些变量通过URL把值传给Web服务器， 把这些变量的值退换成测试语句。  然后看是否能执行</p>
+</li>
+<li><p>方法三:  自动化测试XSS漏洞</p>
+</li>
+</ul>
+<h1 id="可能存在XSS漏洞点"><a href="#可能存在XSS漏洞点" class="headerlink" title="可能存在XSS漏洞点"></a>可能存在XSS漏洞点</h1><ul>
+<li>用户能够输入提交数据的地方，文本框，url，请求头等等</li>
+</ul>
+<h1 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h1><ul>
+<li><p>如劫持用户会话，插入恶意内容、重定向用户、使用恶意软件劫持用户浏览器、繁殖XSS蠕虫，甚至破坏网站、修改路由器配置信息等。</p>
+</li>
+<li><p>XSS实质上就是JS脚本，任何JS脚本能实现的功能，XSS也能实现能做到的Cookie劫持、构造GET和POST请求、XSS钓鱼、识别用户浏览器、识别用户安装的软件等</p>
+</li>
+</ul>
+<h1 id="防范修复"><a href="#防范修复" class="headerlink" title="防范修复"></a>防范修复</h1><ul>
+<li><p>前端采用大型框架Angular,Vue,React等等。</p>
+</li>
+<li><p>用session代替cookie。</p>
+</li>
+<li><p>对于用户输入的数据要严格过滤写入数据库的数据，一定要保证合理过滤。</p>
+</li>
+<li><p>对于所有输出的地方，一定要做好过滤工作，比如采用模版渲染等等。</p>
+</li>
+<li><p>使用Token</p>
+</li>
+<li><p>使用HttpOnly</p>
+</li>
+</ul>
+<h1 id="什么是HttpOnly？"><a href="#什么是HttpOnly？" class="headerlink" title="什么是HttpOnly？"></a>什么是HttpOnly？</h1><ul>
+<li>如果在cookie中设置了HTTPonly属性，那么通过js脚本将无法读取到cookie信息，这样能有效防止XSS攻击。</li>
+</ul>
+<h1 id="绕过httponly"><a href="#绕过httponly" class="headerlink" title="绕过httponly"></a>绕过httponly</h1><ul>
+<li><p>浏览器未保存账号密码：需要XSS产生登录地址，利用表单劫持</p>
+</li>
+<li><p>浏览器保存了账号密码：产生后台的XSS，储存型XSS，如留言等，利用浏览器读取账号密码</p>
+</li>
+</ul>
+<h1 id="如何绕过"><a href="#如何绕过" class="headerlink" title="如何绕过"></a>如何绕过</h1><ul>
+<li><p>修改编码格式</p>
+</li>
+<li><p>加密解密算法</p>
+</li>
+<li><p>结合其他漏洞绕过</p>
+</li>
+<li><p>大小写onerror函数</p>
+</li>
+<li><p>配合平台，例如<a href="http://xssfuzzer.com/">xssfuzzer.com</a>生成语句</p>
+</li>
+<li><p>工具：Xwaf,XSStrike</p>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>web安全</category>
@@ -272,164 +421,15 @@
       </tags>
   </entry>
   <entry>
-    <title>XSS跨站脚本攻击</title>
-    <url>/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/</url>
-    <content><![CDATA[<h1 id="什么是XSS-XSS原理"><a href="#什么是XSS-XSS原理" class="headerlink" title="什么是XSS/XSS原理"></a>什么是XSS/XSS原理</h1><ul>
-<li><p>攻击者嵌入恶意脚本代码到用户会访问到的页面中，用户访问该页面的时候，就引起恶意脚本代码的执行，从而达到恶意攻击用户的目的。攻击者可以使用户在浏览器中执行其预定义的恶意脚本，变量接受数据的时候，数据可以写成js脚本代码，进行回显操作</p>
-</li>
-<li><p>本质上属于前端漏洞，产生在浏览器和js代码中的漏洞</p>
-<span id="more"></span></li>
-</ul>
-<h1 id="XSS类型"><a href="#XSS类型" class="headerlink" title="XSS类型"></a>XSS类型</h1><ul>
-<li><p>反射型XSS(非持续型XSS)</p>
-</li>
-<li><p>储存型XSS(持续型XSS）</p>
-</li>
-<li><p>DOM XSS</p>
-</li>
-</ul>
-<h1 id="具体区别"><a href="#具体区别" class="headerlink" title="具体区别"></a>具体区别</h1><ul>
-<li><p>反射型：数据提交过去时，会在代码执行之后直接反馈回来发包x=zzx=&gt;x.php=&gt;回包</p>
-</li>
-<li><p>存储型：数据提交过去时，会在代码执行之后储存到数据库的某个表里，然后反馈回来发包x=zzx=&gt;x.php=&gt;写到数据库某个表=&gt;x.php&gt;回显</p>
-</li>
-<li><p>DOM型：发包x=zzx=&gt;本地浏览器静态前端代码=&gt;x.php</p>
-</li>
-<li><p>反射型和储存型属于后端语言进行数据处理，而DOM型是用js代码进行处理 </p>
-</li>
-</ul>
-<h1 id="三者原理"><a href="#三者原理" class="headerlink" title="三者原理"></a>三者原理</h1><ul>
-<li><p>反射型XSS：应用或API没有对用户输入数据进行验证或没进行转义然后作为HTML的输出的一部分，能够使得攻击者在受害者的浏览器上执行任意HTML和JavaScript。</p>
-</li>
-<li><p>存储型XSS：应用或API存储未格式化的用户输入，且该输入之后会被其他用户或管理员浏览到。</p>
-</li>
-<li><p>DOM XSS：动态包含攻击者可控制数据到页面中的JavaScript框架， 单页应用，API易受DOM XSS。</p>
-</li>
-<li><p>涉及函数类：常见的输出类函数</p>
-</li>
-</ul>
-<h1 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h1><ul>
-<li><p>方法一： 查看代码，查找关键的变量,   客户端将数据传送给Web 服务端一般通过三种方式 Querystring, Form表单，以及cookie.  例如在ASP的程序中，通过Request对象获取客户端的变量。 假如变量没有经过htmlEncode处理， 那么这个变量就存在一个XSS漏洞</p>
-</li>
-<li><p>方法二：xss跨站漏洞测试语句， 在网页中的Textbox或者其他能输入数据的地方，输入测试语句， 看能不能弹出对话框，能弹出的话说明存在XSS漏洞， 在URL中查看有那些变量通过URL把值传给Web服务器， 把这些变量的值退换成测试语句。  然后看是否能执行</p>
-</li>
-<li><p>方法三:  自动化测试XSS漏洞</p>
-</li>
-</ul>
-<h1 id="可能存在XSS漏洞点"><a href="#可能存在XSS漏洞点" class="headerlink" title="可能存在XSS漏洞点"></a>可能存在XSS漏洞点</h1><ul>
-<li>用户能够输入提交数据的地方，文本框，url，请求头等等</li>
-</ul>
-<h1 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h1><ul>
-<li><p>如劫持用户会话，插入恶意内容、重定向用户、使用恶意软件劫持用户浏览器、繁殖XSS蠕虫，甚至破坏网站、修改路由器配置信息等。</p>
-</li>
-<li><p>XSS实质上就是JS脚本，任何JS脚本能实现的功能，XSS也能实现能做到的Cookie劫持、构造GET和POST请求、XSS钓鱼、识别用户浏览器、识别用户安装的软件等</p>
-</li>
-</ul>
-<h1 id="防范修复"><a href="#防范修复" class="headerlink" title="防范修复"></a>防范修复</h1><ul>
-<li><p>前端采用大型框架Angular,Vue,React等等。</p>
-</li>
-<li><p>用session代替cookie。</p>
-</li>
-<li><p>对于用户输入的数据要严格过滤写入数据库的数据，一定要保证合理过滤。</p>
-</li>
-<li><p>对于所有输出的地方，一定要做好过滤工作，比如采用模版渲染等等。</p>
-</li>
-<li><p>使用Token</p>
-</li>
-<li><p>使用HttpOnly</p>
-</li>
-</ul>
-<h1 id="什么是HttpOnly？"><a href="#什么是HttpOnly？" class="headerlink" title="什么是HttpOnly？"></a>什么是HttpOnly？</h1><ul>
-<li>如果在cookie中设置了HTTPonly属性，那么通过js脚本将无法读取到cookie信息，这样能有效防止XSS攻击。</li>
-</ul>
-<h1 id="绕过httponly"><a href="#绕过httponly" class="headerlink" title="绕过httponly"></a>绕过httponly</h1><ul>
-<li><p>浏览器未保存账号密码：需要XSS产生登录地址，利用表单劫持</p>
-</li>
-<li><p>浏览器保存了账号密码：产生后台的XSS，储存型XSS，如留言等，利用浏览器读取账号密码</p>
-</li>
-</ul>
-<h1 id="如何绕过"><a href="#如何绕过" class="headerlink" title="如何绕过"></a>如何绕过</h1><ul>
-<li><p>修改编码格式</p>
-</li>
-<li><p>加密解密算法</p>
-</li>
-<li><p>结合其他漏洞绕过</p>
-</li>
-<li><p>大小写onerror函数</p>
-</li>
-<li><p>配合平台，例如<a href="http://xssfuzzer.com/">xssfuzzer.com</a>生成语句</p>
-</li>
-<li><p>工具：Xwaf,XSStrike</p>
-</li>
-</ul>
+    <title>First Blog</title>
+    <url>/2022/01/01/First%20Blog/</url>
+    <content><![CDATA[<p>Welcome to my blog! I’m glad to make friends with you. If you can browse my website, I will be grateful. In the future, I will upload my records and learning contents here. I hope the boss will take me with me！</p>
 ]]></content>
       <categories>
         <category>web安全</category>
       </categories>
       <tags>
         <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python&amp;&amp;shell--批量跑主机脚本</title>
-    <url>/2022/01/21/python-shell-%E6%89%B9%E9%87%8F%E8%B7%91%E4%B8%BB%E6%9C%BA%E8%84%9A%E6%9C%AC/</url>
-    <content><![CDATA[<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>上周去现场，大佬说年前要跑主机脚本，就是服务器有点多，问有没有办法一键下发，然后执行脚本去跑，跑完之后回收数据，我听这需求，这不是有手就行？然后就应了下来，说我试试，我本以为就是简单的写个py脚本的事情，确认好需求之后就直接开整，刚开始我写的是使用ssh服务去批量搞。</p>
-<span id="more"></span>
-
-<h1 id="二、python实现"><a href="#二、python实现" class="headerlink" title="二、python实现"></a>二、python实现</h1><p>先确定下流程，大概的流程就是这四个：</p>
-<ol>
-<li>连接服务器</li>
-<li>上传脚本</li>
-<li>执行脚本</li>
-<li>回收数据</li>
-</ol>
-<p>最重要的是先连接上去，不然想得再好都没用，连接的话我用是py的paramiko，功能挺强大的，Paramiko是用py写的一个模块，远程连接到Linux服务器，查看上面的日志状态，批量配置远程服务器，文件上传，文件下载等都可以，除此之外我还用到了pandas，毕竟要批量的话，要去读取表格数据，从表格里面去获取每一台主机的信息，而在paramiko的连接这块有几个坑，首先是连接上去，连接上去有很多种方式，首先分为两大类，一类是SSH，一类是FTP，然后每一类都有两种连接方式，一种是基于密码，一种是基于密钥。先说下SSH连接上去的：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ssh = paramiko.SSHClient()</span><br><span class="line">ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())</span><br><span class="line">ssh.connect(<span class="string">&quot;IP&quot;</span>,<span class="number">22</span>,<span class="string">&quot;user&quot;</span>, <span class="string">&quot;password&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>这个的话是没办法上传下载文件的，如果我们要上传文件上去，并且回收数据的话，用这种是没办法实现的，当然也可能是我太菜了，如果有大铁子能实现，麻烦带带小弟。所以这边我使用的是Transport，这种方式连接上去之后能够实现很多功能，可以说是一个小型的putty了。</p>
-<p>关键代码</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> paramiko</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="comment">#获取表格数据</span></span><br><span class="line">df = pd.read_excel(<span class="string">&#x27;server_information.xlsx&#x27;</span>)</span><br><span class="line">data=df.values</span><br><span class="line"><span class="comment">#获取单列长度，之后可以作为循环次数的依据</span></span><br><span class="line">L = <span class="built_in">len</span>(df)</span><br><span class="line"><span class="comment">#------------------------------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">#这里做了个分割，是因为下面这块我把for去掉了，上面的表格是需要循环的时候用的，下面针对单个服务器进行说明</span></span><br><span class="line">IP = data[i][<span class="number">0</span>]</span><br><span class="line">port = data[i][<span class="number">1</span>]</span><br><span class="line">name=data[i][<span class="number">2</span>]</span><br><span class="line">password=data[i][<span class="number">3</span>]</span><br><span class="line"><span class="comment"># 实例化一个transport对象</span></span><br><span class="line">trans = paramiko.Transport((IP, port))</span><br><span class="line"><span class="comment"># 建立连接</span></span><br><span class="line">trans.connect(username=name, password=password)</span><br><span class="line"><span class="comment"># 将sshclient的对象的transport指定为以上的trans</span></span><br><span class="line">ssh = paramiko.SSHClient()</span><br><span class="line">ssh._transport = trans</span><br><span class="line">sftp = paramiko.SFTPClient.from_transport(trans)</span><br><span class="line"><span class="comment">#下面是执行了获取IP的命令，因为回收的数据命名格式有根据本机IP来，所以这里先获取下IP</span></span><br><span class="line"><span class="comment"># stdout 为正确输出，stderr为错误输出，同时是有1个变量有值</span></span><br><span class="line">stdin, stdout, stderr = ssh.exec_command(<span class="string">&#x27;ip a|grep inet|grep brd&#x27;</span>)</span><br><span class="line"><span class="comment"># inet 10.0.20.12/22 brd 10.0.23.255 scope global eth0</span></span><br><span class="line"><span class="comment"># 打印执行结果</span></span><br><span class="line">i_IP = stdout.read().decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">Intranet_IP_str= i_IP.split()</span><br><span class="line">Intranet_IP = Intranet_IP_str[<span class="number">1</span>].split(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line"><span class="comment"># 10.0.20.12 22</span></span><br></pre></td></tr></table></figure>
-
-<p>这两种连接方式我用的都是账号密码连接登录，用密钥的话也可以，具体的可以去百度下用法，其实都差不多。连接上去之后，你以为就搞定了，确实是能上传下载文件的，但是还是有坑，这里离谱的一点就是，连接上去之后你没办法去到别的文件夹下面，也就是说，你始终在根目录下面。</p>
-<p><img src="https://ax-x.github.io/2022/01/21/python-shell-%E6%89%B9%E9%87%8F%E8%B7%91%E4%B8%BB%E6%9C%BA%E8%84%9A%E6%9C%AC/image-20220109152332407-16417130136852.png" alt="image-20220109152332407"></p>
-<p>后面我去找了好久，看了下exec_command的说明才知道，原来每次执行完之后，他都会跳回到原目录下面，也就是说，虽然你执行了cd命令，但是他cd过去之后由于这个函数的原因，他会自己回到原来的目录下面，这就难搞了，我怎么去到我想要的那个文件夹下面去执行文件啊，本来试了下，根据路径去执行文件，但是试了几次发现不行，它只支持执行本目录的文件。</p>
-<p>找了一段时间之后，发现可以cd到别的文件夹下面，但是需要去写别的东西，然后为了偷懒，我开始尝试一次执行多条命令，毕竟两条命令搞不定，我就一条命令完成，但是拼接也不是我们用的那种&amp;&amp;了，这个函数有个独特的地方就是，它自带了一个执行多条命令的功能，在一条命令后面使用“;”就可以把命令隔开，看成是两条命令了，例如</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">stdin, stdout, stderr = ssh.exec_command(<span class="string">&#x27;cd tmp;ls&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://ax-x.github.io/2022/01/21/python-shell-%E6%89%B9%E9%87%8F%E8%B7%91%E4%B8%BB%E6%9C%BA%E8%84%9A%E6%9C%AC/image-20220109152452438-16417130933893.png" alt="image-20220109152452438"></p>
-<p>它就会先cd到tmp这个目录下面，然后执行ls命令，到这无法上传下载文件，无法跳转目录两个坑基本上就填上了，这里贴下完整的数据，表格的格式是IP，端口，用户名，密码。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> paramiko</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line">df = pd.read_excel(<span class="string">&#x27;server_information.xlsx&#x27;</span>)</span><br><span class="line">data=df.values</span><br><span class="line">L = <span class="built_in">len</span>(df)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;检测到当前主机数：&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(L)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,L):</span><br><span class="line">    IP = data[i][<span class="number">0</span>]</span><br><span class="line">    port = data[i][<span class="number">1</span>]</span><br><span class="line">    name=data[i][<span class="number">2</span>]</span><br><span class="line">    password=data[i][<span class="number">3</span>]</span><br><span class="line">    <span class="comment"># 实例化一个transport对象</span></span><br><span class="line">    trans = paramiko.Transport((IP, port))</span><br><span class="line">    <span class="comment"># 建立连接</span></span><br><span class="line">    trans.connect(username=name, password=password)</span><br><span class="line">    <span class="comment"># 将sshclient的对象的transport指定为以上的trans</span></span><br><span class="line">    ssh = paramiko.SSHClient()</span><br><span class="line">    ssh._transport = trans</span><br><span class="line">    sftp = paramiko.SFTPClient.from_transport(trans)</span><br><span class="line">    stdin, stdout, stderr = ssh.exec_command(<span class="string">&#x27;ip a|grep inet|grep brd&#x27;</span>)</span><br><span class="line">    <span class="comment"># inet 10.0.20.12/22 brd 10.0.23.255 scope global eth0</span></span><br><span class="line">    i_IP = stdout.read().decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    Intranet_IP_str= i_IP.split()</span><br><span class="line">    Intranet_IP = Intranet_IP_str[<span class="number">1</span>].split(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">    <span class="comment"># 10.0.20.12 22</span></span><br><span class="line">    <span class="comment">#localpath—本地文件地址，remotepath——服务器存放地址</span></span><br><span class="line">    sftp.put(localpath=<span class="string">&#x27;/home/a.sh&#x27;</span>,</span><br><span class="line">             remotepath=<span class="string">&#x27;/tmp/a.sh&#x27;</span>)</span><br><span class="line">    stdin, stdout, stderr = ssh.exec_command(<span class="string">&#x27;cd tmp;./a.sh&#x27;</span>)</span><br><span class="line">    Host_information = stdout.read().decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    time.sleep(<span class="number">10</span>)</span><br><span class="line">    sftp.get(localpath=Intranet_IP[<span class="number">0</span>]+<span class="string">&#x27;.xml&#x27;</span>,</span><br><span class="line">             remotepath=<span class="string">&#x27;/tmp/&#x27;</span>+Intranet_IP[<span class="number">0</span>]+<span class="string">&#x27;.xml&#x27;</span>)</span><br><span class="line">    <span class="comment">#sftp.get—下载文件，sftp.put—上传文件</span></span><br><span class="line">    <span class="built_in">print</span>(IP+<span class="string">&quot;:已完成&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://ax-x.github.io/2022/01/21/python-shell-%E6%89%B9%E9%87%8F%E8%B7%91%E4%B8%BB%E6%9C%BA%E8%84%9A%E6%9C%AC/image-20220115172343072-164223862468715.png" alt="image-20220115172343072"></p>
-<p>当我开开心心提交过去给客户的时候，不出意外要有意外了，客户说想要shell脚本，啊这，也行！shell而已，这回先把客户那边开放的端口，服务啥的给问清楚，具体需要我做到什么，先了解清楚了先，然后一番讨价还价下来，客户说他那边有个平台能批量上传和运行文件了，叫我实现下回收就行了，那这还不好办。</p>
-<h1 id="三、shell脚本实现"><a href="#三、shell脚本实现" class="headerlink" title="三、shell脚本实现"></a>三、shell脚本实现</h1><p>回到脚本这来，已知客户需要的是shell脚本，那怎么办呢，其实shell也有支持连接其他服务器的功能，而且方式还很多，写的话也不难写，话不多说，开整。首先我想的还是用ftp服务，毕竟这个能满足所有需求，然后我就搞了个ftp的。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash">用户名</span></span><br><span class="line">user=</span><br><span class="line"><span class="meta">#</span><span class="bash">密码</span></span><br><span class="line">password=</span><br><span class="line"><span class="meta">#</span><span class="bash">本地存在这个文件的目录</span></span><br><span class="line">local_url=/tmp</span><br><span class="line"><span class="meta">#</span><span class="bash">上传的目的目录</span></span><br><span class="line">server_url=/home</span><br><span class="line"><span class="meta">#</span><span class="bash">服务器IP</span></span><br><span class="line">ip=</span><br><span class="line"><span class="meta">#</span><span class="bash">端口</span></span><br><span class="line">port=22</span><br><span class="line">cd $&#123;local_url&#125;;</span><br><span class="line"><span class="meta">#</span><span class="bash">定位在50分钟内生成的xml文件，这个可以根据自己的需求来改需要回收的数据类型</span></span><br><span class="line">files=`find $&#123;local_url&#125; -mmin -50 -name &#x27;*.xml&#x27;`</span><br><span class="line">for file in $&#123;files&#125;</span><br><span class="line">do</span><br><span class="line">	echo $&#123;file&#125;</span><br><span class="line"><span class="meta">	#</span><span class="bash">建立ftp连接</span></span><br><span class="line">	lftp -u $&#123;user&#125;,$&#123;password&#125; sftp://$&#123;ip&#125;:$&#123;port&#125; &lt;&lt;EOF</span><br><span class="line">cd $&#123;server_url&#125;/</span><br><span class="line">lcd $&#123;local_url&#125;</span><br><span class="line">put $&#123;file&#125;</span><br><span class="line">by</span><br><span class="line">EOF</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-
-<p>到这里，我以为就搞定了，开开心心发过去，看了看点，三踮几啦，饮茶先啦，点了杯奶茶。不出意外要出意外了，客户说他那边没lftp这个服务，问我能不能用SCP服务，他们之前用的SCP服务，到手的奶茶突然不香了，也行！不就是SCP嘛，开整！也就是改下服务的事情。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash">用户名</span></span><br><span class="line">user=</span><br><span class="line"><span class="meta">#</span><span class="bash">本地存在这个文件的目录</span></span><br><span class="line">local_url=/tmp</span><br><span class="line"><span class="meta">#</span><span class="bash">上传的目的目录</span></span><br><span class="line">server_url=/home</span><br><span class="line"><span class="meta">#</span><span class="bash">服务器IP</span></span><br><span class="line">ip=</span><br><span class="line"><span class="meta">#</span><span class="bash">端口</span></span><br><span class="line">port=22</span><br><span class="line"></span><br><span class="line">cd $&#123;local_url&#125;</span><br><span class="line">files=`find $&#123;local_url&#125; -mmin -50 -name &#x27;*.xml&#x27;`</span><br><span class="line">for file in $&#123;files&#125;</span><br><span class="line">do</span><br><span class="line">	echo $&#123;file&#125;</span><br><span class="line">	scp -P $&#123;port&#125; $&#123;file&#125; $&#123;user&#125;@$&#123;ip&#125;:$&#123;server_url&#125; &lt;&lt;EOF</span><br><span class="line">by</span><br><span class="line">EOF</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-
-<p>这个的功能实现了，但是跟FTP不一样的是，FTP能够在命令中把密码加进去，而SCP需要自己输入密码。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">lftp -u $&#123;user&#125;,$&#123;password&#125; sftp://$&#123;ip&#125;:$&#123;port&#125; &lt;&lt;EOF</span><br><span class="line"><span class="meta">#</span><span class="bash">账号密码在命令上</span></span><br><span class="line">scp -P $&#123;port&#125; $&#123;file&#125; $&#123;user&#125;@$&#123;ip&#125;:$&#123;server_url&#125; &lt;&lt;EOF</span><br><span class="line"><span class="meta">#</span><span class="bash">账号密码需要自己输入</span></span><br></pre></td></tr></table></figure>
-
-<p>客户看到又有问题了，啊这，能不能让他自己输入密码啊，我这不支持输入密码。也行，用expect写个监测关键字就行了，我没想到就是因为我这句也行，让我头秃了两天。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/usr/bin/expect</span></span><br><span class="line"><span class="meta">#</span><span class="bash">ip=`ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk <span class="string">&#x27;&#123;print $2&#125;&#x27;</span>|tr -d <span class="string">&quot;addr:&quot;</span>`</span></span><br><span class="line">spawn scp -P 22 /home/ax/a.xml 用户名@服务器IP:/tmp</span><br><span class="line">set timeout 20</span><br><span class="line"><span class="meta">#</span><span class="bash">监测下面的命令行中有没有password这个关键字</span></span><br><span class="line">expect &quot;password&quot;</span><br><span class="line">exec sleep 1</span><br><span class="line"><span class="meta">#</span><span class="bash">监测到了就发送密码</span></span><br><span class="line">send &quot;密码\r&quot;</span><br><span class="line">interact</span><br></pre></td></tr></table></figure>
-
-<p>这个只是实现了一部分的功能，上面我说到，跑完主机之后的数据文件是带本机IP的，所以我们需要找到我们的本机IP，而关键点就在这，如果我要使用</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ip=`ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk &#x27;&#123;print $2&#125;&#x27;|tr -d &quot;addr:&quot;`</span><br></pre></td></tr></table></figure>
-
-<p>这句命令来找IP的话，我需要用到bash解释器里面的东西，而我用expect是需要用到/usr/bin/expect这个解释器，而这两个是没办法直接引用到上面的，也就是一个shell脚本无法直接使用两个解释器。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/usr/bin/expect</span></span><br><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br></pre></td></tr></table></figure>
-
-<p>找了两天的解决办法，什么方式都尝试了一遍，文件包含，命令行传参啥的都尝试了，都没办法，我甚至午休躺在椅子上面睡觉还梦到有别的解决办法，然后惊醒，本来已经打算跟客户说让他用ftp那个的时候，我偶然看到一个代码块，里面有个词引起了我的注意，内嵌类型！！！！！！当时就感觉有戏，好像我找的方式就是他，让仔细查了下内嵌类型是个啥，果然！！！！我只需要把我需要用到解释器的部分代码内嵌到我另一个解释器的代码里面，就可以了。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">local_ip=`ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk &#x27;&#123;print $2&#125;&#x27;|tr -d &quot;addr:&quot;`</span><br><span class="line"><span class="meta">#</span><span class="bash">用户名</span></span><br><span class="line">user=</span><br><span class="line"><span class="meta">#</span><span class="bash">密码</span></span><br><span class="line">password=</span><br><span class="line"><span class="meta">#</span><span class="bash">本地存在这个文件的目录，格式例如/home/ax/</span></span><br><span class="line">local_url=</span><br><span class="line"><span class="meta">#</span><span class="bash">上传的目的目录,格式：/tmp</span></span><br><span class="line">server_url=</span><br><span class="line"><span class="meta">#</span><span class="bash">端口</span></span><br><span class="line">port=22</span><br><span class="line"><span class="meta">#</span><span class="bash">服务器IP</span></span><br><span class="line">server_ip=</span><br><span class="line"><span class="meta">#</span><span class="bash">这里一定要加&lt;&lt;<span class="string">EOF,才能将另一个解释器的代码内嵌到这里来</span></span></span><br><span class="line">/usr/bin/expect &lt;&lt;EOF</span><br><span class="line">spawn scp -P $&#123;port&#125; $&#123;local_url&#125;$&#123;local_ip&#125;_a.xml $&#123;user&#125;@$&#123;server_ip&#125;:$&#123;server_url&#125;</span><br><span class="line">set timeout 20</span><br><span class="line">expect &quot;password&quot;</span><br><span class="line">exec sleep 2</span><br><span class="line">send &quot;$&#123;password&#125;\r&quot;</span><br><span class="line">interact</span><br><span class="line">expect eof</span><br><span class="line">EOF</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string">结尾的时候要把EOF</span>给结束掉，也就是将上面的代码包进来</span></span><br></pre></td></tr></table></figure>
-
-<p>这样直接把过滤文件的方式已经自动输入密码给完成了，其实如果想要实现那些自动上传脚本，执行这些也是能完成的，只要解决了两个解释器命令能够在同一个脚本里面执行，其他都很好解决，设计好逻辑思路就可以了，但是这个是属于被白嫖的服务，能少点需求就少点需求。</p>
-]]></content>
-      <categories>
-        <category>安全开发</category>
-      </categories>
-      <tags>
-        <tag>安全工具</tag>
       </tags>
   </entry>
   <entry>
@@ -570,6 +570,512 @@
 <li><p>漏洞修复：修复思路：使用synchronized关键字，可以限制同一时间内访问方法的只有单一线程并不是每个条件竞争都必须修复</p>
 </li>
 </ul>
+]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>外网渗透信息收集</title>
+    <url>/2022/02/10/%E5%A4%96%E7%BD%91%E6%B8%97%E9%80%8F%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/</url>
+    <content><![CDATA[<h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><p><strong>什么是信息搜集？</strong></p>
+<p>信息搜集也称踩点，信息搜集毋庸置疑就是尽可能的搜集目标的信息，包括端口信息、DNS信息、员工邮箱等等看似并不起眼的一些信息都算是信息搜集，这些看似微乎其微的信息，对于渗透测试而言就关乎到成功与否了。</p>
+<p><strong>信息搜集的重要性</strong></p>
+<p>信息搜集是渗透测试的最重要的阶段，占据整个渗透测试的60%，可见信息搜集的重要性。根据收集的有用信息，可以大大提高我们渗透测试的成功率。</p>
+<p><strong>信息搜集的分类</strong></p>
+<table>
+<thead>
+<tr>
+<th>主动式信息搜集（可获取到的信息较多，但易被目标发现）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>通过直接发起与被测目标网络之间的互动来获取相关信息，如通过Nmap扫描目标系统。</td>
+</tr>
+<tr>
+<td>被动式信息搜集（搜集到的信息较少，但不易被发现）</td>
+</tr>
+<tr>
+<td>通过第三方服务来获取目标网络相关信息。如通过搜索引擎方式来搜集信息。</td>
+</tr>
+</tbody></table>
+<h1 id="二、搜索引擎"><a href="#二、搜索引擎" class="headerlink" title="二、搜索引擎"></a>二、搜索引擎</h1><table>
+<thead>
+<tr>
+<th>Google hacking</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>fofa</td>
+<td><a href="https://fofa.so/">https://fofa.so/</a></td>
+</tr>
+<tr>
+<td>shodan—用来搜索网络空间中在线设备</td>
+<td><a href="https://www.shodan.io/">https://www.shodan.io/</a></td>
+</tr>
+<tr>
+<td>zoomeye—针对网络空间的搜索引擎，收录了互联网空间中的设备、网站及其使用的服务或组件等信息</td>
+<td><a href="https://www.zoomeye.org/">https://www.zoomeye.org/</a></td>
+</tr>
+</tbody></table>
+<p><strong>Google hacking——常用搜索语法：</strong></p>
+<table>
+<thead>
+<tr>
+<th>intitle:KEYWORD</th>
+<th>搜索网页标题中含有关键词的网页</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>intext:KEYWORD</td>
+<td>搜索站点正文中含有关键词的网页</td>
+</tr>
+<tr>
+<td>inurl:KEYWORD</td>
+<td>搜索URL中包含有指定字符串的网址</td>
+</tr>
+<tr>
+<td>inurl:php?id=</td>
+<td>搜索PHP网页</td>
+</tr>
+<tr>
+<td>site:DOMAIN</td>
+<td>在指定站点内查找相关的内容</td>
+</tr>
+<tr>
+<td>filetype:FILE</td>
+<td>搜索指定类型的文件</td>
+</tr>
+</tbody></table>
+<p><strong>我们可以同时附加多个条件进行筛选，比如 inurl:admin intitle:农具<br>两个筛选条件之间用空格隔开</strong></p>
+<p><strong>fofa|shodan|zoomeye——搜索语法</strong></p>
+<table>
+<thead>
+<tr>
+<th>app:nginx</th>
+<th>组件名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ver:1.0</td>
+<td>版本</td>
+</tr>
+<tr>
+<td>os:windows</td>
+<td>操作系统</td>
+</tr>
+<tr>
+<td>country:”China”</td>
+<td>国家</td>
+</tr>
+<tr>
+<td>city:”guangzhou”</td>
+<td>城市</td>
+</tr>
+<tr>
+<td>port:80</td>
+<td>端口</td>
+</tr>
+<tr>
+<td>hostname:google</td>
+<td>主机名</td>
+</tr>
+<tr>
+<td>site:thief.one</td>
+<td>网站域名</td>
+</tr>
+<tr>
+<td>desc:nmask</td>
+<td>描述</td>
+</tr>
+<tr>
+<td>keywords:nmask’blog</td>
+<td>关键词</td>
+</tr>
+<tr>
+<td>service:ftp</td>
+<td>服务类型</td>
+</tr>
+<tr>
+<td>ip:8.8.8.8</td>
+<td>ip地址</td>
+</tr>
+<tr>
+<td>cidr:8.8.8.8/24</td>
+<td>ip地址段</td>
+</tr>
+</tbody></table>
+<p>通过以上不同种类的搜索引擎我们可以获得相当多的有用的信息，甚至平时搜索东西我们也可以通过zoomeye来找到自己想要的东西</p>
+<h1 id="三、企业信息"><a href="#三、企业信息" class="headerlink" title="三、企业信息"></a>三、企业信息</h1><table>
+<thead>
+<tr>
+<th>天眼查</th>
+<th align="center">能根据用户的不同需求，实现了企业背景、企业发展、司法风险、经营风险、经营状况、知识产权方面等多种数据维度的检索，例如：企业信用信息公示系统，工业和信息化部ICP/IP地址/域名信息备案管理系统等以上几个可以用来深入了解渗透目标网站所属企业的相关信息</th>
+<th><a href="https://www.tianyancha.com/">https://www.tianyancha.com/</a></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>爱企查</td>
+<td align="center"><em>爱企查</em>是百度推出的企业信用查询工具,提供一站式的企业信息实时查询,企业相关的工商信息查询,股东查询,主要成员查询,变更记录查询,网站备案查询,对外投资查询,分支机构查询,年报查询,风险警示查询等</td>
+<td><a href="https://aiqicha.baidu.com/">https://aiqicha.baidu.com/</a></td>
+</tr>
+<tr>
+<td>企查查</td>
+<td align="center"><em>企查查</em>信息来自国家企业信用信息公示系统,提供企业信息查询,工商查询,企业信用评价查询,企业纠纷查询,企业现金流查询,企业股权查询,企业负债查询,企业资产查询,企业财报查询,公司查询等相关信息</td>
+<td><a href="https://www.qcc.com/">https://www.qcc.com/</a></td>
+</tr>
+<tr>
+<td>kali下的whois</td>
+<td align="center"></td>
+<td></td>
+</tr>
+<tr>
+<td>ICP备案查询网</td>
+<td align="center"></td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="四、域名信息收集"><a href="#四、域名信息收集" class="headerlink" title="四、域名信息收集"></a>四、域名信息收集</h1><p>当我们确定了要渗透的目标，也就是知道了其域名，接下来我们需要收集域名对应的 ip，域名的whois信息、子域名等等一系列与域名相关的信息。</p>
+<p>判断域名对应的IP：首先，我们要判断该域名是否存在CDN的情况，我们可以去在线CDN查询网站：<a href="http://ping.chinaz.com/">http://ping.chinaz.com/</a> 。如果查询出的ip数量大于一个的话，则说明该ip地址不是真实的服务器地址。以我的经验来看，如果是2个或者3个，并且这几个地址是同一地区的不同运营商的话，则很有可能这几个地址是服务器的出口地址，该服务器在内网中，通过不同运营商NAT映射供互联网访问，同时采用几个不同的运营商可以负载均衡和热备份。如果是多个ip地址，并且这些ip地址分布在不同地区的话，则基本上可以断定就是采用了CDN了。那么如何绕过CDN查找网站真实的ip地址呢？传送门——&gt; 绕过CDN查找网站真实ip</p>
+<p>域名的whois信息：</p>
+<p>通常，我们进行whois查询是去： 站长之家whois查询 。然后查出来信息之后，可以根据查询出来的邮箱、注册人、公司、电话等进行反查。</p>
+<p>子域名、DNS记录查询：传送门——&gt; 子域名查询、DNS记录查询</p>
+<p>公司敏感信息网上搜集<br>当确定了公司后，我们可以去互联网上查询与该公司有关的任何信息。比如，公司的邮箱格式，公司的员工姓名，以及与该公司有关的任何信息。并且，我们还可以去Github、码云等代码托管平台上查找与此有关的敏感信息，有些粗心的程序员在将代码上传至代码托管平台后，并没有对代码进行脱敏处理。导致上传的代码中有包含如数据库连接信息、邮箱密码、还有可能有泄露的源代码等。传送门——&gt; Github搜索语法</p>
+<h1 id="四、whois信息"><a href="#四、whois信息" class="headerlink" title="四、whois信息"></a>四、whois信息</h1><p>whois是用来查询域名注册所有者等信息的传输协议。简单说，whois就是一个用来查询域名是否已经被注册，以及注册域名的详细信息的数据库（如域名所有人、域名注册商）。通过whois来实现对域名信息的查询。早期的whois查询多以命令行接口存在，但是现在出现了一些网页接口简化的线上查询工具，可以一次向不同的数据库查询。网页接口的查询工具仍然依赖whois协议向服务器发送查询请求，命令行接口的工具仍然被系统管理员广泛使用。whois通常使用TCP协议43端口。每个域名/IP的whois信息由对应的管理机构保存。<br>whois信息可以获取关键注册人的信息，包括注册商、联系人、联系邮箱、联系电话、创建时间等,可以进行邮箱反查域名，爆破邮箱，社工，域名劫持，寻找旁站等等。<br><strong>常用的工具有：</strong>站长工具，爱站，微步在线</p>
+<h1 id="五、-Nslookup"><a href="#五、-Nslookup" class="headerlink" title="五、 Nslookup"></a>五、 Nslookup</h1><p>1.设置类型为ns</p>
+<p>2.下面的例子查询baidu.com使用的DNS服务器名称:</p>
+<p>3.下面的例子展示如何查询baidu.com的邮件交换记录：</p>
+<p>4.查看网站cname值。</p>
+<p>5.查看邮件服务器记录（-qt=MX）</p>
+<p>6.同样nslookup也可以验证是否存在域传送漏洞，步骤如下：</p>
+<p>nslookup进入交互式模式<br>Server 设置使用的DNS服务器<br>ls命令列出某个域中的所有域名</p>
+<h1 id="六、子域名收集"><a href="#六、子域名收集" class="headerlink" title="六、子域名收集"></a>六、子域名收集</h1><p>子域名收集可以发现更多渗透测试范围内的域名/子域名，以增加漏洞发现机率；探测到更多隐藏或遗忘的应用服务，这些应用往往可导致一些严重漏洞。<br>常用的工具有：子域名挖掘机Layer、subDomainsBrute、Dnsenum、Dnsmap …</p>
+<p>这里推荐一个在线收集子域名的网站 <a href="https://phpinfo.me/domain/">https://phpinfo.me/domain/</a> 但是可能会出现遇到泛解析防御机制的情况</p>
+<h1 id="七、真实IP获取"><a href="#七、真实IP获取" class="headerlink" title="七、真实IP获取"></a>七、真实IP获取</h1><p>现在大多数的网站都开启了CDN加速，导致我们获取到的IP地址不一定是真实的IP地址。</p>
+<p><strong>什么是CDN呢？</strong></p>
+<p>CDN的全称是Content Delivery Network，即内容分发网络。其基本思路是尽可能避开互联网上有可能影响数据传输速度和稳定性的瓶颈和环节，使内容传输的更快、更稳定。通过在网络各处放置节点服务器所构成的在现有的互联网基础之上的一层智能虚拟网络，CDN系统能够实时地根据网络流量和各节点的连接、负载状况以及到用户的距离和响应时间等综合信息将用户的请求重新导向离用户最近的服务节点上。其目的是使用户可就近取得所需内容，解决 Internet网络拥挤的状况，提高用户访问网站的响应速度。<br>如果想获取真实IP，我们可以使用以下几种方法<br>1.多地Ping法：由CDN的原理，不同的地方去Ping服务器，如果IP不一样，则目标网站肯定使用了CDN。这里推荐一个网站可以多个地点ping服务器，<a href="https://asm.ca.com/en/ping.php">https://asm.ca.com/en/ping.php</a></p>
+<p>2.二级域名法：目标站点一般不会把所有的二级域名放cdn上。通过在线工具如站长帮手，收集子域名，确定了没使用CDN的二级域名后。本地将目标域名绑定到同IP（修改host文件），如果能访问就说明目标站与此二级域名在同一个服务器上；如果两者不在同一服务器也可能在同C段，扫描C段所有开80端口的IP，然后挨个尝试。</p>
+<p>3.nslookup法：找国外的比较偏僻的DNS解析服务器进行DNS查询，因为大部分CDN提供商只针对国内市场，而对国外市场几乎是不做CDN，所以有很大的几率会直接解析到真实IP。</p>
+<p>4.Ping法：直接ping example.com而不是<a href="http://www.example.com,因为现有很多cdn厂商基本只要求把www.example.com/">www.example.com，因为现有很多CDN厂商基本只要求把www.example.com</a> cname到CDN主服务器上去，那么直接ping example.com有可能直接获得真实IP。</p>
+<p>5.在线资源：</p>
+<ol>
+<li><a href="https://wepcc.com/">全球Ping在线测试</a></li>
+<li><a href="http://ping.chinaz.com/">站长工具-ping测试</a></li>
+<li><a href="https://asm.ca.com/en/ping.php">CA</a></li>
+<li><a href="https://dnsdumpster.com/">DNSDumpster</a></li>
+<li><a href="https://ipchaxun.com/">IP查询</a></li>
+<li><a href="https://viewdns.info/iphistory/">IPhistory</a></li>
+<li><a href="https://securitytrails.com/">securitytrails</a></li>
+<li><a href="https://sitereport.netcraft.com/">netcraft</a></li>
+<li><a href="https://www.17ce.com/">17CE</a></li>
+<li><strong>kali下的nslookup、dig</strong></li>
+</ol>
+<h1 id="八、指纹识别"><a href="#八、指纹识别" class="headerlink" title="八、指纹识别"></a>八、指纹识别</h1><p>通过识别目标网站所使用的操作系统、CMS、服务器与中间件信息，可以帮助我们进一步了解渗透测试环境，可以利用已知的一些CMS漏洞或中间件漏洞来进行攻击。在渗透测试中，对目标服务器进行指纹识别是相当有必要的，因为只有识别出相应的Web容器或者CMS，才能查找与其相关的漏洞，然后才能进行相应的渗透操作。CMS又称整站系统。常见的CMS有：WordPress、Dedecms、Discuz、PhpWeb、PhpWind、Dvbbs、PhpCMS、ECShop、、SiteWeaver、AspCMS、帝国、Z-Blog等。</p>
+<p>常见的网站指纹识别工具有：whatweb等。</p>
+<p>在线指纹识别网站：</p>
+<p>BugScaner：<a href="http://whatweb.bugscaner.com/look/">http://whatweb.bugscaner.com/look/</a><br>云悉指纹：<a href="http://www.yunsee.cn/finger.html">http://www.yunsee.cn/finger.html</a><br>WhatWeb：<a href="https://whatweb.net/">https://whatweb.net/</a><br>整站分析</p>
+<p>可以在以下地方获取信息：<br>1.指定路径下指定名称的js文件或代码。</p>
+<p>2.指定路径下指定名称的css文件或代码。</p>
+<p>5.display:none中的版权信息。</p>
+<p>6.页面底部版权信息，关键字© Powered by等。</p>
+<p>7.readme.txt、License.txt、help.txt等文件。</p>
+<p>8.指定路径下指定图片文件，如一些小的图标文件，后台登录页面中的图标文件<br>等，一般管理员不会修改它们。</p>
+<p>9.注释掉的html代码中&lt;!–</p>
+<p>10.http头的X-Powered-By中的值，有的应用程序框架会在此值输出。</p>
+<p>11.cookie中的关键字</p>
+<p>12.robots.txt文件中的关键字，robots.txt 中禁止的路径很可能说明站点就有这些路径 而且robots.txt 多是可访问的</p>
+<p>13.404页面</p>
+<p>14.302返回时的旗标</p>
+<h1 id="九、服务器类型-Linux-Windows"><a href="#九、服务器类型-Linux-Windows" class="headerlink" title="九、服务器类型(Linux/Windows)"></a>九、服务器类型(Linux/Windows)</h1><p>服务器信息包括服务器用的操作系统：Linux 还是 Windows 。现在企业网站服务器的操作系统有百分之九十以上用的是Linux操作系统。知道了服务器的操作系统之后，还需要知道操作系统使用的具体版本。因为很多低版本的操作系统都存在已知的漏洞。</p>
+<p>判断是Linux还是Windows最简单就是通过ping来探测，Windows的TTL值都是一般是128，Linux则是64。所以大于100的肯定是Windows，而几十的肯定是Linux。但是，通过TTL值来判断服务器类型也不是百分之百准确的，有些windows服务器的TTL值也是几十，而且有的服务器禁止ping。</p>
+<p>而判断目标网站服务器的具体的版本的话，可以采用 <a href="https://so.csdn.net/so/search?q=nmap&spm=1001.2101.3001.7020">nmap</a> 进行扫描， -O 和 -A 参数都能扫描出来</p>
+<p>通过大小写判断</p>
+<p>访问网站：<br><a href="http://www.xxx.com/index.html">http://www.xxx.com/index.html</a><br><a href="http://www.xxx.com/inDex.html">http://www.xxx.com/inDex.html</a><br>Windows操作系统不区分大小写，Linux系统大小写敏感，用此方法能够判断是Windows还是Linux系统。</p>
+<p>工具 ：云悉指纹、Whatweb、httprint、Bugscanner、浏览器插件 wappalyzer</p>
+<p>有的时候HTTP返回报文的server也可能泄露相关信息</p>
+<h1 id="十、网站容器（Apache-Nginx-Tomcat-IIS）"><a href="#十、网站容器（Apache-Nginx-Tomcat-IIS）" class="headerlink" title="十、网站容器（Apache/Nginx/Tomcat/IIS）"></a>十、网站容器（Apache/Nginx/Tomcat/IIS）</h1><p>知道了这些信息之后，我们就需要知道网站用的web服务器是什么类型的：Apache、Nginx、Tomcat 还是 IIS。知道了web服务器是哪种类型后，我们还要探测web服务器具体的版本。比如Ngnix版本&lt;0.83会有解析漏洞 ，IIS6.0会有文件名解析漏洞、IIS7.0会有畸形解析漏洞等。不同的web服务器版本，存在着不同漏洞。</p>
+<h1 id="十一、脚本类型-php-jsp-asp-aspx"><a href="#十一、脚本类型-php-jsp-asp-aspx" class="headerlink" title="十一、脚本类型(php/jsp/asp/aspx)"></a>十一、脚本类型(php/jsp/asp/aspx)</h1><p>我们需要知道网站用的脚本类型：php 、Jsp 、Asp 、Aspx 。</p>
+<p>1：可以根据网站URL来判断</p>
+<p>2：site:xxx filetype:php</p>
+<p>3：可以根据Firefox的插件来判断</p>
+<h1 id="十二、数据库类型-Mysql-Oracle-Accees-Mqlserver"><a href="#十二、数据库类型-Mysql-Oracle-Accees-Mqlserver" class="headerlink" title="十二、数据库类型(Mysql/Oracle/Accees/Mqlserver)"></a>十二、数据库类型(Mysql/Oracle/Accees/Mqlserver)</h1><p>我们需要知道网站用的是哪种类型的数据库：Mysql、Oracle、SqlServer 还是 Access 。虽然这几种数据库的语法大体上相同，但是还是有区别的。所以我们还是要知道目标网站用的是哪种数据库，并且数据库是哪个版本的。</p>
+<p>几种数据库的区别：</p>
+<ol>
+<li>Access 全名是Microsoft Office Access，是由微软发布的关联式数据库管理系统。小型数据库，当数据库达到100M左右的时候性能就会下降。数据库后缀名： .mdb 一般是asp的网页文件用access数据库</li>
+<li>SQL Server是由Microsoft开发和推广的关系数据库管理系统（DBMS），是一个比较大型的数据库。端口号为1433。数据库后缀名 .mdf</li>
+<li>MySQL 是一个关系型数据库管理系统，由瑞典MySQL AB 公司开发，目前属于 Oracle 旗下产品。MySQL是最流行的关系型数据库管理系统，在 WEB 应用方面MySQL是最好的应用软件之一，MySQL数据库大部分是php的页面。默认端口是3306</li>
+<li>Oracle又名Oracle RDBMS，或简称Oracle。是甲骨文公司的一款关系数据库管理系统。常用于比较大的网站。默认端口是1521</li>
+</ol>
+<p>access是不要钱的，access支持千以内的访问量，access是小型数据库</p>
+<p>mysql也是开源的，mysql 是中小型数据库</p>
+<p>sql server 是收费的一般也就几千，sql server支持几千到上万的访问，sql server是中型数据库</p>
+<p>Oracle的费用则数万，Oracle则支持海量的访 问，Oracle是大型数据库</p>
+<p>常见搭配：</p>
+<p>ASP 和 ASPX：ACCESS、SQL Server<br>PHP：MySQL、PostgreSQL<br>JSP：Oracle、MySQL<br>主机扫描(Nessus)<br>对目标主机进行扫描，而不仅仅是对网站进行扫描，扫描目标主机开放了哪些端口，扫描端口运行的服务，目标主机上有哪些漏洞。</p>
+<p>主机扫描的工具也有很多，比如：Nessus</p>
+<h1 id="十三、端口扫描"><a href="#十三、端口扫描" class="headerlink" title="十三、端口扫描"></a>十三、端口扫描</h1><p>扫描端口可以使用Nmap，masscan进行扫描探测，尽可能多的搜集开启的端口好已经对应的服务版本，得到确切的服务版本后可以搜索有没有对应版本的漏洞。<br>常见的端口信息及渗透方法：</p>
+<table>
+<thead>
+<tr>
+<th>端口</th>
+<th>服务</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>tcp 20,21</td>
+<td>FTP</td>
+<td>允许匿名的上传下载,爆破,嗅探,win提权,远程执行(proftpd 1.3.5),各类后门(proftpd,vsftp 2.3.4)</td>
+</tr>
+<tr>
+<td>tcp 22</td>
+<td>SSH</td>
+<td>可根据已搜集到的信息尝试爆破,v1版本可中间人,ssh隧道及内网代理转发,文件传输等等</td>
+</tr>
+<tr>
+<td>tcp 23</td>
+<td>Telnet</td>
+<td>爆破,嗅探,一般常用于路由,交换登陆,可尝试弱口令</td>
+</tr>
+<tr>
+<td>tcp 25</td>
+<td>SMTP</td>
+<td>邮件伪造,vrfy/expn查询邮件用户信息,可使用smtp-user-enum工具来自动跑</td>
+</tr>
+<tr>
+<td>tcp/udp 53</td>
+<td>DNS</td>
+<td>允许区域传送,dns劫持,缓存投毒,欺骗以及各种基于dns隧道的远控</td>
+</tr>
+<tr>
+<td>tcp/udp 69</td>
+<td>TFTP</td>
+<td>尝试下载目标及其的各类重要配置文件</td>
+</tr>
+<tr>
+<td>tcp 80-89,443,8440-8450,8080-8089</td>
+<td>各种常用的Web服务端口</td>
+<td>可尝试经典的topn,vpn,owa,webmail,目标oa,各类Java控制台,各类服务器Web管理面板,各类Web中间件漏洞利用,各类Web框架漏洞利用等等……</td>
+</tr>
+<tr>
+<td>tcp 110</td>
+<td>POP3</td>
+<td>可尝试爆破,嗅探</td>
+</tr>
+<tr>
+<td>tcp 111,2049</td>
+<td>NFS</td>
+<td>权限配置不当</td>
+</tr>
+<tr>
+<td>tcp 137,139,445</td>
+<td>Samba</td>
+<td>可尝试爆破以及smb自身的各种远程执行类漏洞利用,如,ms08-067,ms17-010,嗅探等……</td>
+</tr>
+<tr>
+<td>tcp 143</td>
+<td>IMAP</td>
+<td>可尝试爆破</td>
+</tr>
+<tr>
+<td>udp 161</td>
+<td>SNMP</td>
+<td>爆破默认团队字符串,搜集目标内网信息</td>
+</tr>
+<tr>
+<td>tcp 389</td>
+<td>LDAP</td>
+<td>ldap注入,允许匿名访问,弱口令</td>
+</tr>
+<tr>
+<td>tcp 512,513,514</td>
+<td>Linux rexec</td>
+<td>可爆破,rlogin登陆</td>
+</tr>
+<tr>
+<td>tcp 873</td>
+<td>Rsync</td>
+<td>匿名访问,文件上传</td>
+</tr>
+<tr>
+<td>tcp 1194</td>
+<td>OpenVPN</td>
+<td>想办法钓VPN账号,进内网</td>
+</tr>
+<tr>
+<td>tcp 1352</td>
+<td>Lotus</td>
+<td>弱口令,信息泄漏,爆破</td>
+</tr>
+<tr>
+<td>tcp 1433</td>
+<td>SQL Server</td>
+<td>注入,提权,sa弱口令,爆破</td>
+</tr>
+<tr>
+<td>tcp 1521</td>
+<td>Oracle</td>
+<td>tns爆破,注入,弹shell…</td>
+</tr>
+<tr>
+<td>tcp 1500</td>
+<td>ISPmanager</td>
+<td>弱口令</td>
+</tr>
+<tr>
+<td>tcp 1723</td>
+<td>PPTP</td>
+<td>爆破,想办法钓VPN账号,进内网</td>
+</tr>
+<tr>
+<td>tcp 2082,2083</td>
+<td>cPanel</td>
+<td>弱口令</td>
+</tr>
+<tr>
+<td>tcp 2181</td>
+<td>ZooKeeper</td>
+<td>未授权访问</td>
+</tr>
+<tr>
+<td>tcp 2601,2604</td>
+<td>Zebra</td>
+<td>默认密码zerbra</td>
+</tr>
+<tr>
+<td>tcp 3128</td>
+<td>Squid</td>
+<td>弱口令</td>
+</tr>
+<tr>
+<td>tcp 3312,3311</td>
+<td>kangle</td>
+<td>弱口令</td>
+</tr>
+<tr>
+<td>tcp 3306</td>
+<td>MySQL</td>
+<td>注入,提权,爆破</td>
+</tr>
+<tr>
+<td>tcp 3389</td>
+<td>Windows rdp</td>
+<td>shift后门[需要03以下的系统],爆破,ms12-020</td>
+</tr>
+<tr>
+<td>tcp 3690</td>
+<td>SVN</td>
+<td>svn泄露,未授权访问</td>
+</tr>
+<tr>
+<td>tcp 4848</td>
+<td>GlassFish</td>
+<td>弱口令</td>
+</tr>
+<tr>
+<td>tcp 5000</td>
+<td>Sybase/DB2</td>
+<td>爆破,注入</td>
+</tr>
+<tr>
+<td>tcp 5432</td>
+<td>PostgreSQL</td>
+<td>爆破,注入,弱口令</td>
+</tr>
+<tr>
+<td>tcp 5900,5901,5902</td>
+<td>VNC</td>
+<td>弱口令爆破</td>
+</tr>
+<tr>
+<td>tcp 5984</td>
+<td>CouchDB</td>
+<td>未授权导致的任意指令执行</td>
+</tr>
+<tr>
+<td>tcp 6379</td>
+<td>Redis</td>
+<td>可尝试未授权访问,弱口令爆破</td>
+</tr>
+<tr>
+<td>tcp 7001,7002</td>
+<td>WebLogic</td>
+<td>Java反序列化,弱口令</td>
+</tr>
+<tr>
+<td>tcp 7778</td>
+<td>Kloxo</td>
+<td>主机面板登录</td>
+</tr>
+<tr>
+<td>tcp 8000</td>
+<td>Ajenti</td>
+<td>弱口令</td>
+</tr>
+<tr>
+<td>tcp 8443</td>
+<td>Plesk</td>
+<td>弱口令</td>
+</tr>
+<tr>
+<td>tcp 8069</td>
+<td>Zabbix</td>
+<td>远程执行,SQL注入</td>
+</tr>
+<tr>
+<td>tcp 8080-8089</td>
+<td>Jenkins,JBoss</td>
+<td>反序列化,控制台弱口令</td>
+</tr>
+<tr>
+<td>tcp 9080-9081,9090</td>
+<td>WebSphere</td>
+<td>Java反序列化/弱口令</td>
+</tr>
+<tr>
+<td>tcp 9200,9300</td>
+<td>ElasticSearch</td>
+<td>远程执行</td>
+</tr>
+<tr>
+<td>tcp 11211</td>
+<td>Memcached</td>
+<td>未授权访问</td>
+</tr>
+<tr>
+<td>tcp 27017,27018</td>
+<td>MongoDB</td>
+<td>爆破,未授权访问</td>
+</tr>
+<tr>
+<td>tcp 50070,50030</td>
+<td>Hadoop</td>
+<td>默认端口未授权访问</td>
+</tr>
+</tbody></table>
+<h1 id="十四、Nmap"><a href="#十四、Nmap" class="headerlink" title="十四、Nmap"></a>十四、Nmap</h1><p>Nmap是一个网络连接端口扫描软件，用来扫描网上电脑开放的网络连接端口。确定哪些服务运行在哪些连接端口，并且推断计算机运行哪个操作系统。它是网络管理员必用的软件之一，以及用以评估网络系统安全。<br>功能:<br>1、 主机发现<br>2、 端口扫描<br>3、 版本侦测<br>4、 OS侦测</p>
+<h1 id="十五、旁站C段查询"><a href="#十五、旁站C段查询" class="headerlink" title="十五、旁站C段查询"></a>十五、旁站C段查询</h1><p>旁站指的是同一服务器上的其他网站，很多时候，有些网站可能不是那么容易入侵。那么，可以查看该网站所在的服务器上是否还有其他网站。如果有其他网站的话，可以先拿下其他网站的webshell，然后再提权拿到服务器的权限，最后就自然可以拿下该网站了！</p>
+<p>对于红蓝对抗和护网，C段扫描比较有意义。对于单独网站的渗透测试，C段扫描意义不大。C段指的是同一内网段内的其他服务器，每个IP有ABCD四个段，举个例子，192.168.0.1，A段就是192，B段是168，C段是0，D段是1，而C段嗅探的意思就是拿下它同一C段中的其中一台服务器，也就是说是D段1-255中的一台服务器，然后利用工具嗅探拿下该服务器。</p>
+<p>旁站和C段在线查询地址：</p>
+<p><a href="http://www.webscan.cc/">http://www.webscan.cc/</a></p>
+<p>旁站：是和目标网站在同一台服务器上的其它的网站。</p>
+<p>旁注：通过入侵安全性较差的旁站，之后可以通过提权跨目录等手段拿到目标服务器的权限。</p>
+<p>工具：K8_C段旁注工具、WebRobot、御剑、明小子 …</p>
+<p>C段：每个IP有ABCD四个段，也就是说是D段1-255中的一台服务器，然后利用工具嗅探拿下该服务。比如192.168.3.0-255的设备都处于同一个c段。</p>
+<p>C段入侵：目标ip为192.168.1.128，可以入侵192.168.1.*的任意一台机器，然后利用一些黑客工具嗅探获取在网络上传输的各种信息。</p>
+<p>工具：Cain、Sniffit 、Snoop、Tcpdump、Dsniff …</p>
+<h1 id="十六、其他信息"><a href="#十六、其他信息" class="headerlink" title="十六、其他信息"></a>十六、其他信息</h1><p>Web敏感文件<br>robots.txt、crossdomin.xml、sitemap.xml、源码泄漏文件 …</p>
+<p>WAF信息<br>WAF识别大多基于Headers头信息，还可以使用Wafw00f，Sqlmap的waf脚本，Nmap的http-waf-detect和http-waf-fingerprint脚本等等。</p>
+<p>相关漏洞<br>漏洞查询站点：exploitdb、hackerone、CNVD、0day5、乌云漏洞库镜像站 …</p>
+<p>扫描网站目录结构，看看是否可以遍历目录，或者敏感文件泄漏</p>
+<p>后台目录：弱口令，万能密码，爆破<br>安装包：获取数据库信息，甚至是网站源码<br>上传目录：截断、上传图片马等<br>mysql管理接口：弱口令、爆破，万能密码，然后脱裤，甚至是拿到shell<br>安装页面 ：可以二次安装进而绕过<br>phpinfo：会把你配置的各种信息暴露出来<br>富文本编辑器<br>iis短文件利用：条件比较苛刻 windows、apache等</p>
+<p>robots.txt 文件是专门针对搜索引擎机器人robot 编写的一个纯文本文件。我们可以在这个文件中指定网站中不想被robot访问的目录。这样，我们网站的部分或全部内容就可以不被搜索引擎收录了，或者让搜索引擎只收录指定的内容。因此我们可<br>以利用robots.txt让Google的机器人访问不了我们网站上的重要文件，GoogleHack的威胁也就不存在了。<br>假如编写的robots.txt文件内容如下：</p>
+<p>User-agent: *<br>Disallow: /data/<br>Disallow: /db/<br>Disallow: /admin/<br>Disallow: /manager/<br>Allow:/images/<br>其中“Disallow”参数后面的是禁止robot收录部分的路径，例如我们要让robot禁止收录网站目录下的“data”文件夹，只需要在Disallow参数后面加上 /data/ 即可。如果想增加其他目录，只需按此格式继续添加。文件编写完成后将其上传到网站的根目录，就可以让网站远离Google Hack了。</p>
+<p>探测目标网站后台目录的工具有： wwwscan 、御剑 、 dirbuster、cansina 等</p>
 ]]></content>
       <categories>
         <category>web安全</category>
