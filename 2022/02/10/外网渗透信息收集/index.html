@@ -81,15 +81,15 @@
 
 
 
-<meta name="description" content="一、简介什么是信息搜集？ 信息搜集也称踩点，信息搜集毋庸置疑就是尽可能的搜集目标的信息，包括端口信息、DNS信息、员工邮箱等等看似并不起眼的一些信息都算是信息搜集，这些看似微乎其微的信息，对于渗透测试而言就关乎到成功与否了。 信息搜集的重要性 信息搜集是渗透测试的最重要的阶段，占据整个渗透测试的60%，可见信息搜集的重要性。根据收集的有用信息，可以大大提高我们渗透测试的成功率。 信息搜集的分类">
+<meta name="description" content="一、简介什么是信息搜集？ 信息搜集也称踩点，信息搜集毋庸置疑就是尽可能的搜集目标的信息，包括端口信息、DNS信息、员工邮箱等等看似并不起眼的一些信息都算是信息搜集，这些看似微乎其微的信息，对于渗透测试而言就关乎到成功与否了。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="外网渗透信息收集">
 <meta property="og:url" content="https://ax-x.github.io/2022/02/10/%E5%A4%96%E7%BD%91%E6%B8%97%E9%80%8F%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/index.html">
 <meta property="og:site_name" content="Ax-x">
-<meta property="og:description" content="一、简介什么是信息搜集？ 信息搜集也称踩点，信息搜集毋庸置疑就是尽可能的搜集目标的信息，包括端口信息、DNS信息、员工邮箱等等看似并不起眼的一些信息都算是信息搜集，这些看似微乎其微的信息，对于渗透测试而言就关乎到成功与否了。 信息搜集的重要性 信息搜集是渗透测试的最重要的阶段，占据整个渗透测试的60%，可见信息搜集的重要性。根据收集的有用信息，可以大大提高我们渗透测试的成功率。 信息搜集的分类">
+<meta property="og:description" content="一、简介什么是信息搜集？ 信息搜集也称踩点，信息搜集毋庸置疑就是尽可能的搜集目标的信息，包括端口信息、DNS信息、员工邮箱等等看似并不起眼的一些信息都算是信息搜集，这些看似微乎其微的信息，对于渗透测试而言就关乎到成功与否了。">
 <meta property="og:locale">
 <meta property="article:published_time" content="2022-02-10T01:20:39.000Z">
-<meta property="article:modified_time" content="2022-02-10T01:21:37.790Z">
+<meta property="article:modified_time" content="2022-02-10T01:28:48.389Z">
 <meta property="article:author" content="Ax-x">
 <meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary">
@@ -431,6 +431,8 @@
       
         <h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><p><strong>什么是信息搜集？</strong></p>
 <p>信息搜集也称踩点，信息搜集毋庸置疑就是尽可能的搜集目标的信息，包括端口信息、DNS信息、员工邮箱等等看似并不起眼的一些信息都算是信息搜集，这些看似微乎其微的信息，对于渗透测试而言就关乎到成功与否了。</p>
+<span id="more"></span>
+
 <p><strong>信息搜集的重要性</strong></p>
 <p>信息搜集是渗透测试的最重要的阶段，占据整个渗透测试的60%，可见信息搜集的重要性。根据收集的有用信息，可以大大提高我们渗透测试的成功率。</p>
 <p><strong>信息搜集的分类</strong></p>
@@ -593,17 +595,17 @@
 <p>通常，我们进行whois查询是去： 站长之家whois查询 。然后查出来信息之后，可以根据查询出来的邮箱、注册人、公司、电话等进行反查。</p>
 <p>子域名、DNS记录查询：传送门——&gt; 子域名查询、DNS记录查询</p>
 <p>公司敏感信息网上搜集<br>当确定了公司后，我们可以去互联网上查询与该公司有关的任何信息。比如，公司的邮箱格式，公司的员工姓名，以及与该公司有关的任何信息。并且，我们还可以去Github、码云等代码托管平台上查找与此有关的敏感信息，有些粗心的程序员在将代码上传至代码托管平台后，并没有对代码进行脱敏处理。导致上传的代码中有包含如数据库连接信息、邮箱密码、还有可能有泄露的源代码等。传送门——&gt; Github搜索语法</p>
-<h1 id="四、whois信息"><a href="#四、whois信息" class="headerlink" title="四、whois信息"></a>四、whois信息</h1><p>whois是用来查询域名注册所有者等信息的传输协议。简单说，whois就是一个用来查询域名是否已经被注册，以及注册域名的详细信息的数据库（如域名所有人、域名注册商）。通过whois来实现对域名信息的查询。早期的whois查询多以命令行接口存在，但是现在出现了一些网页接口简化的线上查询工具，可以一次向不同的数据库查询。网页接口的查询工具仍然依赖whois协议向服务器发送查询请求，命令行接口的工具仍然被系统管理员广泛使用。whois通常使用TCP协议43端口。每个域名/IP的whois信息由对应的管理机构保存。<br>whois信息可以获取关键注册人的信息，包括注册商、联系人、联系邮箱、联系电话、创建时间等,可以进行邮箱反查域名，爆破邮箱，社工，域名劫持，寻找旁站等等。<br><strong>常用的工具有：</strong>站长工具，爱站，微步在线</p>
-<h1 id="五、-Nslookup"><a href="#五、-Nslookup" class="headerlink" title="五、 Nslookup"></a>五、 Nslookup</h1><p>1.设置类型为ns</p>
+<h1 id="五、whois信息"><a href="#五、whois信息" class="headerlink" title="五、whois信息"></a>五、whois信息</h1><p>whois是用来查询域名注册所有者等信息的传输协议。简单说，whois就是一个用来查询域名是否已经被注册，以及注册域名的详细信息的数据库（如域名所有人、域名注册商）。通过whois来实现对域名信息的查询。早期的whois查询多以命令行接口存在，但是现在出现了一些网页接口简化的线上查询工具，可以一次向不同的数据库查询。网页接口的查询工具仍然依赖whois协议向服务器发送查询请求，命令行接口的工具仍然被系统管理员广泛使用。whois通常使用TCP协议43端口。每个域名/IP的whois信息由对应的管理机构保存。<br>whois信息可以获取关键注册人的信息，包括注册商、联系人、联系邮箱、联系电话、创建时间等,可以进行邮箱反查域名，爆破邮箱，社工，域名劫持，寻找旁站等等。<br><strong>常用的工具有：</strong>站长工具，爱站，微步在线</p>
+<h1 id="六、-Nslookup"><a href="#六、-Nslookup" class="headerlink" title="六、 Nslookup"></a>六、 Nslookup</h1><p>1.设置类型为ns</p>
 <p>2.下面的例子查询baidu.com使用的DNS服务器名称:</p>
 <p>3.下面的例子展示如何查询baidu.com的邮件交换记录：</p>
 <p>4.查看网站cname值。</p>
 <p>5.查看邮件服务器记录（-qt=MX）</p>
 <p>6.同样nslookup也可以验证是否存在域传送漏洞，步骤如下：</p>
 <p>nslookup进入交互式模式<br>Server 设置使用的DNS服务器<br>ls命令列出某个域中的所有域名</p>
-<h1 id="六、子域名收集"><a href="#六、子域名收集" class="headerlink" title="六、子域名收集"></a>六、子域名收集</h1><p>子域名收集可以发现更多渗透测试范围内的域名/子域名，以增加漏洞发现机率；探测到更多隐藏或遗忘的应用服务，这些应用往往可导致一些严重漏洞。<br>常用的工具有：子域名挖掘机Layer、subDomainsBrute、Dnsenum、Dnsmap …</p>
+<h1 id="七、子域名收集"><a href="#七、子域名收集" class="headerlink" title="七、子域名收集"></a>七、子域名收集</h1><p>子域名收集可以发现更多渗透测试范围内的域名/子域名，以增加漏洞发现机率；探测到更多隐藏或遗忘的应用服务，这些应用往往可导致一些严重漏洞。<br>常用的工具有：子域名挖掘机Layer、subDomainsBrute、Dnsenum、Dnsmap …</p>
 <p>这里推荐一个在线收集子域名的网站 <a target="_blank" rel="noopener" href="https://phpinfo.me/domain/">https://phpinfo.me/domain/</a> 但是可能会出现遇到泛解析防御机制的情况</p>
-<h1 id="七、真实IP获取"><a href="#七、真实IP获取" class="headerlink" title="七、真实IP获取"></a>七、真实IP获取</h1><p>现在大多数的网站都开启了CDN加速，导致我们获取到的IP地址不一定是真实的IP地址。</p>
+<h1 id="八、真实IP获取"><a href="#八、真实IP获取" class="headerlink" title="八、真实IP获取"></a>八、真实IP获取</h1><p>现在大多数的网站都开启了CDN加速，导致我们获取到的IP地址不一定是真实的IP地址。</p>
 <p><strong>什么是CDN呢？</strong></p>
 <p>CDN的全称是Content Delivery Network，即内容分发网络。其基本思路是尽可能避开互联网上有可能影响数据传输速度和稳定性的瓶颈和环节，使内容传输的更快、更稳定。通过在网络各处放置节点服务器所构成的在现有的互联网基础之上的一层智能虚拟网络，CDN系统能够实时地根据网络流量和各节点的连接、负载状况以及到用户的距离和响应时间等综合信息将用户的请求重新导向离用户最近的服务节点上。其目的是使用户可就近取得所需内容，解决 Internet网络拥挤的状况，提高用户访问网站的响应速度。<br>如果想获取真实IP，我们可以使用以下几种方法<br>1.多地Ping法：由CDN的原理，不同的地方去Ping服务器，如果IP不一样，则目标网站肯定使用了CDN。这里推荐一个网站可以多个地点ping服务器，<a target="_blank" rel="noopener" href="https://asm.ca.com/en/ping.php">https://asm.ca.com/en/ping.php</a></p>
 <p>2.二级域名法：目标站点一般不会把所有的二级域名放cdn上。通过在线工具如站长帮手，收集子域名，确定了没使用CDN的二级域名后。本地将目标域名绑定到同IP（修改host文件），如果能访问就说明目标站与此二级域名在同一个服务器上；如果两者不在同一服务器也可能在同C段，扫描C段所有开80端口的IP，然后挨个尝试。</p>
@@ -622,7 +624,7 @@
 <li><a target="_blank" rel="noopener" href="https://www.17ce.com/">17CE</a></li>
 <li><strong>kali下的nslookup、dig</strong></li>
 </ol>
-<h1 id="八、指纹识别"><a href="#八、指纹识别" class="headerlink" title="八、指纹识别"></a>八、指纹识别</h1><p>通过识别目标网站所使用的操作系统、CMS、服务器与中间件信息，可以帮助我们进一步了解渗透测试环境，可以利用已知的一些CMS漏洞或中间件漏洞来进行攻击。在渗透测试中，对目标服务器进行指纹识别是相当有必要的，因为只有识别出相应的Web容器或者CMS，才能查找与其相关的漏洞，然后才能进行相应的渗透操作。CMS又称整站系统。常见的CMS有：WordPress、Dedecms、Discuz、PhpWeb、PhpWind、Dvbbs、PhpCMS、ECShop、、SiteWeaver、AspCMS、帝国、Z-Blog等。</p>
+<h1 id="九、指纹识别"><a href="#九、指纹识别" class="headerlink" title="九、指纹识别"></a>九、指纹识别</h1><p>通过识别目标网站所使用的操作系统、CMS、服务器与中间件信息，可以帮助我们进一步了解渗透测试环境，可以利用已知的一些CMS漏洞或中间件漏洞来进行攻击。在渗透测试中，对目标服务器进行指纹识别是相当有必要的，因为只有识别出相应的Web容器或者CMS，才能查找与其相关的漏洞，然后才能进行相应的渗透操作。CMS又称整站系统。常见的CMS有：WordPress、Dedecms、Discuz、PhpWeb、PhpWind、Dvbbs、PhpCMS、ECShop、、SiteWeaver、AspCMS、帝国、Z-Blog等。</p>
 <p>常见的网站指纹识别工具有：whatweb等。</p>
 <p>在线指纹识别网站：</p>
 <p>BugScaner：<a target="_blank" rel="noopener" href="http://whatweb.bugscaner.com/look/">http://whatweb.bugscaner.com/look/</a><br>云悉指纹：<a target="_blank" rel="noopener" href="http://www.yunsee.cn/finger.html">http://www.yunsee.cn/finger.html</a><br>WhatWeb：<a target="_blank" rel="noopener" href="https://whatweb.net/">https://whatweb.net/</a><br>整站分析</p>
@@ -638,19 +640,19 @@
 <p>12.robots.txt文件中的关键字，robots.txt 中禁止的路径很可能说明站点就有这些路径 而且robots.txt 多是可访问的</p>
 <p>13.404页面</p>
 <p>14.302返回时的旗标</p>
-<h1 id="九、服务器类型-Linux-Windows"><a href="#九、服务器类型-Linux-Windows" class="headerlink" title="九、服务器类型(Linux/Windows)"></a>九、服务器类型(Linux/Windows)</h1><p>服务器信息包括服务器用的操作系统：Linux 还是 Windows 。现在企业网站服务器的操作系统有百分之九十以上用的是Linux操作系统。知道了服务器的操作系统之后，还需要知道操作系统使用的具体版本。因为很多低版本的操作系统都存在已知的漏洞。</p>
+<h1 id="十、服务器类型-Linux-Windows"><a href="#十、服务器类型-Linux-Windows" class="headerlink" title="十、服务器类型(Linux/Windows)"></a>十、服务器类型(Linux/Windows)</h1><p>服务器信息包括服务器用的操作系统：Linux 还是 Windows 。现在企业网站服务器的操作系统有百分之九十以上用的是Linux操作系统。知道了服务器的操作系统之后，还需要知道操作系统使用的具体版本。因为很多低版本的操作系统都存在已知的漏洞。</p>
 <p>判断是Linux还是Windows最简单就是通过ping来探测，Windows的TTL值都是一般是128，Linux则是64。所以大于100的肯定是Windows，而几十的肯定是Linux。但是，通过TTL值来判断服务器类型也不是百分之百准确的，有些windows服务器的TTL值也是几十，而且有的服务器禁止ping。</p>
 <p>而判断目标网站服务器的具体的版本的话，可以采用 <a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=nmap&spm=1001.2101.3001.7020">nmap</a> 进行扫描， -O 和 -A 参数都能扫描出来</p>
 <p>通过大小写判断</p>
 <p>访问网站：<br><a target="_blank" rel="noopener" href="http://www.xxx.com/index.html">http://www.xxx.com/index.html</a><br><a target="_blank" rel="noopener" href="http://www.xxx.com/inDex.html">http://www.xxx.com/inDex.html</a><br>Windows操作系统不区分大小写，Linux系统大小写敏感，用此方法能够判断是Windows还是Linux系统。</p>
 <p>工具 ：云悉指纹、Whatweb、httprint、Bugscanner、浏览器插件 wappalyzer</p>
 <p>有的时候HTTP返回报文的server也可能泄露相关信息</p>
-<h1 id="十、网站容器（Apache-Nginx-Tomcat-IIS）"><a href="#十、网站容器（Apache-Nginx-Tomcat-IIS）" class="headerlink" title="十、网站容器（Apache/Nginx/Tomcat/IIS）"></a>十、网站容器（Apache/Nginx/Tomcat/IIS）</h1><p>知道了这些信息之后，我们就需要知道网站用的web服务器是什么类型的：Apache、Nginx、Tomcat 还是 IIS。知道了web服务器是哪种类型后，我们还要探测web服务器具体的版本。比如Ngnix版本&lt;0.83会有解析漏洞 ，IIS6.0会有文件名解析漏洞、IIS7.0会有畸形解析漏洞等。不同的web服务器版本，存在着不同漏洞。</p>
-<h1 id="十一、脚本类型-php-jsp-asp-aspx"><a href="#十一、脚本类型-php-jsp-asp-aspx" class="headerlink" title="十一、脚本类型(php/jsp/asp/aspx)"></a>十一、脚本类型(php/jsp/asp/aspx)</h1><p>我们需要知道网站用的脚本类型：php 、Jsp 、Asp 、Aspx 。</p>
+<h1 id="十一、网站容器（Apache-Nginx-Tomcat-IIS）"><a href="#十一、网站容器（Apache-Nginx-Tomcat-IIS）" class="headerlink" title="十一、网站容器（Apache/Nginx/Tomcat/IIS）"></a>十一、网站容器（Apache/Nginx/Tomcat/IIS）</h1><p>知道了这些信息之后，我们就需要知道网站用的web服务器是什么类型的：Apache、Nginx、Tomcat 还是 IIS。知道了web服务器是哪种类型后，我们还要探测web服务器具体的版本。比如Ngnix版本&lt;0.83会有解析漏洞 ，IIS6.0会有文件名解析漏洞、IIS7.0会有畸形解析漏洞等。不同的web服务器版本，存在着不同漏洞。</p>
+<h1 id="十二、脚本类型-php-jsp-asp-aspx"><a href="#十二、脚本类型-php-jsp-asp-aspx" class="headerlink" title="十二、脚本类型(php/jsp/asp/aspx)"></a>十二、脚本类型(php/jsp/asp/aspx)</h1><p>我们需要知道网站用的脚本类型：php 、Jsp 、Asp 、Aspx 。</p>
 <p>1：可以根据网站URL来判断</p>
 <p>2：site:xxx filetype:php</p>
 <p>3：可以根据Firefox的插件来判断</p>
-<h1 id="十二、数据库类型-Mysql-Oracle-Accees-Mqlserver"><a href="#十二、数据库类型-Mysql-Oracle-Accees-Mqlserver" class="headerlink" title="十二、数据库类型(Mysql/Oracle/Accees/Mqlserver)"></a>十二、数据库类型(Mysql/Oracle/Accees/Mqlserver)</h1><p>我们需要知道网站用的是哪种类型的数据库：Mysql、Oracle、SqlServer 还是 Access 。虽然这几种数据库的语法大体上相同，但是还是有区别的。所以我们还是要知道目标网站用的是哪种数据库，并且数据库是哪个版本的。</p>
+<h1 id="十三、数据库类型-Mysql-Oracle-Accees-Mqlserver"><a href="#十三、数据库类型-Mysql-Oracle-Accees-Mqlserver" class="headerlink" title="十三、数据库类型(Mysql/Oracle/Accees/Mqlserver)"></a>十三、数据库类型(Mysql/Oracle/Accees/Mqlserver)</h1><p>我们需要知道网站用的是哪种类型的数据库：Mysql、Oracle、SqlServer 还是 Access 。虽然这几种数据库的语法大体上相同，但是还是有区别的。所以我们还是要知道目标网站用的是哪种数据库，并且数据库是哪个版本的。</p>
 <p>几种数据库的区别：</p>
 <ol>
 <li>Access 全名是Microsoft Office Access，是由微软发布的关联式数据库管理系统。小型数据库，当数据库达到100M左右的时候性能就会下降。数据库后缀名： .mdb 一般是asp的网页文件用access数据库</li>
@@ -665,7 +667,7 @@
 <p>常见搭配：</p>
 <p>ASP 和 ASPX：ACCESS、SQL Server<br>PHP：MySQL、PostgreSQL<br>JSP：Oracle、MySQL<br>主机扫描(Nessus)<br>对目标主机进行扫描，而不仅仅是对网站进行扫描，扫描目标主机开放了哪些端口，扫描端口运行的服务，目标主机上有哪些漏洞。</p>
 <p>主机扫描的工具也有很多，比如：Nessus</p>
-<h1 id="十三、端口扫描"><a href="#十三、端口扫描" class="headerlink" title="十三、端口扫描"></a>十三、端口扫描</h1><p>扫描端口可以使用Nmap，masscan进行扫描探测，尽可能多的搜集开启的端口好已经对应的服务版本，得到确切的服务版本后可以搜索有没有对应版本的漏洞。<br>常见的端口信息及渗透方法：</p>
+<h1 id="十四、端口扫描"><a href="#十四、端口扫描" class="headerlink" title="十四、端口扫描"></a>十四、端口扫描</h1><p>扫描端口可以使用Nmap，masscan进行扫描探测，尽可能多的搜集开启的端口好已经对应的服务版本，得到确切的服务版本后可以搜索有没有对应版本的漏洞。<br>常见的端口信息及渗透方法：</p>
 <table>
 <thead>
 <tr>
@@ -905,8 +907,8 @@
 <td>默认端口未授权访问</td>
 </tr>
 </tbody></table>
-<h1 id="十四、Nmap"><a href="#十四、Nmap" class="headerlink" title="十四、Nmap"></a>十四、Nmap</h1><p>Nmap是一个网络连接端口扫描软件，用来扫描网上电脑开放的网络连接端口。确定哪些服务运行在哪些连接端口，并且推断计算机运行哪个操作系统。它是网络管理员必用的软件之一，以及用以评估网络系统安全。<br>功能:<br>1、 主机发现<br>2、 端口扫描<br>3、 版本侦测<br>4、 OS侦测</p>
-<h1 id="十五、旁站C段查询"><a href="#十五、旁站C段查询" class="headerlink" title="十五、旁站C段查询"></a>十五、旁站C段查询</h1><p>旁站指的是同一服务器上的其他网站，很多时候，有些网站可能不是那么容易入侵。那么，可以查看该网站所在的服务器上是否还有其他网站。如果有其他网站的话，可以先拿下其他网站的webshell，然后再提权拿到服务器的权限，最后就自然可以拿下该网站了！</p>
+<h1 id="十五、Nmap"><a href="#十五、Nmap" class="headerlink" title="十五、Nmap"></a>十五、Nmap</h1><p>Nmap是一个网络连接端口扫描软件，用来扫描网上电脑开放的网络连接端口。确定哪些服务运行在哪些连接端口，并且推断计算机运行哪个操作系统。它是网络管理员必用的软件之一，以及用以评估网络系统安全。<br>功能:<br>1、 主机发现<br>2、 端口扫描<br>3、 版本侦测<br>4、 OS侦测</p>
+<h1 id="十六、旁站C段查询"><a href="#十六、旁站C段查询" class="headerlink" title="十六、旁站C段查询"></a>十六、旁站C段查询</h1><p>旁站指的是同一服务器上的其他网站，很多时候，有些网站可能不是那么容易入侵。那么，可以查看该网站所在的服务器上是否还有其他网站。如果有其他网站的话，可以先拿下其他网站的webshell，然后再提权拿到服务器的权限，最后就自然可以拿下该网站了！</p>
 <p>对于红蓝对抗和护网，C段扫描比较有意义。对于单独网站的渗透测试，C段扫描意义不大。C段指的是同一内网段内的其他服务器，每个IP有ABCD四个段，举个例子，192.168.0.1，A段就是192，B段是168，C段是0，D段是1，而C段嗅探的意思就是拿下它同一C段中的其中一台服务器，也就是说是D段1-255中的一台服务器，然后利用工具嗅探拿下该服务器。</p>
 <p>旁站和C段在线查询地址：</p>
 <p><a target="_blank" rel="noopener" href="http://www.webscan.cc/">http://www.webscan.cc/</a></p>
@@ -916,7 +918,7 @@
 <p>C段：每个IP有ABCD四个段，也就是说是D段1-255中的一台服务器，然后利用工具嗅探拿下该服务。比如192.168.3.0-255的设备都处于同一个c段。</p>
 <p>C段入侵：目标ip为192.168.1.128，可以入侵192.168.1.*的任意一台机器，然后利用一些黑客工具嗅探获取在网络上传输的各种信息。</p>
 <p>工具：Cain、Sniffit 、Snoop、Tcpdump、Dsniff …</p>
-<h1 id="十六、其他信息"><a href="#十六、其他信息" class="headerlink" title="十六、其他信息"></a>十六、其他信息</h1><p>Web敏感文件<br>robots.txt、crossdomin.xml、sitemap.xml、源码泄漏文件 …</p>
+<h1 id="十七、其他信息"><a href="#十七、其他信息" class="headerlink" title="十七、其他信息"></a>十七、其他信息</h1><p>Web敏感文件<br>robots.txt、crossdomin.xml、sitemap.xml、源码泄漏文件 …</p>
 <p>WAF信息<br>WAF识别大多基于Headers头信息，还可以使用Wafw00f，Sqlmap的waf脚本，Nmap的http-waf-detect和http-waf-fingerprint脚本等等。</p>
 <p>相关漏洞<br>漏洞查询站点：exploitdb、hackerone、CNVD、0day5、乌云漏洞库镜像站 …</p>
 <p>扫描网站目录结构，看看是否可以遍历目录，或者敏感文件泄漏</p>
@@ -1148,7 +1150,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">一、简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E"><span class="nav-number">2.</span> <span class="nav-text">二、搜索引擎</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%BC%81%E4%B8%9A%E4%BF%A1%E6%81%AF"><span class="nav-number">3.</span> <span class="nav-text">三、企业信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%9F%9F%E5%90%8D%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="nav-number">4.</span> <span class="nav-text">四、域名信息收集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81whois%E4%BF%A1%E6%81%AF"><span class="nav-number">5.</span> <span class="nav-text">四、whois信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81-Nslookup"><span class="nav-number">6.</span> <span class="nav-text">五、 Nslookup</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%AD%90%E5%9F%9F%E5%90%8D%E6%94%B6%E9%9B%86"><span class="nav-number">7.</span> <span class="nav-text">六、子域名收集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E7%9C%9F%E5%AE%9EIP%E8%8E%B7%E5%8F%96"><span class="nav-number">8.</span> <span class="nav-text">七、真实IP获取</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%AB"><span class="nav-number">9.</span> <span class="nav-text">八、指纹识别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%B1%BB%E5%9E%8B-Linux-Windows"><span class="nav-number">10.</span> <span class="nav-text">九、服务器类型(Linux&#x2F;Windows)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E3%80%81%E7%BD%91%E7%AB%99%E5%AE%B9%E5%99%A8%EF%BC%88Apache-Nginx-Tomcat-IIS%EF%BC%89"><span class="nav-number">11.</span> <span class="nav-text">十、网站容器（Apache&#x2F;Nginx&#x2F;Tomcat&#x2F;IIS）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E8%84%9A%E6%9C%AC%E7%B1%BB%E5%9E%8B-php-jsp-asp-aspx"><span class="nav-number">12.</span> <span class="nav-text">十一、脚本类型(php&#x2F;jsp&#x2F;asp&#x2F;aspx)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B1%BB%E5%9E%8B-Mysql-Oracle-Accees-Mqlserver"><span class="nav-number">13.</span> <span class="nav-text">十二、数据库类型(Mysql&#x2F;Oracle&#x2F;Accees&#x2F;Mqlserver)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="nav-number">14.</span> <span class="nav-text">十三、端口扫描</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E5%9B%9B%E3%80%81Nmap"><span class="nav-number">15.</span> <span class="nav-text">十四、Nmap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E4%BA%94%E3%80%81%E6%97%81%E7%AB%99C%E6%AE%B5%E6%9F%A5%E8%AF%A2"><span class="nav-number">16.</span> <span class="nav-text">十五、旁站C段查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E5%85%AD%E3%80%81%E5%85%B6%E4%BB%96%E4%BF%A1%E6%81%AF"><span class="nav-number">17.</span> <span class="nav-text">十六、其他信息</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">一、简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E"><span class="nav-number">2.</span> <span class="nav-text">二、搜索引擎</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%BC%81%E4%B8%9A%E4%BF%A1%E6%81%AF"><span class="nav-number">3.</span> <span class="nav-text">三、企业信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%9F%9F%E5%90%8D%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="nav-number">4.</span> <span class="nav-text">四、域名信息收集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81whois%E4%BF%A1%E6%81%AF"><span class="nav-number">5.</span> <span class="nav-text">五、whois信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AD%E3%80%81-Nslookup"><span class="nav-number">6.</span> <span class="nav-text">六、 Nslookup</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E5%AD%90%E5%9F%9F%E5%90%8D%E6%94%B6%E9%9B%86"><span class="nav-number">7.</span> <span class="nav-text">七、子域名收集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E7%9C%9F%E5%AE%9EIP%E8%8E%B7%E5%8F%96"><span class="nav-number">8.</span> <span class="nav-text">八、真实IP获取</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%AB"><span class="nav-number">9.</span> <span class="nav-text">九、指纹识别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E3%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%B1%BB%E5%9E%8B-Linux-Windows"><span class="nav-number">10.</span> <span class="nav-text">十、服务器类型(Linux&#x2F;Windows)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E7%BD%91%E7%AB%99%E5%AE%B9%E5%99%A8%EF%BC%88Apache-Nginx-Tomcat-IIS%EF%BC%89"><span class="nav-number">11.</span> <span class="nav-text">十一、网站容器（Apache&#x2F;Nginx&#x2F;Tomcat&#x2F;IIS）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81%E8%84%9A%E6%9C%AC%E7%B1%BB%E5%9E%8B-php-jsp-asp-aspx"><span class="nav-number">12.</span> <span class="nav-text">十二、脚本类型(php&#x2F;jsp&#x2F;asp&#x2F;aspx)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B1%BB%E5%9E%8B-Mysql-Oracle-Accees-Mqlserver"><span class="nav-number">13.</span> <span class="nav-text">十三、数据库类型(Mysql&#x2F;Oracle&#x2F;Accees&#x2F;Mqlserver)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E5%9B%9B%E3%80%81%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="nav-number">14.</span> <span class="nav-text">十四、端口扫描</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E4%BA%94%E3%80%81Nmap"><span class="nav-number">15.</span> <span class="nav-text">十五、Nmap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E5%85%AD%E3%80%81%E6%97%81%E7%AB%99C%E6%AE%B5%E6%9F%A5%E8%AF%A2"><span class="nav-number">16.</span> <span class="nav-text">十六、旁站C段查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E4%B8%83%E3%80%81%E5%85%B6%E4%BB%96%E4%BF%A1%E6%81%AF"><span class="nav-number">17.</span> <span class="nav-text">十七、其他信息</span></a></li></ol></div>
             
 
           </div>

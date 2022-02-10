@@ -6,7 +6,7 @@
   <link href="https://ax-x.github.io/atom.xml" rel="self"/>
   
   <link href="https://ax-x.github.io/"/>
-  <updated>2022-02-10T01:21:37.790Z</updated>
+  <updated>2022-02-10T01:28:48.389Z</updated>
   <id>https://ax-x.github.io/</id>
   
   <author>
@@ -21,16 +21,11 @@
     <link href="https://ax-x.github.io/2022/02/10/%E5%A4%96%E7%BD%91%E6%B8%97%E9%80%8F%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"/>
     <id>https://ax-x.github.io/2022/02/10/%E5%A4%96%E7%BD%91%E6%B8%97%E9%80%8F%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/</id>
     <published>2022-02-10T01:20:39.000Z</published>
-    <updated>2022-02-10T01:21:37.790Z</updated>
+    <updated>2022-02-10T01:28:48.389Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;一、简介&quot;&gt;&lt;a href=&quot;#一、简介&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;一、简介&quot;&gt;&lt;a href=&quot;#一、简介&quot; class=&quot;headerlink&quot; title=&quot;一、简介&quot;&gt;&lt;/a&gt;一、简介&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;什么是信息搜集？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;信息搜集也称踩点，信息搜集毋庸置疑就是尽可能的搜集目标的信息，包括端口信息、DNS信息、员工邮箱等等看似并不起眼的一些信息都算是信息搜集，这些看似微乎其微的信息，对于渗透测试而言就关乎到成功与否了。&lt;/p&gt;</summary>
     
     
     
