@@ -81,19 +81,19 @@
 
 
 
-<meta name="description" content="前些日子大佬叫去搞渗透，得走深信服的VPN，连上之后发现BP抓不了包了，关闭 BurpSuite 单独用浏览器就可以正常访问，还以为是我电脑问题，后面发现下了VPN之后能正常抓包了。  一开始以为是走的VPN，多个代理抓不到，然后试着用BP搞个上层代理，结果还是不行，后门觉着应该是深信服VPN不允许抓包的问题，把流量先在自己电脑跑一圈，用一层中转即可，找了个EW，开了个 sock5 服务器进行本地">
+<meta name="description" content="前些日子大佬叫去搞渗透，得走深信服的VPN，连上之后发现BP抓不了包了，关闭 BurpSuite 单独用浏览器就可以正常访问，还以为是我电脑问题，后面发现下了VPN之后能正常抓包了。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于开深信服VPN无法抓包">
 <meta property="og:url" content="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/index.html">
 <meta property="og:site_name" content="Ax-x">
-<meta property="og:description" content="前些日子大佬叫去搞渗透，得走深信服的VPN，连上之后发现BP抓不了包了，关闭 BurpSuite 单独用浏览器就可以正常访问，还以为是我电脑问题，后面发现下了VPN之后能正常抓包了。  一开始以为是走的VPN，多个代理抓不到，然后试着用BP搞个上层代理，结果还是不行，后门觉着应该是深信服VPN不允许抓包的问题，把流量先在自己电脑跑一圈，用一层中转即可，找了个EW，开了个 sock5 服务器进行本地">
+<meta property="og:description" content="前些日子大佬叫去搞渗透，得走深信服的VPN，连上之后发现BP抓不了包了，关闭 BurpSuite 单独用浏览器就可以正常访问，还以为是我电脑问题，后面发现下了VPN之后能正常抓包了。">
 <meta property="og:locale">
 <meta property="og:image" content="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217100454882.png">
 <meta property="og:image" content="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101004315.png">
 <meta property="og:image" content="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101028945.png">
 <meta property="og:image" content="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101050106.png">
 <meta property="article:published_time" content="2022-02-17T02:12:50.000Z">
-<meta property="article:modified_time" content="2022-02-17T02:13:52.848Z">
+<meta property="article:modified_time" content="2022-02-17T02:14:53.663Z">
 <meta property="article:author" content="Ax-x">
 <meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary">
@@ -435,6 +435,7 @@
 
       
         <p>前些日子大佬叫去搞渗透，得走深信服的VPN，连上之后发现BP抓不了包了，关闭 BurpSuite 单独用浏览器就可以正常访问，还以为是我电脑问题，后面发现下了VPN之后能正常抓包了。</p>
+<span id="more"></span>
 <p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217100454882.png" alt="image-20220217100454882"></p>
 <p>一开始以为是走的VPN，多个代理抓不到，然后试着用BP搞个上层代理，结果还是不行，后门觉着应该是深信服VPN不允许抓包的问题，把流量先在自己电脑跑一圈，用一层中转即可，找了个EW，开了个 sock5 服务器进行本地转发，然后再进行抓包就可以了</p>
 <p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101004315.png" alt="image-20220217101004315"></p>
