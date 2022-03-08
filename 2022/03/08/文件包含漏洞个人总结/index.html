@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="学习笔记," />
 
 
 
@@ -81,14 +81,17 @@
 
 
 
-<meta name="description" content="你总需要做点什么，或多或少总归是收获">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Ax-x">
-<meta property="og:url" content="https://ax-x.github.io/categories/web%E5%AE%89%E5%85%A8/index.html">
+<meta name="description" content="什么是文件包含程序开发人员一般希望代码更灵活，所以将被包含的文件设置为变量，用来进行动态调用，但正是由于这种灵活性，从而导致客户端可以调用一个恶意文件，造成文件包含漏洞。为了控制代码的灵活，程序要把要使用的函数写到一个文件中，其他需要其中的的函数执行，只需要通过该文件名包含进来，而且没有进行验证。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件包含漏洞个人总结">
+<meta property="og:url" content="https://ax-x.github.io/2022/03/08/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="Ax-x">
-<meta property="og:description" content="你总需要做点什么，或多或少总归是收获">
+<meta property="og:description" content="什么是文件包含程序开发人员一般希望代码更灵活，所以将被包含的文件设置为变量，用来进行动态调用，但正是由于这种灵活性，从而导致客户端可以调用一个恶意文件，造成文件包含漏洞。为了控制代码的灵活，程序要把要使用的函数写到一个文件中，其他需要其中的的函数执行，只需要通过该文件名包含进来，而且没有进行验证。">
 <meta property="og:locale">
+<meta property="article:published_time" content="2022-03-08T12:16:56.000Z">
+<meta property="article:modified_time" content="2022-03-08T12:19:46.172Z">
 <meta property="article:author" content="Ax-x">
+<meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary">
 
 
@@ -119,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://ax-x.github.io/categories/web安全/"/>
+  <link rel="canonical" href="https://ax-x.github.io/2022/03/08/文件包含漏洞个人总结/"/>
 
 
 
 
 
-  <title>分类: web安全 | Ax-x</title>
+  <title>文件包含漏洞个人总结 | Ax-x</title>
   
 
 
@@ -144,7 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -292,251 +295,241 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block category">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>web安全<small>分类</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ax-x.github.io/2022/03/08/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head_portrait.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ax-x">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2022/03/08/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/" itemprop="url">
-              
-                <span itemprop="name">文件包含漏洞个人总结</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">文件包含漏洞个人总结</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-03-08T20:16:56+08:00"
-              content="2022-03-08" >
-          03-08
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-08T20:16:56+08:00">
+                2022-03-08
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web%E5%AE%89%E5%85%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  697
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/" itemprop="url">
-              
-                <span itemprop="name">文件上传漏洞个人总结</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-03-08T17:24:44+08:00"
-              content="2022-03-08" >
-          03-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
+        <h2 id="什么是文件包含"><a href="#什么是文件包含" class="headerlink" title="什么是文件包含"></a>什么是文件包含</h2><p>程序开发人员一般希望代码更灵活，所以将被包含的文件设置为变量，用来进行动态调用，但正是由于这种灵活性，从而导致客户端可以调用一个恶意文件，造成文件包含漏洞。为了控制代码的灵活，程序要把要使用的函数写到一个文件中，其他需要其中的的函数执行，只需要通过该文件名包含进来，而且没有进行验证。</p>
+<span id="more"></span>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<h2 id="文件包含分类"><a href="#文件包含分类" class="headerlink" title="文件包含分类"></a>文件包含分类</h2><p><strong>本地包含</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当被包含的文件在服务器本地时，且能够读取或执行包含本地文件的漏洞，称为本地文件包含漏洞</span><br></pre></td></tr></table></figure>
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/" itemprop="url">
-              
-                <span itemprop="name">关于开深信服VPN无法抓包</span>
-              
-            </a>
-        
-      </h2>
+<p><strong>远程包含</strong></p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">远程文件包含和本地文件包含造成漏洞的原因是一样的，当开发配置可以读取远程文件时，例如php.ini 中的配置选项allow_url_fopen和allow_url_include为<span class="keyword">ON</span>的话，则包含的文件可以是第三方服务器中的文件，这样就形成了远程文件包含漏洞。</span><br><span class="line">代码限制：代码里面限制只能包含本地文件的话就不会有远程包含，如果没限制的话，并且在设置上允许包含远程文件的话，就会引起远程包含</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-02-17T10:12:50+08:00"
-              content="2022-02-17" >
-          02-17
-        </time>
-      </div>
+<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">通过文件以脚本去执行</span><br><span class="line">文件包含常用函数</span><br><span class="line"><span class="function"><span class="title">include</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">require</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">fopen</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">include_once</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">require_once</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">readfile</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
 
-    </header>
-  </article>
+<h2 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">漏扫工具</span><br><span class="line">公开漏洞</span><br><span class="line">手工看参数以及功能点</span><br><span class="line"><span class="number">1</span>、通过观察参数特征猜测是否使用文件包含，文件包含参数后面为具体文件名如：http:<span class="regexp">//</span>example.com/index.php?page=include.php</span><br><span class="line">http:<span class="regexp">//</span>example.com/index.php?page=include</span><br><span class="line"><span class="number">2</span>、通过..<span class="regexp">/目录跳转符尝试读取系统文件、服务器日志文件或者配置文件。如读取Linux的/</span>etc<span class="regexp">/passwd文件: http:/</span><span class="regexp">/example.com/i</span>ndex.php?page=..<span class="regexp">/../</span>..<span class="regexp">/../</span>etc/passwd</span><br><span class="line"><span class="number">3</span>、通过php:<span class="regexp">//</span>filter<span class="regexp">/convert.base64-encode/</span>resource=index.php读取代码文件。</span><br><span class="line"><span class="number">4</span>、通过包含远程服务器上的PHP代码文件执行代码。</span><br><span class="line"><span class="number">5</span>、如果站点存在一个文件上传功能，只允许图片类型文件，并且存在文件包含漏洞，则可以把PHP代码写入图片文件中，再通过文件包含漏洞包含之，进而执行PHP代码。</span><br><span class="line"><span class="number">6</span>、如果文件的后缀可考虑使用截断进行包含：</span><br><span class="line">  <span class="number">1</span>)%<span class="number">00</span>截断（PHP小于<span class="number">5.3</span>.<span class="number">4</span>，magic_quotes_gpc=off）</span><br><span class="line">  <span class="number">2</span>)路径长度截断：</span><br><span class="line">  <span class="regexp">/etc/</span>passwd<span class="regexp">/./</span>.<span class="regexp">/./</span>.<span class="regexp">/./</span>.[n*/.]（Linux文件名需要长于<span class="number">4096</span>，Windows 需要长于<span class="number">256</span>）</span><br></pre></td></tr></table></figure>
 
+<h2 id="如何利用"><a href="#如何利用" class="headerlink" title="如何利用"></a>如何利用</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.读取目标机上敏感文件</span><br><span class="line">2.远程文件包含可运行的PHP木马</span><br><span class="line">3、配合文件上传漏洞获取webshll</span><br></pre></td></tr></table></figure>
 
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/02/10/%E5%A4%96%E7%BD%91%E6%B8%97%E9%80%8F%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" itemprop="url">
-              
-                <span itemprop="name">外网渗透信息收集</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-02-10T09:20:39+08:00"
-              content="2022-02-10" >
-          02-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/" itemprop="url">
-              
-                <span itemprop="name">XSS跨站脚本攻击</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-01-17T22:56:33+08:00"
-              content="2022-01-17" >
-          01-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/01/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83/" itemprop="url">
-              
-                <span itemprop="name">逻辑越权</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-01-16T21:32:30+08:00"
-              content="2022-01-16" >
-          01-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/01/16/SQL%E6%B3%A8%E5%85%A5/" itemprop="url">
-              
-                <span itemprop="name">SQL注入</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-01-16T20:32:30+08:00"
-              content="2022-01-16" >
-          01-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/01/01/First%20Blog/" itemprop="url">
-              
-                <span itemprop="name">First Blog</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-01-01T16:24:33+08:00"
-              content="2022-01-01" >
-          01-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+<h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">固定文件后缀</span><br><span class="line">固定使用的文件</span><br><span class="line">安装WAF</span><br></pre></td></tr></table></figure>
       
     </div>
+    
+    
+    
+	
 
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/wx_gongzhongh.jpg" alt=" wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎各位大佬关注团队公众号，求带！</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Ax-x
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://ax-x.github.io/2022/03/08/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/" title="文件包含漏洞个人总结">https://ax-x.github.io/2022/03/08/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"><i class="fa fa-tag"></i> 学习笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/" rel="next" title="文件上传漏洞个人总结">
+                <i class="fa fa-chevron-left"></i> 文件上传漏洞个人总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -544,6 +537,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -564,8 +561,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -652,6 +658,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="nav-number">1.</span> <span class="nav-text">什么是文件包含</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E5%88%86%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">文件包含分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%A3%80%E6%B5%8B"><span class="nav-number">4.</span> <span class="nav-text">如何检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">如何利用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E5%A4%8D"><span class="nav-number">6.</span> <span class="nav-text">修复</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -804,6 +826,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

@@ -6,7 +6,7 @@
   <link href="https://ax-x.github.io/atom.xml" rel="self"/>
   
   <link href="https://ax-x.github.io/"/>
-  <updated>2022-03-08T09:35:36.927Z</updated>
+  <updated>2022-03-08T12:19:46.172Z</updated>
   <id>https://ax-x.github.io/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>文件包含漏洞个人总结</title>
+    <link href="https://ax-x.github.io/2022/03/08/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/"/>
+    <id>https://ax-x.github.io/2022/03/08/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</id>
+    <published>2022-03-08T12:16:56.000Z</published>
+    <updated>2022-03-08T12:19:46.172Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;什么是文件包含&quot;&gt;&lt;a href=&quot;#什么是文件包含&quot; class=&quot;headerlink&quot; title=&quot;什么是文件包含&quot;&gt;&lt;/a&gt;什么是文件包含&lt;/h2&gt;&lt;p&gt;程序开发人员一般希望代码更灵活，所以将被包含的文件设置为变量，用来进行动态调用，但正是由于这种灵活性，从而导致客户端可以调用一个恶意文件，造成文件包含漏洞。为了控制代码的灵活，程序要把要使用的函数写到一个文件中，其他需要其中的的函数执行，只需要通过该文件名包含进来，而且没有进行验证。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="web安全" scheme="https://ax-x.github.io/categories/web%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>文件上传漏洞个人总结</title>

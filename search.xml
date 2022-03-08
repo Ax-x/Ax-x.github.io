@@ -13,6 +13,124 @@
       </tags>
   </entry>
   <entry>
+    <title>XSS跨站脚本攻击</title>
+    <url>/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/</url>
+    <content><![CDATA[<h1 id="什么是XSS-XSS原理"><a href="#什么是XSS-XSS原理" class="headerlink" title="什么是XSS/XSS原理"></a>什么是XSS/XSS原理</h1><ul>
+<li><p>攻击者嵌入恶意脚本代码到用户会访问到的页面中，用户访问该页面的时候，就引起恶意脚本代码的执行，从而达到恶意攻击用户的目的。攻击者可以使用户在浏览器中执行其预定义的恶意脚本，变量接受数据的时候，数据可以写成js脚本代码，进行回显操作</p>
+</li>
+<li><p>本质上属于前端漏洞，产生在浏览器和js代码中的漏洞</p>
+<span id="more"></span></li>
+</ul>
+<h1 id="XSS类型"><a href="#XSS类型" class="headerlink" title="XSS类型"></a>XSS类型</h1><ul>
+<li><p>反射型XSS(非持续型XSS)</p>
+</li>
+<li><p>储存型XSS(持续型XSS）</p>
+</li>
+<li><p>DOM XSS</p>
+</li>
+</ul>
+<h1 id="具体区别"><a href="#具体区别" class="headerlink" title="具体区别"></a>具体区别</h1><ul>
+<li><p>反射型：数据提交过去时，会在代码执行之后直接反馈回来发包x=zzx=&gt;x.php=&gt;回包</p>
+</li>
+<li><p>存储型：数据提交过去时，会在代码执行之后储存到数据库的某个表里，然后反馈回来发包x=zzx=&gt;x.php=&gt;写到数据库某个表=&gt;x.php&gt;回显</p>
+</li>
+<li><p>DOM型：发包x=zzx=&gt;本地浏览器静态前端代码=&gt;x.php</p>
+</li>
+<li><p>反射型和储存型属于后端语言进行数据处理，而DOM型是用js代码进行处理 </p>
+</li>
+</ul>
+<h1 id="三者原理"><a href="#三者原理" class="headerlink" title="三者原理"></a>三者原理</h1><ul>
+<li><p>反射型XSS：应用或API没有对用户输入数据进行验证或没进行转义然后作为HTML的输出的一部分，能够使得攻击者在受害者的浏览器上执行任意HTML和JavaScript。</p>
+</li>
+<li><p>存储型XSS：应用或API存储未格式化的用户输入，且该输入之后会被其他用户或管理员浏览到。</p>
+</li>
+<li><p>DOM XSS：动态包含攻击者可控制数据到页面中的JavaScript框架， 单页应用，API易受DOM XSS。</p>
+</li>
+<li><p>涉及函数类：常见的输出类函数</p>
+</li>
+</ul>
+<h1 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h1><ul>
+<li><p>方法一： 查看代码，查找关键的变量,   客户端将数据传送给Web 服务端一般通过三种方式 Querystring, Form表单，以及cookie.  例如在ASP的程序中，通过Request对象获取客户端的变量。 假如变量没有经过htmlEncode处理， 那么这个变量就存在一个XSS漏洞</p>
+</li>
+<li><p>方法二：xss跨站漏洞测试语句， 在网页中的Textbox或者其他能输入数据的地方，输入测试语句， 看能不能弹出对话框，能弹出的话说明存在XSS漏洞， 在URL中查看有那些变量通过URL把值传给Web服务器， 把这些变量的值退换成测试语句。  然后看是否能执行</p>
+</li>
+<li><p>方法三:  自动化测试XSS漏洞</p>
+</li>
+</ul>
+<h1 id="可能存在XSS漏洞点"><a href="#可能存在XSS漏洞点" class="headerlink" title="可能存在XSS漏洞点"></a>可能存在XSS漏洞点</h1><ul>
+<li>用户能够输入提交数据的地方，文本框，url，请求头等等</li>
+</ul>
+<h1 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h1><ul>
+<li><p>如劫持用户会话，插入恶意内容、重定向用户、使用恶意软件劫持用户浏览器、繁殖XSS蠕虫，甚至破坏网站、修改路由器配置信息等。</p>
+</li>
+<li><p>XSS实质上就是JS脚本，任何JS脚本能实现的功能，XSS也能实现能做到的Cookie劫持、构造GET和POST请求、XSS钓鱼、识别用户浏览器、识别用户安装的软件等</p>
+</li>
+</ul>
+<h1 id="防范修复"><a href="#防范修复" class="headerlink" title="防范修复"></a>防范修复</h1><ul>
+<li><p>前端采用大型框架Angular,Vue,React等等。</p>
+</li>
+<li><p>用session代替cookie。</p>
+</li>
+<li><p>对于用户输入的数据要严格过滤写入数据库的数据，一定要保证合理过滤。</p>
+</li>
+<li><p>对于所有输出的地方，一定要做好过滤工作，比如采用模版渲染等等。</p>
+</li>
+<li><p>使用Token</p>
+</li>
+<li><p>使用HttpOnly</p>
+</li>
+</ul>
+<h1 id="什么是HttpOnly？"><a href="#什么是HttpOnly？" class="headerlink" title="什么是HttpOnly？"></a>什么是HttpOnly？</h1><ul>
+<li>如果在cookie中设置了HTTPonly属性，那么通过js脚本将无法读取到cookie信息，这样能有效防止XSS攻击。</li>
+</ul>
+<h1 id="绕过httponly"><a href="#绕过httponly" class="headerlink" title="绕过httponly"></a>绕过httponly</h1><ul>
+<li><p>浏览器未保存账号密码：需要XSS产生登录地址，利用表单劫持</p>
+</li>
+<li><p>浏览器保存了账号密码：产生后台的XSS，储存型XSS，如留言等，利用浏览器读取账号密码</p>
+</li>
+</ul>
+<h1 id="如何绕过"><a href="#如何绕过" class="headerlink" title="如何绕过"></a>如何绕过</h1><ul>
+<li><p>修改编码格式</p>
+</li>
+<li><p>加密解密算法</p>
+</li>
+<li><p>结合其他漏洞绕过</p>
+</li>
+<li><p>大小写onerror函数</p>
+</li>
+<li><p>配合平台，例如<a href="http://xssfuzzer.com/">xssfuzzer.com</a>生成语句</p>
+</li>
+<li><p>工具：Xwaf,XSStrike</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于开深信服VPN无法抓包</title>
+    <url>/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/</url>
+    <content><![CDATA[<p>前些日子大佬叫去搞渗透，得走深信服的VPN，连上之后发现BP抓不了包了，关闭 BurpSuite 单独用浏览器就可以正常访问，还以为是我电脑问题，后面发现下了VPN之后能正常抓包了。</p>
+<span id="more"></span>
+<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217100454882.png" alt="image-20220217100454882"></p>
+<p>一开始以为是走的VPN，多个代理抓不到，然后试着用BP搞个上层代理，结果还是不行，后门觉着应该是深信服VPN不允许抓包的问题，把流量先在自己电脑跑一圈，用一层中转即可，找了个EW，开了个 sock5 服务器进行本地转发，然后再进行抓包就可以了</p>
+<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101004315.png" alt="image-20220217101004315"></p>
+<p>BP设置</p>
+<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101028945.png" alt="image-20220217101028945"></p>
+<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101050106.png" alt="image-20220217101050106"></p>
+]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SQL注入</title>
     <url>/2022/01/16/SQL%E6%B3%A8%E5%85%A5/</url>
     <content><![CDATA[<h1 id="sql注入是什么？"><a href="#sql注入是什么？" class="headerlink" title="sql注入是什么？"></a>sql注入是什么？</h1><ul>
@@ -272,105 +390,6 @@
       </tags>
   </entry>
   <entry>
-    <title>XSS跨站脚本攻击</title>
-    <url>/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/</url>
-    <content><![CDATA[<h1 id="什么是XSS-XSS原理"><a href="#什么是XSS-XSS原理" class="headerlink" title="什么是XSS/XSS原理"></a>什么是XSS/XSS原理</h1><ul>
-<li><p>攻击者嵌入恶意脚本代码到用户会访问到的页面中，用户访问该页面的时候，就引起恶意脚本代码的执行，从而达到恶意攻击用户的目的。攻击者可以使用户在浏览器中执行其预定义的恶意脚本，变量接受数据的时候，数据可以写成js脚本代码，进行回显操作</p>
-</li>
-<li><p>本质上属于前端漏洞，产生在浏览器和js代码中的漏洞</p>
-<span id="more"></span></li>
-</ul>
-<h1 id="XSS类型"><a href="#XSS类型" class="headerlink" title="XSS类型"></a>XSS类型</h1><ul>
-<li><p>反射型XSS(非持续型XSS)</p>
-</li>
-<li><p>储存型XSS(持续型XSS）</p>
-</li>
-<li><p>DOM XSS</p>
-</li>
-</ul>
-<h1 id="具体区别"><a href="#具体区别" class="headerlink" title="具体区别"></a>具体区别</h1><ul>
-<li><p>反射型：数据提交过去时，会在代码执行之后直接反馈回来发包x=zzx=&gt;x.php=&gt;回包</p>
-</li>
-<li><p>存储型：数据提交过去时，会在代码执行之后储存到数据库的某个表里，然后反馈回来发包x=zzx=&gt;x.php=&gt;写到数据库某个表=&gt;x.php&gt;回显</p>
-</li>
-<li><p>DOM型：发包x=zzx=&gt;本地浏览器静态前端代码=&gt;x.php</p>
-</li>
-<li><p>反射型和储存型属于后端语言进行数据处理，而DOM型是用js代码进行处理 </p>
-</li>
-</ul>
-<h1 id="三者原理"><a href="#三者原理" class="headerlink" title="三者原理"></a>三者原理</h1><ul>
-<li><p>反射型XSS：应用或API没有对用户输入数据进行验证或没进行转义然后作为HTML的输出的一部分，能够使得攻击者在受害者的浏览器上执行任意HTML和JavaScript。</p>
-</li>
-<li><p>存储型XSS：应用或API存储未格式化的用户输入，且该输入之后会被其他用户或管理员浏览到。</p>
-</li>
-<li><p>DOM XSS：动态包含攻击者可控制数据到页面中的JavaScript框架， 单页应用，API易受DOM XSS。</p>
-</li>
-<li><p>涉及函数类：常见的输出类函数</p>
-</li>
-</ul>
-<h1 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h1><ul>
-<li><p>方法一： 查看代码，查找关键的变量,   客户端将数据传送给Web 服务端一般通过三种方式 Querystring, Form表单，以及cookie.  例如在ASP的程序中，通过Request对象获取客户端的变量。 假如变量没有经过htmlEncode处理， 那么这个变量就存在一个XSS漏洞</p>
-</li>
-<li><p>方法二：xss跨站漏洞测试语句， 在网页中的Textbox或者其他能输入数据的地方，输入测试语句， 看能不能弹出对话框，能弹出的话说明存在XSS漏洞， 在URL中查看有那些变量通过URL把值传给Web服务器， 把这些变量的值退换成测试语句。  然后看是否能执行</p>
-</li>
-<li><p>方法三:  自动化测试XSS漏洞</p>
-</li>
-</ul>
-<h1 id="可能存在XSS漏洞点"><a href="#可能存在XSS漏洞点" class="headerlink" title="可能存在XSS漏洞点"></a>可能存在XSS漏洞点</h1><ul>
-<li>用户能够输入提交数据的地方，文本框，url，请求头等等</li>
-</ul>
-<h1 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h1><ul>
-<li><p>如劫持用户会话，插入恶意内容、重定向用户、使用恶意软件劫持用户浏览器、繁殖XSS蠕虫，甚至破坏网站、修改路由器配置信息等。</p>
-</li>
-<li><p>XSS实质上就是JS脚本，任何JS脚本能实现的功能，XSS也能实现能做到的Cookie劫持、构造GET和POST请求、XSS钓鱼、识别用户浏览器、识别用户安装的软件等</p>
-</li>
-</ul>
-<h1 id="防范修复"><a href="#防范修复" class="headerlink" title="防范修复"></a>防范修复</h1><ul>
-<li><p>前端采用大型框架Angular,Vue,React等等。</p>
-</li>
-<li><p>用session代替cookie。</p>
-</li>
-<li><p>对于用户输入的数据要严格过滤写入数据库的数据，一定要保证合理过滤。</p>
-</li>
-<li><p>对于所有输出的地方，一定要做好过滤工作，比如采用模版渲染等等。</p>
-</li>
-<li><p>使用Token</p>
-</li>
-<li><p>使用HttpOnly</p>
-</li>
-</ul>
-<h1 id="什么是HttpOnly？"><a href="#什么是HttpOnly？" class="headerlink" title="什么是HttpOnly？"></a>什么是HttpOnly？</h1><ul>
-<li>如果在cookie中设置了HTTPonly属性，那么通过js脚本将无法读取到cookie信息，这样能有效防止XSS攻击。</li>
-</ul>
-<h1 id="绕过httponly"><a href="#绕过httponly" class="headerlink" title="绕过httponly"></a>绕过httponly</h1><ul>
-<li><p>浏览器未保存账号密码：需要XSS产生登录地址，利用表单劫持</p>
-</li>
-<li><p>浏览器保存了账号密码：产生后台的XSS，储存型XSS，如留言等，利用浏览器读取账号密码</p>
-</li>
-</ul>
-<h1 id="如何绕过"><a href="#如何绕过" class="headerlink" title="如何绕过"></a>如何绕过</h1><ul>
-<li><p>修改编码格式</p>
-</li>
-<li><p>加密解密算法</p>
-</li>
-<li><p>结合其他漏洞绕过</p>
-</li>
-<li><p>大小写onerror函数</p>
-</li>
-<li><p>配合平台，例如<a href="http://xssfuzzer.com/">xssfuzzer.com</a>生成语句</p>
-</li>
-<li><p>工具：Xwaf,XSStrike</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>python&amp;&amp;shell--批量跑主机脚本</title>
     <url>/2022/01/21/python-shell-%E6%89%B9%E9%87%8F%E8%B7%91%E4%B8%BB%E6%9C%BA%E8%84%9A%E6%9C%AC/</url>
     <content><![CDATA[<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>上周去现场，大佬说年前要跑主机脚本，就是服务器有点多，问有没有办法一键下发，然后执行脚本去跑，跑完之后回收数据，我听这需求，这不是有手就行？然后就应了下来，说我试试，我本以为就是简单的写个py脚本的事情，确认好需求之后就直接开整，刚开始我写的是使用ssh服务去批量搞。</p>
@@ -433,17 +452,55 @@
       </tags>
   </entry>
   <entry>
-    <title>关于开深信服VPN无法抓包</title>
-    <url>/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/</url>
-    <content><![CDATA[<p>前些日子大佬叫去搞渗透，得走深信服的VPN，连上之后发现BP抓不了包了，关闭 BurpSuite 单独用浏览器就可以正常访问，还以为是我电脑问题，后面发现下了VPN之后能正常抓包了。</p>
+    <title>文件上传漏洞个人总结</title>
+    <url>/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h2 id="什么是文件上传"><a href="#什么是文件上传" class="headerlink" title="什么是文件上传"></a>什么是文件上传</h2><p>文件上传漏洞是指上传文件的时，如果未对上传的文件进行严格的验证和过滤，就容易造成文件上传漏洞，上传脚本等。用户可以上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。 常见场景是web服务器允许用户上传图片或者普通文本文件保存，而用户绕过上传机制上传恶意代码并执行从而控制服务器。这种漏洞是getshell最快最直接的方法之一，上传文件操作本身是没有问题的，问题在于文件上传到服务器后，服务器怎么处理和解释文件，有文件上传不一定有文件上传漏洞，要看代码情况。</p>
 <span id="more"></span>
-<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217100454882.png" alt="image-20220217100454882"></p>
-<p>一开始以为是走的VPN，多个代理抓不到，然后试着用BP搞个上层代理，结果还是不行，后门觉着应该是深信服VPN不允许抓包的问题，把流量先在自己电脑跑一圈，用一层中转即可，找了个EW，开了个 sock5 服务器进行本地转发，然后再进行抓包就可以了</p>
-<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101004315.png" alt="image-20220217101004315"></p>
-<p>BP设置</p>
-<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101028945.png" alt="image-20220217101028945"></p>
-<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101050106.png" alt="image-20220217101050106"></p>
-]]></content>
+<h2 id="文件上传危害"><a href="#文件上传危害" class="headerlink" title="文件上传危害"></a>文件上传危害</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">自定义上传什么东西，通过文件上传上传网站后门，拿到网站权限，高危漏洞</span><br></pre></td></tr></table></figure>
+
+<h2 id="如何查找"><a href="#如何查找" class="headerlink" title="如何查找"></a>如何查找</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">黑盒查找：代码，网站情况是不知道的需要自己判断，需要用扫描器去扫描敏感文件，扫描常见的上传地址，通过网站给出的上传应用或者后台去找。</span><br><span class="line">白盒查找：拿到源码，cms等等判断</span><br><span class="line">通过抓包修改数据进行判断</span><br></pre></td></tr></table></figure>
+
+<h2 id="文件上传常见验证方式"><a href="#文件上传常见验证方式" class="headerlink" title="文件上传常见验证方式"></a>文件上传常见验证方式</h2><figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line">后缀名：类型，文件头等</span><br><span class="line">文件头，MIME信息，image/gif，后缀</span><br><span class="line"><span class="section">黑名单:明确不让上传的格式后缀（黑名单缺陷：定义后缀名不完整的情况，可以通过其他格式绕过达到同样的效果，具体情况具体看待）asp php jsp aspx cgi war</span></span><br><span class="line">黑名单缺陷：php5，phtml（例如PHP：如果对方支持这个类型的格式的话是可以运行的）</span><br><span class="line"><span class="section">白名单:明确可以上传的格式后缀（白名单相对黑名单要安全点）Jpg png zip rar gif</span></span><br><span class="line"><span class="section">文件类型:MIME信息image/gif</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="常见绕过方式"><a href="#常见绕过方式" class="headerlink" title="常见绕过方式"></a>常见绕过方式</h2><figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">JS验证绕过</span><br><span class="line">特殊解析后缀（php3，php5，phtml），.htaccess（apache）</span><br><span class="line">大小写</span><br><span class="line">点绕过</span><br><span class="line">空格绕过</span><br><span class="line">::<span class="variable">$$</span>DATA</span><br><span class="line">双后缀名绕过</span><br><span class="line">MIME绕过</span><br><span class="line">截断</span><br><span class="line">文件头检测</span><br><span class="line">二次渲染</span><br><span class="line">条件竞争</span><br><span class="line">突破getimagesize</span><br><span class="line">突破exif_imagetype</span><br></pre></td></tr></table></figure>
+
+<h2 id="上传参数名解析-明确哪些东西能修改？"><a href="#上传参数名解析-明确哪些东西能修改？" class="headerlink" title="上传参数名解析:明确哪些东西能修改？"></a>上传参数名解析:明确哪些东西能修改？</h2><figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="attribute">Content-Disposition-</span>:一般可更改</span><br><span class="line"><span class="attribute">name</span>:表单参数值，不能更改</span><br><span class="line"><span class="attribute">filename</span>:文件名，可以更改</span><br><span class="line"><span class="attribute">Content-type</span>:文件</span><br><span class="line">MIME，视情况更改</span><br></pre></td></tr></table></figure>
+
+<h2 id="文件上传安全修复方案"><a href="#文件上传安全修复方案" class="headerlink" title="文件上传安全修复方案"></a>文件上传安全修复方案</h2><figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">后端验证：采用服务端验证模式</span><br><span class="line">后缀检测：基于黑名单，白名单过滤</span><br><span class="line">MIME检测：基于上传自带类型检测</span><br><span class="line">内容检测：文件头，完整性检测,后缀等等</span><br><span class="line">自带函数过滤：参考 uploadlabs函数</span><br><span class="line">自定义函数过滤：<span class="keyword">function</span> <span class="title">check_file</span>()</span><br><span class="line">WAF防护产品：安全狗，宝塔，云盾，安全公司类似产品等</span><br></pre></td></tr></table></figure>
+
+<h2 id="解析漏洞"><a href="#解析漏洞" class="headerlink" title="解析漏洞"></a>解析漏洞</h2><h3 id="IIS6-0解析漏洞"><a href="#IIS6-0解析漏洞" class="headerlink" title="IIS6.0解析漏洞"></a>IIS6.0解析漏洞</h3><figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line">建立\*.asa,\*.asp文件夹时，文件夹下的任意文件都会被当成asp文件来执行</span><br><span class="line">\*.asp;1.jpg同样会被当成asp脚本执行</span><br></pre></td></tr></table></figure>
+
+<h3 id="IIS-7-0-7-5"><a href="#IIS-7-0-7-5" class="headerlink" title="IIS 7.0/7.5"></a>IIS 7.0/7.5</h3><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">默认Fast-CGI开启，直接在url中图片地址后面输入<span class="string">/1.php</span>，会把正常图片当成php解析</span><br></pre></td></tr></table></figure>
+
+<h3 id="Apache解析漏洞"><a href="#Apache解析漏洞" class="headerlink" title="Apache解析漏洞"></a>Apache解析漏洞</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">当文件拓展名Apache没有配置解析器解析时，就会向前遍历，直到遇到配置的解析器解析的域名</span><br></pre></td></tr></table></figure>
+
+<h3 id="nginx解析漏洞"><a href="#nginx解析漏洞" class="headerlink" title="nginx解析漏洞"></a>nginx解析漏洞</h3><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">上传<span class="string">/.php</span>时就能作为php文件解析</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>文件包含漏洞个人总结</title>
+    <url>/2022/03/08/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h2 id="什么是文件包含"><a href="#什么是文件包含" class="headerlink" title="什么是文件包含"></a>什么是文件包含</h2><p>程序开发人员一般希望代码更灵活，所以将被包含的文件设置为变量，用来进行动态调用，但正是由于这种灵活性，从而导致客户端可以调用一个恶意文件，造成文件包含漏洞。为了控制代码的灵活，程序要把要使用的函数写到一个文件中，其他需要其中的的函数执行，只需要通过该文件名包含进来，而且没有进行验证。</p>
+<span id="more"></span>
+
+<h2 id="文件包含分类"><a href="#文件包含分类" class="headerlink" title="文件包含分类"></a>文件包含分类</h2><p><strong>本地包含</strong></p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">当被包含的文件在服务器本地时，且能够读取或执行包含本地文件的漏洞，称为本地文件包含漏洞</span><br></pre></td></tr></table></figure>
+
+<p><strong>远程包含</strong></p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">远程文件包含和本地文件包含造成漏洞的原因是一样的，当开发配置可以读取远程文件时，例如php.ini 中的配置选项allow_url_fopen和allow_url_include为<span class="keyword">ON</span>的话，则包含的文件可以是第三方服务器中的文件，这样就形成了远程文件包含漏洞。</span><br><span class="line">代码限制：代码里面限制只能包含本地文件的话就不会有远程包含，如果没限制的话，并且在设置上允许包含远程文件的话，就会引起远程包含</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">通过文件以脚本去执行</span><br><span class="line">文件包含常用函数</span><br><span class="line"><span class="function"><span class="title">include</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">require</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">fopen</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">include_once</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">require_once</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">readfile</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">漏扫工具</span><br><span class="line">公开漏洞</span><br><span class="line">手工看参数以及功能点</span><br><span class="line"><span class="number">1</span>、通过观察参数特征猜测是否使用文件包含，文件包含参数后面为具体文件名如：http:<span class="regexp">//</span>example.com/index.php?page=include.php</span><br><span class="line">http:<span class="regexp">//</span>example.com/index.php?page=include</span><br><span class="line"><span class="number">2</span>、通过..<span class="regexp">/目录跳转符尝试读取系统文件、服务器日志文件或者配置文件。如读取Linux的/</span>etc<span class="regexp">/passwd文件: http:/</span><span class="regexp">/example.com/i</span>ndex.php?page=..<span class="regexp">/../</span>..<span class="regexp">/../</span>etc/passwd</span><br><span class="line"><span class="number">3</span>、通过php:<span class="regexp">//</span>filter<span class="regexp">/convert.base64-encode/</span>resource=index.php读取代码文件。</span><br><span class="line"><span class="number">4</span>、通过包含远程服务器上的PHP代码文件执行代码。</span><br><span class="line"><span class="number">5</span>、如果站点存在一个文件上传功能，只允许图片类型文件，并且存在文件包含漏洞，则可以把PHP代码写入图片文件中，再通过文件包含漏洞包含之，进而执行PHP代码。</span><br><span class="line"><span class="number">6</span>、如果文件的后缀可考虑使用截断进行包含：</span><br><span class="line">  <span class="number">1</span>)%<span class="number">00</span>截断（PHP小于<span class="number">5.3</span>.<span class="number">4</span>，magic_quotes_gpc=off）</span><br><span class="line">  <span class="number">2</span>)路径长度截断：</span><br><span class="line">  <span class="regexp">/etc/</span>passwd<span class="regexp">/./</span>.<span class="regexp">/./</span>.<span class="regexp">/./</span>.[n*/.]（Linux文件名需要长于<span class="number">4096</span>，Windows 需要长于<span class="number">256</span>）</span><br></pre></td></tr></table></figure>
+
+<h2 id="如何利用"><a href="#如何利用" class="headerlink" title="如何利用"></a>如何利用</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">1.读取目标机上敏感文件</span><br><span class="line">2.远程文件包含可运行的PHP木马</span><br><span class="line">3、配合文件上传漏洞获取webshll</span><br></pre></td></tr></table></figure>
+
+<h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">固定文件后缀</span><br><span class="line">固定使用的文件</span><br><span class="line">安装WAF</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>web安全</category>
       </categories>
@@ -590,37 +647,6 @@
 </li>
 </ul>
 ]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>文件上传漏洞个人总结</title>
-    <url>/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h2 id="什么是文件上传"><a href="#什么是文件上传" class="headerlink" title="什么是文件上传"></a>什么是文件上传</h2><p>文件上传漏洞是指上传文件的时，如果未对上传的文件进行严格的验证和过滤，就容易造成文件上传漏洞，上传脚本等。用户可以上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。 常见场景是web服务器允许用户上传图片或者普通文本文件保存，而用户绕过上传机制上传恶意代码并执行从而控制服务器。这种漏洞是getshell最快最直接的方法之一，上传文件操作本身是没有问题的，问题在于文件上传到服务器后，服务器怎么处理和解释文件，有文件上传不一定有文件上传漏洞，要看代码情况。</p>
-<span id="more"></span>
-<h2 id="文件上传危害"><a href="#文件上传危害" class="headerlink" title="文件上传危害"></a>文件上传危害</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">自定义上传什么东西，通过文件上传上传网站后门，拿到网站权限，高危漏洞</span><br></pre></td></tr></table></figure>
-
-<h2 id="如何查找"><a href="#如何查找" class="headerlink" title="如何查找"></a>如何查找</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">黑盒查找：代码，网站情况是不知道的需要自己判断，需要用扫描器去扫描敏感文件，扫描常见的上传地址，通过网站给出的上传应用或者后台去找。</span><br><span class="line">白盒查找：拿到源码，cms等等判断</span><br><span class="line">通过抓包修改数据进行判断</span><br></pre></td></tr></table></figure>
-
-<h2 id="文件上传常见验证方式"><a href="#文件上传常见验证方式" class="headerlink" title="文件上传常见验证方式"></a>文件上传常见验证方式</h2><figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line">后缀名：类型，文件头等</span><br><span class="line">文件头，MIME信息，image/gif，后缀</span><br><span class="line"><span class="section">黑名单:明确不让上传的格式后缀（黑名单缺陷：定义后缀名不完整的情况，可以通过其他格式绕过达到同样的效果，具体情况具体看待）asp php jsp aspx cgi war</span></span><br><span class="line">黑名单缺陷：php5，phtml（例如PHP：如果对方支持这个类型的格式的话是可以运行的）</span><br><span class="line"><span class="section">白名单:明确可以上传的格式后缀（白名单相对黑名单要安全点）Jpg png zip rar gif</span></span><br><span class="line"><span class="section">文件类型:MIME信息image/gif</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="常见绕过方式"><a href="#常见绕过方式" class="headerlink" title="常见绕过方式"></a>常见绕过方式</h2><figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">JS验证绕过</span><br><span class="line">特殊解析后缀（php3，php5，phtml），.htaccess（apache）</span><br><span class="line">大小写</span><br><span class="line">点绕过</span><br><span class="line">空格绕过</span><br><span class="line">::<span class="variable">$$</span>DATA</span><br><span class="line">双后缀名绕过</span><br><span class="line">MIME绕过</span><br><span class="line">截断</span><br><span class="line">文件头检测</span><br><span class="line">二次渲染</span><br><span class="line">条件竞争</span><br><span class="line">突破getimagesize</span><br><span class="line">突破exif_imagetype</span><br></pre></td></tr></table></figure>
-
-<h2 id="上传参数名解析-明确哪些东西能修改？"><a href="#上传参数名解析-明确哪些东西能修改？" class="headerlink" title="上传参数名解析:明确哪些东西能修改？"></a>上传参数名解析:明确哪些东西能修改？</h2><figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="attribute">Content-Disposition-</span>:一般可更改</span><br><span class="line"><span class="attribute">name</span>:表单参数值，不能更改</span><br><span class="line"><span class="attribute">filename</span>:文件名，可以更改</span><br><span class="line"><span class="attribute">Content-type</span>:文件</span><br><span class="line">MIME，视情况更改</span><br></pre></td></tr></table></figure>
-
-<h2 id="文件上传安全修复方案"><a href="#文件上传安全修复方案" class="headerlink" title="文件上传安全修复方案"></a>文件上传安全修复方案</h2><figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">后端验证：采用服务端验证模式</span><br><span class="line">后缀检测：基于黑名单，白名单过滤</span><br><span class="line">MIME检测：基于上传自带类型检测</span><br><span class="line">内容检测：文件头，完整性检测,后缀等等</span><br><span class="line">自带函数过滤：参考 uploadlabs函数</span><br><span class="line">自定义函数过滤：<span class="keyword">function</span> <span class="title">check_file</span>()</span><br><span class="line">WAF防护产品：安全狗，宝塔，云盾，安全公司类似产品等</span><br></pre></td></tr></table></figure>
-
-<h2 id="解析漏洞"><a href="#解析漏洞" class="headerlink" title="解析漏洞"></a>解析漏洞</h2><h3 id="IIS6-0解析漏洞"><a href="#IIS6-0解析漏洞" class="headerlink" title="IIS6.0解析漏洞"></a>IIS6.0解析漏洞</h3><figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line">建立\*.asa,\*.asp文件夹时，文件夹下的任意文件都会被当成asp文件来执行</span><br><span class="line">\*.asp;1.jpg同样会被当成asp脚本执行</span><br></pre></td></tr></table></figure>
-
-<h3 id="IIS-7-0-7-5"><a href="#IIS-7-0-7-5" class="headerlink" title="IIS 7.0/7.5"></a>IIS 7.0/7.5</h3><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">默认Fast-CGI开启，直接在url中图片地址后面输入<span class="string">/1.php</span>，会把正常图片当成php解析</span><br></pre></td></tr></table></figure>
-
-<h3 id="Apache解析漏洞"><a href="#Apache解析漏洞" class="headerlink" title="Apache解析漏洞"></a>Apache解析漏洞</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">当文件拓展名Apache没有配置解析器解析时，就会向前遍历，直到遇到配置的解析器解析的域名</span><br></pre></td></tr></table></figure>
-
-<h3 id="nginx解析漏洞"><a href="#nginx解析漏洞" class="headerlink" title="nginx解析漏洞"></a>nginx解析漏洞</h3><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">上传<span class="string">/.php</span>时就能作为php文件解析</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>web安全</category>
       </categories>
