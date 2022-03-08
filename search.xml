@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>First Blog</title>
-    <url>/2022/01/01/First%20Blog/</url>
-    <content><![CDATA[<p>Welcome to my blog! I’m glad to make friends with you. If you can browse my website, I will be grateful. In the future, I will upload my records and learning contents here. I hope the boss will take me with me！</p>
-]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SQL注入</title>
     <url>/2022/01/16/SQL%E6%B3%A8%E5%85%A5/</url>
     <content><![CDATA[<h1 id="sql注入是什么？"><a href="#sql注入是什么？" class="headerlink" title="sql注入是什么？"></a>sql注入是什么？</h1><ul>
@@ -263,6 +251,18 @@
 <li><p>10、配置安全狗，阿里云盾，等网络安全公司的产品</p>
 </li>
 </ul>
+]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>First Blog</title>
+    <url>/2022/01/01/First%20Blog/</url>
+    <content><![CDATA[<p>Welcome to my blog! I’m glad to make friends with you. If you can browse my website, I will be grateful. In the future, I will upload my records and learning contents here. I hope the boss will take me with me！</p>
 ]]></content>
       <categories>
         <category>web安全</category>
@@ -590,6 +590,37 @@
 </li>
 </ul>
 ]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>XSS漏洞个人总结</title>
+    <url>/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h2 id="什么是文件上传"><a href="#什么是文件上传" class="headerlink" title="什么是文件上传"></a>什么是文件上传</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">文件上传漏洞是指上传文件的时，如果未对上传的文件进行严格的验证和过滤，就容易造成文件上传漏洞，上传脚本等。用户可以上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。 常见场景是web服务器允许用户上传图片或者普通文本文件保存，而用户绕过上传机制上传恶意代码并执行从而控制服务器。这种漏洞是getshell最快最直接的方法之一，上传文件操作本身是没有问题的，问题在于文件上传到服务器后，服务器怎么处理和解释文件，有文件上传不一定有文件上传漏洞，要看代码情况。</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h2 id="文件上传危害"><a href="#文件上传危害" class="headerlink" title="文件上传危害"></a>文件上传危害</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">自定义上传什么东西，通过文件上传上传网站后门，拿到网站权限，高危漏洞</span><br></pre></td></tr></table></figure>
+
+<h2 id="如何查找"><a href="#如何查找" class="headerlink" title="如何查找"></a>如何查找</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">黑盒查找：代码，网站情况是不知道的需要自己判断，需要用扫描器去扫描敏感文件，扫描常见的上传地址，通过网站给出的上传应用或者后台去找。</span><br><span class="line">白盒查找：拿到源码，cms等等判断</span><br><span class="line">通过抓包修改数据进行判断</span><br></pre></td></tr></table></figure>
+
+<h2 id="文件上传常见验证方式"><a href="#文件上传常见验证方式" class="headerlink" title="文件上传常见验证方式"></a>文件上传常见验证方式</h2><figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line">后缀名：类型，文件头等</span><br><span class="line">文件头，MIME信息，image/gif，后缀</span><br><span class="line"><span class="section">黑名单:明确不让上传的格式后缀（黑名单缺陷：定义后缀名不完整的情况，可以通过其他格式绕过达到同样的效果，具体情况具体看待）asp php jsp aspx cgi war</span></span><br><span class="line">黑名单缺陷：php5，phtml（例如PHP：如果对方支持这个类型的格式的话是可以运行的）</span><br><span class="line"><span class="section">白名单:明确可以上传的格式后缀（白名单相对黑名单要安全点）Jpg png zip rar gif</span></span><br><span class="line"><span class="section">文件类型:MIME信息image/gif</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="常见绕过方式"><a href="#常见绕过方式" class="headerlink" title="常见绕过方式"></a>常见绕过方式</h2><figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">JS验证绕过</span><br><span class="line">特殊解析后缀（php3，php5，phtml），.htaccess（apache）</span><br><span class="line">大小写</span><br><span class="line">点绕过</span><br><span class="line">空格绕过</span><br><span class="line">::<span class="variable">$$</span>DATA</span><br><span class="line">双后缀名绕过</span><br><span class="line">MIME绕过</span><br><span class="line">截断</span><br><span class="line">文件头检测</span><br><span class="line">二次渲染</span><br><span class="line">条件竞争</span><br><span class="line">突破getimagesize</span><br><span class="line">突破exif_imagetype</span><br></pre></td></tr></table></figure>
+
+<h2 id="上传参数名解析-明确哪些东西能修改？"><a href="#上传参数名解析-明确哪些东西能修改？" class="headerlink" title="上传参数名解析:明确哪些东西能修改？"></a>上传参数名解析:明确哪些东西能修改？</h2><figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="attribute">Content-Disposition-</span>:一般可更改</span><br><span class="line"><span class="attribute">name</span>:表单参数值，不能更改</span><br><span class="line"><span class="attribute">filename</span>:文件名，可以更改</span><br><span class="line"><span class="attribute">Content-type</span>:文件</span><br><span class="line">MIME，视情况更改</span><br></pre></td></tr></table></figure>
+
+<h2 id="文件上传安全修复方案"><a href="#文件上传安全修复方案" class="headerlink" title="文件上传安全修复方案"></a>文件上传安全修复方案</h2><figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">后端验证：采用服务端验证模式</span><br><span class="line">后缀检测：基于黑名单，白名单过滤</span><br><span class="line">MIME检测：基于上传自带类型检测</span><br><span class="line">内容检测：文件头，完整性检测,后缀等等</span><br><span class="line">自带函数过滤：参考 uploadlabs函数</span><br><span class="line">自定义函数过滤：<span class="keyword">function</span> <span class="title">check_file</span>()</span><br><span class="line">WAF防护产品：安全狗，宝塔，云盾，安全公司类似产品等</span><br></pre></td></tr></table></figure>
+
+<h2 id="解析漏洞"><a href="#解析漏洞" class="headerlink" title="解析漏洞"></a>解析漏洞</h2><h3 id="IIS6-0解析漏洞"><a href="#IIS6-0解析漏洞" class="headerlink" title="IIS6.0解析漏洞"></a>IIS6.0解析漏洞</h3><figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line">建立\*.asa,\*.asp文件夹时，文件夹下的任意文件都会被当成asp文件来执行</span><br><span class="line">\*.asp;1.jpg同样会被当成asp脚本执行</span><br></pre></td></tr></table></figure>
+
+<h3 id="IIS-7-0-7-5"><a href="#IIS-7-0-7-5" class="headerlink" title="IIS 7.0/7.5"></a>IIS 7.0/7.5</h3><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">默认Fast-CGI开启，直接在url中图片地址后面输入<span class="string">/1.php</span>，会把正常图片当成php解析</span><br></pre></td></tr></table></figure>
+
+<h3 id="Apache解析漏洞"><a href="#Apache解析漏洞" class="headerlink" title="Apache解析漏洞"></a>Apache解析漏洞</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">当文件拓展名Apache没有配置解析器解析时，就会向前遍历，直到遇到配置的解析器解析的域名</span><br></pre></td></tr></table></figure>
+
+<h3 id="nginx解析漏洞"><a href="#nginx解析漏洞" class="headerlink" title="nginx解析漏洞"></a>nginx解析漏洞</h3><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">上传<span class="string">/.php</span>时就能作为php文件解析</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>web安全</category>
       </categories>
