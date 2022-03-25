@@ -6,7 +6,7 @@
   <link href="https://ax-x.github.io/atom.xml" rel="self"/>
   
   <link href="https://ax-x.github.io/"/>
-  <updated>2022-03-08T12:47:56.171Z</updated>
+  <updated>2022-03-25T02:49:04.671Z</updated>
   <id>https://ax-x.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>排序算法</title>
+    <link href="https://ax-x.github.io/2022/03/25/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
+    <id>https://ax-x.github.io/2022/03/25/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</id>
+    <published>2022-03-25T02:47:10.000Z</published>
+    <updated>2022-03-25T02:49:04.671Z</updated>
+    
+    
+    <summary type="html">&lt;ol&gt;
+&lt;li&gt;直接插入排序，将一个记录插入到已排序好的有序表中，从而得到一个新，记录数增1的有序表。即：先将序列的第1个记录看成是一个&lt;strong&gt;有序的子序列&lt;/strong&gt;，然后从第2个记录逐个进行插入，直至&lt;strong&gt;整个序列&lt;/strong&gt;有序为止。&lt;/li&gt;&lt;/ol&gt;</summary>
+    
+    
+    
+    <category term="算法" scheme="https://ax-x.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>常见端口攻击方式</title>

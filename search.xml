@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>First Blog</title>
-    <url>/2022/01/01/First%20Blog/</url>
-    <content><![CDATA[<p>Welcome to my blog! I’m glad to make friends with you. If you can browse my website, I will be grateful. In the future, I will upload my records and learning contents here. I hope the boss will take me with me！</p>
+    <title>CSRF 跨站请求伪造漏洞</title>
+    <url>/2022/03/08/CSRF-%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>CSRF跨站请求伪造，由客户端发起，是一种劫持受信任用户向服务器发送非预期请求的攻击方式，与XSS相似，但比XSS更难防范，常与XSS一起配合攻击</p>
+<span id="more"></span>
+<p>攻击者盗用了用户的身份信息，以用户的名义发送恶意请求，对服务器来说这个请求是用户发起的，却完成了攻击者所期望的一个操作 XSS 利用站点内内的信任用户，盗取cookie CSRF通过伪装成受信任用户请求受信任的网站利用目标用户的合法身份，以目标的名义执行某些非法参数 利用条件：已经登录系统，用户访问URL 已存在的网站中让用户跳转</p>
+<h2 id="CSRF漏洞防御方案"><a href="#CSRF漏洞防御方案" class="headerlink" title="CSRF漏洞防御方案"></a>CSRF漏洞防御方案</h2><p>1.当用户发送重要的请求时输入验证码<br>2.设置随机TOKEN —数据包的唯一值<br>3.检测referer来源，请求时判断请求连接是否为当前管理员正在使用的页面（管理员在编辑文章，黑客发来恶意的修改密码链接，因为修改密码页面管理员并没有在操作，所以攻击失败）<br>4.设置验证码<br>5.限制请求方式只能为post</p>
 ]]></content>
       <categories>
         <category>web安全</category>
@@ -13,12 +16,9 @@
       </tags>
   </entry>
   <entry>
-    <title>CSRF 跨站请求伪造漏洞</title>
-    <url>/2022/03/08/CSRF-%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>CSRF跨站请求伪造，由客户端发起，是一种劫持受信任用户向服务器发送非预期请求的攻击方式，与XSS相似，但比XSS更难防范，常与XSS一起配合攻击</p>
-<span id="more"></span>
-<p>攻击者盗用了用户的身份信息，以用户的名义发送恶意请求，对服务器来说这个请求是用户发起的，却完成了攻击者所期望的一个操作 XSS 利用站点内内的信任用户，盗取cookie CSRF通过伪装成受信任用户请求受信任的网站利用目标用户的合法身份，以目标的名义执行某些非法参数 利用条件：已经登录系统，用户访问URL 已存在的网站中让用户跳转</p>
-<h2 id="CSRF漏洞防御方案"><a href="#CSRF漏洞防御方案" class="headerlink" title="CSRF漏洞防御方案"></a>CSRF漏洞防御方案</h2><p>1.当用户发送重要的请求时输入验证码<br>2.设置随机TOKEN —数据包的唯一值<br>3.检测referer来源，请求时判断请求连接是否为当前管理员正在使用的页面（管理员在编辑文章，黑客发来恶意的修改密码链接，因为修改密码页面管理员并没有在操作，所以攻击失败）<br>4.设置验证码<br>5.限制请求方式只能为post</p>
+    <title>First Blog</title>
+    <url>/2022/01/01/First%20Blog/</url>
+    <content><![CDATA[<p>Welcome to my blog! I’m glad to make friends with you. If you can browse my website, I will be grateful. In the future, I will upload my records and learning contents here. I hope the boss will take me with me！</p>
 ]]></content>
       <categories>
         <category>web安全</category>
@@ -313,26 +313,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SSRF服务器端请求伪造</title>
-    <url>/2022/03/08/SSRF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>SSRF服务器端请求伪造是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。<span id="more"></span>（正是因为 它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）SSRF 形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。比如从指定URL地址获取网页文本内容，加载指定地址的图片，下载等等。 注释：除了http/https等方式可以造成ssrf，类似tcp connect 方式也可以探测内网一些ip 的端口是否开发服务，只不过危害比较小而已。</p>
-<h2 id="可实现攻击"><a href="#可实现攻击" class="headerlink" title="可实现攻击"></a>可实现攻击</h2><figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>	可以对服务器所在内网、本地进行端口扫描，获取一些服务的banner信息<span class="comment">;</span></span><br><span class="line"><span class="number">2</span>	攻击运行在内网或本地的应用程序（比如溢出）<span class="comment">;</span></span><br><span class="line"><span class="number">3</span>	对内网web应用进行指纹识别，通过访问默认文件实现<span class="comment">;</span></span><br><span class="line"><span class="number">4</span>	攻击内外网的web应用，主要是使用get参数就可以实现的攻击（比如struts2，sqli等）<span class="comment">;</span></span><br><span class="line"><span class="number">5</span>	利用file协议读取本地文件等。</span><br></pre></td></tr></table></figure>
-
-<h2 id="可能出现的地方"><a href="#可能出现的地方" class="headerlink" title="可能出现的地方"></a>可能出现的地方</h2><figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>社交分享功能：获取超链接的标题等内容进行显示</span><br><span class="line"><span class="number">2.</span>转码服务：通过URL地址把原地址的网页内容调优使其适合手机屏幕浏览</span><br><span class="line"><span class="number">3.</span>在线翻译：给网址翻译对应网页的内容</span><br><span class="line"><span class="number">4.</span>图片加载/下载：例如富文本编辑器中的点击下载图片到本地；通过URL地址加载或下载图片</span><br><span class="line"><span class="number">5.</span>图片/文章收藏功能：主要其会取URL地址中title以及文本的内容作为显示以求一个好的用具体验</span><br><span class="line"><span class="number">6.</span>云服务厂商：它会远程执行一些命令来判断网站是否存活等，所以如果可以捕获相应的信息，就可以进行ssrf测试</span><br><span class="line"><span class="number">7.</span>网站采集，网站抓取的地方：一些网站会针对你输入的url进行一些信息采集工作</span><br><span class="line"><span class="number">8.</span>数据库内置功能：数据库的比如mongodb的copyDatabase函数</span><br><span class="line"><span class="number">9.</span>邮件系统：比如接收邮件服务器地址</span><br><span class="line"><span class="number">10.</span>编码处理, 属性信息处理，文件处理：比如ffpmg，ImageMagick，docx，pdf，<span class="type">xml</span>处理器等</span><br><span class="line"><span class="number">11.</span>未公开的api实现以及其他扩展调用URL的功能：可以利用google 语法加上这些关键字去寻找SSRF漏洞 一些的url中的关键字：<span class="keyword">share</span>、wap、url、link、src、source、target、u、<span class="number">3</span>g、display、sourceURl、imageURL、<span class="keyword">domain</span>……</span><br><span class="line"><span class="number">12.</span>从远程服务器请求资源（upload <span class="keyword">from</span> url 如discuz！；<span class="keyword">import</span> &amp; expost rss feed 如web blog；使用了<span class="type">xml</span>引擎对象的地方 如wordpress xmlrpc.php）</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞验证"><a href="#漏洞验证" class="headerlink" title="漏洞验证"></a>漏洞验证</h2><figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">1.让服务端去访问相应的网址</span><br><span class="line">2.让服务端去访问自己所处内网的一些指纹文件来判断是否存在相应的cms</span><br><span class="line">3.可以使用<span class="meta">file</span>、dict、gopher[11]、ftp协议进行请求访问相应的文件</span><br><span class="line">4.攻击内网web应用（可以向内部任意主机的任意端口发送精心构造的数据包&#123;payload&#125;）</span><br><span class="line">5.攻击内网应用程序（利用跨协议通信技术）</span><br><span class="line">6.判断内网主机是否存活：方法是访问看是否有端口开放</span><br><span class="line">7.DoS攻击（请求大文件，始终保持连接<span class="meta">keep</span>-alive always）</span><br></pre></td></tr></table></figure>
-
-<h2 id="限制绕过"><a href="#限制绕过" class="headerlink" title="限制绕过"></a>限制绕过</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>.http:<span class="regexp">//</span>baidu.com@www.baidu.com<span class="regexp">/与http:/</span><span class="regexp">/www.baidu.com/</span>请求时是相同的</span><br><span class="line"><span class="number">2</span>.各种IP地址的进制转换</span><br><span class="line"><span class="number">3</span>.URL跳转绕过：http:<span class="regexp">//</span>www.hackersb.cn<span class="regexp">/redirect.php?url=http:/</span><span class="regexp">/192.168.0.1/</span></span><br><span class="line"><span class="number">4</span>.短网址绕过http:<span class="regexp">//</span>t.cn/RwbLKDx </span><br><span class="line"><span class="number">5</span>.xip.io来绕过：http:<span class="regexp">//</span>xxx.<span class="number">192.168</span>.<span class="number">0.1</span>.xip.io/== <span class="number">192.168</span>.<span class="number">0.1</span> (xxx 任意） 指向任意ip的域名：xip.io(<span class="number">37</span>signals开发实现的定制DNS服务)</span><br><span class="line"><span class="number">6</span>.限制了子网段，可以加 :<span class="number">80</span> 端口绕过。http:<span class="regexp">//</span>tieba.baidu.com<span class="regexp">/f/</span>commit<span class="regexp">/share/</span>openShareApi?url=http:<span class="regexp">//</span><span class="number">10.42</span>.<span class="number">7.78</span>:<span class="number">80</span></span><br><span class="line"><span class="number">7</span>.探测内网域名，或者将自己的域名解析到内网ip</span><br><span class="line"><span class="number">8</span>.例如http:<span class="regexp">//</span><span class="number">10.153</span>.<span class="number">138.81</span><span class="regexp">/ts.php, 修复时容易出现的获取host时以/</span>分割来确定host， 但这样可以用http:<span class="regexp">//</span>abc@<span class="number">10.153</span>.<span class="number">138.81</span>/绕过</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h2><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">1</span>	过滤内网服务器对公网服务器请求的响应。如果Web应用是获取某一类型的文件，在把返回结果展示给用户之前应先验证返回的信息是否符合文件类型标准，比如返回信息应为图片，如果返回信息是HTML，则停止将返回信息返回客户端。</span><br><span class="line"><span class="attribute">2</span>	统一错误提示信息，避免用户可以根据错误信息来判断远端服务器的端口状态。</span><br><span class="line"><span class="attribute">3</span>	在内网服务器的防火墙上限制公网服务器的请求端口为HTTP等协议常用端口，如：<span class="number">80</span>、<span class="number">443</span>、<span class="number">8080</span>、<span class="number">8090</span>。</span><br><span class="line"><span class="attribute">4</span>	若公网服务器的内网IP与内网无业务通信，建议将公网服务器对应的内网IP列入黑名单，避免应用被用来获取内网数据。</span><br><span class="line"><span class="attribute">5</span>	内网服务器禁用不必要的协议，仅允许HTTP和HTTPS请求，防止类似于file:///、gopher://、ftp:// 等协议引起的安全问题。</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>XSS跨站脚本攻击</title>
     <url>/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/</url>
     <content><![CDATA[<h1 id="什么是XSS-XSS原理"><a href="#什么是XSS-XSS原理" class="headerlink" title="什么是XSS/XSS原理"></a>什么是XSS/XSS原理</h1><ul>
@@ -432,6 +412,25 @@
       </tags>
   </entry>
   <entry>
+    <title>关于开深信服VPN无法抓包</title>
+    <url>/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/</url>
+    <content><![CDATA[<p>前些日子大佬叫去搞渗透，得走深信服的VPN，连上之后发现BP抓不了包了，关闭 BurpSuite 单独用浏览器就可以正常访问，还以为是我电脑问题，后面发现下了VPN之后能正常抓包了。</p>
+<span id="more"></span>
+<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217100454882.png" alt="image-20220217100454882"></p>
+<p>一开始以为是走的VPN，多个代理抓不到，然后试着用BP搞个上层代理，结果还是不行，后门觉着应该是深信服VPN不允许抓包的问题，把流量先在自己电脑跑一圈，用一层中转即可，找了个EW，开了个 sock5 服务器进行本地转发，然后再进行抓包就可以了</p>
+<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101004315.png" alt="image-20220217101004315"></p>
+<p>BP设置</p>
+<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101028945.png" alt="image-20220217101028945"></p>
+<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101050106.png" alt="image-20220217101050106"></p>
+]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>python&amp;&amp;shell--批量跑主机脚本</title>
     <url>/2022/01/21/python-shell-%E6%89%B9%E9%87%8F%E8%B7%91%E4%B8%BB%E6%9C%BA%E8%84%9A%E6%9C%AC/</url>
     <content><![CDATA[<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>上周去现场，大佬说年前要跑主机脚本，就是服务器有点多，问有没有办法一键下发，然后执行脚本去跑，跑完之后回收数据，我听这需求，这不是有手就行？然后就应了下来，说我试试，我本以为就是简单的写个py脚本的事情，确认好需求之后就直接开整，刚开始我写的是使用ssh服务去批量搞。</p>
@@ -494,17 +493,18 @@
       </tags>
   </entry>
   <entry>
-    <title>关于开深信服VPN无法抓包</title>
-    <url>/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/</url>
-    <content><![CDATA[<p>前些日子大佬叫去搞渗透，得走深信服的VPN，连上之后发现BP抓不了包了，关闭 BurpSuite 单独用浏览器就可以正常访问，还以为是我电脑问题，后面发现下了VPN之后能正常抓包了。</p>
-<span id="more"></span>
-<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217100454882.png" alt="image-20220217100454882"></p>
-<p>一开始以为是走的VPN，多个代理抓不到，然后试着用BP搞个上层代理，结果还是不行，后门觉着应该是深信服VPN不允许抓包的问题，把流量先在自己电脑跑一圈，用一层中转即可，找了个EW，开了个 sock5 服务器进行本地转发，然后再进行抓包就可以了</p>
-<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101004315.png" alt="image-20220217101004315"></p>
-<p>BP设置</p>
-<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101028945.png" alt="image-20220217101028945"></p>
-<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101050106.png" alt="image-20220217101050106"></p>
-]]></content>
+    <title>SSRF服务器端请求伪造</title>
+    <url>/2022/03/08/SSRF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>SSRF服务器端请求伪造是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。<span id="more"></span>（正是因为 它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）SSRF 形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。比如从指定URL地址获取网页文本内容，加载指定地址的图片，下载等等。 注释：除了http/https等方式可以造成ssrf，类似tcp connect 方式也可以探测内网一些ip 的端口是否开发服务，只不过危害比较小而已。</p>
+<h2 id="可实现攻击"><a href="#可实现攻击" class="headerlink" title="可实现攻击"></a>可实现攻击</h2><figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>	可以对服务器所在内网、本地进行端口扫描，获取一些服务的banner信息<span class="comment">;</span></span><br><span class="line"><span class="number">2</span>	攻击运行在内网或本地的应用程序（比如溢出）<span class="comment">;</span></span><br><span class="line"><span class="number">3</span>	对内网web应用进行指纹识别，通过访问默认文件实现<span class="comment">;</span></span><br><span class="line"><span class="number">4</span>	攻击内外网的web应用，主要是使用get参数就可以实现的攻击（比如struts2，sqli等）<span class="comment">;</span></span><br><span class="line"><span class="number">5</span>	利用file协议读取本地文件等。</span><br></pre></td></tr></table></figure>
+
+<h2 id="可能出现的地方"><a href="#可能出现的地方" class="headerlink" title="可能出现的地方"></a>可能出现的地方</h2><figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>社交分享功能：获取超链接的标题等内容进行显示</span><br><span class="line"><span class="number">2.</span>转码服务：通过URL地址把原地址的网页内容调优使其适合手机屏幕浏览</span><br><span class="line"><span class="number">3.</span>在线翻译：给网址翻译对应网页的内容</span><br><span class="line"><span class="number">4.</span>图片加载/下载：例如富文本编辑器中的点击下载图片到本地；通过URL地址加载或下载图片</span><br><span class="line"><span class="number">5.</span>图片/文章收藏功能：主要其会取URL地址中title以及文本的内容作为显示以求一个好的用具体验</span><br><span class="line"><span class="number">6.</span>云服务厂商：它会远程执行一些命令来判断网站是否存活等，所以如果可以捕获相应的信息，就可以进行ssrf测试</span><br><span class="line"><span class="number">7.</span>网站采集，网站抓取的地方：一些网站会针对你输入的url进行一些信息采集工作</span><br><span class="line"><span class="number">8.</span>数据库内置功能：数据库的比如mongodb的copyDatabase函数</span><br><span class="line"><span class="number">9.</span>邮件系统：比如接收邮件服务器地址</span><br><span class="line"><span class="number">10.</span>编码处理, 属性信息处理，文件处理：比如ffpmg，ImageMagick，docx，pdf，<span class="type">xml</span>处理器等</span><br><span class="line"><span class="number">11.</span>未公开的api实现以及其他扩展调用URL的功能：可以利用google 语法加上这些关键字去寻找SSRF漏洞 一些的url中的关键字：<span class="keyword">share</span>、wap、url、link、src、source、target、u、<span class="number">3</span>g、display、sourceURl、imageURL、<span class="keyword">domain</span>……</span><br><span class="line"><span class="number">12.</span>从远程服务器请求资源（upload <span class="keyword">from</span> url 如discuz！；<span class="keyword">import</span> &amp; expost rss feed 如web blog；使用了<span class="type">xml</span>引擎对象的地方 如wordpress xmlrpc.php）</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞验证"><a href="#漏洞验证" class="headerlink" title="漏洞验证"></a>漏洞验证</h2><figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">1.让服务端去访问相应的网址</span><br><span class="line">2.让服务端去访问自己所处内网的一些指纹文件来判断是否存在相应的cms</span><br><span class="line">3.可以使用<span class="meta">file</span>、dict、gopher[11]、ftp协议进行请求访问相应的文件</span><br><span class="line">4.攻击内网web应用（可以向内部任意主机的任意端口发送精心构造的数据包&#123;payload&#125;）</span><br><span class="line">5.攻击内网应用程序（利用跨协议通信技术）</span><br><span class="line">6.判断内网主机是否存活：方法是访问看是否有端口开放</span><br><span class="line">7.DoS攻击（请求大文件，始终保持连接<span class="meta">keep</span>-alive always）</span><br></pre></td></tr></table></figure>
+
+<h2 id="限制绕过"><a href="#限制绕过" class="headerlink" title="限制绕过"></a>限制绕过</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>.http:<span class="regexp">//</span>baidu.com@www.baidu.com<span class="regexp">/与http:/</span><span class="regexp">/www.baidu.com/</span>请求时是相同的</span><br><span class="line"><span class="number">2</span>.各种IP地址的进制转换</span><br><span class="line"><span class="number">3</span>.URL跳转绕过：http:<span class="regexp">//</span>www.hackersb.cn<span class="regexp">/redirect.php?url=http:/</span><span class="regexp">/192.168.0.1/</span></span><br><span class="line"><span class="number">4</span>.短网址绕过http:<span class="regexp">//</span>t.cn/RwbLKDx </span><br><span class="line"><span class="number">5</span>.xip.io来绕过：http:<span class="regexp">//</span>xxx.<span class="number">192.168</span>.<span class="number">0.1</span>.xip.io/== <span class="number">192.168</span>.<span class="number">0.1</span> (xxx 任意） 指向任意ip的域名：xip.io(<span class="number">37</span>signals开发实现的定制DNS服务)</span><br><span class="line"><span class="number">6</span>.限制了子网段，可以加 :<span class="number">80</span> 端口绕过。http:<span class="regexp">//</span>tieba.baidu.com<span class="regexp">/f/</span>commit<span class="regexp">/share/</span>openShareApi?url=http:<span class="regexp">//</span><span class="number">10.42</span>.<span class="number">7.78</span>:<span class="number">80</span></span><br><span class="line"><span class="number">7</span>.探测内网域名，或者将自己的域名解析到内网ip</span><br><span class="line"><span class="number">8</span>.例如http:<span class="regexp">//</span><span class="number">10.153</span>.<span class="number">138.81</span><span class="regexp">/ts.php, 修复时容易出现的获取host时以/</span>分割来确定host， 但这样可以用http:<span class="regexp">//</span>abc@<span class="number">10.153</span>.<span class="number">138.81</span>/绕过</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h2><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">1</span>	过滤内网服务器对公网服务器请求的响应。如果Web应用是获取某一类型的文件，在把返回结果展示给用户之前应先验证返回的信息是否符合文件类型标准，比如返回信息应为图片，如果返回信息是HTML，则停止将返回信息返回客户端。</span><br><span class="line"><span class="attribute">2</span>	统一错误提示信息，避免用户可以根据错误信息来判断远端服务器的端口状态。</span><br><span class="line"><span class="attribute">3</span>	在内网服务器的防火墙上限制公网服务器的请求端口为HTTP等协议常用端口，如：<span class="number">80</span>、<span class="number">443</span>、<span class="number">8080</span>、<span class="number">8090</span>。</span><br><span class="line"><span class="attribute">4</span>	若公网服务器的内网IP与内网无业务通信，建议将公网服务器对应的内网IP列入黑名单，避免应用被用来获取内网数据。</span><br><span class="line"><span class="attribute">5</span>	内网服务器禁用不必要的协议，仅允许HTTP和HTTPS请求，防止类似于file:///、gopher://、ftp:// 等协议引起的安全问题。</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>web安全</category>
       </categories>
@@ -549,6 +549,33 @@
 <h2 id="7、数据截断-防匹配（-00-换行）"><a href="#7、数据截断-防匹配（-00-换行）" class="headerlink" title="7、数据截断-防匹配（%00;/;换行）"></a>7、数据截断-防匹配（%00;/;换行）</h2>]]></content>
       <categories>
         <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>排序算法</title>
+    <url>/2022/03/25/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<ol>
+<li>直接插入排序，将一个记录插入到已排序好的有序表中，从而得到一个新，记录数增1的有序表。即：先将序列的第1个记录看成是一个<strong>有序的子序列</strong>，然后从第2个记录逐个进行插入，直至<strong>整个序列</strong>有序为止。<span id="more"></span></li>
+<li>希尔排序，先将整个待排序的记录序列分割成为若干子序列分别进行直接插入排序，待整个序列中的记录“基本有序”时，再对全体记录进行依次直接插入排序</li>
+<li>简单选择排序，在要排序的一组数中，选出最小（或者最大）的一个数与第1个位置的数交换；然后在剩下的数当中再找最小（或者最大）的与第2个位置的数交换，依次类推，直到第n-1个元素（倒数第二个数）和第n个元素（最后一个数）比较为止。</li>
+<li>堆排序，由堆的定义可以看出，<strong>堆顶元素</strong>（即第一个元素）必为最小项（小顶堆）。<br>若以一维数组存储一个堆，则堆对应一棵完全二叉树，且所有非叶结点的值均不大于(或不小于)其子女的值，根结点（堆顶元素）的值是最小(或最大)的</li>
+<li>冒泡排序，在要排序的一组数中，对当前还未排好序的范围内的全部数，自上而下对相邻的两个数依次进行比较和调整，让较大的数往下沉，较小的往上冒。即：每当两相邻的数比较后发现它们的排序与排序要求相反时，就将它们互换。</li>
+<li>快速排序</li>
+<li>1）选择一个基准元素,通常选择第一个元素或者最后一个元素,</li>
+<li>2）通过一趟排序将待排序的记录分割成独立的两部分，其中一部分记录的元素值均比基准元素值小。另一部分记录的 元素值比基准值大。</li>
+<li>3）此时基准元素在其排好序后的正确位置</li>
+<li>4）然后分别对这两部分记录用同样的方法继续进行排序，直到整个序列有序。</li>
+<li>归并排序</li>
+<li>归并（Merge）排序法是将两个（或两个以上）有序表合并成一个新的有序表，即把待排序序列分为若干个子序列，每个子序列是有序的。然后再把有序子序列合并为整体有序序列。</li>
+<li>基数排序</li>
+<li>是将阵列分到有限数量的桶子里。每个桶子再个别排序（有可能再使用别的排序算法或是以递回方式继续使用桶排序进行排序）。桶排序是鸽巢排序的一种归纳结果。当要被排序的阵列内的数值是均匀分配的时候，桶排序使用线性时间（Θ（n））。但桶排序并不是 比较排序，他不受到 O(n log n) 下限的影响。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>算法</category>
       </categories>
       <tags>
         <tag>学习笔记</tag>
