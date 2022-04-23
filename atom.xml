@@ -6,7 +6,7 @@
   <link href="https://ax-x.github.io/atom.xml" rel="self"/>
   
   <link href="https://ax-x.github.io/"/>
-  <updated>2022-03-25T02:49:04.671Z</updated>
+  <updated>2022-04-23T18:14:35.228Z</updated>
   <id>https://ax-x.github.io/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记一次windows应急响应</title>
+    <link href="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"/>
+    <id>https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/</id>
+    <published>2022-04-23T18:11:30.000Z</published>
+    <updated>2022-04-23T18:14:35.228Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;1、背景&quot;&gt;&lt;a href=&quot;#1、背景&quot; class=&quot;headerlink&quot; title=&quot;1、背景&quot;&gt;&lt;/a&gt;1、背景&lt;/h1&gt;&lt;p&gt;大好假期，人在家中躺，应急天上来，上了机子之后过程还算是比较顺利的，环境是Tomcat，大致思路就是，排查可疑用户和文件，看日志，连接情况，进程，定时任务，注册表这些。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="应急响应" scheme="https://ax-x.github.io/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"/>
+    
+    
+    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>排序算法</title>
