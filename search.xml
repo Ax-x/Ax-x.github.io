@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>CSRF 跨站请求伪造漏洞</title>
-    <url>/2022/03/08/CSRF-%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>CSRF跨站请求伪造，由客户端发起，是一种劫持受信任用户向服务器发送非预期请求的攻击方式，与XSS相似，但比XSS更难防范，常与XSS一起配合攻击</p>
-<span id="more"></span>
-<p>攻击者盗用了用户的身份信息，以用户的名义发送恶意请求，对服务器来说这个请求是用户发起的，却完成了攻击者所期望的一个操作 XSS 利用站点内内的信任用户，盗取cookie CSRF通过伪装成受信任用户请求受信任的网站利用目标用户的合法身份，以目标的名义执行某些非法参数 利用条件：已经登录系统，用户访问URL 已存在的网站中让用户跳转</p>
-<h2 id="CSRF漏洞防御方案"><a href="#CSRF漏洞防御方案" class="headerlink" title="CSRF漏洞防御方案"></a>CSRF漏洞防御方案</h2><p>1.当用户发送重要的请求时输入验证码<br>2.设置随机TOKEN —数据包的唯一值<br>3.检测referer来源，请求时判断请求连接是否为当前管理员正在使用的页面（管理员在编辑文章，黑客发来恶意的修改密码链接，因为修改密码页面管理员并没有在操作，所以攻击失败）<br>4.设置验证码<br>5.限制请求方式只能为post</p>
+    <title>First Blog</title>
+    <url>/2022/01/01/First%20Blog/</url>
+    <content><![CDATA[<p>Welcome to my blog! I’m glad to make friends with you. If you can browse my website, I will be grateful. In the future, I will upload my records and learning contents here. I hope the boss will take me with me！</p>
 ]]></content>
       <categories>
         <category>web安全</category>
@@ -16,9 +13,12 @@
       </tags>
   </entry>
   <entry>
-    <title>First Blog</title>
-    <url>/2022/01/01/First%20Blog/</url>
-    <content><![CDATA[<p>Welcome to my blog! I’m glad to make friends with you. If you can browse my website, I will be grateful. In the future, I will upload my records and learning contents here. I hope the boss will take me with me！</p>
+    <title>CSRF 跨站请求伪造漏洞</title>
+    <url>/2022/03/08/CSRF-%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>CSRF跨站请求伪造，由客户端发起，是一种劫持受信任用户向服务器发送非预期请求的攻击方式，与XSS相似，但比XSS更难防范，常与XSS一起配合攻击</p>
+<span id="more"></span>
+<p>攻击者盗用了用户的身份信息，以用户的名义发送恶意请求，对服务器来说这个请求是用户发起的，却完成了攻击者所期望的一个操作 XSS 利用站点内内的信任用户，盗取cookie CSRF通过伪装成受信任用户请求受信任的网站利用目标用户的合法身份，以目标的名义执行某些非法参数 利用条件：已经登录系统，用户访问URL 已存在的网站中让用户跳转</p>
+<h2 id="CSRF漏洞防御方案"><a href="#CSRF漏洞防御方案" class="headerlink" title="CSRF漏洞防御方案"></a>CSRF漏洞防御方案</h2><p>1.当用户发送重要的请求时输入验证码<br>2.设置随机TOKEN —数据包的唯一值<br>3.检测referer来源，请求时判断请求连接是否为当前管理员正在使用的页面（管理员在编辑文章，黑客发来恶意的修改密码链接，因为修改密码页面管理员并没有在操作，所以攻击失败）<br>4.设置验证码<br>5.限制请求方式只能为post</p>
 ]]></content>
       <categories>
         <category>web安全</category>
@@ -494,25 +494,6 @@
       </tags>
   </entry>
   <entry>
-    <title>关于开深信服VPN无法抓包</title>
-    <url>/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/</url>
-    <content><![CDATA[<p>前些日子大佬叫去搞渗透，得走深信服的VPN，连上之后发现BP抓不了包了，关闭 BurpSuite 单独用浏览器就可以正常访问，还以为是我电脑问题，后面发现下了VPN之后能正常抓包了。</p>
-<span id="more"></span>
-<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217100454882.png" alt="image-20220217100454882"></p>
-<p>一开始以为是走的VPN，多个代理抓不到，然后试着用BP搞个上层代理，结果还是不行，后门觉着应该是深信服VPN不允许抓包的问题，把流量先在自己电脑跑一圈，用一层中转即可，找了个EW，开了个 sock5 服务器进行本地转发，然后再进行抓包就可以了</p>
-<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101004315.png" alt="image-20220217101004315"></p>
-<p>BP设置</p>
-<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101028945.png" alt="image-20220217101028945"></p>
-<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101050106.png" alt="image-20220217101050106"></p>
-]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>常见端口攻击方式</title>
     <url>/2022/03/08/%E5%B8%B8%E8%A7%81%E7%AB%AF%E5%8F%A3%E6%94%BB%E5%87%BB%E6%96%B9%E5%BC%8F/</url>
     <content><![CDATA[<h2 id="远程管理端口"><a href="#远程管理端口" class="headerlink" title="远程管理端口"></a>远程管理端口</h2><span id="more"></span>
@@ -523,6 +504,25 @@
 <h2 id="数据库端口"><a href="#数据库端口" class="headerlink" title="数据库端口"></a>数据库端口</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">389 端口（ldap）</span><br><span class="line">    安全漏洞：未授权访问 、弱口令</span><br><span class="line">    利用方式：通过LdapBrowser工具直接连入。</span><br><span class="line"></span><br><span class="line">1433 端口（Mssql）</span><br><span class="line">    安全漏洞：弱口令、暴力破解</span><br><span class="line">    利用方式：差异备份getshell、SA账户提权等</span><br><span class="line"></span><br><span class="line">1521 端口（Oracle）</span><br><span class="line">    安全漏洞：弱口令、暴力破解</span><br><span class="line">    利用方式：通过弱口令/暴力破解进行入侵。</span><br><span class="line"></span><br><span class="line">3306 端口（MySQL）</span><br><span class="line">    安全漏洞：弱口令、暴力破解</span><br><span class="line">    利用方式：利用日志写入webshell、udf提权、mof提权等。</span><br><span class="line"></span><br><span class="line">5432 端口（ PostgreSQL）</span><br><span class="line">    安全漏洞：弱口令、高权限命令执行</span><br><span class="line">    利用方式：攻击者通过弱口令获取账号信息，连入postgres中，可执行系统命令。。</span><br><span class="line">    PoC参考：    DROP TABLE IF EXISTS cmd_exec;    CREATE TABLE cmd_exec(cmd_output text);    COPY cmd_exec FROM PROGRAM &#x27;id&#x27;;    SELECT * FROM cmd_exec;</span><br><span class="line"></span><br><span class="line">5984 端口（CouchDB）</span><br><span class="line">    安全漏洞：垂直权限绕过、任意命令执行</span><br><span class="line">    利用方式：通过构造数据创建管理员用户，使用管理员用户登录，构造恶意请求触发任意命令执行。</span><br><span class="line">    后台访问：http://&lt;target&gt;:5984/_utils</span><br><span class="line"></span><br><span class="line">6379 端口（Redis）</span><br><span class="line">    安全漏洞：未授权访问</span><br><span class="line">    利用方式：绝对路径写webshell 、利用计划任务执行命令反弹shell、公私钥认证获取root权限、主从复制RCE等。</span><br><span class="line"></span><br><span class="line">9200 端口（elasticsearch）</span><br><span class="line">    安全漏洞：未授权访问、命令执行</span><br><span class="line">    检测方式：</span><br><span class="line">        1、直接访问如下url，获取相关敏感信息。  http://&lt;target&gt;:9200/_nodes  查看节点数据  http://&lt;target&gt;:9200/_river  查看数据库敏感信息</span><br><span class="line">        2、通过构造特定的数据包，执行任意命令。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">11211 端口（MemCache）</span><br><span class="line">    安全漏洞：未授权访问</span><br><span class="line">    检测方式：无需用户名密码，可以直接连接memcache 服务的11211端口。nc -vv &lt;target&gt; 11211</span><br><span class="line"></span><br><span class="line">27017 端口（Mongodb）</span><br><span class="line">    安全漏洞：未授权访问、弱口令</span><br><span class="line">    利用方式：未授权访问/弱口令，远程连入数据库，导致敏感信息泄露。</span><br></pre></td></tr></table></figure>
 
 <h2 id="常见协议"><a href="#常见协议" class="headerlink" title="常见协议"></a>常见协议</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">21 端口（FTP)</span><br><span class="line">    安全漏洞：1、配置不当    2、明文传输    3、第三方软件提权</span><br><span class="line">    利用方式：1、匿名登录或弱口令2、嗅探ftp用户名和密码3、</span><br><span class="line">    Serv-U权限较大的账号可导致系统命令执行。</span><br><span class="line">    FTP提权命令：  # 增加系统用户   Quote site exec net user 4567 4567 /add  # 提升到管理员权限   Quote site exec net localgroup administrators 4567 /add</span><br><span class="line"></span><br><span class="line">25 端口（SMTP）</span><br><span class="line">    攻击方式：1、匿名发送邮件 2、弱口令 3、SMTP用户枚举</span><br><span class="line">    利用方式：1、SMTP服务器配置不当，攻击者可以使用任意用户发送邮件。2、SMTP弱口令扫描，获取用户账号密码，发送邮件钓鱼。3、通过SMTP用户枚举获取用户名：   nmap -p 25 -- smtp-enum-users.nse &lt;target&gt;</span><br><span class="line"></span><br><span class="line">53 端口（DNS）</span><br><span class="line">    安全攻击：1、DNS域传送漏洞、DNS欺骗、DNS缓存投毒</span><br><span class="line">    检测方式：1、DNS域传送漏洞，Windows下检测使用nslookup命令，Linux下检测使用dig命令，通过执行命令可以清楚的看到域名解析情况。2、DNS欺骗就是攻击者冒充域名服务器的一种欺骗行为。3、DNS缓存投毒是攻击者欺骗DNS服务器相信伪造的DNS响应的真实性。</span><br><span class="line"></span><br><span class="line">161 端口（SNMP）</span><br><span class="line">    安全漏洞：默认团体名/弱口令访问</span><br><span class="line">    利用方式：通过nmap自带的审计脚本进行检测，可能导致敏感信息泄露。。1、弱口令检测：nmap –sU –p161 –script=snmp-brute &lt;target&gt;2、获取系统信息：nmap –sU –p161 –script=snmp-sysdescr &lt;target&gt;3、获取用户信息：nmap -sU -p161 --script=snmp-win32-user &lt;target&gt;4、获取网络端口状态：nmap -sU -p161 --script=snmp-netstat &lt;target&gt;</span><br><span class="line"></span><br><span class="line">443 端口（SSL）</span><br><span class="line">    安全漏洞：OpenSSL 心脏出血</span><br><span class="line">    利用方式：攻击者可以远程读取存在漏洞版本的openssl服务器内存中长大64K的数据。</span><br><span class="line">    扫描脚本：nmap -sV --script=ssl-heartbleed &lt;target&gt;</span><br><span class="line"></span><br><span class="line">445 端口（SMB）</span><br><span class="line">    安全漏洞：信息泄露、远程代码执行</span><br><span class="line">    利用方式：可利用共享获取敏感信息、缓冲区溢出导致远程代码执行，如ms17010。</span><br><span class="line"></span><br><span class="line">873 端口（Rsync）</span><br><span class="line">    安全漏洞：匿名访问、弱口令</span><br><span class="line">    利用方式：攻击者可以执行下载/上传等操作，也可以尝试上传webshell。</span><br><span class="line">    1、下载：#rsync -avz a.b.c.d::path/file path/filiname  </span><br><span class="line">    2、上传：#rsync -avz path/filename a.b.c.d::path/file</span><br><span class="line"></span><br><span class="line">2181 端口（Zookeeper）</span><br><span class="line">    安全漏洞：未授权访问</span><br><span class="line">    检测方式：攻击者可通过执行envi命令获得系统大量的敏感信息，包括系统名称、Java环境。 echo envi | nc ip port</span><br><span class="line"></span><br><span class="line">2375 端口（Docker）</span><br><span class="line">    安全漏洞：未授权方式</span><br><span class="line">    检测方式：通过docker daemon api 执行docker命令。#列出容器信息，效果与docker ps -a 一致。 curl http://&lt;target&gt;:2375/containers/json docker -H tcp://&lt;target&gt;:2375 start &lt;Container Id&gt;  docker服务如果是以root用户启动的话，可以利用chroot将服务器的根目录挂在到容器里面，实现docker容器逃逸</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于开深信服VPN无法抓包</title>
+    <url>/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/</url>
+    <content><![CDATA[<p>前些日子大佬叫去搞渗透，得走深信服的VPN，连上之后发现BP抓不了包了，关闭 BurpSuite 单独用浏览器就可以正常访问，还以为是我电脑问题，后面发现下了VPN之后能正常抓包了。</p>
+<span id="more"></span>
+<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217100454882.png" alt="image-20220217100454882"></p>
+<p>一开始以为是走的VPN，多个代理抓不到，然后试着用BP搞个上层代理，结果还是不行，后门觉着应该是深信服VPN不允许抓包的问题，把流量先在自己电脑跑一圈，用一层中转即可，找了个EW，开了个 sock5 服务器进行本地转发，然后再进行抓包就可以了</p>
+<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101004315.png" alt="image-20220217101004315"></p>
+<p>BP设置</p>
+<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101028945.png" alt="image-20220217101028945"></p>
+<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101050106.png" alt="image-20220217101050106"></p>
 ]]></content>
       <categories>
         <category>web安全</category>
@@ -582,6 +582,35 @@
       </tags>
   </entry>
   <entry>
+    <title>文件下载漏洞个人总结</title>
+    <url>/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>文件下载功能没有对下载的文件类型、目录做合理严谨的过滤， 利用路径回溯符…/跳出程序本身的限制目录实现来下载任意文件，导致用户可以下载服务器的任意文件。</p>
+<span id="more"></span>
+<h2 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">存在读文件的函数</span><br><span class="line">读取文件的路径用户可控且未校验或校验不严</span><br><span class="line">输出了文件内容</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞危害"><a href="#漏洞危害" class="headerlink" title="漏洞危害"></a>漏洞危害</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">可以下载服务器的任意文件，web业务的代码，服务器和系统的具体配置信息，也可以下载数据库的配置信息，以及对内网的信息探测等等。</span><br><span class="line">可用得到的代码进一步代码审计，得到更多可利用漏洞</span><br><span class="line">任意文件下载漏洞的利用主要是为了信息收集，我们通过对服务器配置文件的下载，获取到大量的配置信息、源码，从而根据获取的信息来进一步挖掘服务器漏洞从而入侵。</span><br></pre></td></tr></table></figure>
+
+<h2 id="如何发现"><a href="#如何发现" class="headerlink" title="如何发现"></a>如何发现</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">网站URL中存在下载参数，并且未进行过滤…<span class="regexp">/…/</span>…/字符，且输出了文件内容</span><br><span class="line">从链接上看</span><br><span class="line">从参数上看</span><br><span class="line">具体情况具体分析</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">获得站点源码（黑盒 -&gt; 白盒）</span><br><span class="line">获得站点与中间件配置文件</span><br><span class="line">获得应用于系统配置文件（ssh、mysql）</span><br></pre></td></tr></table></figure>
+
+<h2 id="利用原理"><a href="#利用原理" class="headerlink" title="利用原理"></a>利用原理</h2><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">（信息收集信息&gt;猜路径 &gt;&gt;下载配置文件/代码文件 &gt;&gt; 利用服务器软件漏洞&gt; <span class="built_in">shell</span>&gt; 提权）</span><br><span class="line">任意文件下载漏洞的利用主要是为了信息收集，我们通过对服务器配置文件的下载，获取到大量的配置信息、源码，从而根据获取的信息来进一步挖掘服务器漏洞从而入侵。</span><br><span class="line">下载常规的配置文件，例如: ssh,weblogic,<span class="keyword">ftp</span>,mysql等相关配置下载各种.<span class="built_in">log</span>文件，从中寻找一些后台地址，文件上传点之类的地方，如果运气好的话会获得一些前辈们的后门。</span><br><span class="line">下载web业务文件进行白盒审计，利用漏洞进一步攻入服务器</span><br></pre></td></tr></table></figure>
+
+<h2 id="常规文件位置"><a href="#常规文件位置" class="headerlink" title="常规文件位置"></a>常规文件位置</h2><p><strong>WEB应用</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">PHP</span></span><br><span class="line">1、获取inc/config·php获得数据库连接字符串中的口令信息。</span><br><span class="line"><span class="meta">#</span><span class="bash">asp</span></span><br><span class="line">1、获取inc/conn.asp文件，获得数据库连接字符串，得到数据库口令。若是ACCESS数据库，可以得到数据库</span><br><span class="line">路径，在下载数据库内容。</span><br><span class="line"><span class="meta">#</span><span class="bash">aspx</span></span><br><span class="line">1、获取网站根目录web，config文件，获得数据库连接字符串中的口令信息。</span><br><span class="line">2、获取bin/*.dll文件，获取网站源码（不完整代码）。使用.NET refl ector工具打开编译后的dll文件。</span><br><span class="line"><span class="meta">#</span><span class="bash">JSP</span></span><br><span class="line">1、获取conf/tomcat-user.xml文件，获得tomcat管理界面的口令信息，上传war包GetShel1，</span><br><span class="line">2、获取WEB-INF/Web.xml文件，获得数据库连接字符串中的口令信息。</span><br></pre></td></tr></table></figure>
+
+<p><strong>应用，系统配置文件</strong></p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">一、Windows</span><br><span class="line">C:\boot.ini<span class="regexp">//</span>查看系统版本C:\Windows\System32\inetsrv\MetaBase.xml<span class="regexp">//</span>IIS配置文件</span><br><span class="line">C:\Windows\repair\sam<span class="regexp">//</span>存储系统初次安装的密码</span><br><span class="line">C:\Program Files\mysql\my.ini<span class="regexp">//</span>Mysql配置</span><br><span class="line">C:\Program Files\mysql\data\mysql\user.MYD <span class="regexp">//</span>Mysql root</span><br><span class="line">C:\Windows\php.ini<span class="regexp">//</span>php配置信息</span><br><span class="line">C:\Windows\my.ini<span class="regexp">//</span>Mysql配置信息</span><br><span class="line">C:\Windows\win.ini<span class="regexp">//</span>Windows系统的一个基本系统配置文件</span><br><span class="line">二、Linux</span><br><span class="line"><span class="regexp">/root/</span>.ssh/authorized_keys</span><br><span class="line"><span class="regexp">/root/</span>.ssh/id_rsa</span><br><span class="line"><span class="regexp">/root/</span>.ssh/id_ras.keystore</span><br><span class="line"><span class="regexp">/root/</span>.ssh<span class="regexp">/known_hosts/</span><span class="regexp">/记录每个访问计算机用户的公钥/</span>etc/passwd</span><br><span class="line"><span class="regexp">/etc/</span>shadow</span><br><span class="line"><span class="regexp">/etc/my</span>.cnf<span class="regexp">//my</span>sql配置文件</span><br><span class="line"><span class="regexp">/etc/</span>httpd<span class="regexp">/conf/</span>httpd.conf<span class="regexp">//</span>apachel配置文件</span><br><span class="line"><span class="regexp">/root/</span>.bash_history<span class="regexp">//</span>用户历史命令记录文件</span><br><span class="line"><span class="regexp">/root/</span>.mysql._history<span class="regexp">//my</span>sql历史命令记录文件</span><br></pre></td></tr></table></figure>
+
+<h2 id="任意文件下载漏洞防御"><a href="#任意文件下载漏洞防御" class="headerlink" title="任意文件下载漏洞防御"></a>任意文件下载漏洞防御</h2><figure class="highlight less"><table><tr><td class="code"><pre><span class="line">下载路径不可控，而是程序自动生成后保存在数据库中，根据<span class="selector-tag">ID</span>进行下载</span><br><span class="line">对参数做严格的过滤，不能进行目录遍历（穿越）</span><br><span class="line">对下载路径进行过滤，如下载前对传入的参数进行过滤，并且对下载文件类型进行检查，是否是允许下载的类型</span><br><span class="line">过滤.(点)，使用户在<span class="selector-tag">url</span>中不能回溯上级目录</span><br><span class="line">正则严格判断用户输入参数的格式</span><br><span class="line">限定文件访问范围如<span class="selector-tag">PHP</span>里的（<span class="selector-tag">php</span><span class="selector-class">.ini</span>配置<span class="selector-tag">open_basedir</span>）</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>文件上传漏洞个人总结</title>
     <url>/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h2 id="什么是文件上传"><a href="#什么是文件上传" class="headerlink" title="什么是文件上传"></a>什么是文件上传</h2><p>文件上传漏洞是指上传文件的时，如果未对上传的文件进行严格的验证和过滤，就容易造成文件上传漏洞，上传脚本等。用户可以上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。 常见场景是web服务器允许用户上传图片或者普通文本文件保存，而用户绕过上传机制上传恶意代码并执行从而控制服务器。这种漏洞是getshell最快最直接的方法之一，上传文件操作本身是没有问题的，问题在于文件上传到服务器后，服务器怎么处理和解释文件，有文件上传不一定有文件上传漏洞，要看代码情况。</p>
@@ -605,35 +634,6 @@
 <h3 id="Apache解析漏洞"><a href="#Apache解析漏洞" class="headerlink" title="Apache解析漏洞"></a>Apache解析漏洞</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">当文件拓展名Apache没有配置解析器解析时，就会向前遍历，直到遇到配置的解析器解析的域名</span><br></pre></td></tr></table></figure>
 
 <h3 id="nginx解析漏洞"><a href="#nginx解析漏洞" class="headerlink" title="nginx解析漏洞"></a>nginx解析漏洞</h3><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">上传<span class="string">/.php</span>时就能作为php文件解析</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>文件下载漏洞个人总结</title>
-    <url>/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>文件下载功能没有对下载的文件类型、目录做合理严谨的过滤， 利用路径回溯符…/跳出程序本身的限制目录实现来下载任意文件，导致用户可以下载服务器的任意文件。</p>
-<span id="more"></span>
-<h2 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">存在读文件的函数</span><br><span class="line">读取文件的路径用户可控且未校验或校验不严</span><br><span class="line">输出了文件内容</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞危害"><a href="#漏洞危害" class="headerlink" title="漏洞危害"></a>漏洞危害</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">可以下载服务器的任意文件，web业务的代码，服务器和系统的具体配置信息，也可以下载数据库的配置信息，以及对内网的信息探测等等。</span><br><span class="line">可用得到的代码进一步代码审计，得到更多可利用漏洞</span><br><span class="line">任意文件下载漏洞的利用主要是为了信息收集，我们通过对服务器配置文件的下载，获取到大量的配置信息、源码，从而根据获取的信息来进一步挖掘服务器漏洞从而入侵。</span><br></pre></td></tr></table></figure>
-
-<h2 id="如何发现"><a href="#如何发现" class="headerlink" title="如何发现"></a>如何发现</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">网站URL中存在下载参数，并且未进行过滤…<span class="regexp">/…/</span>…/字符，且输出了文件内容</span><br><span class="line">从链接上看</span><br><span class="line">从参数上看</span><br><span class="line">具体情况具体分析</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">获得站点源码（黑盒 -&gt; 白盒）</span><br><span class="line">获得站点与中间件配置文件</span><br><span class="line">获得应用于系统配置文件（ssh、mysql）</span><br></pre></td></tr></table></figure>
-
-<h2 id="利用原理"><a href="#利用原理" class="headerlink" title="利用原理"></a>利用原理</h2><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">（信息收集信息&gt;猜路径 &gt;&gt;下载配置文件/代码文件 &gt;&gt; 利用服务器软件漏洞&gt; <span class="built_in">shell</span>&gt; 提权）</span><br><span class="line">任意文件下载漏洞的利用主要是为了信息收集，我们通过对服务器配置文件的下载，获取到大量的配置信息、源码，从而根据获取的信息来进一步挖掘服务器漏洞从而入侵。</span><br><span class="line">下载常规的配置文件，例如: ssh,weblogic,<span class="keyword">ftp</span>,mysql等相关配置下载各种.<span class="built_in">log</span>文件，从中寻找一些后台地址，文件上传点之类的地方，如果运气好的话会获得一些前辈们的后门。</span><br><span class="line">下载web业务文件进行白盒审计，利用漏洞进一步攻入服务器</span><br></pre></td></tr></table></figure>
-
-<h2 id="常规文件位置"><a href="#常规文件位置" class="headerlink" title="常规文件位置"></a>常规文件位置</h2><p><strong>WEB应用</strong></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">PHP</span></span><br><span class="line">1、获取inc/config·php获得数据库连接字符串中的口令信息。</span><br><span class="line"><span class="meta">#</span><span class="bash">asp</span></span><br><span class="line">1、获取inc/conn.asp文件，获得数据库连接字符串，得到数据库口令。若是ACCESS数据库，可以得到数据库</span><br><span class="line">路径，在下载数据库内容。</span><br><span class="line"><span class="meta">#</span><span class="bash">aspx</span></span><br><span class="line">1、获取网站根目录web，config文件，获得数据库连接字符串中的口令信息。</span><br><span class="line">2、获取bin/*.dll文件，获取网站源码（不完整代码）。使用.NET refl ector工具打开编译后的dll文件。</span><br><span class="line"><span class="meta">#</span><span class="bash">JSP</span></span><br><span class="line">1、获取conf/tomcat-user.xml文件，获得tomcat管理界面的口令信息，上传war包GetShel1，</span><br><span class="line">2、获取WEB-INF/Web.xml文件，获得数据库连接字符串中的口令信息。</span><br></pre></td></tr></table></figure>
-
-<p><strong>应用，系统配置文件</strong></p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">一、Windows</span><br><span class="line">C:\boot.ini<span class="regexp">//</span>查看系统版本C:\Windows\System32\inetsrv\MetaBase.xml<span class="regexp">//</span>IIS配置文件</span><br><span class="line">C:\Windows\repair\sam<span class="regexp">//</span>存储系统初次安装的密码</span><br><span class="line">C:\Program Files\mysql\my.ini<span class="regexp">//</span>Mysql配置</span><br><span class="line">C:\Program Files\mysql\data\mysql\user.MYD <span class="regexp">//</span>Mysql root</span><br><span class="line">C:\Windows\php.ini<span class="regexp">//</span>php配置信息</span><br><span class="line">C:\Windows\my.ini<span class="regexp">//</span>Mysql配置信息</span><br><span class="line">C:\Windows\win.ini<span class="regexp">//</span>Windows系统的一个基本系统配置文件</span><br><span class="line">二、Linux</span><br><span class="line"><span class="regexp">/root/</span>.ssh/authorized_keys</span><br><span class="line"><span class="regexp">/root/</span>.ssh/id_rsa</span><br><span class="line"><span class="regexp">/root/</span>.ssh/id_ras.keystore</span><br><span class="line"><span class="regexp">/root/</span>.ssh<span class="regexp">/known_hosts/</span><span class="regexp">/记录每个访问计算机用户的公钥/</span>etc/passwd</span><br><span class="line"><span class="regexp">/etc/</span>shadow</span><br><span class="line"><span class="regexp">/etc/my</span>.cnf<span class="regexp">//my</span>sql配置文件</span><br><span class="line"><span class="regexp">/etc/</span>httpd<span class="regexp">/conf/</span>httpd.conf<span class="regexp">//</span>apachel配置文件</span><br><span class="line"><span class="regexp">/root/</span>.bash_history<span class="regexp">//</span>用户历史命令记录文件</span><br><span class="line"><span class="regexp">/root/</span>.mysql._history<span class="regexp">//my</span>sql历史命令记录文件</span><br></pre></td></tr></table></figure>
-
-<h2 id="任意文件下载漏洞防御"><a href="#任意文件下载漏洞防御" class="headerlink" title="任意文件下载漏洞防御"></a>任意文件下载漏洞防御</h2><figure class="highlight less"><table><tr><td class="code"><pre><span class="line">下载路径不可控，而是程序自动生成后保存在数据库中，根据<span class="selector-tag">ID</span>进行下载</span><br><span class="line">对参数做严格的过滤，不能进行目录遍历（穿越）</span><br><span class="line">对下载路径进行过滤，如下载前对传入的参数进行过滤，并且对下载文件类型进行检查，是否是允许下载的类型</span><br><span class="line">过滤.(点)，使用户在<span class="selector-tag">url</span>中不能回溯上级目录</span><br><span class="line">正则严格判断用户输入参数的格式</span><br><span class="line">限定文件访问范围如<span class="selector-tag">PHP</span>里的（<span class="selector-tag">php</span><span class="selector-class">.ini</span>配置<span class="selector-tag">open_basedir</span>）</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>web安全</category>
       </categories>
