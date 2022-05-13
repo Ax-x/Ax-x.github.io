@@ -6,7 +6,7 @@
   <link href="https://ax-x.github.io/atom.xml" rel="self"/>
   
   <link href="https://ax-x.github.io/"/>
-  <updated>2022-05-13T07:11:54.256Z</updated>
+  <updated>2022-05-13T07:30:28.625Z</updated>
   <id>https://ax-x.github.io/</id>
   
   <author>
@@ -21,10 +21,10 @@
     <link href="https://ax-x.github.io/2022/05/13/word%E6%96%87%E6%A1%A3%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC/"/>
     <id>https://ax-x.github.io/2022/05/13/word%E6%96%87%E6%A1%A3%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC/</id>
     <published>2022-05-13T07:09:24.000Z</published>
-    <updated>2022-05-13T07:11:54.256Z</updated>
+    <updated>2022-05-13T07:30:28.625Z</updated>
     
     
-    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;公司让去驻场了，去了那边的工作不是很难，但是很繁琐，特别是word的文档处理这块，经常要处几十个文档就很烦，挣扎了下还是打算写个脚本来批量处理这些事情，总不能因为这些事情耽误了自己进步（摸鱼）吧？由于之前没接触过py在word文档处理这块的东西，所以还是踩了一些坑的，写一下，后续有用到可以避避坑。&lt;/p&gt;</summary>
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;公司让去客户现场了，去了那边的工作不是很难，但是很繁琐，特别是word的文档处理这块，经常要处理几十个文档就很烦，挣扎了下还是打算写个脚本来批量处理这些事情，总不能因为这些事情耽误了自己进步（摸鱼）吧？由于之前没接触过py在word文档处理这块的东西，所以还是踩了一些坑的，写一下，后续有用到可以避避坑。&lt;/p&gt;</summary>
     
     
     

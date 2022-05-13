@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="前言公司让去驻场了，去了那边的工作不是很难，但是很繁琐，特别是word的文档处理这块，经常要处几十个文档就很烦，挣扎了下还是打算写个脚本来批量处理这些事情，总不能因为这些事情耽误了自己进步（摸鱼）吧？由于之前没接触过py在word文档处理这块的东西，所以还是踩了一些坑的，写一下，后续有用到可以避避坑。">
+<meta name="description" content="前言公司让去客户现场了，去了那边的工作不是很难，但是很繁琐，特别是word的文档处理这块，经常要处理几十个文档就很烦，挣扎了下还是打算写个脚本来批量处理这些事情，总不能因为这些事情耽误了自己进步（摸鱼）吧？由于之前没接触过py在word文档处理这块的东西，所以还是踩了一些坑的，写一下，后续有用到可以避避坑。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="word文档批量处理脚本">
 <meta property="og:url" content="https://ax-x.github.io/2022/05/13/word%E6%96%87%E6%A1%A3%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC/index.html">
 <meta property="og:site_name" content="Ax-x">
-<meta property="og:description" content="前言公司让去驻场了，去了那边的工作不是很难，但是很繁琐，特别是word的文档处理这块，经常要处几十个文档就很烦，挣扎了下还是打算写个脚本来批量处理这些事情，总不能因为这些事情耽误了自己进步（摸鱼）吧？由于之前没接触过py在word文档处理这块的东西，所以还是踩了一些坑的，写一下，后续有用到可以避避坑。">
+<meta property="og:description" content="前言公司让去客户现场了，去了那边的工作不是很难，但是很繁琐，特别是word的文档处理这块，经常要处理几十个文档就很烦，挣扎了下还是打算写个脚本来批量处理这些事情，总不能因为这些事情耽误了自己进步（摸鱼）吧？由于之前没接触过py在word文档处理这块的东西，所以还是踩了一些坑的，写一下，后续有用到可以避避坑。">
 <meta property="og:locale">
 <meta property="og:image" content="https://ax-x.github.io/2022/05/13/word%E6%96%87%E6%A1%A3%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC/1.png">
 <meta property="og:image" content="https://ax-x.github.io/2022/05/13/word%E6%96%87%E6%A1%A3%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC/image-20220513091808872-16524046932521.png">
 <meta property="og:image" content="https://ax-x.github.io/2022/05/13/word%E6%96%87%E6%A1%A3%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC/image-20220513094744241-16524064658883.png">
 <meta property="article:published_time" content="2022-05-13T07:09:24.000Z">
-<meta property="article:modified_time" content="2022-05-13T07:11:54.256Z">
+<meta property="article:modified_time" content="2022-05-13T07:30:28.625Z">
 <meta property="article:author" content="Ax-x">
 <meta property="article:tag" content="自动化脚本">
 <meta name="twitter:card" content="summary">
@@ -433,7 +433,7 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>公司让去驻场了，去了那边的工作不是很难，但是很繁琐，特别是word的文档处理这块，经常要处几十个文档就很烦，挣扎了下还是打算写个脚本来批量处理这些事情，总不能因为这些事情耽误了自己进步（摸鱼）吧？由于之前没接触过py在word文档处理这块的东西，所以还是踩了一些坑的，写一下，后续有用到可以避避坑。</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>公司让去客户现场了，去了那边的工作不是很难，但是很繁琐，特别是word的文档处理这块，经常要处理几十个文档就很烦，挣扎了下还是打算写个脚本来批量处理这些事情，总不能因为这些事情耽误了自己进步（摸鱼）吧？由于之前没接触过py在word文档处理这块的东西，所以还是踩了一些坑的，写一下，后续有用到可以避避坑。</p>
 <span id="more"></span>
 <h1 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h1><p>老样子，一开始还是先思考下，如果正常操作，我们会如何操作，然后根据这些操作去构思我们的路线，所有的方便都不会是直接来的，不是一两个函数就能解决的事情，就好像3D打印，你没构图，3D打印也没办法打出你想要的东西出来，所以一开始我构思了三条路线：</p>
 <p>一：直接定位里面的内容，然后删除，插入自己想要的；</p>
