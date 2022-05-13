@@ -6,7 +6,7 @@
   <link href="https://ax-x.github.io/atom.xml" rel="self"/>
   
   <link href="https://ax-x.github.io/"/>
-  <updated>2022-05-13T07:30:28.625Z</updated>
+  <updated>2022-05-13T08:27:37.067Z</updated>
   <id>https://ax-x.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>反弹shell合集</title>
+    <link href="https://ax-x.github.io/2022/05/13/%E5%8F%8D%E5%BC%B9shell%E5%90%88%E9%9B%86/"/>
+    <id>https://ax-x.github.io/2022/05/13/%E5%8F%8D%E5%BC%B9shell%E5%90%88%E9%9B%86/</id>
+    <published>2022-05-13T08:25:02.000Z</published>
+    <updated>2022-05-13T08:27:37.067Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;假设本机地址10.10.10.11，监听端口443。&lt;/p&gt;
+&lt;h2 id=&quot;Bash环境下反弹TCP协议shell&quot;&gt;&lt;a href=&quot;#Bash环境下反弹TCP协议shell&quot; class=&quot;headerlink&quot; title=&quot;Bash环境下反弹TCP协议shell&quot;&gt;&lt;/a&gt;Bash环境下反弹TCP协议shell&lt;/h2&gt;&lt;p&gt;首先在本地监听TCP协议443端口&lt;/p&gt;
+&lt;figure class=&quot;highlight apache&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;nc&lt;/span&gt; -lvp &lt;span class=&quot;number&quot;&gt;443&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="内网渗透" scheme="https://ax-x.github.io/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/"/>
+    
+    
+    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>word文档批量处理脚本</title>
