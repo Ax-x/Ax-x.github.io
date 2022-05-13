@@ -657,6 +657,35 @@
       </tags>
   </entry>
   <entry>
+    <title>文件下载漏洞个人总结</title>
+    <url>/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>文件下载功能没有对下载的文件类型、目录做合理严谨的过滤， 利用路径回溯符…/跳出程序本身的限制目录实现来下载任意文件，导致用户可以下载服务器的任意文件。</p>
+<span id="more"></span>
+<h2 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">存在读文件的函数</span><br><span class="line">读取文件的路径用户可控且未校验或校验不严</span><br><span class="line">输出了文件内容</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞危害"><a href="#漏洞危害" class="headerlink" title="漏洞危害"></a>漏洞危害</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">可以下载服务器的任意文件，web业务的代码，服务器和系统的具体配置信息，也可以下载数据库的配置信息，以及对内网的信息探测等等。</span><br><span class="line">可用得到的代码进一步代码审计，得到更多可利用漏洞</span><br><span class="line">任意文件下载漏洞的利用主要是为了信息收集，我们通过对服务器配置文件的下载，获取到大量的配置信息、源码，从而根据获取的信息来进一步挖掘服务器漏洞从而入侵。</span><br></pre></td></tr></table></figure>
+
+<h2 id="如何发现"><a href="#如何发现" class="headerlink" title="如何发现"></a>如何发现</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">网站URL中存在下载参数，并且未进行过滤…<span class="regexp">/…/</span>…/字符，且输出了文件内容</span><br><span class="line">从链接上看</span><br><span class="line">从参数上看</span><br><span class="line">具体情况具体分析</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">获得站点源码（黑盒 -&gt; 白盒）</span><br><span class="line">获得站点与中间件配置文件</span><br><span class="line">获得应用于系统配置文件（ssh、mysql）</span><br></pre></td></tr></table></figure>
+
+<h2 id="利用原理"><a href="#利用原理" class="headerlink" title="利用原理"></a>利用原理</h2><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">（信息收集信息&gt;猜路径 &gt;&gt;下载配置文件/代码文件 &gt;&gt; 利用服务器软件漏洞&gt; <span class="built_in">shell</span>&gt; 提权）</span><br><span class="line">任意文件下载漏洞的利用主要是为了信息收集，我们通过对服务器配置文件的下载，获取到大量的配置信息、源码，从而根据获取的信息来进一步挖掘服务器漏洞从而入侵。</span><br><span class="line">下载常规的配置文件，例如: ssh,weblogic,<span class="keyword">ftp</span>,mysql等相关配置下载各种.<span class="built_in">log</span>文件，从中寻找一些后台地址，文件上传点之类的地方，如果运气好的话会获得一些前辈们的后门。</span><br><span class="line">下载web业务文件进行白盒审计，利用漏洞进一步攻入服务器</span><br></pre></td></tr></table></figure>
+
+<h2 id="常规文件位置"><a href="#常规文件位置" class="headerlink" title="常规文件位置"></a>常规文件位置</h2><p><strong>WEB应用</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">PHP</span></span><br><span class="line">1、获取inc/config·php获得数据库连接字符串中的口令信息。</span><br><span class="line"><span class="meta">#</span><span class="bash">asp</span></span><br><span class="line">1、获取inc/conn.asp文件，获得数据库连接字符串，得到数据库口令。若是ACCESS数据库，可以得到数据库</span><br><span class="line">路径，在下载数据库内容。</span><br><span class="line"><span class="meta">#</span><span class="bash">aspx</span></span><br><span class="line">1、获取网站根目录web，config文件，获得数据库连接字符串中的口令信息。</span><br><span class="line">2、获取bin/*.dll文件，获取网站源码（不完整代码）。使用.NET refl ector工具打开编译后的dll文件。</span><br><span class="line"><span class="meta">#</span><span class="bash">JSP</span></span><br><span class="line">1、获取conf/tomcat-user.xml文件，获得tomcat管理界面的口令信息，上传war包GetShel1，</span><br><span class="line">2、获取WEB-INF/Web.xml文件，获得数据库连接字符串中的口令信息。</span><br></pre></td></tr></table></figure>
+
+<p><strong>应用，系统配置文件</strong></p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">一、Windows</span><br><span class="line">C:\boot.ini<span class="regexp">//</span>查看系统版本C:\Windows\System32\inetsrv\MetaBase.xml<span class="regexp">//</span>IIS配置文件</span><br><span class="line">C:\Windows\repair\sam<span class="regexp">//</span>存储系统初次安装的密码</span><br><span class="line">C:\Program Files\mysql\my.ini<span class="regexp">//</span>Mysql配置</span><br><span class="line">C:\Program Files\mysql\data\mysql\user.MYD <span class="regexp">//</span>Mysql root</span><br><span class="line">C:\Windows\php.ini<span class="regexp">//</span>php配置信息</span><br><span class="line">C:\Windows\my.ini<span class="regexp">//</span>Mysql配置信息</span><br><span class="line">C:\Windows\win.ini<span class="regexp">//</span>Windows系统的一个基本系统配置文件</span><br><span class="line">二、Linux</span><br><span class="line"><span class="regexp">/root/</span>.ssh/authorized_keys</span><br><span class="line"><span class="regexp">/root/</span>.ssh/id_rsa</span><br><span class="line"><span class="regexp">/root/</span>.ssh/id_ras.keystore</span><br><span class="line"><span class="regexp">/root/</span>.ssh<span class="regexp">/known_hosts/</span><span class="regexp">/记录每个访问计算机用户的公钥/</span>etc/passwd</span><br><span class="line"><span class="regexp">/etc/</span>shadow</span><br><span class="line"><span class="regexp">/etc/my</span>.cnf<span class="regexp">//my</span>sql配置文件</span><br><span class="line"><span class="regexp">/etc/</span>httpd<span class="regexp">/conf/</span>httpd.conf<span class="regexp">//</span>apachel配置文件</span><br><span class="line"><span class="regexp">/root/</span>.bash_history<span class="regexp">//</span>用户历史命令记录文件</span><br><span class="line"><span class="regexp">/root/</span>.mysql._history<span class="regexp">//my</span>sql历史命令记录文件</span><br></pre></td></tr></table></figure>
+
+<h2 id="任意文件下载漏洞防御"><a href="#任意文件下载漏洞防御" class="headerlink" title="任意文件下载漏洞防御"></a>任意文件下载漏洞防御</h2><figure class="highlight less"><table><tr><td class="code"><pre><span class="line">下载路径不可控，而是程序自动生成后保存在数据库中，根据<span class="selector-tag">ID</span>进行下载</span><br><span class="line">对参数做严格的过滤，不能进行目录遍历（穿越）</span><br><span class="line">对下载路径进行过滤，如下载前对传入的参数进行过滤，并且对下载文件类型进行检查，是否是允许下载的类型</span><br><span class="line">过滤.(点)，使用户在<span class="selector-tag">url</span>中不能回溯上级目录</span><br><span class="line">正则严格判断用户输入参数的格式</span><br><span class="line">限定文件访问范围如<span class="selector-tag">PHP</span>里的（<span class="selector-tag">php</span><span class="selector-class">.ini</span>配置<span class="selector-tag">open_basedir</span>）</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>文件包含漏洞个人总结</title>
     <url>/2022/03/08/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h2 id="什么是文件包含"><a href="#什么是文件包含" class="headerlink" title="什么是文件包含"></a>什么是文件包含</h2><p>程序开发人员一般希望代码更灵活，所以将被包含的文件设置为变量，用来进行动态调用，但正是由于这种灵活性，从而导致客户端可以调用一个恶意文件，造成文件包含漏洞。为了控制代码的灵活，程序要把要使用的函数写到一个文件中，其他需要其中的的函数执行，只需要通过该文件名包含进来，而且没有进行验证。</p>
@@ -683,29 +712,81 @@
       </tags>
   </entry>
   <entry>
-    <title>文件下载漏洞个人总结</title>
-    <url>/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>文件下载功能没有对下载的文件类型、目录做合理严谨的过滤， 利用路径回溯符…/跳出程序本身的限制目录实现来下载任意文件，导致用户可以下载服务器的任意文件。</p>
+    <title>记一次windows应急响应</title>
+    <url>/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/</url>
+    <content><![CDATA[<h1 id="1、背景"><a href="#1、背景" class="headerlink" title="1、背景"></a>1、背景</h1><p>大好假期，人在家中躺，应急天上来，上了机子之后过程还算是比较顺利的，环境是Tomcat，大致思路就是，排查可疑用户和文件，看日志，连接情况，进程，定时任务，注册表这些。</p>
 <span id="more"></span>
-<h2 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">存在读文件的函数</span><br><span class="line">读取文件的路径用户可控且未校验或校验不严</span><br><span class="line">输出了文件内容</span><br></pre></td></tr></table></figure>
+<h1 id="2、排查可疑用户和文件"><a href="#2、排查可疑用户和文件" class="headerlink" title="2、排查可疑用户和文件"></a>2、排查可疑用户和文件</h1><p>先排查下有没有隐藏的用户</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404011544732.png" alt="image-20220404011544732"></p>
+<p>用了net user和net user localgroup administrators都没办法看到，但是还是有可能存在隐藏用户，隐藏用户有三种方式：</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>特定</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>命令添加</td>
+<td>net user没办法查看隐藏用户<br>RDP登录过的，都会生成对应的用户目录<br>系统登录界面可以选择登录用户</td>
+</tr>
+<tr>
+<td>克隆账号</td>
+<td>net user无法查看隐藏用户<br>RDP登录不会生成相应的用户目录<br>系统登录界面选择登录用户，无法查看</td>
+</tr>
+<tr>
+<td>Guest账号利用</td>
+<td>正常都能够查看出来，但是一般会被忽略，隐蔽性相对来说会高点</td>
+</tr>
+</tbody></table>
+<p>建议开个PCHunter看下，一般都能查出来，看出来这边是存在一个test$的隐藏用户，用net user XXX$验证下</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404021642321.png" alt="image-20220404021642321"></p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404022054841.png" alt="image-20220404022054841"></p>
+<p>接着看下有没有可疑的文件在，先排查web的目录，后面再去看看系统有没有被放了CS马啥的，因为是部署的tomcat，一般站点文件都会部署在tomcat\webapps下面，先按照修改时间排序下，发现了两个不像好人的文件，打开代码一看，一个是webshell，一个是代理</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404023530823.png" alt="image-20220404023530823"></p>
+<p>这次是运气好，直接用时间排序查出来的文件，在找webshell和代理的时候，根据日志的访问记录和文件修改时间去查找效果会更好一点，日志能看到攻击者一直在访问那个文件，这样在定位webshell的时候会更加有目标一点，或者使用D盾扫描，也能扫描出webshell。</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404125014083.png" alt="image-20220404125014083"></p>
+<h1 id="3、定位机器失陷时间"><a href="#3、定位机器失陷时间" class="headerlink" title="3、定位机器失陷时间"></a>3、定位机器失陷时间</h1><p>有挺多种方法去定位的，看系统安全日志或者中间件的日志等等，这边我先去看的tomcat的日志，tomcat的日志分五种：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1. 应用日志</span><br><span class="line">该日志主要是记录应用事件的，针对应用级别的排错比较有用，比如应用性能比较慢。</span><br><span class="line">2. 服务器日志</span><br><span class="line">服务器日志和console日志是相同的，不同之处在于，服务器日志是保存在文件中的，可以随时查看。</span><br><span class="line">3. 控制台日志</span><br><span class="line">该日志记录了tomcat的启动和加载器的顺序的详细信息，该日志文件叫做catalina.out。在排查服务器启动、应用的部署错时比较有用。 配置日志是在catalina.sh中配置的。</span><br><span class="line">4. 访问日志</span><br><span class="line">该日志也非常重要，在分析很多应用的流量，带宽需求，及负载时非常有用。该日志是在server.xml中配置的。</span><br><span class="line">5. Host manager</span><br><span class="line">使用Tomcat Manager执行的活动日志，比如不同的任务执行，应用的状态，应用的部署，和tomcat的生命周期，这些配置是在logging.properties.</span><br></pre></td></tr></table></figure>
 
-<h2 id="漏洞危害"><a href="#漏洞危害" class="headerlink" title="漏洞危害"></a>漏洞危害</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">可以下载服务器的任意文件，web业务的代码，服务器和系统的具体配置信息，也可以下载数据库的配置信息，以及对内网的信息探测等等。</span><br><span class="line">可用得到的代码进一步代码审计，得到更多可利用漏洞</span><br><span class="line">任意文件下载漏洞的利用主要是为了信息收集，我们通过对服务器配置文件的下载，获取到大量的配置信息、源码，从而根据获取的信息来进一步挖掘服务器漏洞从而入侵。</span><br></pre></td></tr></table></figure>
+<p>如果是因为站点有漏洞被传了马上去，可以看下localhost_access_log这个日志，这个是访问tomcat的日志，请求时间和资源，状态码都有记录，在日志量大的情况下可以自己去定义下，筛选文件和状态码，先把200的状态码筛选出来，然后再根据上面定位到的webshell去搜索日志信息。所以我第一时间先去找webshell，就是方便现在去定位大概攻击成功的时间和文件。</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404131319354.png" alt="image-20220404131319354"></p>
+<h1 id="4、计划任务-amp-注册表"><a href="#4、计划任务-amp-注册表" class="headerlink" title="4、计划任务&amp;注册表"></a>4、计划任务&amp;注册表</h1><p>计划任务的查看有很多种方式</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>at（适用于win2003-win2008）</td>
+<td>包含大量系统计划任务，不容易排查</td>
+</tr>
+<tr>
+<td>schtasks.exe（win2008及其以后系统）</td>
+<td>包含大量系统计划任务，不容易排查</td>
+</tr>
+<tr>
+<td>控制面板-&gt;计划任务</td>
+<td>包含大量系统计划任务，不容易排查</td>
+</tr>
+</tbody></table>
+<p>单独看一个地方的话，会参杂大量的计划任务，干扰检查，最好就是多个搭配起来，配合计划任务的文件去检查，通过查看目录修改日期-&gt;文件修改日期，根据这两个信息，去计划任务程序里面定位，然后再查看具体内容，这就是为什么要去定位攻击成功的时间了，能有效帮助我们去排查计划任务的创建时间。</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404135302797.png" alt="image-20220404135302797"></p>
+<p>打开代码看下，在最下面发现的启动的文件路径</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404135655403.png" alt="image-20220404135655403"></p>
+<p>打开这个EXE，查看代码，在最下面看到了IP，是个阿里云的服务器，丢云沙箱一看，是个CS马。</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404141147090.png" alt="image-20220404141147090"></p>
+<p>当然我这种是比较笨的方式，这种可以直接丢云沙箱上面看下结果或者配合CurrPorts去分析，打开这个exe之后观察变化，或者看CurrPorts的log文件，也能够分析出这个IP，只是习惯先编辑一下，看看里面拿到内容，一般拉到最后面都能看到一些东西，找到CS马之后，去看windows自启动的注册表定位起来也会方便点，重点查看windows的自启动配置的注册表。</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404142723461.png" alt="image-20220404142723461"></p>
+<h1 id="5、总结"><a href="#5、总结" class="headerlink" title="5、总结"></a>5、总结</h1><p>这次的检查算是比较简单的，没有特别难找的东西，有一些是直接找出来的，没有啥特别的技巧，多排查几个机子，就有种直觉，感觉有点问题。最后猜测下攻击链：</p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">爆破Tomcat后台</span><br><span class="line">部署webshell、HTTP隧道代理</span><br><span class="line">上<span class="keyword">CS</span>木马进行权限维持</span><br><span class="line">创建后门管理员权限账号（<span class="keyword">test</span>$）</span><br><span class="line">利用 mimikatz 抓取管理员用户的密码</span><br><span class="line">用管理员账号登录服务器</span><br><span class="line">清除操作痕迹（清空安全日志）</span><br><span class="line">利用计划任务、自启动等进行权限维持</span><br></pre></td></tr></table></figure>
 
-<h2 id="如何发现"><a href="#如何发现" class="headerlink" title="如何发现"></a>如何发现</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">网站URL中存在下载参数，并且未进行过滤…<span class="regexp">/…/</span>…/字符，且输出了文件内容</span><br><span class="line">从链接上看</span><br><span class="line">从参数上看</span><br><span class="line">具体情况具体分析</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">获得站点源码（黑盒 -&gt; 白盒）</span><br><span class="line">获得站点与中间件配置文件</span><br><span class="line">获得应用于系统配置文件（ssh、mysql）</span><br></pre></td></tr></table></figure>
-
-<h2 id="利用原理"><a href="#利用原理" class="headerlink" title="利用原理"></a>利用原理</h2><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">（信息收集信息&gt;猜路径 &gt;&gt;下载配置文件/代码文件 &gt;&gt; 利用服务器软件漏洞&gt; <span class="built_in">shell</span>&gt; 提权）</span><br><span class="line">任意文件下载漏洞的利用主要是为了信息收集，我们通过对服务器配置文件的下载，获取到大量的配置信息、源码，从而根据获取的信息来进一步挖掘服务器漏洞从而入侵。</span><br><span class="line">下载常规的配置文件，例如: ssh,weblogic,<span class="keyword">ftp</span>,mysql等相关配置下载各种.<span class="built_in">log</span>文件，从中寻找一些后台地址，文件上传点之类的地方，如果运气好的话会获得一些前辈们的后门。</span><br><span class="line">下载web业务文件进行白盒审计，利用漏洞进一步攻入服务器</span><br></pre></td></tr></table></figure>
-
-<h2 id="常规文件位置"><a href="#常规文件位置" class="headerlink" title="常规文件位置"></a>常规文件位置</h2><p><strong>WEB应用</strong></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">PHP</span></span><br><span class="line">1、获取inc/config·php获得数据库连接字符串中的口令信息。</span><br><span class="line"><span class="meta">#</span><span class="bash">asp</span></span><br><span class="line">1、获取inc/conn.asp文件，获得数据库连接字符串，得到数据库口令。若是ACCESS数据库，可以得到数据库</span><br><span class="line">路径，在下载数据库内容。</span><br><span class="line"><span class="meta">#</span><span class="bash">aspx</span></span><br><span class="line">1、获取网站根目录web，config文件，获得数据库连接字符串中的口令信息。</span><br><span class="line">2、获取bin/*.dll文件，获取网站源码（不完整代码）。使用.NET refl ector工具打开编译后的dll文件。</span><br><span class="line"><span class="meta">#</span><span class="bash">JSP</span></span><br><span class="line">1、获取conf/tomcat-user.xml文件，获得tomcat管理界面的口令信息，上传war包GetShel1，</span><br><span class="line">2、获取WEB-INF/Web.xml文件，获得数据库连接字符串中的口令信息。</span><br></pre></td></tr></table></figure>
-
-<p><strong>应用，系统配置文件</strong></p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">一、Windows</span><br><span class="line">C:\boot.ini<span class="regexp">//</span>查看系统版本C:\Windows\System32\inetsrv\MetaBase.xml<span class="regexp">//</span>IIS配置文件</span><br><span class="line">C:\Windows\repair\sam<span class="regexp">//</span>存储系统初次安装的密码</span><br><span class="line">C:\Program Files\mysql\my.ini<span class="regexp">//</span>Mysql配置</span><br><span class="line">C:\Program Files\mysql\data\mysql\user.MYD <span class="regexp">//</span>Mysql root</span><br><span class="line">C:\Windows\php.ini<span class="regexp">//</span>php配置信息</span><br><span class="line">C:\Windows\my.ini<span class="regexp">//</span>Mysql配置信息</span><br><span class="line">C:\Windows\win.ini<span class="regexp">//</span>Windows系统的一个基本系统配置文件</span><br><span class="line">二、Linux</span><br><span class="line"><span class="regexp">/root/</span>.ssh/authorized_keys</span><br><span class="line"><span class="regexp">/root/</span>.ssh/id_rsa</span><br><span class="line"><span class="regexp">/root/</span>.ssh/id_ras.keystore</span><br><span class="line"><span class="regexp">/root/</span>.ssh<span class="regexp">/known_hosts/</span><span class="regexp">/记录每个访问计算机用户的公钥/</span>etc/passwd</span><br><span class="line"><span class="regexp">/etc/</span>shadow</span><br><span class="line"><span class="regexp">/etc/my</span>.cnf<span class="regexp">//my</span>sql配置文件</span><br><span class="line"><span class="regexp">/etc/</span>httpd<span class="regexp">/conf/</span>httpd.conf<span class="regexp">//</span>apachel配置文件</span><br><span class="line"><span class="regexp">/root/</span>.bash_history<span class="regexp">//</span>用户历史命令记录文件</span><br><span class="line"><span class="regexp">/root/</span>.mysql._history<span class="regexp">//my</span>sql历史命令记录文件</span><br></pre></td></tr></table></figure>
-
-<h2 id="任意文件下载漏洞防御"><a href="#任意文件下载漏洞防御" class="headerlink" title="任意文件下载漏洞防御"></a>任意文件下载漏洞防御</h2><figure class="highlight less"><table><tr><td class="code"><pre><span class="line">下载路径不可控，而是程序自动生成后保存在数据库中，根据<span class="selector-tag">ID</span>进行下载</span><br><span class="line">对参数做严格的过滤，不能进行目录遍历（穿越）</span><br><span class="line">对下载路径进行过滤，如下载前对传入的参数进行过滤，并且对下载文件类型进行检查，是否是允许下载的类型</span><br><span class="line">过滤.(点)，使用户在<span class="selector-tag">url</span>中不能回溯上级目录</span><br><span class="line">正则严格判断用户输入参数的格式</span><br><span class="line">限定文件访问范围如<span class="selector-tag">PHP</span>里的（<span class="selector-tag">php</span><span class="selector-class">.ini</span>配置<span class="selector-tag">open_basedir</span>）</span><br></pre></td></tr></table></figure>]]></content>
+<p>在检查的时候，如果遇到很多数据干扰的话可以配合其他方式或者是时间，文件名，状态码去筛选，可以过滤掉绝大多数的垃圾数据再配合一些工具，D盾，PCHunter之类的能让检查顺利很多。</p>
+]]></content>
       <categories>
-        <category>web安全</category>
+        <category>应急响应</category>
       </categories>
       <tags>
         <tag>学习笔记</tag>
@@ -852,87 +933,6 @@
 ]]></content>
       <categories>
         <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>记一次windows应急响应</title>
-    <url>/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/</url>
-    <content><![CDATA[<h1 id="1、背景"><a href="#1、背景" class="headerlink" title="1、背景"></a>1、背景</h1><p>大好假期，人在家中躺，应急天上来，上了机子之后过程还算是比较顺利的，环境是Tomcat，大致思路就是，排查可疑用户和文件，看日志，连接情况，进程，定时任务，注册表这些。</p>
-<span id="more"></span>
-<h1 id="2、排查可疑用户和文件"><a href="#2、排查可疑用户和文件" class="headerlink" title="2、排查可疑用户和文件"></a>2、排查可疑用户和文件</h1><p>先排查下有没有隐藏的用户</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404011544732.png" alt="image-20220404011544732"></p>
-<p>用了net user和net user localgroup administrators都没办法看到，但是还是有可能存在隐藏用户，隐藏用户有三种方式：</p>
-<table>
-<thead>
-<tr>
-<th>方式</th>
-<th>特定</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>命令添加</td>
-<td>net user没办法查看隐藏用户<br>RDP登录过的，都会生成对应的用户目录<br>系统登录界面可以选择登录用户</td>
-</tr>
-<tr>
-<td>克隆账号</td>
-<td>net user无法查看隐藏用户<br>RDP登录不会生成相应的用户目录<br>系统登录界面选择登录用户，无法查看</td>
-</tr>
-<tr>
-<td>Guest账号利用</td>
-<td>正常都能够查看出来，但是一般会被忽略，隐蔽性相对来说会高点</td>
-</tr>
-</tbody></table>
-<p>建议开个PCHunter看下，一般都能查出来，看出来这边是存在一个test$的隐藏用户，用net user XXX$验证下</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404021642321.png" alt="image-20220404021642321"></p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404022054841.png" alt="image-20220404022054841"></p>
-<p>接着看下有没有可疑的文件在，先排查web的目录，后面再去看看系统有没有被放了CS马啥的，因为是部署的tomcat，一般站点文件都会部署在tomcat\webapps下面，先按照修改时间排序下，发现了两个不像好人的文件，打开代码一看，一个是webshell，一个是代理</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404023530823.png" alt="image-20220404023530823"></p>
-<p>这次是运气好，直接用时间排序查出来的文件，在找webshell和代理的时候，根据日志的访问记录和文件修改时间去查找效果会更好一点，日志能看到攻击者一直在访问那个文件，这样在定位webshell的时候会更加有目标一点，或者使用D盾扫描，也能扫描出webshell。</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404125014083.png" alt="image-20220404125014083"></p>
-<h1 id="3、定位机器失陷时间"><a href="#3、定位机器失陷时间" class="headerlink" title="3、定位机器失陷时间"></a>3、定位机器失陷时间</h1><p>有挺多种方法去定位的，看系统安全日志或者中间件的日志等等，这边我先去看的tomcat的日志，tomcat的日志分五种：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1. 应用日志</span><br><span class="line">该日志主要是记录应用事件的，针对应用级别的排错比较有用，比如应用性能比较慢。</span><br><span class="line">2. 服务器日志</span><br><span class="line">服务器日志和console日志是相同的，不同之处在于，服务器日志是保存在文件中的，可以随时查看。</span><br><span class="line">3. 控制台日志</span><br><span class="line">该日志记录了tomcat的启动和加载器的顺序的详细信息，该日志文件叫做catalina.out。在排查服务器启动、应用的部署错时比较有用。 配置日志是在catalina.sh中配置的。</span><br><span class="line">4. 访问日志</span><br><span class="line">该日志也非常重要，在分析很多应用的流量，带宽需求，及负载时非常有用。该日志是在server.xml中配置的。</span><br><span class="line">5. Host manager</span><br><span class="line">使用Tomcat Manager执行的活动日志，比如不同的任务执行，应用的状态，应用的部署，和tomcat的生命周期，这些配置是在logging.properties.</span><br></pre></td></tr></table></figure>
-
-<p>如果是因为站点有漏洞被传了马上去，可以看下localhost_access_log这个日志，这个是访问tomcat的日志，请求时间和资源，状态码都有记录，在日志量大的情况下可以自己去定义下，筛选文件和状态码，先把200的状态码筛选出来，然后再根据上面定位到的webshell去搜索日志信息。所以我第一时间先去找webshell，就是方便现在去定位大概攻击成功的时间和文件。</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404131319354.png" alt="image-20220404131319354"></p>
-<h1 id="4、计划任务-amp-注册表"><a href="#4、计划任务-amp-注册表" class="headerlink" title="4、计划任务&amp;注册表"></a>4、计划任务&amp;注册表</h1><p>计划任务的查看有很多种方式</p>
-<table>
-<thead>
-<tr>
-<th>方式</th>
-<th>特点</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>at（适用于win2003-win2008）</td>
-<td>包含大量系统计划任务，不容易排查</td>
-</tr>
-<tr>
-<td>schtasks.exe（win2008及其以后系统）</td>
-<td>包含大量系统计划任务，不容易排查</td>
-</tr>
-<tr>
-<td>控制面板-&gt;计划任务</td>
-<td>包含大量系统计划任务，不容易排查</td>
-</tr>
-</tbody></table>
-<p>单独看一个地方的话，会参杂大量的计划任务，干扰检查，最好就是多个搭配起来，配合计划任务的文件去检查，通过查看目录修改日期-&gt;文件修改日期，根据这两个信息，去计划任务程序里面定位，然后再查看具体内容，这就是为什么要去定位攻击成功的时间了，能有效帮助我们去排查计划任务的创建时间。</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404135302797.png" alt="image-20220404135302797"></p>
-<p>打开代码看下，在最下面发现的启动的文件路径</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404135655403.png" alt="image-20220404135655403"></p>
-<p>打开这个EXE，查看代码，在最下面看到了IP，是个阿里云的服务器，丢云沙箱一看，是个CS马。</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404141147090.png" alt="image-20220404141147090"></p>
-<p>当然我这种是比较笨的方式，这种可以直接丢云沙箱上面看下结果或者配合CurrPorts去分析，打开这个exe之后观察变化，或者看CurrPorts的log文件，也能够分析出这个IP，只是习惯先编辑一下，看看里面拿到内容，一般拉到最后面都能看到一些东西，找到CS马之后，去看windows自启动的注册表定位起来也会方便点，重点查看windows的自启动配置的注册表。</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404142723461.png" alt="image-20220404142723461"></p>
-<h1 id="5、总结"><a href="#5、总结" class="headerlink" title="5、总结"></a>5、总结</h1><p>这次的检查算是比较简单的，没有特别难找的东西，有一些是直接找出来的，没有啥特别的技巧，多排查几个机子，就有种直觉，感觉有点问题。最后猜测下攻击链：</p>
-<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">爆破Tomcat后台</span><br><span class="line">部署webshell、HTTP隧道代理</span><br><span class="line">上<span class="keyword">CS</span>木马进行权限维持</span><br><span class="line">创建后门管理员权限账号（<span class="keyword">test</span>$）</span><br><span class="line">利用 mimikatz 抓取管理员用户的密码</span><br><span class="line">用管理员账号登录服务器</span><br><span class="line">清除操作痕迹（清空安全日志）</span><br><span class="line">利用计划任务、自启动等进行权限维持</span><br></pre></td></tr></table></figure>
-
-<p>在检查的时候，如果遇到很多数据干扰的话可以配合其他方式或者是时间，文件名，状态码去筛选，可以过滤掉绝大多数的垃圾数据再配合一些工具，D盾，PCHunter之类的能让检查顺利很多。</p>
-]]></content>
-      <categories>
-        <category>应急响应</category>
       </categories>
       <tags>
         <tag>学习笔记</tag>
