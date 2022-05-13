@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>CSRF 跨站请求伪造漏洞</title>
-    <url>/2022/03/08/CSRF-%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>CSRF跨站请求伪造，由客户端发起，是一种劫持受信任用户向服务器发送非预期请求的攻击方式，与XSS相似，但比XSS更难防范，常与XSS一起配合攻击</p>
-<span id="more"></span>
-<p>攻击者盗用了用户的身份信息，以用户的名义发送恶意请求，对服务器来说这个请求是用户发起的，却完成了攻击者所期望的一个操作 XSS 利用站点内内的信任用户，盗取cookie CSRF通过伪装成受信任用户请求受信任的网站利用目标用户的合法身份，以目标的名义执行某些非法参数 利用条件：已经登录系统，用户访问URL 已存在的网站中让用户跳转</p>
-<h2 id="CSRF漏洞防御方案"><a href="#CSRF漏洞防御方案" class="headerlink" title="CSRF漏洞防御方案"></a>CSRF漏洞防御方案</h2><p>1.当用户发送重要的请求时输入验证码<br>2.设置随机TOKEN —数据包的唯一值<br>3.检测referer来源，请求时判断请求连接是否为当前管理员正在使用的页面（管理员在编辑文章，黑客发来恶意的修改密码链接，因为修改密码页面管理员并没有在操作，所以攻击失败）<br>4.设置验证码<br>5.限制请求方式只能为post</p>
-]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>First Blog</title>
     <url>/2022/01/01/First%20Blog/</url>
     <content><![CDATA[<p>Welcome to my blog! I’m glad to make friends with you. If you can browse my website, I will be grateful. In the future, I will upload my records and learning contents here. I hope the boss will take me with me！</p>
@@ -46,6 +31,140 @@
 <h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#命令执行</span></span><br><span class="line">    system()执行系统指令</span><br><span class="line">    popen()popen()方法用于从一个命令打开一个管道</span><br><span class="line">    subprocess.call执行由参数提供的命令</span><br><span class="line">    spawn 执行命令</span><br><span class="line"><span class="comment">#代码执行</span></span><br><span class="line">    <span class="built_in">exec</span>(string)<span class="comment"># Python代码的动态执行</span></span><br><span class="line">    <span class="built_in">eval</span>(string)<span class="comment"># 返回表达式或代码对象的值</span></span><br><span class="line">    execfile(string)<span class="comment"># 从一个文件中读取和执行Python脚本</span></span><br><span class="line">    <span class="built_in">input</span>(string)Python2.x 中 <span class="built_in">input</span>() 相等于 <span class="built_in">eval</span>(raw_input(prompt)) ，用来获取控制台的输入</span><br><span class="line">    <span class="built_in">compile</span>(string)<span class="comment"># 将源字符串编译为可执行对象</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="常见注入（利用）方式"><a href="#常见注入（利用）方式" class="headerlink" title="常见注入（利用）方式"></a>常见注入（利用）方式</h2><figure class="highlight perl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>、<span class="keyword">system</span>(<span class="string">&quot;$arg&quot;</span>);   可控点直接是待执行的程序如果我们能直接控制$arg，那么就能执行执行任意命令了。</span><br><span class="line"><span class="number">2</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog $arg&quot;</span>);<span class="regexp">//</span>可控点是传入程序的整个参数我们能够控制的点是程序的整个参数，我们可以直接用&amp;&amp; || 或 | 等等，利用与、或、管道命令来执行其他命令（可以涉及到很多linux命令行技巧）。</span><br><span class="line"><span class="number">3</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog -p $arg&quot;</span>);<span class="regexp">//</span>可控点是传入程序的某个参数的值（无引号包裹）我们控制的点是一个参数，我们也同样可以利用与、或、管道来执行其他命令，情境与二无异。</span><br><span class="line"><span class="number">4</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog --p=\&quot;$arg\&quot;&quot;</span>);<span class="regexp">//</span>可控点是传入程序的某个参数的值（有双引号包裹）这种情况压力大一点，有双引号包裹。如果引号没有被转义，我们可以先闭合引号，成为第三种情况后按照第三种情况来利用，如果引号被转义（addslashes），我们也不必着急。linux shell 环境下双引号中间的变量也是可以被解析的，我们可以在双引号内利用反引号执行任意命令 id</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CSRF 跨站请求伪造漏洞</title>
+    <url>/2022/03/08/CSRF-%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>CSRF跨站请求伪造，由客户端发起，是一种劫持受信任用户向服务器发送非预期请求的攻击方式，与XSS相似，但比XSS更难防范，常与XSS一起配合攻击</p>
+<span id="more"></span>
+<p>攻击者盗用了用户的身份信息，以用户的名义发送恶意请求，对服务器来说这个请求是用户发起的，却完成了攻击者所期望的一个操作 XSS 利用站点内内的信任用户，盗取cookie CSRF通过伪装成受信任用户请求受信任的网站利用目标用户的合法身份，以目标的名义执行某些非法参数 利用条件：已经登录系统，用户访问URL 已存在的网站中让用户跳转</p>
+<h2 id="CSRF漏洞防御方案"><a href="#CSRF漏洞防御方案" class="headerlink" title="CSRF漏洞防御方案"></a>CSRF漏洞防御方案</h2><p>1.当用户发送重要的请求时输入验证码<br>2.设置随机TOKEN —数据包的唯一值<br>3.检测referer来源，请求时判断请求连接是否为当前管理员正在使用的页面（管理员在编辑文章，黑客发来恶意的修改密码链接，因为修改密码页面管理员并没有在操作，所以攻击失败）<br>4.设置验证码<br>5.限制请求方式只能为post</p>
+]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SSRF服务器端请求伪造</title>
+    <url>/2022/03/08/SSRF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>SSRF服务器端请求伪造是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。<span id="more"></span>（正是因为 它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）SSRF 形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。比如从指定URL地址获取网页文本内容，加载指定地址的图片，下载等等。 注释：除了http/https等方式可以造成ssrf，类似tcp connect 方式也可以探测内网一些ip 的端口是否开发服务，只不过危害比较小而已。</p>
+<h2 id="可实现攻击"><a href="#可实现攻击" class="headerlink" title="可实现攻击"></a>可实现攻击</h2><figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>	可以对服务器所在内网、本地进行端口扫描，获取一些服务的banner信息<span class="comment">;</span></span><br><span class="line"><span class="number">2</span>	攻击运行在内网或本地的应用程序（比如溢出）<span class="comment">;</span></span><br><span class="line"><span class="number">3</span>	对内网web应用进行指纹识别，通过访问默认文件实现<span class="comment">;</span></span><br><span class="line"><span class="number">4</span>	攻击内外网的web应用，主要是使用get参数就可以实现的攻击（比如struts2，sqli等）<span class="comment">;</span></span><br><span class="line"><span class="number">5</span>	利用file协议读取本地文件等。</span><br></pre></td></tr></table></figure>
+
+<h2 id="可能出现的地方"><a href="#可能出现的地方" class="headerlink" title="可能出现的地方"></a>可能出现的地方</h2><figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>社交分享功能：获取超链接的标题等内容进行显示</span><br><span class="line"><span class="number">2.</span>转码服务：通过URL地址把原地址的网页内容调优使其适合手机屏幕浏览</span><br><span class="line"><span class="number">3.</span>在线翻译：给网址翻译对应网页的内容</span><br><span class="line"><span class="number">4.</span>图片加载/下载：例如富文本编辑器中的点击下载图片到本地；通过URL地址加载或下载图片</span><br><span class="line"><span class="number">5.</span>图片/文章收藏功能：主要其会取URL地址中title以及文本的内容作为显示以求一个好的用具体验</span><br><span class="line"><span class="number">6.</span>云服务厂商：它会远程执行一些命令来判断网站是否存活等，所以如果可以捕获相应的信息，就可以进行ssrf测试</span><br><span class="line"><span class="number">7.</span>网站采集，网站抓取的地方：一些网站会针对你输入的url进行一些信息采集工作</span><br><span class="line"><span class="number">8.</span>数据库内置功能：数据库的比如mongodb的copyDatabase函数</span><br><span class="line"><span class="number">9.</span>邮件系统：比如接收邮件服务器地址</span><br><span class="line"><span class="number">10.</span>编码处理, 属性信息处理，文件处理：比如ffpmg，ImageMagick，docx，pdf，<span class="type">xml</span>处理器等</span><br><span class="line"><span class="number">11.</span>未公开的api实现以及其他扩展调用URL的功能：可以利用google 语法加上这些关键字去寻找SSRF漏洞 一些的url中的关键字：<span class="keyword">share</span>、wap、url、link、src、source、target、u、<span class="number">3</span>g、display、sourceURl、imageURL、<span class="keyword">domain</span>……</span><br><span class="line"><span class="number">12.</span>从远程服务器请求资源（upload <span class="keyword">from</span> url 如discuz！；<span class="keyword">import</span> &amp; expost rss feed 如web blog；使用了<span class="type">xml</span>引擎对象的地方 如wordpress xmlrpc.php）</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞验证"><a href="#漏洞验证" class="headerlink" title="漏洞验证"></a>漏洞验证</h2><figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">1.让服务端去访问相应的网址</span><br><span class="line">2.让服务端去访问自己所处内网的一些指纹文件来判断是否存在相应的cms</span><br><span class="line">3.可以使用<span class="meta">file</span>、dict、gopher[11]、ftp协议进行请求访问相应的文件</span><br><span class="line">4.攻击内网web应用（可以向内部任意主机的任意端口发送精心构造的数据包&#123;payload&#125;）</span><br><span class="line">5.攻击内网应用程序（利用跨协议通信技术）</span><br><span class="line">6.判断内网主机是否存活：方法是访问看是否有端口开放</span><br><span class="line">7.DoS攻击（请求大文件，始终保持连接<span class="meta">keep</span>-alive always）</span><br></pre></td></tr></table></figure>
+
+<h2 id="限制绕过"><a href="#限制绕过" class="headerlink" title="限制绕过"></a>限制绕过</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>.http:<span class="regexp">//</span>baidu.com@www.baidu.com<span class="regexp">/与http:/</span><span class="regexp">/www.baidu.com/</span>请求时是相同的</span><br><span class="line"><span class="number">2</span>.各种IP地址的进制转换</span><br><span class="line"><span class="number">3</span>.URL跳转绕过：http:<span class="regexp">//</span>www.hackersb.cn<span class="regexp">/redirect.php?url=http:/</span><span class="regexp">/192.168.0.1/</span></span><br><span class="line"><span class="number">4</span>.短网址绕过http:<span class="regexp">//</span>t.cn/RwbLKDx </span><br><span class="line"><span class="number">5</span>.xip.io来绕过：http:<span class="regexp">//</span>xxx.<span class="number">192.168</span>.<span class="number">0.1</span>.xip.io/== <span class="number">192.168</span>.<span class="number">0.1</span> (xxx 任意） 指向任意ip的域名：xip.io(<span class="number">37</span>signals开发实现的定制DNS服务)</span><br><span class="line"><span class="number">6</span>.限制了子网段，可以加 :<span class="number">80</span> 端口绕过。http:<span class="regexp">//</span>tieba.baidu.com<span class="regexp">/f/</span>commit<span class="regexp">/share/</span>openShareApi?url=http:<span class="regexp">//</span><span class="number">10.42</span>.<span class="number">7.78</span>:<span class="number">80</span></span><br><span class="line"><span class="number">7</span>.探测内网域名，或者将自己的域名解析到内网ip</span><br><span class="line"><span class="number">8</span>.例如http:<span class="regexp">//</span><span class="number">10.153</span>.<span class="number">138.81</span><span class="regexp">/ts.php, 修复时容易出现的获取host时以/</span>分割来确定host， 但这样可以用http:<span class="regexp">//</span>abc@<span class="number">10.153</span>.<span class="number">138.81</span>/绕过</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h2><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">1</span>	过滤内网服务器对公网服务器请求的响应。如果Web应用是获取某一类型的文件，在把返回结果展示给用户之前应先验证返回的信息是否符合文件类型标准，比如返回信息应为图片，如果返回信息是HTML，则停止将返回信息返回客户端。</span><br><span class="line"><span class="attribute">2</span>	统一错误提示信息，避免用户可以根据错误信息来判断远端服务器的端口状态。</span><br><span class="line"><span class="attribute">3</span>	在内网服务器的防火墙上限制公网服务器的请求端口为HTTP等协议常用端口，如：<span class="number">80</span>、<span class="number">443</span>、<span class="number">8080</span>、<span class="number">8090</span>。</span><br><span class="line"><span class="attribute">4</span>	若公网服务器的内网IP与内网无业务通信，建议将公网服务器对应的内网IP列入黑名单，避免应用被用来获取内网数据。</span><br><span class="line"><span class="attribute">5</span>	内网服务器禁用不必要的协议，仅允许HTTP和HTTPS请求，防止类似于file:///、gopher://、ftp:// 等协议引起的安全问题。</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>XSS跨站脚本攻击</title>
+    <url>/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/</url>
+    <content><![CDATA[<h1 id="什么是XSS-XSS原理"><a href="#什么是XSS-XSS原理" class="headerlink" title="什么是XSS/XSS原理"></a>什么是XSS/XSS原理</h1><ul>
+<li><p>攻击者嵌入恶意脚本代码到用户会访问到的页面中，用户访问该页面的时候，就引起恶意脚本代码的执行，从而达到恶意攻击用户的目的。攻击者可以使用户在浏览器中执行其预定义的恶意脚本，变量接受数据的时候，数据可以写成js脚本代码，进行回显操作</p>
+</li>
+<li><p>本质上属于前端漏洞，产生在浏览器和js代码中的漏洞</p>
+<span id="more"></span></li>
+</ul>
+<h1 id="XSS类型"><a href="#XSS类型" class="headerlink" title="XSS类型"></a>XSS类型</h1><ul>
+<li><p>反射型XSS(非持续型XSS)</p>
+</li>
+<li><p>储存型XSS(持续型XSS）</p>
+</li>
+<li><p>DOM XSS</p>
+</li>
+</ul>
+<h1 id="具体区别"><a href="#具体区别" class="headerlink" title="具体区别"></a>具体区别</h1><ul>
+<li><p>反射型：数据提交过去时，会在代码执行之后直接反馈回来发包x=zzx=&gt;x.php=&gt;回包</p>
+</li>
+<li><p>存储型：数据提交过去时，会在代码执行之后储存到数据库的某个表里，然后反馈回来发包x=zzx=&gt;x.php=&gt;写到数据库某个表=&gt;x.php&gt;回显</p>
+</li>
+<li><p>DOM型：发包x=zzx=&gt;本地浏览器静态前端代码=&gt;x.php</p>
+</li>
+<li><p>反射型和储存型属于后端语言进行数据处理，而DOM型是用js代码进行处理 </p>
+</li>
+</ul>
+<h1 id="三者原理"><a href="#三者原理" class="headerlink" title="三者原理"></a>三者原理</h1><ul>
+<li><p>反射型XSS：应用或API没有对用户输入数据进行验证或没进行转义然后作为HTML的输出的一部分，能够使得攻击者在受害者的浏览器上执行任意HTML和JavaScript。</p>
+</li>
+<li><p>存储型XSS：应用或API存储未格式化的用户输入，且该输入之后会被其他用户或管理员浏览到。</p>
+</li>
+<li><p>DOM XSS：动态包含攻击者可控制数据到页面中的JavaScript框架， 单页应用，API易受DOM XSS。</p>
+</li>
+<li><p>涉及函数类：常见的输出类函数</p>
+</li>
+</ul>
+<h1 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h1><ul>
+<li><p>方法一： 查看代码，查找关键的变量,   客户端将数据传送给Web 服务端一般通过三种方式 Querystring, Form表单，以及cookie.  例如在ASP的程序中，通过Request对象获取客户端的变量。 假如变量没有经过htmlEncode处理， 那么这个变量就存在一个XSS漏洞</p>
+</li>
+<li><p>方法二：xss跨站漏洞测试语句， 在网页中的Textbox或者其他能输入数据的地方，输入测试语句， 看能不能弹出对话框，能弹出的话说明存在XSS漏洞， 在URL中查看有那些变量通过URL把值传给Web服务器， 把这些变量的值退换成测试语句。  然后看是否能执行</p>
+</li>
+<li><p>方法三:  自动化测试XSS漏洞</p>
+</li>
+</ul>
+<h1 id="可能存在XSS漏洞点"><a href="#可能存在XSS漏洞点" class="headerlink" title="可能存在XSS漏洞点"></a>可能存在XSS漏洞点</h1><ul>
+<li>用户能够输入提交数据的地方，文本框，url，请求头等等</li>
+</ul>
+<h1 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h1><ul>
+<li><p>如劫持用户会话，插入恶意内容、重定向用户、使用恶意软件劫持用户浏览器、繁殖XSS蠕虫，甚至破坏网站、修改路由器配置信息等。</p>
+</li>
+<li><p>XSS实质上就是JS脚本，任何JS脚本能实现的功能，XSS也能实现能做到的Cookie劫持、构造GET和POST请求、XSS钓鱼、识别用户浏览器、识别用户安装的软件等</p>
+</li>
+</ul>
+<h1 id="防范修复"><a href="#防范修复" class="headerlink" title="防范修复"></a>防范修复</h1><ul>
+<li><p>前端采用大型框架Angular,Vue,React等等。</p>
+</li>
+<li><p>用session代替cookie。</p>
+</li>
+<li><p>对于用户输入的数据要严格过滤写入数据库的数据，一定要保证合理过滤。</p>
+</li>
+<li><p>对于所有输出的地方，一定要做好过滤工作，比如采用模版渲染等等。</p>
+</li>
+<li><p>使用Token</p>
+</li>
+<li><p>使用HttpOnly</p>
+</li>
+</ul>
+<h1 id="什么是HttpOnly？"><a href="#什么是HttpOnly？" class="headerlink" title="什么是HttpOnly？"></a>什么是HttpOnly？</h1><ul>
+<li>如果在cookie中设置了HTTPonly属性，那么通过js脚本将无法读取到cookie信息，这样能有效防止XSS攻击。</li>
+</ul>
+<h1 id="绕过httponly"><a href="#绕过httponly" class="headerlink" title="绕过httponly"></a>绕过httponly</h1><ul>
+<li><p>浏览器未保存账号密码：需要XSS产生登录地址，利用表单劫持</p>
+</li>
+<li><p>浏览器保存了账号密码：产生后台的XSS，储存型XSS，如留言等，利用浏览器读取账号密码</p>
+</li>
+</ul>
+<h1 id="如何绕过"><a href="#如何绕过" class="headerlink" title="如何绕过"></a>如何绕过</h1><ul>
+<li><p>修改编码格式</p>
+</li>
+<li><p>加密解密算法</p>
+</li>
+<li><p>结合其他漏洞绕过</p>
+</li>
+<li><p>大小写onerror函数</p>
+</li>
+<li><p>配合平台，例如<a href="http://xssfuzzer.com/">xssfuzzer.com</a>生成语句</p>
+</li>
+<li><p>工具：Xwaf,XSStrike</p>
+</li>
+</ul>
+]]></content>
       <categories>
         <category>web安全</category>
       </categories>
@@ -313,125 +432,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SSRF服务器端请求伪造</title>
-    <url>/2022/03/08/SSRF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>SSRF服务器端请求伪造是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。<span id="more"></span>（正是因为 它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）SSRF 形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。比如从指定URL地址获取网页文本内容，加载指定地址的图片，下载等等。 注释：除了http/https等方式可以造成ssrf，类似tcp connect 方式也可以探测内网一些ip 的端口是否开发服务，只不过危害比较小而已。</p>
-<h2 id="可实现攻击"><a href="#可实现攻击" class="headerlink" title="可实现攻击"></a>可实现攻击</h2><figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>	可以对服务器所在内网、本地进行端口扫描，获取一些服务的banner信息<span class="comment">;</span></span><br><span class="line"><span class="number">2</span>	攻击运行在内网或本地的应用程序（比如溢出）<span class="comment">;</span></span><br><span class="line"><span class="number">3</span>	对内网web应用进行指纹识别，通过访问默认文件实现<span class="comment">;</span></span><br><span class="line"><span class="number">4</span>	攻击内外网的web应用，主要是使用get参数就可以实现的攻击（比如struts2，sqli等）<span class="comment">;</span></span><br><span class="line"><span class="number">5</span>	利用file协议读取本地文件等。</span><br></pre></td></tr></table></figure>
-
-<h2 id="可能出现的地方"><a href="#可能出现的地方" class="headerlink" title="可能出现的地方"></a>可能出现的地方</h2><figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>社交分享功能：获取超链接的标题等内容进行显示</span><br><span class="line"><span class="number">2.</span>转码服务：通过URL地址把原地址的网页内容调优使其适合手机屏幕浏览</span><br><span class="line"><span class="number">3.</span>在线翻译：给网址翻译对应网页的内容</span><br><span class="line"><span class="number">4.</span>图片加载/下载：例如富文本编辑器中的点击下载图片到本地；通过URL地址加载或下载图片</span><br><span class="line"><span class="number">5.</span>图片/文章收藏功能：主要其会取URL地址中title以及文本的内容作为显示以求一个好的用具体验</span><br><span class="line"><span class="number">6.</span>云服务厂商：它会远程执行一些命令来判断网站是否存活等，所以如果可以捕获相应的信息，就可以进行ssrf测试</span><br><span class="line"><span class="number">7.</span>网站采集，网站抓取的地方：一些网站会针对你输入的url进行一些信息采集工作</span><br><span class="line"><span class="number">8.</span>数据库内置功能：数据库的比如mongodb的copyDatabase函数</span><br><span class="line"><span class="number">9.</span>邮件系统：比如接收邮件服务器地址</span><br><span class="line"><span class="number">10.</span>编码处理, 属性信息处理，文件处理：比如ffpmg，ImageMagick，docx，pdf，<span class="type">xml</span>处理器等</span><br><span class="line"><span class="number">11.</span>未公开的api实现以及其他扩展调用URL的功能：可以利用google 语法加上这些关键字去寻找SSRF漏洞 一些的url中的关键字：<span class="keyword">share</span>、wap、url、link、src、source、target、u、<span class="number">3</span>g、display、sourceURl、imageURL、<span class="keyword">domain</span>……</span><br><span class="line"><span class="number">12.</span>从远程服务器请求资源（upload <span class="keyword">from</span> url 如discuz！；<span class="keyword">import</span> &amp; expost rss feed 如web blog；使用了<span class="type">xml</span>引擎对象的地方 如wordpress xmlrpc.php）</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞验证"><a href="#漏洞验证" class="headerlink" title="漏洞验证"></a>漏洞验证</h2><figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">1.让服务端去访问相应的网址</span><br><span class="line">2.让服务端去访问自己所处内网的一些指纹文件来判断是否存在相应的cms</span><br><span class="line">3.可以使用<span class="meta">file</span>、dict、gopher[11]、ftp协议进行请求访问相应的文件</span><br><span class="line">4.攻击内网web应用（可以向内部任意主机的任意端口发送精心构造的数据包&#123;payload&#125;）</span><br><span class="line">5.攻击内网应用程序（利用跨协议通信技术）</span><br><span class="line">6.判断内网主机是否存活：方法是访问看是否有端口开放</span><br><span class="line">7.DoS攻击（请求大文件，始终保持连接<span class="meta">keep</span>-alive always）</span><br></pre></td></tr></table></figure>
-
-<h2 id="限制绕过"><a href="#限制绕过" class="headerlink" title="限制绕过"></a>限制绕过</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>.http:<span class="regexp">//</span>baidu.com@www.baidu.com<span class="regexp">/与http:/</span><span class="regexp">/www.baidu.com/</span>请求时是相同的</span><br><span class="line"><span class="number">2</span>.各种IP地址的进制转换</span><br><span class="line"><span class="number">3</span>.URL跳转绕过：http:<span class="regexp">//</span>www.hackersb.cn<span class="regexp">/redirect.php?url=http:/</span><span class="regexp">/192.168.0.1/</span></span><br><span class="line"><span class="number">4</span>.短网址绕过http:<span class="regexp">//</span>t.cn/RwbLKDx </span><br><span class="line"><span class="number">5</span>.xip.io来绕过：http:<span class="regexp">//</span>xxx.<span class="number">192.168</span>.<span class="number">0.1</span>.xip.io/== <span class="number">192.168</span>.<span class="number">0.1</span> (xxx 任意） 指向任意ip的域名：xip.io(<span class="number">37</span>signals开发实现的定制DNS服务)</span><br><span class="line"><span class="number">6</span>.限制了子网段，可以加 :<span class="number">80</span> 端口绕过。http:<span class="regexp">//</span>tieba.baidu.com<span class="regexp">/f/</span>commit<span class="regexp">/share/</span>openShareApi?url=http:<span class="regexp">//</span><span class="number">10.42</span>.<span class="number">7.78</span>:<span class="number">80</span></span><br><span class="line"><span class="number">7</span>.探测内网域名，或者将自己的域名解析到内网ip</span><br><span class="line"><span class="number">8</span>.例如http:<span class="regexp">//</span><span class="number">10.153</span>.<span class="number">138.81</span><span class="regexp">/ts.php, 修复时容易出现的获取host时以/</span>分割来确定host， 但这样可以用http:<span class="regexp">//</span>abc@<span class="number">10.153</span>.<span class="number">138.81</span>/绕过</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h2><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">1</span>	过滤内网服务器对公网服务器请求的响应。如果Web应用是获取某一类型的文件，在把返回结果展示给用户之前应先验证返回的信息是否符合文件类型标准，比如返回信息应为图片，如果返回信息是HTML，则停止将返回信息返回客户端。</span><br><span class="line"><span class="attribute">2</span>	统一错误提示信息，避免用户可以根据错误信息来判断远端服务器的端口状态。</span><br><span class="line"><span class="attribute">3</span>	在内网服务器的防火墙上限制公网服务器的请求端口为HTTP等协议常用端口，如：<span class="number">80</span>、<span class="number">443</span>、<span class="number">8080</span>、<span class="number">8090</span>。</span><br><span class="line"><span class="attribute">4</span>	若公网服务器的内网IP与内网无业务通信，建议将公网服务器对应的内网IP列入黑名单，避免应用被用来获取内网数据。</span><br><span class="line"><span class="attribute">5</span>	内网服务器禁用不必要的协议，仅允许HTTP和HTTPS请求，防止类似于file:///、gopher://、ftp:// 等协议引起的安全问题。</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>XSS跨站脚本攻击</title>
-    <url>/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/</url>
-    <content><![CDATA[<h1 id="什么是XSS-XSS原理"><a href="#什么是XSS-XSS原理" class="headerlink" title="什么是XSS/XSS原理"></a>什么是XSS/XSS原理</h1><ul>
-<li><p>攻击者嵌入恶意脚本代码到用户会访问到的页面中，用户访问该页面的时候，就引起恶意脚本代码的执行，从而达到恶意攻击用户的目的。攻击者可以使用户在浏览器中执行其预定义的恶意脚本，变量接受数据的时候，数据可以写成js脚本代码，进行回显操作</p>
-</li>
-<li><p>本质上属于前端漏洞，产生在浏览器和js代码中的漏洞</p>
-<span id="more"></span></li>
-</ul>
-<h1 id="XSS类型"><a href="#XSS类型" class="headerlink" title="XSS类型"></a>XSS类型</h1><ul>
-<li><p>反射型XSS(非持续型XSS)</p>
-</li>
-<li><p>储存型XSS(持续型XSS）</p>
-</li>
-<li><p>DOM XSS</p>
-</li>
-</ul>
-<h1 id="具体区别"><a href="#具体区别" class="headerlink" title="具体区别"></a>具体区别</h1><ul>
-<li><p>反射型：数据提交过去时，会在代码执行之后直接反馈回来发包x=zzx=&gt;x.php=&gt;回包</p>
-</li>
-<li><p>存储型：数据提交过去时，会在代码执行之后储存到数据库的某个表里，然后反馈回来发包x=zzx=&gt;x.php=&gt;写到数据库某个表=&gt;x.php&gt;回显</p>
-</li>
-<li><p>DOM型：发包x=zzx=&gt;本地浏览器静态前端代码=&gt;x.php</p>
-</li>
-<li><p>反射型和储存型属于后端语言进行数据处理，而DOM型是用js代码进行处理 </p>
-</li>
-</ul>
-<h1 id="三者原理"><a href="#三者原理" class="headerlink" title="三者原理"></a>三者原理</h1><ul>
-<li><p>反射型XSS：应用或API没有对用户输入数据进行验证或没进行转义然后作为HTML的输出的一部分，能够使得攻击者在受害者的浏览器上执行任意HTML和JavaScript。</p>
-</li>
-<li><p>存储型XSS：应用或API存储未格式化的用户输入，且该输入之后会被其他用户或管理员浏览到。</p>
-</li>
-<li><p>DOM XSS：动态包含攻击者可控制数据到页面中的JavaScript框架， 单页应用，API易受DOM XSS。</p>
-</li>
-<li><p>涉及函数类：常见的输出类函数</p>
-</li>
-</ul>
-<h1 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h1><ul>
-<li><p>方法一： 查看代码，查找关键的变量,   客户端将数据传送给Web 服务端一般通过三种方式 Querystring, Form表单，以及cookie.  例如在ASP的程序中，通过Request对象获取客户端的变量。 假如变量没有经过htmlEncode处理， 那么这个变量就存在一个XSS漏洞</p>
-</li>
-<li><p>方法二：xss跨站漏洞测试语句， 在网页中的Textbox或者其他能输入数据的地方，输入测试语句， 看能不能弹出对话框，能弹出的话说明存在XSS漏洞， 在URL中查看有那些变量通过URL把值传给Web服务器， 把这些变量的值退换成测试语句。  然后看是否能执行</p>
-</li>
-<li><p>方法三:  自动化测试XSS漏洞</p>
-</li>
-</ul>
-<h1 id="可能存在XSS漏洞点"><a href="#可能存在XSS漏洞点" class="headerlink" title="可能存在XSS漏洞点"></a>可能存在XSS漏洞点</h1><ul>
-<li>用户能够输入提交数据的地方，文本框，url，请求头等等</li>
-</ul>
-<h1 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h1><ul>
-<li><p>如劫持用户会话，插入恶意内容、重定向用户、使用恶意软件劫持用户浏览器、繁殖XSS蠕虫，甚至破坏网站、修改路由器配置信息等。</p>
-</li>
-<li><p>XSS实质上就是JS脚本，任何JS脚本能实现的功能，XSS也能实现能做到的Cookie劫持、构造GET和POST请求、XSS钓鱼、识别用户浏览器、识别用户安装的软件等</p>
-</li>
-</ul>
-<h1 id="防范修复"><a href="#防范修复" class="headerlink" title="防范修复"></a>防范修复</h1><ul>
-<li><p>前端采用大型框架Angular,Vue,React等等。</p>
-</li>
-<li><p>用session代替cookie。</p>
-</li>
-<li><p>对于用户输入的数据要严格过滤写入数据库的数据，一定要保证合理过滤。</p>
-</li>
-<li><p>对于所有输出的地方，一定要做好过滤工作，比如采用模版渲染等等。</p>
-</li>
-<li><p>使用Token</p>
-</li>
-<li><p>使用HttpOnly</p>
-</li>
-</ul>
-<h1 id="什么是HttpOnly？"><a href="#什么是HttpOnly？" class="headerlink" title="什么是HttpOnly？"></a>什么是HttpOnly？</h1><ul>
-<li>如果在cookie中设置了HTTPonly属性，那么通过js脚本将无法读取到cookie信息，这样能有效防止XSS攻击。</li>
-</ul>
-<h1 id="绕过httponly"><a href="#绕过httponly" class="headerlink" title="绕过httponly"></a>绕过httponly</h1><ul>
-<li><p>浏览器未保存账号密码：需要XSS产生登录地址，利用表单劫持</p>
-</li>
-<li><p>浏览器保存了账号密码：产生后台的XSS，储存型XSS，如留言等，利用浏览器读取账号密码</p>
-</li>
-</ul>
-<h1 id="如何绕过"><a href="#如何绕过" class="headerlink" title="如何绕过"></a>如何绕过</h1><ul>
-<li><p>修改编码格式</p>
-</li>
-<li><p>加密解密算法</p>
-</li>
-<li><p>结合其他漏洞绕过</p>
-</li>
-<li><p>大小写onerror函数</p>
-</li>
-<li><p>配合平台，例如<a href="http://xssfuzzer.com/">xssfuzzer.com</a>生成语句</p>
-</li>
-<li><p>工具：Xwaf,XSStrike</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>python&amp;&amp;shell--批量跑主机脚本</title>
     <url>/2022/01/21/python-shell-%E6%89%B9%E9%87%8F%E8%B7%91%E4%B8%BB%E6%9C%BA%E8%84%9A%E6%9C%AC/</url>
     <content><![CDATA[<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>上周去现场，大佬说年前要跑主机脚本，就是服务器有点多，问有没有办法一键下发，然后执行脚本去跑，跑完之后回收数据，我听这需求，这不是有手就行？然后就应了下来，说我试试，我本以为就是简单的写个py脚本的事情，确认好需求之后就直接开整，刚开始我写的是使用ssh服务去批量搞。</p>
@@ -491,6 +491,50 @@
       </categories>
       <tags>
         <tag>安全工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>word文档批量处理脚本</title>
+    <url>/2022/05/13/word%E6%96%87%E6%A1%A3%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>公司让去驻场了，去了那边的工作不是很难，但是很繁琐，特别是word的文档处理这块，经常要处几十个文档就很烦，挣扎了下还是打算写个脚本来批量处理这些事情，总不能因为这些事情耽误了自己进步（摸鱼）吧？由于之前没接触过py在word文档处理这块的东西，所以还是踩了一些坑的，写一下，后续有用到可以避避坑。</p>
+<span id="more"></span>
+<h1 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h1><p>老样子，一开始还是先思考下，如果正常操作，我们会如何操作，然后根据这些操作去构思我们的路线，所有的方便都不会是直接来的，不是一两个函数就能解决的事情，就好像3D打印，你没构图，3D打印也没办法打出你想要的东西出来，所以一开始我构思了三条路线：</p>
+<p>一：直接定位里面的内容，然后删除，插入自己想要的；</p>
+<p>二：把我想要的内容独立做成一个文档，然后定位内容，把老的删除，删除之后粘贴新的；</p>
+<p>三：将原文档的内容进行切块，然后再把自己想要的内容独立成一些文档，然后再把每个文档进行拼接，得到新的文档；</p>
+<p>其实还有其他的思路，但是有点太过繁琐，后面我在实现的过程中发现实际上不需要那么复杂，是自己想太多了，后面会谈到，那么先说下第一个思路，简单易懂对吧，但是具体实现起来，发现删除了之后，我重新写进去的数据，会丢失之前的格式，而py的docx对于格式方面虽然说可以赋予格式，但是没办法跟真正的word一样去设置每一部分的格式，而且有一些是不存在的，所以这块就十分的麻烦，如果你的文档不存在格式的问题，就简简单单的文字，那完全可以根据这个思路去做，而且很方便。第二个思路的话，有个很重要的点就是，定位可以定位，但是粘贴新的内容的时候，他会跟在文档末尾，也就是说，如果你想要粘贴的在文档中间，那没办法去直接粘贴到指定位置（PS：没怎么接触这个，我就只是为了实现这个东西，才去看了下，如果有话，是小弟太菜了），第三个思路的话，乍一看似乎可以得到我们想要的东西，但是如果文件量多起来的话，问题在于怎么去做到准确切割自己想要的东西。</p>
+<h1 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h1><p>多说无益，动手才知道坑在哪，如果要批量转化word的话，那么第一步肯定是先拿到我们文件夹里面的文件，然后再轮询，这个可以先不管，先试试能不能修改word里面的内容，ok，这里经过一系列的百度之后，我发现了python的一个很神奇的库—python-docx，用于创建可修改微软Word的一个python库，提供全套的 Word操作，是最常用的Word工具，而且能保留我们原有的格式，那这不是直接起飞？？？</p>
+<p>在开始使用之前，先说下关于word的一些概念：</p>
+<ul>
+<li><code>Document</code>：是一个 Word 文档 对象，不同于 VBA 中 Worksheet 的概念，Document 是独立的，打开不同的 Word 文档，就会有不同的 Document 对象，相互之间没有影响</li>
+<li><code>Paragraph</code>：是段落，一个 Word 文档由多个段落组成，当在文档中输入一个回车键，就会成为新的段落，输入 shift + 回车，不会分段</li>
+<li><code>Run</code> 表示一个节段，每个段落由多个 节段 组成，一个段落中具有相同样式的连续文本，组成一个节段，所以一个 段落 对象有个 Run 列表</li>
+</ul>
+<p>也就是说word 文档内容的结构是这样划分的：</p>
+<p><img src="https://ax-x.github.io/2022/05/13/word%E6%96%87%E6%A1%A3%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC/1.png" alt="1"></p>
+<p>第二个 段落（paragraph），没有内容，所以 节段（run）为空，了解到这，也基本上知道如何去定位我们想要的数据了，先轮询paragraph，然后在这个paragraph里面去轮询run，从而拿到我们的要的数据，说干就干，直接上，就拿上面的概念为文本，我们写个代码块去遍历这些段落，然后输出出来</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> docx <span class="keyword">import</span> Document</span><br><span class="line"></span><br><span class="line">tpl_doc=<span class="string">&#x27;title.docx&#x27;</span></span><br><span class="line">doc = Document(tpl_doc)</span><br><span class="line"><span class="keyword">for</span> paragraph <span class="keyword">in</span> doc.paragraphs:</span><br><span class="line">    <span class="built_in">print</span>(paragraph.text)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果是这样的：</p>
+<p><img src="https://ax-x.github.io/2022/05/13/word%E6%96%87%E6%A1%A3%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC/image-20220513091808872-16524046932521.png" alt="image-20220513091808872"></p>
+<p>这就是每一段的内容，再遍历每一段里面的run块出来</p>
+<p><img src="https://ax-x.github.io/2022/05/13/word%E6%96%87%E6%A1%A3%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC/image-20220513094744241-16524064658883.png" alt="image-20220513094744241"></p>
+<p>可以看到run的区分不是根据词语的，而是根据写入的时间节点，如果时间节点不一样，那么run的内容就不一样，同一段文字，可能写入的时间节点不一致，遍历run的时候结果也不一样，这点暂时没办法解决，目前能想到的就是遍历的时候组合文字，当匹配出自己想要的文之后再进行替换。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">params = &#123;</span><br><span class="line">       <span class="string">&quot;原文RUN-A&quot;</span>: <span class="string">&quot;替换的文字&quot;</span>,</span><br><span class="line">       <span class="string">&quot;原文RUN-B&quot;</span>: <span class="string">&quot;替换的文字&quot;</span>,</span><br><span class="line">       <span class="string">&quot;原文RUN-C&quot;</span>: <span class="string">&quot;替换的文字&quot;</span>,</span><br><span class="line">       <span class="string">&quot;原文RUN-D&quot;</span>: <span class="string">&quot;替换的文字&quot;</span>,</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">for</span> paragraph <span class="keyword">in</span> doc.paragraphs:</span><br><span class="line">       <span class="keyword">for</span> param <span class="keyword">in</span> params:</span><br><span class="line">           pv = <span class="built_in">str</span>(params[param])</span><br><span class="line">           ph = <span class="string">f&#x27;<span class="subst">&#123;param&#125;</span>&#x27;</span></span><br><span class="line">           <span class="keyword">if</span> ph <span class="keyword">in</span> paragraph.text:</span><br><span class="line">               <span class="keyword">for</span> run <span class="keyword">in</span> paragraph.runs:</span><br><span class="line">                   <span class="keyword">if</span> ph <span class="keyword">in</span> run.text:</span><br><span class="line">                       run.text = run.text.replace(ph, pv)</span><br><span class="line">                       run.italic = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<p>这些能有效处理开头和中间的文字，而且这种方式替换的话，不会去掉文章原有的格式，而如果有需要替换大量的文字段落在文章末的时候，可以将文末需要替换的文字删除，需要删除空行，普通的clean命令只是将内容删除，而不会去除换行，所以删除之后会存在空行的情况 ，这时候如果复制另外一个文档的内容接入到文末的话，他会接在空行后面，所以需要删除空行。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> paragraph <span class="keyword">in</span> doc.paragraphs:</span><br><span class="line">    <span class="keyword">if</span>(paragraph.text==<span class="string">&quot;段落内容&quot;</span>):</span><br><span class="line">        p = paragraph._element</span><br><span class="line">        p.getparent().remove(p)</span><br><span class="line">        p._p = p._element = <span class="literal">None</span></span><br><span class="line"><span class="comment">#这部分是遍历段落，将文末需要替换的段落进行删除去除空行，方便后续将另一个文件的内容复制进来</span></span><br></pre></td></tr></table></figure>
+
+<p>这里有一点就是，把其他文档里面的内容合并到这个文档的时候，其他文档里面的文字内容格式是不会变的，这也跟我们最初的想法一致，保留原有的格式，所以可以直接使用</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">bottom_title = <span class="string">&#x27;bottom.docx&#x27;</span></span><br><span class="line">bottom_document = Document(bottom_title)</span><br><span class="line">master = Document(<span class="string">&#x27;old_docx.docx&#x27;</span>)</span><br><span class="line">middle_new_docx = Composer(master)</span><br><span class="line">middle_new_docx.append(bottom_document)</span><br><span class="line">filename = old_docx.docx</span><br><span class="line"><span class="built_in">print</span>(filename)</span><br><span class="line">middle_new_docx.save(filename)</span><br></pre></td></tr></table></figure>
+
+<p>到这基本需要替换的就能够替换掉，并且保留文档格式了，但是有一点就是，去除空行不能够遍历全文，最好就是先定位到位置，再增加判断条件，不然容易将图片内容删除，因为当你遍历段落的时候，图片独占一行的时候该段落是空的，所以会将图片给删除掉，可以额外加一个判断，当存在图片的时候，该段落的run值是为0，而不存在图片单纯一个空行的时候，run是不存在任何值的。</p>
+]]></content>
+      <categories>
+        <category>安全开发</category>
+      </categories>
+      <tags>
+        <tag>自动化脚本</tag>
       </tags>
   </entry>
   <entry>
@@ -555,33 +599,6 @@
       </tags>
   </entry>
   <entry>
-    <title>排序算法</title>
-    <url>/2022/03/25/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<ol>
-<li>直接插入排序，将一个记录插入到已排序好的有序表中，从而得到一个新，记录数增1的有序表。即：先将序列的第1个记录看成是一个<strong>有序的子序列</strong>，然后从第2个记录逐个进行插入，直至<strong>整个序列</strong>有序为止。<span id="more"></span></li>
-<li>希尔排序，先将整个待排序的记录序列分割成为若干子序列分别进行直接插入排序，待整个序列中的记录“基本有序”时，再对全体记录进行依次直接插入排序</li>
-<li>简单选择排序，在要排序的一组数中，选出最小（或者最大）的一个数与第1个位置的数交换；然后在剩下的数当中再找最小（或者最大）的与第2个位置的数交换，依次类推，直到第n-1个元素（倒数第二个数）和第n个元素（最后一个数）比较为止。</li>
-<li>堆排序，由堆的定义可以看出，<strong>堆顶元素</strong>（即第一个元素）必为最小项（小顶堆）。<br>若以一维数组存储一个堆，则堆对应一棵完全二叉树，且所有非叶结点的值均不大于(或不小于)其子女的值，根结点（堆顶元素）的值是最小(或最大)的</li>
-<li>冒泡排序，在要排序的一组数中，对当前还未排好序的范围内的全部数，自上而下对相邻的两个数依次进行比较和调整，让较大的数往下沉，较小的往上冒。即：每当两相邻的数比较后发现它们的排序与排序要求相反时，就将它们互换。</li>
-<li>快速排序</li>
-<li>1）选择一个基准元素,通常选择第一个元素或者最后一个元素,</li>
-<li>2）通过一趟排序将待排序的记录分割成独立的两部分，其中一部分记录的元素值均比基准元素值小。另一部分记录的 元素值比基准值大。</li>
-<li>3）此时基准元素在其排好序后的正确位置</li>
-<li>4）然后分别对这两部分记录用同样的方法继续进行排序，直到整个序列有序。</li>
-<li>归并排序</li>
-<li>归并（Merge）排序法是将两个（或两个以上）有序表合并成一个新的有序表，即把待排序序列分为若干个子序列，每个子序列是有序的。然后再把有序子序列合并为整体有序序列。</li>
-<li>基数排序</li>
-<li>是将阵列分到有限数量的桶子里。每个桶子再个别排序（有可能再使用别的排序算法或是以递回方式继续使用桶排序进行排序）。桶排序是鸽巢排序的一种归纳结果。当要被排序的阵列内的数值是均匀分配的时候，桶排序使用线性时间（Θ（n））。但桶排序并不是 比较排序，他不受到 O(n log n) 下限的影响。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>文件上传漏洞个人总结</title>
     <url>/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h2 id="什么是文件上传"><a href="#什么是文件上传" class="headerlink" title="什么是文件上传"></a>什么是文件上传</h2><p>文件上传漏洞是指上传文件的时，如果未对上传的文件进行严格的验证和过滤，就容易造成文件上传漏洞，上传脚本等。用户可以上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。 常见场景是web服务器允许用户上传图片或者普通文本文件保存，而用户绕过上传机制上传恶意代码并执行从而控制服务器。这种漏洞是getshell最快最直接的方法之一，上传文件操作本身是没有问题的，问题在于文件上传到服务器后，服务器怎么处理和解释文件，有文件上传不一定有文件上传漏洞，要看代码情况。</p>
@@ -613,29 +630,27 @@
       </tags>
   </entry>
   <entry>
-    <title>文件下载漏洞个人总结</title>
-    <url>/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>文件下载功能没有对下载的文件类型、目录做合理严谨的过滤， 利用路径回溯符…/跳出程序本身的限制目录实现来下载任意文件，导致用户可以下载服务器的任意文件。</p>
-<span id="more"></span>
-<h2 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">存在读文件的函数</span><br><span class="line">读取文件的路径用户可控且未校验或校验不严</span><br><span class="line">输出了文件内容</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞危害"><a href="#漏洞危害" class="headerlink" title="漏洞危害"></a>漏洞危害</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">可以下载服务器的任意文件，web业务的代码，服务器和系统的具体配置信息，也可以下载数据库的配置信息，以及对内网的信息探测等等。</span><br><span class="line">可用得到的代码进一步代码审计，得到更多可利用漏洞</span><br><span class="line">任意文件下载漏洞的利用主要是为了信息收集，我们通过对服务器配置文件的下载，获取到大量的配置信息、源码，从而根据获取的信息来进一步挖掘服务器漏洞从而入侵。</span><br></pre></td></tr></table></figure>
-
-<h2 id="如何发现"><a href="#如何发现" class="headerlink" title="如何发现"></a>如何发现</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">网站URL中存在下载参数，并且未进行过滤…<span class="regexp">/…/</span>…/字符，且输出了文件内容</span><br><span class="line">从链接上看</span><br><span class="line">从参数上看</span><br><span class="line">具体情况具体分析</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">获得站点源码（黑盒 -&gt; 白盒）</span><br><span class="line">获得站点与中间件配置文件</span><br><span class="line">获得应用于系统配置文件（ssh、mysql）</span><br></pre></td></tr></table></figure>
-
-<h2 id="利用原理"><a href="#利用原理" class="headerlink" title="利用原理"></a>利用原理</h2><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">（信息收集信息&gt;猜路径 &gt;&gt;下载配置文件/代码文件 &gt;&gt; 利用服务器软件漏洞&gt; <span class="built_in">shell</span>&gt; 提权）</span><br><span class="line">任意文件下载漏洞的利用主要是为了信息收集，我们通过对服务器配置文件的下载，获取到大量的配置信息、源码，从而根据获取的信息来进一步挖掘服务器漏洞从而入侵。</span><br><span class="line">下载常规的配置文件，例如: ssh,weblogic,<span class="keyword">ftp</span>,mysql等相关配置下载各种.<span class="built_in">log</span>文件，从中寻找一些后台地址，文件上传点之类的地方，如果运气好的话会获得一些前辈们的后门。</span><br><span class="line">下载web业务文件进行白盒审计，利用漏洞进一步攻入服务器</span><br></pre></td></tr></table></figure>
-
-<h2 id="常规文件位置"><a href="#常规文件位置" class="headerlink" title="常规文件位置"></a>常规文件位置</h2><p><strong>WEB应用</strong></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">PHP</span></span><br><span class="line">1、获取inc/config·php获得数据库连接字符串中的口令信息。</span><br><span class="line"><span class="meta">#</span><span class="bash">asp</span></span><br><span class="line">1、获取inc/conn.asp文件，获得数据库连接字符串，得到数据库口令。若是ACCESS数据库，可以得到数据库</span><br><span class="line">路径，在下载数据库内容。</span><br><span class="line"><span class="meta">#</span><span class="bash">aspx</span></span><br><span class="line">1、获取网站根目录web，config文件，获得数据库连接字符串中的口令信息。</span><br><span class="line">2、获取bin/*.dll文件，获取网站源码（不完整代码）。使用.NET refl ector工具打开编译后的dll文件。</span><br><span class="line"><span class="meta">#</span><span class="bash">JSP</span></span><br><span class="line">1、获取conf/tomcat-user.xml文件，获得tomcat管理界面的口令信息，上传war包GetShel1，</span><br><span class="line">2、获取WEB-INF/Web.xml文件，获得数据库连接字符串中的口令信息。</span><br></pre></td></tr></table></figure>
-
-<p><strong>应用，系统配置文件</strong></p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">一、Windows</span><br><span class="line">C:\boot.ini<span class="regexp">//</span>查看系统版本C:\Windows\System32\inetsrv\MetaBase.xml<span class="regexp">//</span>IIS配置文件</span><br><span class="line">C:\Windows\repair\sam<span class="regexp">//</span>存储系统初次安装的密码</span><br><span class="line">C:\Program Files\mysql\my.ini<span class="regexp">//</span>Mysql配置</span><br><span class="line">C:\Program Files\mysql\data\mysql\user.MYD <span class="regexp">//</span>Mysql root</span><br><span class="line">C:\Windows\php.ini<span class="regexp">//</span>php配置信息</span><br><span class="line">C:\Windows\my.ini<span class="regexp">//</span>Mysql配置信息</span><br><span class="line">C:\Windows\win.ini<span class="regexp">//</span>Windows系统的一个基本系统配置文件</span><br><span class="line">二、Linux</span><br><span class="line"><span class="regexp">/root/</span>.ssh/authorized_keys</span><br><span class="line"><span class="regexp">/root/</span>.ssh/id_rsa</span><br><span class="line"><span class="regexp">/root/</span>.ssh/id_ras.keystore</span><br><span class="line"><span class="regexp">/root/</span>.ssh<span class="regexp">/known_hosts/</span><span class="regexp">/记录每个访问计算机用户的公钥/</span>etc/passwd</span><br><span class="line"><span class="regexp">/etc/</span>shadow</span><br><span class="line"><span class="regexp">/etc/my</span>.cnf<span class="regexp">//my</span>sql配置文件</span><br><span class="line"><span class="regexp">/etc/</span>httpd<span class="regexp">/conf/</span>httpd.conf<span class="regexp">//</span>apachel配置文件</span><br><span class="line"><span class="regexp">/root/</span>.bash_history<span class="regexp">//</span>用户历史命令记录文件</span><br><span class="line"><span class="regexp">/root/</span>.mysql._history<span class="regexp">//my</span>sql历史命令记录文件</span><br></pre></td></tr></table></figure>
-
-<h2 id="任意文件下载漏洞防御"><a href="#任意文件下载漏洞防御" class="headerlink" title="任意文件下载漏洞防御"></a>任意文件下载漏洞防御</h2><figure class="highlight less"><table><tr><td class="code"><pre><span class="line">下载路径不可控，而是程序自动生成后保存在数据库中，根据<span class="selector-tag">ID</span>进行下载</span><br><span class="line">对参数做严格的过滤，不能进行目录遍历（穿越）</span><br><span class="line">对下载路径进行过滤，如下载前对传入的参数进行过滤，并且对下载文件类型进行检查，是否是允许下载的类型</span><br><span class="line">过滤.(点)，使用户在<span class="selector-tag">url</span>中不能回溯上级目录</span><br><span class="line">正则严格判断用户输入参数的格式</span><br><span class="line">限定文件访问范围如<span class="selector-tag">PHP</span>里的（<span class="selector-tag">php</span><span class="selector-class">.ini</span>配置<span class="selector-tag">open_basedir</span>）</span><br></pre></td></tr></table></figure>]]></content>
+    <title>排序算法</title>
+    <url>/2022/03/25/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<ol>
+<li>直接插入排序，将一个记录插入到已排序好的有序表中，从而得到一个新，记录数增1的有序表。即：先将序列的第1个记录看成是一个<strong>有序的子序列</strong>，然后从第2个记录逐个进行插入，直至<strong>整个序列</strong>有序为止。<span id="more"></span></li>
+<li>希尔排序，先将整个待排序的记录序列分割成为若干子序列分别进行直接插入排序，待整个序列中的记录“基本有序”时，再对全体记录进行依次直接插入排序</li>
+<li>简单选择排序，在要排序的一组数中，选出最小（或者最大）的一个数与第1个位置的数交换；然后在剩下的数当中再找最小（或者最大）的与第2个位置的数交换，依次类推，直到第n-1个元素（倒数第二个数）和第n个元素（最后一个数）比较为止。</li>
+<li>堆排序，由堆的定义可以看出，<strong>堆顶元素</strong>（即第一个元素）必为最小项（小顶堆）。<br>若以一维数组存储一个堆，则堆对应一棵完全二叉树，且所有非叶结点的值均不大于(或不小于)其子女的值，根结点（堆顶元素）的值是最小(或最大)的</li>
+<li>冒泡排序，在要排序的一组数中，对当前还未排好序的范围内的全部数，自上而下对相邻的两个数依次进行比较和调整，让较大的数往下沉，较小的往上冒。即：每当两相邻的数比较后发现它们的排序与排序要求相反时，就将它们互换。</li>
+<li>快速排序</li>
+<li>1）选择一个基准元素,通常选择第一个元素或者最后一个元素,</li>
+<li>2）通过一趟排序将待排序的记录分割成独立的两部分，其中一部分记录的元素值均比基准元素值小。另一部分记录的 元素值比基准值大。</li>
+<li>3）此时基准元素在其排好序后的正确位置</li>
+<li>4）然后分别对这两部分记录用同样的方法继续进行排序，直到整个序列有序。</li>
+<li>归并排序</li>
+<li>归并（Merge）排序法是将两个（或两个以上）有序表合并成一个新的有序表，即把待排序序列分为若干个子序列，每个子序列是有序的。然后再把有序子序列合并为整体有序序列。</li>
+<li>基数排序</li>
+<li>是将阵列分到有限数量的桶子里。每个桶子再个别排序（有可能再使用别的排序算法或是以递回方式继续使用桶排序进行排序）。桶排序是鸽巢排序的一种归纳结果。当要被排序的阵列内的数值是均匀分配的时候，桶排序使用线性时间（Θ（n））。但桶排序并不是 比较排序，他不受到 O(n log n) 下限的影响。</li>
+</ol>
+]]></content>
       <categories>
-        <category>web安全</category>
+        <category>算法</category>
       </categories>
       <tags>
         <tag>学习笔记</tag>
@@ -660,6 +675,35 @@
 <h2 id="如何利用"><a href="#如何利用" class="headerlink" title="如何利用"></a>如何利用</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">1.读取目标机上敏感文件</span><br><span class="line">2.远程文件包含可运行的PHP木马</span><br><span class="line">3、配合文件上传漏洞获取webshll</span><br></pre></td></tr></table></figure>
 
 <h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">固定文件后缀</span><br><span class="line">固定使用的文件</span><br><span class="line">安装WAF</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>文件下载漏洞个人总结</title>
+    <url>/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>文件下载功能没有对下载的文件类型、目录做合理严谨的过滤， 利用路径回溯符…/跳出程序本身的限制目录实现来下载任意文件，导致用户可以下载服务器的任意文件。</p>
+<span id="more"></span>
+<h2 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">存在读文件的函数</span><br><span class="line">读取文件的路径用户可控且未校验或校验不严</span><br><span class="line">输出了文件内容</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞危害"><a href="#漏洞危害" class="headerlink" title="漏洞危害"></a>漏洞危害</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">可以下载服务器的任意文件，web业务的代码，服务器和系统的具体配置信息，也可以下载数据库的配置信息，以及对内网的信息探测等等。</span><br><span class="line">可用得到的代码进一步代码审计，得到更多可利用漏洞</span><br><span class="line">任意文件下载漏洞的利用主要是为了信息收集，我们通过对服务器配置文件的下载，获取到大量的配置信息、源码，从而根据获取的信息来进一步挖掘服务器漏洞从而入侵。</span><br></pre></td></tr></table></figure>
+
+<h2 id="如何发现"><a href="#如何发现" class="headerlink" title="如何发现"></a>如何发现</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">网站URL中存在下载参数，并且未进行过滤…<span class="regexp">/…/</span>…/字符，且输出了文件内容</span><br><span class="line">从链接上看</span><br><span class="line">从参数上看</span><br><span class="line">具体情况具体分析</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">获得站点源码（黑盒 -&gt; 白盒）</span><br><span class="line">获得站点与中间件配置文件</span><br><span class="line">获得应用于系统配置文件（ssh、mysql）</span><br></pre></td></tr></table></figure>
+
+<h2 id="利用原理"><a href="#利用原理" class="headerlink" title="利用原理"></a>利用原理</h2><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">（信息收集信息&gt;猜路径 &gt;&gt;下载配置文件/代码文件 &gt;&gt; 利用服务器软件漏洞&gt; <span class="built_in">shell</span>&gt; 提权）</span><br><span class="line">任意文件下载漏洞的利用主要是为了信息收集，我们通过对服务器配置文件的下载，获取到大量的配置信息、源码，从而根据获取的信息来进一步挖掘服务器漏洞从而入侵。</span><br><span class="line">下载常规的配置文件，例如: ssh,weblogic,<span class="keyword">ftp</span>,mysql等相关配置下载各种.<span class="built_in">log</span>文件，从中寻找一些后台地址，文件上传点之类的地方，如果运气好的话会获得一些前辈们的后门。</span><br><span class="line">下载web业务文件进行白盒审计，利用漏洞进一步攻入服务器</span><br></pre></td></tr></table></figure>
+
+<h2 id="常规文件位置"><a href="#常规文件位置" class="headerlink" title="常规文件位置"></a>常规文件位置</h2><p><strong>WEB应用</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">PHP</span></span><br><span class="line">1、获取inc/config·php获得数据库连接字符串中的口令信息。</span><br><span class="line"><span class="meta">#</span><span class="bash">asp</span></span><br><span class="line">1、获取inc/conn.asp文件，获得数据库连接字符串，得到数据库口令。若是ACCESS数据库，可以得到数据库</span><br><span class="line">路径，在下载数据库内容。</span><br><span class="line"><span class="meta">#</span><span class="bash">aspx</span></span><br><span class="line">1、获取网站根目录web，config文件，获得数据库连接字符串中的口令信息。</span><br><span class="line">2、获取bin/*.dll文件，获取网站源码（不完整代码）。使用.NET refl ector工具打开编译后的dll文件。</span><br><span class="line"><span class="meta">#</span><span class="bash">JSP</span></span><br><span class="line">1、获取conf/tomcat-user.xml文件，获得tomcat管理界面的口令信息，上传war包GetShel1，</span><br><span class="line">2、获取WEB-INF/Web.xml文件，获得数据库连接字符串中的口令信息。</span><br></pre></td></tr></table></figure>
+
+<p><strong>应用，系统配置文件</strong></p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">一、Windows</span><br><span class="line">C:\boot.ini<span class="regexp">//</span>查看系统版本C:\Windows\System32\inetsrv\MetaBase.xml<span class="regexp">//</span>IIS配置文件</span><br><span class="line">C:\Windows\repair\sam<span class="regexp">//</span>存储系统初次安装的密码</span><br><span class="line">C:\Program Files\mysql\my.ini<span class="regexp">//</span>Mysql配置</span><br><span class="line">C:\Program Files\mysql\data\mysql\user.MYD <span class="regexp">//</span>Mysql root</span><br><span class="line">C:\Windows\php.ini<span class="regexp">//</span>php配置信息</span><br><span class="line">C:\Windows\my.ini<span class="regexp">//</span>Mysql配置信息</span><br><span class="line">C:\Windows\win.ini<span class="regexp">//</span>Windows系统的一个基本系统配置文件</span><br><span class="line">二、Linux</span><br><span class="line"><span class="regexp">/root/</span>.ssh/authorized_keys</span><br><span class="line"><span class="regexp">/root/</span>.ssh/id_rsa</span><br><span class="line"><span class="regexp">/root/</span>.ssh/id_ras.keystore</span><br><span class="line"><span class="regexp">/root/</span>.ssh<span class="regexp">/known_hosts/</span><span class="regexp">/记录每个访问计算机用户的公钥/</span>etc/passwd</span><br><span class="line"><span class="regexp">/etc/</span>shadow</span><br><span class="line"><span class="regexp">/etc/my</span>.cnf<span class="regexp">//my</span>sql配置文件</span><br><span class="line"><span class="regexp">/etc/</span>httpd<span class="regexp">/conf/</span>httpd.conf<span class="regexp">//</span>apachel配置文件</span><br><span class="line"><span class="regexp">/root/</span>.bash_history<span class="regexp">//</span>用户历史命令记录文件</span><br><span class="line"><span class="regexp">/root/</span>.mysql._history<span class="regexp">//my</span>sql历史命令记录文件</span><br></pre></td></tr></table></figure>
+
+<h2 id="任意文件下载漏洞防御"><a href="#任意文件下载漏洞防御" class="headerlink" title="任意文件下载漏洞防御"></a>任意文件下载漏洞防御</h2><figure class="highlight less"><table><tr><td class="code"><pre><span class="line">下载路径不可控，而是程序自动生成后保存在数据库中，根据<span class="selector-tag">ID</span>进行下载</span><br><span class="line">对参数做严格的过滤，不能进行目录遍历（穿越）</span><br><span class="line">对下载路径进行过滤，如下载前对传入的参数进行过滤，并且对下载文件类型进行检查，是否是允许下载的类型</span><br><span class="line">过滤.(点)，使用户在<span class="selector-tag">url</span>中不能回溯上级目录</span><br><span class="line">正则严格判断用户输入参数的格式</span><br><span class="line">限定文件访问范围如<span class="selector-tag">PHP</span>里的（<span class="selector-tag">php</span><span class="selector-class">.ini</span>配置<span class="selector-tag">open_basedir</span>）</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>web安全</category>
       </categories>
