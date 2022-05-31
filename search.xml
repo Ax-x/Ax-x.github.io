@@ -28,26 +28,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SSRF服务器端请求伪造</title>
-    <url>/2022/03/08/SSRF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>SSRF服务器端请求伪造是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。<span id="more"></span>（正是因为 它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）SSRF 形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。比如从指定URL地址获取网页文本内容，加载指定地址的图片，下载等等。 注释：除了http/https等方式可以造成ssrf，类似tcp connect 方式也可以探测内网一些ip 的端口是否开发服务，只不过危害比较小而已。</p>
-<h2 id="可实现攻击"><a href="#可实现攻击" class="headerlink" title="可实现攻击"></a>可实现攻击</h2><figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>	可以对服务器所在内网、本地进行端口扫描，获取一些服务的banner信息<span class="comment">;</span></span><br><span class="line"><span class="number">2</span>	攻击运行在内网或本地的应用程序（比如溢出）<span class="comment">;</span></span><br><span class="line"><span class="number">3</span>	对内网web应用进行指纹识别，通过访问默认文件实现<span class="comment">;</span></span><br><span class="line"><span class="number">4</span>	攻击内外网的web应用，主要是使用get参数就可以实现的攻击（比如struts2，sqli等）<span class="comment">;</span></span><br><span class="line"><span class="number">5</span>	利用file协议读取本地文件等。</span><br></pre></td></tr></table></figure>
-
-<h2 id="可能出现的地方"><a href="#可能出现的地方" class="headerlink" title="可能出现的地方"></a>可能出现的地方</h2><figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>社交分享功能：获取超链接的标题等内容进行显示</span><br><span class="line"><span class="number">2.</span>转码服务：通过URL地址把原地址的网页内容调优使其适合手机屏幕浏览</span><br><span class="line"><span class="number">3.</span>在线翻译：给网址翻译对应网页的内容</span><br><span class="line"><span class="number">4.</span>图片加载/下载：例如富文本编辑器中的点击下载图片到本地；通过URL地址加载或下载图片</span><br><span class="line"><span class="number">5.</span>图片/文章收藏功能：主要其会取URL地址中title以及文本的内容作为显示以求一个好的用具体验</span><br><span class="line"><span class="number">6.</span>云服务厂商：它会远程执行一些命令来判断网站是否存活等，所以如果可以捕获相应的信息，就可以进行ssrf测试</span><br><span class="line"><span class="number">7.</span>网站采集，网站抓取的地方：一些网站会针对你输入的url进行一些信息采集工作</span><br><span class="line"><span class="number">8.</span>数据库内置功能：数据库的比如mongodb的copyDatabase函数</span><br><span class="line"><span class="number">9.</span>邮件系统：比如接收邮件服务器地址</span><br><span class="line"><span class="number">10.</span>编码处理, 属性信息处理，文件处理：比如ffpmg，ImageMagick，docx，pdf，<span class="type">xml</span>处理器等</span><br><span class="line"><span class="number">11.</span>未公开的api实现以及其他扩展调用URL的功能：可以利用google 语法加上这些关键字去寻找SSRF漏洞 一些的url中的关键字：<span class="keyword">share</span>、wap、url、link、src、source、target、u、<span class="number">3</span>g、display、sourceURl、imageURL、<span class="keyword">domain</span>……</span><br><span class="line"><span class="number">12.</span>从远程服务器请求资源（upload <span class="keyword">from</span> url 如discuz！；<span class="keyword">import</span> &amp; expost rss feed 如web blog；使用了<span class="type">xml</span>引擎对象的地方 如wordpress xmlrpc.php）</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞验证"><a href="#漏洞验证" class="headerlink" title="漏洞验证"></a>漏洞验证</h2><figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">1.让服务端去访问相应的网址</span><br><span class="line">2.让服务端去访问自己所处内网的一些指纹文件来判断是否存在相应的cms</span><br><span class="line">3.可以使用<span class="meta">file</span>、dict、gopher[11]、ftp协议进行请求访问相应的文件</span><br><span class="line">4.攻击内网web应用（可以向内部任意主机的任意端口发送精心构造的数据包&#123;payload&#125;）</span><br><span class="line">5.攻击内网应用程序（利用跨协议通信技术）</span><br><span class="line">6.判断内网主机是否存活：方法是访问看是否有端口开放</span><br><span class="line">7.DoS攻击（请求大文件，始终保持连接<span class="meta">keep</span>-alive always）</span><br></pre></td></tr></table></figure>
-
-<h2 id="限制绕过"><a href="#限制绕过" class="headerlink" title="限制绕过"></a>限制绕过</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>.http:<span class="regexp">//</span>baidu.com@www.baidu.com<span class="regexp">/与http:/</span><span class="regexp">/www.baidu.com/</span>请求时是相同的</span><br><span class="line"><span class="number">2</span>.各种IP地址的进制转换</span><br><span class="line"><span class="number">3</span>.URL跳转绕过：http:<span class="regexp">//</span>www.hackersb.cn<span class="regexp">/redirect.php?url=http:/</span><span class="regexp">/192.168.0.1/</span></span><br><span class="line"><span class="number">4</span>.短网址绕过http:<span class="regexp">//</span>t.cn/RwbLKDx </span><br><span class="line"><span class="number">5</span>.xip.io来绕过：http:<span class="regexp">//</span>xxx.<span class="number">192.168</span>.<span class="number">0.1</span>.xip.io/== <span class="number">192.168</span>.<span class="number">0.1</span> (xxx 任意） 指向任意ip的域名：xip.io(<span class="number">37</span>signals开发实现的定制DNS服务)</span><br><span class="line"><span class="number">6</span>.限制了子网段，可以加 :<span class="number">80</span> 端口绕过。http:<span class="regexp">//</span>tieba.baidu.com<span class="regexp">/f/</span>commit<span class="regexp">/share/</span>openShareApi?url=http:<span class="regexp">//</span><span class="number">10.42</span>.<span class="number">7.78</span>:<span class="number">80</span></span><br><span class="line"><span class="number">7</span>.探测内网域名，或者将自己的域名解析到内网ip</span><br><span class="line"><span class="number">8</span>.例如http:<span class="regexp">//</span><span class="number">10.153</span>.<span class="number">138.81</span><span class="regexp">/ts.php, 修复时容易出现的获取host时以/</span>分割来确定host， 但这样可以用http:<span class="regexp">//</span>abc@<span class="number">10.153</span>.<span class="number">138.81</span>/绕过</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h2><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">1</span>	过滤内网服务器对公网服务器请求的响应。如果Web应用是获取某一类型的文件，在把返回结果展示给用户之前应先验证返回的信息是否符合文件类型标准，比如返回信息应为图片，如果返回信息是HTML，则停止将返回信息返回客户端。</span><br><span class="line"><span class="attribute">2</span>	统一错误提示信息，避免用户可以根据错误信息来判断远端服务器的端口状态。</span><br><span class="line"><span class="attribute">3</span>	在内网服务器的防火墙上限制公网服务器的请求端口为HTTP等协议常用端口，如：<span class="number">80</span>、<span class="number">443</span>、<span class="number">8080</span>、<span class="number">8090</span>。</span><br><span class="line"><span class="attribute">4</span>	若公网服务器的内网IP与内网无业务通信，建议将公网服务器对应的内网IP列入黑名单，避免应用被用来获取内网数据。</span><br><span class="line"><span class="attribute">5</span>	内网服务器禁用不必要的协议，仅允许HTTP和HTTPS请求，防止类似于file:///、gopher://、ftp:// 等协议引起的安全问题。</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>RCE漏洞</title>
     <url>/2022/03/08/RCE%E6%BC%8F%E6%B4%9E/</url>
     <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>RCE漏洞是对命令执行/代码执行类漏洞的统称。这类漏洞因为可以通过网络远程执行命令或代码，可以直接获取一定权限，会造成较严重的影响，因此属于较高危的一类漏洞</p>
@@ -325,6 +305,26 @@
 </li>
 </ul>
 ]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SSRF服务器端请求伪造</title>
+    <url>/2022/03/08/SSRF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>SSRF服务器端请求伪造是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。<span id="more"></span>（正是因为 它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）SSRF 形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。比如从指定URL地址获取网页文本内容，加载指定地址的图片，下载等等。 注释：除了http/https等方式可以造成ssrf，类似tcp connect 方式也可以探测内网一些ip 的端口是否开发服务，只不过危害比较小而已。</p>
+<h2 id="可实现攻击"><a href="#可实现攻击" class="headerlink" title="可实现攻击"></a>可实现攻击</h2><figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>	可以对服务器所在内网、本地进行端口扫描，获取一些服务的banner信息<span class="comment">;</span></span><br><span class="line"><span class="number">2</span>	攻击运行在内网或本地的应用程序（比如溢出）<span class="comment">;</span></span><br><span class="line"><span class="number">3</span>	对内网web应用进行指纹识别，通过访问默认文件实现<span class="comment">;</span></span><br><span class="line"><span class="number">4</span>	攻击内外网的web应用，主要是使用get参数就可以实现的攻击（比如struts2，sqli等）<span class="comment">;</span></span><br><span class="line"><span class="number">5</span>	利用file协议读取本地文件等。</span><br></pre></td></tr></table></figure>
+
+<h2 id="可能出现的地方"><a href="#可能出现的地方" class="headerlink" title="可能出现的地方"></a>可能出现的地方</h2><figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>社交分享功能：获取超链接的标题等内容进行显示</span><br><span class="line"><span class="number">2.</span>转码服务：通过URL地址把原地址的网页内容调优使其适合手机屏幕浏览</span><br><span class="line"><span class="number">3.</span>在线翻译：给网址翻译对应网页的内容</span><br><span class="line"><span class="number">4.</span>图片加载/下载：例如富文本编辑器中的点击下载图片到本地；通过URL地址加载或下载图片</span><br><span class="line"><span class="number">5.</span>图片/文章收藏功能：主要其会取URL地址中title以及文本的内容作为显示以求一个好的用具体验</span><br><span class="line"><span class="number">6.</span>云服务厂商：它会远程执行一些命令来判断网站是否存活等，所以如果可以捕获相应的信息，就可以进行ssrf测试</span><br><span class="line"><span class="number">7.</span>网站采集，网站抓取的地方：一些网站会针对你输入的url进行一些信息采集工作</span><br><span class="line"><span class="number">8.</span>数据库内置功能：数据库的比如mongodb的copyDatabase函数</span><br><span class="line"><span class="number">9.</span>邮件系统：比如接收邮件服务器地址</span><br><span class="line"><span class="number">10.</span>编码处理, 属性信息处理，文件处理：比如ffpmg，ImageMagick，docx，pdf，<span class="type">xml</span>处理器等</span><br><span class="line"><span class="number">11.</span>未公开的api实现以及其他扩展调用URL的功能：可以利用google 语法加上这些关键字去寻找SSRF漏洞 一些的url中的关键字：<span class="keyword">share</span>、wap、url、link、src、source、target、u、<span class="number">3</span>g、display、sourceURl、imageURL、<span class="keyword">domain</span>……</span><br><span class="line"><span class="number">12.</span>从远程服务器请求资源（upload <span class="keyword">from</span> url 如discuz！；<span class="keyword">import</span> &amp; expost rss feed 如web blog；使用了<span class="type">xml</span>引擎对象的地方 如wordpress xmlrpc.php）</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞验证"><a href="#漏洞验证" class="headerlink" title="漏洞验证"></a>漏洞验证</h2><figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">1.让服务端去访问相应的网址</span><br><span class="line">2.让服务端去访问自己所处内网的一些指纹文件来判断是否存在相应的cms</span><br><span class="line">3.可以使用<span class="meta">file</span>、dict、gopher[11]、ftp协议进行请求访问相应的文件</span><br><span class="line">4.攻击内网web应用（可以向内部任意主机的任意端口发送精心构造的数据包&#123;payload&#125;）</span><br><span class="line">5.攻击内网应用程序（利用跨协议通信技术）</span><br><span class="line">6.判断内网主机是否存活：方法是访问看是否有端口开放</span><br><span class="line">7.DoS攻击（请求大文件，始终保持连接<span class="meta">keep</span>-alive always）</span><br></pre></td></tr></table></figure>
+
+<h2 id="限制绕过"><a href="#限制绕过" class="headerlink" title="限制绕过"></a>限制绕过</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>.http:<span class="regexp">//</span>baidu.com@www.baidu.com<span class="regexp">/与http:/</span><span class="regexp">/www.baidu.com/</span>请求时是相同的</span><br><span class="line"><span class="number">2</span>.各种IP地址的进制转换</span><br><span class="line"><span class="number">3</span>.URL跳转绕过：http:<span class="regexp">//</span>www.hackersb.cn<span class="regexp">/redirect.php?url=http:/</span><span class="regexp">/192.168.0.1/</span></span><br><span class="line"><span class="number">4</span>.短网址绕过http:<span class="regexp">//</span>t.cn/RwbLKDx </span><br><span class="line"><span class="number">5</span>.xip.io来绕过：http:<span class="regexp">//</span>xxx.<span class="number">192.168</span>.<span class="number">0.1</span>.xip.io/== <span class="number">192.168</span>.<span class="number">0.1</span> (xxx 任意） 指向任意ip的域名：xip.io(<span class="number">37</span>signals开发实现的定制DNS服务)</span><br><span class="line"><span class="number">6</span>.限制了子网段，可以加 :<span class="number">80</span> 端口绕过。http:<span class="regexp">//</span>tieba.baidu.com<span class="regexp">/f/</span>commit<span class="regexp">/share/</span>openShareApi?url=http:<span class="regexp">//</span><span class="number">10.42</span>.<span class="number">7.78</span>:<span class="number">80</span></span><br><span class="line"><span class="number">7</span>.探测内网域名，或者将自己的域名解析到内网ip</span><br><span class="line"><span class="number">8</span>.例如http:<span class="regexp">//</span><span class="number">10.153</span>.<span class="number">138.81</span><span class="regexp">/ts.php, 修复时容易出现的获取host时以/</span>分割来确定host， 但这样可以用http:<span class="regexp">//</span>abc@<span class="number">10.153</span>.<span class="number">138.81</span>/绕过</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h2><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">1</span>	过滤内网服务器对公网服务器请求的响应。如果Web应用是获取某一类型的文件，在把返回结果展示给用户之前应先验证返回的信息是否符合文件类型标准，比如返回信息应为图片，如果返回信息是HTML，则停止将返回信息返回客户端。</span><br><span class="line"><span class="attribute">2</span>	统一错误提示信息，避免用户可以根据错误信息来判断远端服务器的端口状态。</span><br><span class="line"><span class="attribute">3</span>	在内网服务器的防火墙上限制公网服务器的请求端口为HTTP等协议常用端口，如：<span class="number">80</span>、<span class="number">443</span>、<span class="number">8080</span>、<span class="number">8090</span>。</span><br><span class="line"><span class="attribute">4</span>	若公网服务器的内网IP与内网无业务通信，建议将公网服务器对应的内网IP列入黑名单，避免应用被用来获取内网数据。</span><br><span class="line"><span class="attribute">5</span>	内网服务器禁用不必要的协议，仅允许HTTP和HTTPS请求，防止类似于file:///、gopher://、ftp:// 等协议引起的安全问题。</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>web安全</category>
       </categories>
@@ -828,87 +828,6 @@
       </tags>
   </entry>
   <entry>
-    <title>记一次windows应急响应</title>
-    <url>/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/</url>
-    <content><![CDATA[<h1 id="1、背景"><a href="#1、背景" class="headerlink" title="1、背景"></a>1、背景</h1><p>大好假期，人在家中躺，应急天上来，上了机子之后过程还算是比较顺利的，环境是Tomcat，大致思路就是，排查可疑用户和文件，看日志，连接情况，进程，定时任务，注册表这些。</p>
-<span id="more"></span>
-<h1 id="2、排查可疑用户和文件"><a href="#2、排查可疑用户和文件" class="headerlink" title="2、排查可疑用户和文件"></a>2、排查可疑用户和文件</h1><p>先排查下有没有隐藏的用户</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404011544732.png" alt="image-20220404011544732"></p>
-<p>用了net user和net user localgroup administrators都没办法看到，但是还是有可能存在隐藏用户，隐藏用户有三种方式：</p>
-<table>
-<thead>
-<tr>
-<th>方式</th>
-<th>特定</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>命令添加</td>
-<td>net user没办法查看隐藏用户<br>RDP登录过的，都会生成对应的用户目录<br>系统登录界面可以选择登录用户</td>
-</tr>
-<tr>
-<td>克隆账号</td>
-<td>net user无法查看隐藏用户<br>RDP登录不会生成相应的用户目录<br>系统登录界面选择登录用户，无法查看</td>
-</tr>
-<tr>
-<td>Guest账号利用</td>
-<td>正常都能够查看出来，但是一般会被忽略，隐蔽性相对来说会高点</td>
-</tr>
-</tbody></table>
-<p>建议开个PCHunter看下，一般都能查出来，看出来这边是存在一个test$的隐藏用户，用net user XXX$验证下</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404021642321.png" alt="image-20220404021642321"></p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404022054841.png" alt="image-20220404022054841"></p>
-<p>接着看下有没有可疑的文件在，先排查web的目录，后面再去看看系统有没有被放了CS马啥的，因为是部署的tomcat，一般站点文件都会部署在tomcat\webapps下面，先按照修改时间排序下，发现了两个不像好人的文件，打开代码一看，一个是webshell，一个是代理</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404023530823.png" alt="image-20220404023530823"></p>
-<p>这次是运气好，直接用时间排序查出来的文件，在找webshell和代理的时候，根据日志的访问记录和文件修改时间去查找效果会更好一点，日志能看到攻击者一直在访问那个文件，这样在定位webshell的时候会更加有目标一点，或者使用D盾扫描，也能扫描出webshell。</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404125014083.png" alt="image-20220404125014083"></p>
-<h1 id="3、定位机器失陷时间"><a href="#3、定位机器失陷时间" class="headerlink" title="3、定位机器失陷时间"></a>3、定位机器失陷时间</h1><p>有挺多种方法去定位的，看系统安全日志或者中间件的日志等等，这边我先去看的tomcat的日志，tomcat的日志分五种：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1. 应用日志</span><br><span class="line">该日志主要是记录应用事件的，针对应用级别的排错比较有用，比如应用性能比较慢。</span><br><span class="line">2. 服务器日志</span><br><span class="line">服务器日志和console日志是相同的，不同之处在于，服务器日志是保存在文件中的，可以随时查看。</span><br><span class="line">3. 控制台日志</span><br><span class="line">该日志记录了tomcat的启动和加载器的顺序的详细信息，该日志文件叫做catalina.out。在排查服务器启动、应用的部署错时比较有用。 配置日志是在catalina.sh中配置的。</span><br><span class="line">4. 访问日志</span><br><span class="line">该日志也非常重要，在分析很多应用的流量，带宽需求，及负载时非常有用。该日志是在server.xml中配置的。</span><br><span class="line">5. Host manager</span><br><span class="line">使用Tomcat Manager执行的活动日志，比如不同的任务执行，应用的状态，应用的部署，和tomcat的生命周期，这些配置是在logging.properties.</span><br></pre></td></tr></table></figure>
-
-<p>如果是因为站点有漏洞被传了马上去，可以看下localhost_access_log这个日志，这个是访问tomcat的日志，请求时间和资源，状态码都有记录，在日志量大的情况下可以自己去定义下，筛选文件和状态码，先把200的状态码筛选出来，然后再根据上面定位到的webshell去搜索日志信息。所以我第一时间先去找webshell，就是方便现在去定位大概攻击成功的时间和文件。</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404131319354.png" alt="image-20220404131319354"></p>
-<h1 id="4、计划任务-amp-注册表"><a href="#4、计划任务-amp-注册表" class="headerlink" title="4、计划任务&amp;注册表"></a>4、计划任务&amp;注册表</h1><p>计划任务的查看有很多种方式</p>
-<table>
-<thead>
-<tr>
-<th>方式</th>
-<th>特点</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>at（适用于win2003-win2008）</td>
-<td>包含大量系统计划任务，不容易排查</td>
-</tr>
-<tr>
-<td>schtasks.exe（win2008及其以后系统）</td>
-<td>包含大量系统计划任务，不容易排查</td>
-</tr>
-<tr>
-<td>控制面板-&gt;计划任务</td>
-<td>包含大量系统计划任务，不容易排查</td>
-</tr>
-</tbody></table>
-<p>单独看一个地方的话，会参杂大量的计划任务，干扰检查，最好就是多个搭配起来，配合计划任务的文件去检查，通过查看目录修改日期-&gt;文件修改日期，根据这两个信息，去计划任务程序里面定位，然后再查看具体内容，这就是为什么要去定位攻击成功的时间了，能有效帮助我们去排查计划任务的创建时间。</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404135302797.png" alt="image-20220404135302797"></p>
-<p>打开代码看下，在最下面发现的启动的文件路径</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404135655403.png" alt="image-20220404135655403"></p>
-<p>打开这个EXE，查看代码，在最下面看到了IP，是个阿里云的服务器，丢云沙箱一看，是个CS马。</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404141147090.png" alt="image-20220404141147090"></p>
-<p>当然我这种是比较笨的方式，这种可以直接丢云沙箱上面看下结果或者配合CurrPorts去分析，打开这个exe之后观察变化，或者看CurrPorts的log文件，也能够分析出这个IP，只是习惯先编辑一下，看看里面拿到内容，一般拉到最后面都能看到一些东西，找到CS马之后，去看windows自启动的注册表定位起来也会方便点，重点查看windows的自启动配置的注册表。</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404142723461.png" alt="image-20220404142723461"></p>
-<h1 id="5、总结"><a href="#5、总结" class="headerlink" title="5、总结"></a>5、总结</h1><p>这次的检查算是比较简单的，没有特别难找的东西，有一些是直接找出来的，没有啥特别的技巧，多排查几个机子，就有种直觉，感觉有点问题。最后猜测下攻击链：</p>
-<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">爆破Tomcat后台</span><br><span class="line">部署webshell、HTTP隧道代理</span><br><span class="line">上<span class="keyword">CS</span>木马进行权限维持</span><br><span class="line">创建后门管理员权限账号（<span class="keyword">test</span>$）</span><br><span class="line">利用 mimikatz 抓取管理员用户的密码</span><br><span class="line">用管理员账号登录服务器</span><br><span class="line">清除操作痕迹（清空安全日志）</span><br><span class="line">利用计划任务、自启动等进行权限维持</span><br></pre></td></tr></table></figure>
-
-<p>在检查的时候，如果遇到很多数据干扰的话可以配合其他方式或者是时间，文件名，状态码去筛选，可以过滤掉绝大多数的垃圾数据再配合一些工具，D盾，PCHunter之类的能让检查顺利很多。</p>
-]]></content>
-      <categories>
-        <category>应急响应</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>逻辑越权</title>
     <url>/2022/01/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83/</url>
     <content><![CDATA[<h1 id="逻辑漏洞"><a href="#逻辑漏洞" class="headerlink" title="逻辑漏洞"></a><strong>逻辑漏洞</strong></h1><ul>
@@ -1049,6 +968,87 @@
 ]]></content>
       <categories>
         <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>记一次windows应急响应</title>
+    <url>/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/</url>
+    <content><![CDATA[<h1 id="1、背景"><a href="#1、背景" class="headerlink" title="1、背景"></a>1、背景</h1><p>大好假期，人在家中躺，应急天上来，上了机子之后过程还算是比较顺利的，环境是Tomcat，大致思路就是，排查可疑用户和文件，看日志，连接情况，进程，定时任务，注册表这些。</p>
+<span id="more"></span>
+<h1 id="2、排查可疑用户和文件"><a href="#2、排查可疑用户和文件" class="headerlink" title="2、排查可疑用户和文件"></a>2、排查可疑用户和文件</h1><p>先排查下有没有隐藏的用户</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404011544732.png" alt="image-20220404011544732"></p>
+<p>用了net user和net user localgroup administrators都没办法看到，但是还是有可能存在隐藏用户，隐藏用户有三种方式：</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>特定</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>命令添加</td>
+<td>net user没办法查看隐藏用户<br>RDP登录过的，都会生成对应的用户目录<br>系统登录界面可以选择登录用户</td>
+</tr>
+<tr>
+<td>克隆账号</td>
+<td>net user无法查看隐藏用户<br>RDP登录不会生成相应的用户目录<br>系统登录界面选择登录用户，无法查看</td>
+</tr>
+<tr>
+<td>Guest账号利用</td>
+<td>正常都能够查看出来，但是一般会被忽略，隐蔽性相对来说会高点</td>
+</tr>
+</tbody></table>
+<p>建议开个PCHunter看下，一般都能查出来，看出来这边是存在一个test$的隐藏用户，用net user XXX$验证下</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404021642321.png" alt="image-20220404021642321"></p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404022054841.png" alt="image-20220404022054841"></p>
+<p>接着看下有没有可疑的文件在，先排查web的目录，后面再去看看系统有没有被放了CS马啥的，因为是部署的tomcat，一般站点文件都会部署在tomcat\webapps下面，先按照修改时间排序下，发现了两个不像好人的文件，打开代码一看，一个是webshell，一个是代理</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404023530823.png" alt="image-20220404023530823"></p>
+<p>这次是运气好，直接用时间排序查出来的文件，在找webshell和代理的时候，根据日志的访问记录和文件修改时间去查找效果会更好一点，日志能看到攻击者一直在访问那个文件，这样在定位webshell的时候会更加有目标一点，或者使用D盾扫描，也能扫描出webshell。</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404125014083.png" alt="image-20220404125014083"></p>
+<h1 id="3、定位机器失陷时间"><a href="#3、定位机器失陷时间" class="headerlink" title="3、定位机器失陷时间"></a>3、定位机器失陷时间</h1><p>有挺多种方法去定位的，看系统安全日志或者中间件的日志等等，这边我先去看的tomcat的日志，tomcat的日志分五种：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1. 应用日志</span><br><span class="line">该日志主要是记录应用事件的，针对应用级别的排错比较有用，比如应用性能比较慢。</span><br><span class="line">2. 服务器日志</span><br><span class="line">服务器日志和console日志是相同的，不同之处在于，服务器日志是保存在文件中的，可以随时查看。</span><br><span class="line">3. 控制台日志</span><br><span class="line">该日志记录了tomcat的启动和加载器的顺序的详细信息，该日志文件叫做catalina.out。在排查服务器启动、应用的部署错时比较有用。 配置日志是在catalina.sh中配置的。</span><br><span class="line">4. 访问日志</span><br><span class="line">该日志也非常重要，在分析很多应用的流量，带宽需求，及负载时非常有用。该日志是在server.xml中配置的。</span><br><span class="line">5. Host manager</span><br><span class="line">使用Tomcat Manager执行的活动日志，比如不同的任务执行，应用的状态，应用的部署，和tomcat的生命周期，这些配置是在logging.properties.</span><br></pre></td></tr></table></figure>
+
+<p>如果是因为站点有漏洞被传了马上去，可以看下localhost_access_log这个日志，这个是访问tomcat的日志，请求时间和资源，状态码都有记录，在日志量大的情况下可以自己去定义下，筛选文件和状态码，先把200的状态码筛选出来，然后再根据上面定位到的webshell去搜索日志信息。所以我第一时间先去找webshell，就是方便现在去定位大概攻击成功的时间和文件。</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404131319354.png" alt="image-20220404131319354"></p>
+<h1 id="4、计划任务-amp-注册表"><a href="#4、计划任务-amp-注册表" class="headerlink" title="4、计划任务&amp;注册表"></a>4、计划任务&amp;注册表</h1><p>计划任务的查看有很多种方式</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>at（适用于win2003-win2008）</td>
+<td>包含大量系统计划任务，不容易排查</td>
+</tr>
+<tr>
+<td>schtasks.exe（win2008及其以后系统）</td>
+<td>包含大量系统计划任务，不容易排查</td>
+</tr>
+<tr>
+<td>控制面板-&gt;计划任务</td>
+<td>包含大量系统计划任务，不容易排查</td>
+</tr>
+</tbody></table>
+<p>单独看一个地方的话，会参杂大量的计划任务，干扰检查，最好就是多个搭配起来，配合计划任务的文件去检查，通过查看目录修改日期-&gt;文件修改日期，根据这两个信息，去计划任务程序里面定位，然后再查看具体内容，这就是为什么要去定位攻击成功的时间了，能有效帮助我们去排查计划任务的创建时间。</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404135302797.png" alt="image-20220404135302797"></p>
+<p>打开代码看下，在最下面发现的启动的文件路径</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404135655403.png" alt="image-20220404135655403"></p>
+<p>打开这个EXE，查看代码，在最下面看到了IP，是个阿里云的服务器，丢云沙箱一看，是个CS马。</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404141147090.png" alt="image-20220404141147090"></p>
+<p>当然我这种是比较笨的方式，这种可以直接丢云沙箱上面看下结果或者配合CurrPorts去分析，打开这个exe之后观察变化，或者看CurrPorts的log文件，也能够分析出这个IP，只是习惯先编辑一下，看看里面拿到内容，一般拉到最后面都能看到一些东西，找到CS马之后，去看windows自启动的注册表定位起来也会方便点，重点查看windows的自启动配置的注册表。</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404142723461.png" alt="image-20220404142723461"></p>
+<h1 id="5、总结"><a href="#5、总结" class="headerlink" title="5、总结"></a>5、总结</h1><p>这次的检查算是比较简单的，没有特别难找的东西，有一些是直接找出来的，没有啥特别的技巧，多排查几个机子，就有种直觉，感觉有点问题。最后猜测下攻击链：</p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">爆破Tomcat后台</span><br><span class="line">部署webshell、HTTP隧道代理</span><br><span class="line">上<span class="keyword">CS</span>木马进行权限维持</span><br><span class="line">创建后门管理员权限账号（<span class="keyword">test</span>$）</span><br><span class="line">利用 mimikatz 抓取管理员用户的密码</span><br><span class="line">用管理员账号登录服务器</span><br><span class="line">清除操作痕迹（清空安全日志）</span><br><span class="line">利用计划任务、自启动等进行权限维持</span><br></pre></td></tr></table></figure>
+
+<p>在检查的时候，如果遇到很多数据干扰的话可以配合其他方式或者是时间，文件名，状态码去筛选，可以过滤掉绝大多数的垃圾数据再配合一些工具，D盾，PCHunter之类的能让检查顺利很多。</p>
+]]></content>
+      <categories>
+        <category>应急响应</category>
       </categories>
       <tags>
         <tag>学习笔记</tag>
