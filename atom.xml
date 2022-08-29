@@ -6,7 +6,7 @@
   <link href="https://ax-x.github.io/atom.xml" rel="self"/>
   
   <link href="https://ax-x.github.io/"/>
-  <updated>2022-07-19T08:42:26.177Z</updated>
+  <updated>2022-08-29T06:40:29.045Z</updated>
   <id>https://ax-x.github.io/</id>
   
   <author>
@@ -15,6 +15,45 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>微信小程序反编译-PC微信版</title>
+    <link href="https://ax-x.github.io/2022/08/29/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91-PC%E5%BE%AE%E4%BF%A1%E7%89%88/"/>
+    <id>https://ax-x.github.io/2022/08/29/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91-PC%E5%BE%AE%E4%BF%A1%E7%89%88/</id>
+    <published>2022-08-29T06:39:44.000Z</published>
+    <updated>2022-08-29T06:40:29.045Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;现在网上也有很多关于小程序反编译的教程，随时间的流逝或许随着微信的更新，有出现编译不成功的现象。&lt;/p&gt;
+&lt;p&gt;本篇文章总结一下最新的编译过程，已成功获得小程序源码（有分包的小程序）&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="反编译" scheme="https://ax-x.github.io/categories/%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
+    
+    
+    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>微信小程序反编译-模拟器版&quot;</title>
+    <link href="https://ax-x.github.io/2022/08/29/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91-%E6%A8%A1%E6%8B%9F%E5%99%A8%E7%89%88/"/>
+    <id>https://ax-x.github.io/2022/08/29/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91-%E6%A8%A1%E6%8B%9F%E5%99%A8%E7%89%88/</id>
+    <published>2022-08-29T06:31:30.000Z</published>
+    <updated>2022-08-29T06:38:42.200Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文主要写如何通过PC手机模拟器获取微信小程序的代码&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="反编译" scheme="https://ax-x.github.io/categories/%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
+    
+    
+    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>近源攻击方式总结</title>
@@ -359,48 +398,6 @@
     
     
     <category term="安全工具" scheme="https://ax-x.github.io/tags/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>XSS跨站脚本攻击</title>
-    <link href="https://ax-x.github.io/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/"/>
-    <id>https://ax-x.github.io/2022/01/17/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/</id>
-    <published>2022-01-17T14:56:33.000Z</published>
-    <updated>2022-01-21T07:47:53.466Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;什么是XSS-XSS原理&quot;&gt;&lt;a href=&quot;#什么是XSS-XSS原理&quot; class=&quot;headerlink&quot; title=&quot;什么是XSS/XSS原理&quot;&gt;&lt;/a&gt;什么是XSS/XSS原理&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;攻击者嵌入恶意脚本代码到用户会访问到的页面中，用户访问该页面的时候，就引起恶意脚本代码的执行，从而达到恶意攻击用户的目的。攻击者可以使用户在浏览器中执行其预定义的恶意脚本，变量接受数据的时候，数据可以写成js脚本代码，进行回显操作&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;本质上属于前端漏洞，产生在浏览器和js代码中的漏洞&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="web安全" scheme="https://ax-x.github.io/categories/web%E5%AE%89%E5%85%A8/"/>
-    
-    
-    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>逻辑越权</title>
-    <link href="https://ax-x.github.io/2022/01/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83/"/>
-    <id>https://ax-x.github.io/2022/01/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83/</id>
-    <published>2022-01-16T13:32:30.000Z</published>
-    <updated>2022-01-21T07:48:06.528Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;逻辑漏洞&quot;&gt;&lt;a href=&quot;#逻辑漏洞&quot; class=&quot;headerlink&quot; title=&quot;逻辑漏洞&quot;&gt;&lt;/a&gt;&lt;strong&gt;逻辑漏洞&lt;/strong&gt;&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt; 攻击者利用业务的设计缺陷，获取敏感信息或破坏业务的完整性， 其本质就是程序逻辑输入管控不严，没有对用户数据进行严格把控，导致程序不能够正常处理或处理错误，一般出现在登录注册、密码找回、信息查看、交易支付金额等。&lt;/li&gt;&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="web安全" scheme="https://ax-x.github.io/categories/web%E5%AE%89%E5%85%A8/"/>
-    
-    
-    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
