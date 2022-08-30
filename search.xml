@@ -1,45 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>College Website Content Management System v1.0存在任意文件删除漏洞</title>
-    <url>/2022/03/08/College-Website-Content-Management-System-v1-0%E5%AD%98%E5%9C%A8%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h1 id="一、-漏洞介绍"><a href="#一、-漏洞介绍" class="headerlink" title="一、 漏洞介绍"></a>一、 漏洞介绍</h1><p>College Website - Content Management System是一款校园管理CMS,可以对学生以及学生成绩进行管理，使用PHP语言编写，该CMS存在任意文件删除漏洞，可以删除服务器上的任意文件，该CMS存在任意文件删除漏洞，可以删除服务器上的任意文件。</p>
-<span id="more"></span>
-<h1 id="二、-漏洞细节"><a href="#二、-漏洞细节" class="headerlink" title="二、 漏洞细节"></a>二、 漏洞细节</h1><p>漏洞存在于cwms\classes\Master.php这个文件中，第 24行，网站通过POST方式获取到要删除的文件的路径，第25行判断文件是否存在，然后第26行将文件删除，从获取文件位置到删除文件，没有对文件进行判断，导致用户可以删除任何文件。</p>
-<p><img src="https://ax-x.github.io/2022/03/08/College-Website-Content-Management-System-v1-0%E5%AD%98%E5%9C%A8%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4%E6%BC%8F%E6%B4%9E/image-20220830153437575.png" alt="image-20220830153437575"></p>
-<h1 id="三、漏洞利用"><a href="#三、漏洞利用" class="headerlink" title="三、漏洞利用"></a>三、漏洞利用</h1><p>漏洞验证：</p>
-<p>漏洞url：<a href="http://localhost/cwms/classes/Master.php?f=delete_img">http://localhost/cwms/classes/Master.php?f=delete_img</a></p>
-<p>首先在网站根目录底下创建一个文件叫做test.txt.</p>
-<p><img src="https://ax-x.github.io/2022/03/08/College-Website-Content-Management-System-v1-0%E5%AD%98%E5%9C%A8%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4%E6%BC%8F%E6%B4%9E/image-20220830153516447.png" alt="image-20220830153516447"></p>
-<p>进入网站后台，进入设置选项，选择一个图片进行删除。</p>
-<p><img src="https://ax-x.github.io/2022/03/08/College-Website-Content-Management-System-v1-0%E5%AD%98%E5%9C%A8%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4%E6%BC%8F%E6%B4%9E/image-20220830153527976.png" alt="image-20220830153527976"></p>
-<p><img src="https://ax-x.github.io/2022/03/08/College-Website-Content-Management-System-v1-0%E5%AD%98%E5%9C%A8%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4%E6%BC%8F%E6%B4%9E/image-20220830153538981.png" alt="image-20220830153538981"></p>
-<p>抓包，替换删除的文件路径为刚才创建的test.txt的文件路径，发包，删除成功，漏洞存在。</p>
-<p><img src="https://ax-x.github.io/2022/03/08/College-Website-Content-Management-System-v1-0%E5%AD%98%E5%9C%A8%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4%E6%BC%8F%E6%B4%9E/image-20220830153548358.png" alt="image-20220830153548358"></p>
-<h1 id="四、PoC"><a href="#四、PoC" class="headerlink" title="四、PoC"></a>四、PoC</h1><figure class="highlight http"><table><tr><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/cwms/classes/Master.php?f=delete_img</span> <span class="meta">HTTP/1.1</span></span><br><span class="line"><span class="attribute">Host</span><span class="punctuation">: </span>localhost</span><br><span class="line"><span class="attribute">User-Agent</span><span class="punctuation">: </span>Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0</span><br><span class="line"><span class="attribute">Accept</span><span class="punctuation">: </span>*/*</span><br><span class="line"><span class="attribute">Accept-Language</span><span class="punctuation">: </span>en-US,en;q=0.5</span><br><span class="line"><span class="attribute">Accept-Encoding</span><span class="punctuation">: </span>gzip, deflate</span><br><span class="line"><span class="attribute">X-Requested-With</span><span class="punctuation">: </span>XMLHttpRequest</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>close</span><br><span class="line"><span class="attribute">Referer</span><span class="punctuation">: </span>http://localhost/cwms/admin/?page=sytem_info</span><br><span class="line"><span class="attribute">Cookie</span><span class="punctuation">: </span>PHPSESSID=e2cd18647586f5b17de88fd20876023d</span><br><span class="line"></span><br><span class="line"><span class="apache"><span class="attribute">path</span>=%<span class="number">2</span>Fopt%<span class="number">2</span>Flampp%<span class="number">2</span>Fhtdocs%<span class="number">2</span>Ftest.txt</span></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>代码审计</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-        <tag>PHP代码审计</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>First Blog</title>
-    <url>/2022/01/01/First%20Blog/</url>
-    <content><![CDATA[<p>Welcome to my blog! I’m glad to make friends with you. If you can browse my website, I will be grateful. In the future, I will upload my records and learning contents here. I hope the boss will take me with me！</p>
-]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Air Cargo Management System v1.0存在SQL注入漏洞</title>
     <url>/2022/03/08/Air-Cargo-Management-System-v1-0%E5%AD%98%E5%9C%A8SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/</url>
     <content><![CDATA[<h1 id="一、漏洞介绍"><a href="#一、漏洞介绍" class="headerlink" title="一、漏洞介绍"></a>一、漏洞介绍</h1><p>Air Cargo Management System是一款航空货运管理系统。该系统包含不同的相关模块，例如交易。它有两个用户界面，即管理面板和公共端，Air Cargo Management System存在SQL注入漏洞，攻击者可以利用漏洞获取数据库数据权限等。</p>
@@ -67,12 +28,9 @@
       </tags>
   </entry>
   <entry>
-    <title>CSRF 跨站请求伪造漏洞</title>
-    <url>/2022/03/08/CSRF-%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>CSRF跨站请求伪造，由客户端发起，是一种劫持受信任用户向服务器发送非预期请求的攻击方式，与XSS相似，但比XSS更难防范，常与XSS一起配合攻击</p>
-<span id="more"></span>
-<p>攻击者盗用了用户的身份信息，以用户的名义发送恶意请求，对服务器来说这个请求是用户发起的，却完成了攻击者所期望的一个操作 XSS 利用站点内内的信任用户，盗取cookie CSRF通过伪装成受信任用户请求受信任的网站利用目标用户的合法身份，以目标的名义执行某些非法参数 利用条件：已经登录系统，用户访问URL 已存在的网站中让用户跳转</p>
-<h2 id="CSRF漏洞防御方案"><a href="#CSRF漏洞防御方案" class="headerlink" title="CSRF漏洞防御方案"></a>CSRF漏洞防御方案</h2><p>1.当用户发送重要的请求时输入验证码<br>2.设置随机TOKEN —数据包的唯一值<br>3.检测referer来源，请求时判断请求连接是否为当前管理员正在使用的页面（管理员在编辑文章，黑客发来恶意的修改密码链接，因为修改密码页面管理员并没有在操作，所以攻击失败）<br>4.设置验证码<br>5.限制请求方式只能为post</p>
+    <title>First Blog</title>
+    <url>/2022/01/01/First%20Blog/</url>
+    <content><![CDATA[<p>Welcome to my blog! I’m glad to make friends with you. If you can browse my website, I will be grateful. In the future, I will upload my records and learning contents here. I hope the boss will take me with me！</p>
 ]]></content>
       <categories>
         <category>web安全</category>
@@ -100,6 +58,48 @@
 <h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#命令执行</span></span><br><span class="line">    system()执行系统指令</span><br><span class="line">    popen()popen()方法用于从一个命令打开一个管道</span><br><span class="line">    subprocess.call执行由参数提供的命令</span><br><span class="line">    spawn 执行命令</span><br><span class="line"><span class="comment">#代码执行</span></span><br><span class="line">    <span class="built_in">exec</span>(string)<span class="comment"># Python代码的动态执行</span></span><br><span class="line">    <span class="built_in">eval</span>(string)<span class="comment"># 返回表达式或代码对象的值</span></span><br><span class="line">    execfile(string)<span class="comment"># 从一个文件中读取和执行Python脚本</span></span><br><span class="line">    <span class="built_in">input</span>(string)Python2.x 中 <span class="built_in">input</span>() 相等于 <span class="built_in">eval</span>(raw_input(prompt)) ，用来获取控制台的输入</span><br><span class="line">    <span class="built_in">compile</span>(string)<span class="comment"># 将源字符串编译为可执行对象</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="常见注入（利用）方式"><a href="#常见注入（利用）方式" class="headerlink" title="常见注入（利用）方式"></a>常见注入（利用）方式</h2><figure class="highlight perl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>、<span class="keyword">system</span>(<span class="string">&quot;$arg&quot;</span>);   可控点直接是待执行的程序如果我们能直接控制$arg，那么就能执行执行任意命令了。</span><br><span class="line"><span class="number">2</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog $arg&quot;</span>);<span class="regexp">//</span>可控点是传入程序的整个参数我们能够控制的点是程序的整个参数，我们可以直接用&amp;&amp; || 或 | 等等，利用与、或、管道命令来执行其他命令（可以涉及到很多linux命令行技巧）。</span><br><span class="line"><span class="number">3</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog -p $arg&quot;</span>);<span class="regexp">//</span>可控点是传入程序的某个参数的值（无引号包裹）我们控制的点是一个参数，我们也同样可以利用与、或、管道来执行其他命令，情境与二无异。</span><br><span class="line"><span class="number">4</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog --p=\&quot;$arg\&quot;&quot;</span>);<span class="regexp">//</span>可控点是传入程序的某个参数的值（有双引号包裹）这种情况压力大一点，有双引号包裹。如果引号没有被转义，我们可以先闭合引号，成为第三种情况后按照第三种情况来利用，如果引号被转义（addslashes），我们也不必着急。linux shell 环境下双引号中间的变量也是可以被解析的，我们可以在双引号内利用反引号执行任意命令 id</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>College Website Content Management System v1.0存在任意文件删除漏洞</title>
+    <url>/2022/03/08/College-Website-Content-Management-System-v1-0%E5%AD%98%E5%9C%A8%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h1 id="一、-漏洞介绍"><a href="#一、-漏洞介绍" class="headerlink" title="一、 漏洞介绍"></a>一、 漏洞介绍</h1><p>College Website - Content Management System是一款校园管理CMS,可以对学生以及学生成绩进行管理，使用PHP语言编写，该CMS存在任意文件删除漏洞，可以删除服务器上的任意文件，该CMS存在任意文件删除漏洞，可以删除服务器上的任意文件。</p>
+<span id="more"></span>
+<h1 id="二、-漏洞细节"><a href="#二、-漏洞细节" class="headerlink" title="二、 漏洞细节"></a>二、 漏洞细节</h1><p>漏洞存在于cwms\classes\Master.php这个文件中，第 24行，网站通过POST方式获取到要删除的文件的路径，第25行判断文件是否存在，然后第26行将文件删除，从获取文件位置到删除文件，没有对文件进行判断，导致用户可以删除任何文件。</p>
+<p><img src="https://ax-x.github.io/2022/03/08/College-Website-Content-Management-System-v1-0%E5%AD%98%E5%9C%A8%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4%E6%BC%8F%E6%B4%9E/image-20220830153437575.png" alt="image-20220830153437575"></p>
+<h1 id="三、漏洞利用"><a href="#三、漏洞利用" class="headerlink" title="三、漏洞利用"></a>三、漏洞利用</h1><p>漏洞验证：</p>
+<p>漏洞url：<a href="http://localhost/cwms/classes/Master.php?f=delete_img">http://localhost/cwms/classes/Master.php?f=delete_img</a></p>
+<p>首先在网站根目录底下创建一个文件叫做test.txt.</p>
+<p><img src="https://ax-x.github.io/2022/03/08/College-Website-Content-Management-System-v1-0%E5%AD%98%E5%9C%A8%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4%E6%BC%8F%E6%B4%9E/image-20220830153516447.png" alt="image-20220830153516447"></p>
+<p>进入网站后台，进入设置选项，选择一个图片进行删除。</p>
+<p><img src="https://ax-x.github.io/2022/03/08/College-Website-Content-Management-System-v1-0%E5%AD%98%E5%9C%A8%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4%E6%BC%8F%E6%B4%9E/image-20220830153527976.png" alt="image-20220830153527976"></p>
+<p><img src="https://ax-x.github.io/2022/03/08/College-Website-Content-Management-System-v1-0%E5%AD%98%E5%9C%A8%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4%E6%BC%8F%E6%B4%9E/image-20220830153538981.png" alt="image-20220830153538981"></p>
+<p>抓包，替换删除的文件路径为刚才创建的test.txt的文件路径，发包，删除成功，漏洞存在。</p>
+<p><img src="https://ax-x.github.io/2022/03/08/College-Website-Content-Management-System-v1-0%E5%AD%98%E5%9C%A8%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4%E6%BC%8F%E6%B4%9E/image-20220830153548358.png" alt="image-20220830153548358"></p>
+<h1 id="四、PoC"><a href="#四、PoC" class="headerlink" title="四、PoC"></a>四、PoC</h1><figure class="highlight http"><table><tr><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/cwms/classes/Master.php?f=delete_img</span> <span class="meta">HTTP/1.1</span></span><br><span class="line"><span class="attribute">Host</span><span class="punctuation">: </span>localhost</span><br><span class="line"><span class="attribute">User-Agent</span><span class="punctuation">: </span>Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0</span><br><span class="line"><span class="attribute">Accept</span><span class="punctuation">: </span>*/*</span><br><span class="line"><span class="attribute">Accept-Language</span><span class="punctuation">: </span>en-US,en;q=0.5</span><br><span class="line"><span class="attribute">Accept-Encoding</span><span class="punctuation">: </span>gzip, deflate</span><br><span class="line"><span class="attribute">X-Requested-With</span><span class="punctuation">: </span>XMLHttpRequest</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>close</span><br><span class="line"><span class="attribute">Referer</span><span class="punctuation">: </span>http://localhost/cwms/admin/?page=sytem_info</span><br><span class="line"><span class="attribute">Cookie</span><span class="punctuation">: </span>PHPSESSID=e2cd18647586f5b17de88fd20876023d</span><br><span class="line"></span><br><span class="line"><span class="apache"><span class="attribute">path</span>=%<span class="number">2</span>Fopt%<span class="number">2</span>Flampp%<span class="number">2</span>Fhtdocs%<span class="number">2</span>Ftest.txt</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>代码审计</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>PHP代码审计</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CSRF 跨站请求伪造漏洞</title>
+    <url>/2022/03/08/CSRF-%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>CSRF跨站请求伪造，由客户端发起，是一种劫持受信任用户向服务器发送非预期请求的攻击方式，与XSS相似，但比XSS更难防范，常与XSS一起配合攻击</p>
+<span id="more"></span>
+<p>攻击者盗用了用户的身份信息，以用户的名义发送恶意请求，对服务器来说这个请求是用户发起的，却完成了攻击者所期望的一个操作 XSS 利用站点内内的信任用户，盗取cookie CSRF通过伪装成受信任用户请求受信任的网站利用目标用户的合法身份，以目标的名义执行某些非法参数 利用条件：已经登录系统，用户访问URL 已存在的网站中让用户跳转</p>
+<h2 id="CSRF漏洞防御方案"><a href="#CSRF漏洞防御方案" class="headerlink" title="CSRF漏洞防御方案"></a>CSRF漏洞防御方案</h2><p>1.当用户发送重要的请求时输入验证码<br>2.设置随机TOKEN —数据包的唯一值<br>3.检测referer来源，请求时判断请求连接是否为当前管理员正在使用的页面（管理员在编辑文章，黑客发来恶意的修改密码链接，因为修改密码页面管理员并没有在操作，所以攻击失败）<br>4.设置验证码<br>5.限制请求方式只能为post</p>
+]]></content>
       <categories>
         <category>web安全</category>
       </categories>
@@ -367,26 +367,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SSRF服务器端请求伪造</title>
-    <url>/2022/03/08/SSRF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>SSRF服务器端请求伪造是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。<span id="more"></span>（正是因为 它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）SSRF 形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。比如从指定URL地址获取网页文本内容，加载指定地址的图片，下载等等。 注释：除了http/https等方式可以造成ssrf，类似tcp connect 方式也可以探测内网一些ip 的端口是否开发服务，只不过危害比较小而已。</p>
-<h2 id="可实现攻击"><a href="#可实现攻击" class="headerlink" title="可实现攻击"></a>可实现攻击</h2><figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>	可以对服务器所在内网、本地进行端口扫描，获取一些服务的banner信息<span class="comment">;</span></span><br><span class="line"><span class="number">2</span>	攻击运行在内网或本地的应用程序（比如溢出）<span class="comment">;</span></span><br><span class="line"><span class="number">3</span>	对内网web应用进行指纹识别，通过访问默认文件实现<span class="comment">;</span></span><br><span class="line"><span class="number">4</span>	攻击内外网的web应用，主要是使用get参数就可以实现的攻击（比如struts2，sqli等）<span class="comment">;</span></span><br><span class="line"><span class="number">5</span>	利用file协议读取本地文件等。</span><br></pre></td></tr></table></figure>
-
-<h2 id="可能出现的地方"><a href="#可能出现的地方" class="headerlink" title="可能出现的地方"></a>可能出现的地方</h2><figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>社交分享功能：获取超链接的标题等内容进行显示</span><br><span class="line"><span class="number">2.</span>转码服务：通过URL地址把原地址的网页内容调优使其适合手机屏幕浏览</span><br><span class="line"><span class="number">3.</span>在线翻译：给网址翻译对应网页的内容</span><br><span class="line"><span class="number">4.</span>图片加载/下载：例如富文本编辑器中的点击下载图片到本地；通过URL地址加载或下载图片</span><br><span class="line"><span class="number">5.</span>图片/文章收藏功能：主要其会取URL地址中title以及文本的内容作为显示以求一个好的用具体验</span><br><span class="line"><span class="number">6.</span>云服务厂商：它会远程执行一些命令来判断网站是否存活等，所以如果可以捕获相应的信息，就可以进行ssrf测试</span><br><span class="line"><span class="number">7.</span>网站采集，网站抓取的地方：一些网站会针对你输入的url进行一些信息采集工作</span><br><span class="line"><span class="number">8.</span>数据库内置功能：数据库的比如mongodb的copyDatabase函数</span><br><span class="line"><span class="number">9.</span>邮件系统：比如接收邮件服务器地址</span><br><span class="line"><span class="number">10.</span>编码处理, 属性信息处理，文件处理：比如ffpmg，ImageMagick，docx，pdf，<span class="type">xml</span>处理器等</span><br><span class="line"><span class="number">11.</span>未公开的api实现以及其他扩展调用URL的功能：可以利用google 语法加上这些关键字去寻找SSRF漏洞 一些的url中的关键字：<span class="keyword">share</span>、wap、url、link、src、source、target、u、<span class="number">3</span>g、display、sourceURl、imageURL、<span class="keyword">domain</span>……</span><br><span class="line"><span class="number">12.</span>从远程服务器请求资源（upload <span class="keyword">from</span> url 如discuz！；<span class="keyword">import</span> &amp; expost rss feed 如web blog；使用了<span class="type">xml</span>引擎对象的地方 如wordpress xmlrpc.php）</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞验证"><a href="#漏洞验证" class="headerlink" title="漏洞验证"></a>漏洞验证</h2><figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">1.让服务端去访问相应的网址</span><br><span class="line">2.让服务端去访问自己所处内网的一些指纹文件来判断是否存在相应的cms</span><br><span class="line">3.可以使用<span class="meta">file</span>、dict、gopher[11]、ftp协议进行请求访问相应的文件</span><br><span class="line">4.攻击内网web应用（可以向内部任意主机的任意端口发送精心构造的数据包&#123;payload&#125;）</span><br><span class="line">5.攻击内网应用程序（利用跨协议通信技术）</span><br><span class="line">6.判断内网主机是否存活：方法是访问看是否有端口开放</span><br><span class="line">7.DoS攻击（请求大文件，始终保持连接<span class="meta">keep</span>-alive always）</span><br></pre></td></tr></table></figure>
-
-<h2 id="限制绕过"><a href="#限制绕过" class="headerlink" title="限制绕过"></a>限制绕过</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>.http:<span class="regexp">//</span>baidu.com@www.baidu.com<span class="regexp">/与http:/</span><span class="regexp">/www.baidu.com/</span>请求时是相同的</span><br><span class="line"><span class="number">2</span>.各种IP地址的进制转换</span><br><span class="line"><span class="number">3</span>.URL跳转绕过：http:<span class="regexp">//</span>www.hackersb.cn<span class="regexp">/redirect.php?url=http:/</span><span class="regexp">/192.168.0.1/</span></span><br><span class="line"><span class="number">4</span>.短网址绕过http:<span class="regexp">//</span>t.cn/RwbLKDx </span><br><span class="line"><span class="number">5</span>.xip.io来绕过：http:<span class="regexp">//</span>xxx.<span class="number">192.168</span>.<span class="number">0.1</span>.xip.io/== <span class="number">192.168</span>.<span class="number">0.1</span> (xxx 任意） 指向任意ip的域名：xip.io(<span class="number">37</span>signals开发实现的定制DNS服务)</span><br><span class="line"><span class="number">6</span>.限制了子网段，可以加 :<span class="number">80</span> 端口绕过。http:<span class="regexp">//</span>tieba.baidu.com<span class="regexp">/f/</span>commit<span class="regexp">/share/</span>openShareApi?url=http:<span class="regexp">//</span><span class="number">10.42</span>.<span class="number">7.78</span>:<span class="number">80</span></span><br><span class="line"><span class="number">7</span>.探测内网域名，或者将自己的域名解析到内网ip</span><br><span class="line"><span class="number">8</span>.例如http:<span class="regexp">//</span><span class="number">10.153</span>.<span class="number">138.81</span><span class="regexp">/ts.php, 修复时容易出现的获取host时以/</span>分割来确定host， 但这样可以用http:<span class="regexp">//</span>abc@<span class="number">10.153</span>.<span class="number">138.81</span>/绕过</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h2><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">1</span>	过滤内网服务器对公网服务器请求的响应。如果Web应用是获取某一类型的文件，在把返回结果展示给用户之前应先验证返回的信息是否符合文件类型标准，比如返回信息应为图片，如果返回信息是HTML，则停止将返回信息返回客户端。</span><br><span class="line"><span class="attribute">2</span>	统一错误提示信息，避免用户可以根据错误信息来判断远端服务器的端口状态。</span><br><span class="line"><span class="attribute">3</span>	在内网服务器的防火墙上限制公网服务器的请求端口为HTTP等协议常用端口，如：<span class="number">80</span>、<span class="number">443</span>、<span class="number">8080</span>、<span class="number">8090</span>。</span><br><span class="line"><span class="attribute">4</span>	若公网服务器的内网IP与内网无业务通信，建议将公网服务器对应的内网IP列入黑名单，避免应用被用来获取内网数据。</span><br><span class="line"><span class="attribute">5</span>	内网服务器禁用不必要的协议，仅允许HTTP和HTTPS请求，防止类似于file:///、gopher://、ftp:// 等协议引起的安全问题。</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>TaoCMS存在代码执行漏洞</title>
     <url>/2022/03/08/TaoCMS%E5%AD%98%E5%9C%A8%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/</url>
     <content><![CDATA[<h1 id="一、漏洞介绍"><a href="#一、漏洞介绍" class="headerlink" title="一、漏洞介绍"></a>一、漏洞介绍</h1><p>TaoCMS是基于php+sqlite/mysql的国内最小(100Kb左右)的功能完善的CMS管理系统taoCMS-基于php+sqlite最小巧的CMS，TaoCMS系统存在代码执行漏洞，可以执行任意php文件。</p>
@@ -409,6 +389,26 @@
       <tags>
         <tag>学习笔记</tag>
         <tag>PHP代码审计</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SSRF服务器端请求伪造</title>
+    <url>/2022/03/08/SSRF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>SSRF服务器端请求伪造是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。<span id="more"></span>（正是因为 它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）SSRF 形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。比如从指定URL地址获取网页文本内容，加载指定地址的图片，下载等等。 注释：除了http/https等方式可以造成ssrf，类似tcp connect 方式也可以探测内网一些ip 的端口是否开发服务，只不过危害比较小而已。</p>
+<h2 id="可实现攻击"><a href="#可实现攻击" class="headerlink" title="可实现攻击"></a>可实现攻击</h2><figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>	可以对服务器所在内网、本地进行端口扫描，获取一些服务的banner信息<span class="comment">;</span></span><br><span class="line"><span class="number">2</span>	攻击运行在内网或本地的应用程序（比如溢出）<span class="comment">;</span></span><br><span class="line"><span class="number">3</span>	对内网web应用进行指纹识别，通过访问默认文件实现<span class="comment">;</span></span><br><span class="line"><span class="number">4</span>	攻击内外网的web应用，主要是使用get参数就可以实现的攻击（比如struts2，sqli等）<span class="comment">;</span></span><br><span class="line"><span class="number">5</span>	利用file协议读取本地文件等。</span><br></pre></td></tr></table></figure>
+
+<h2 id="可能出现的地方"><a href="#可能出现的地方" class="headerlink" title="可能出现的地方"></a>可能出现的地方</h2><figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>社交分享功能：获取超链接的标题等内容进行显示</span><br><span class="line"><span class="number">2.</span>转码服务：通过URL地址把原地址的网页内容调优使其适合手机屏幕浏览</span><br><span class="line"><span class="number">3.</span>在线翻译：给网址翻译对应网页的内容</span><br><span class="line"><span class="number">4.</span>图片加载/下载：例如富文本编辑器中的点击下载图片到本地；通过URL地址加载或下载图片</span><br><span class="line"><span class="number">5.</span>图片/文章收藏功能：主要其会取URL地址中title以及文本的内容作为显示以求一个好的用具体验</span><br><span class="line"><span class="number">6.</span>云服务厂商：它会远程执行一些命令来判断网站是否存活等，所以如果可以捕获相应的信息，就可以进行ssrf测试</span><br><span class="line"><span class="number">7.</span>网站采集，网站抓取的地方：一些网站会针对你输入的url进行一些信息采集工作</span><br><span class="line"><span class="number">8.</span>数据库内置功能：数据库的比如mongodb的copyDatabase函数</span><br><span class="line"><span class="number">9.</span>邮件系统：比如接收邮件服务器地址</span><br><span class="line"><span class="number">10.</span>编码处理, 属性信息处理，文件处理：比如ffpmg，ImageMagick，docx，pdf，<span class="type">xml</span>处理器等</span><br><span class="line"><span class="number">11.</span>未公开的api实现以及其他扩展调用URL的功能：可以利用google 语法加上这些关键字去寻找SSRF漏洞 一些的url中的关键字：<span class="keyword">share</span>、wap、url、link、src、source、target、u、<span class="number">3</span>g、display、sourceURl、imageURL、<span class="keyword">domain</span>……</span><br><span class="line"><span class="number">12.</span>从远程服务器请求资源（upload <span class="keyword">from</span> url 如discuz！；<span class="keyword">import</span> &amp; expost rss feed 如web blog；使用了<span class="type">xml</span>引擎对象的地方 如wordpress xmlrpc.php）</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞验证"><a href="#漏洞验证" class="headerlink" title="漏洞验证"></a>漏洞验证</h2><figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">1.让服务端去访问相应的网址</span><br><span class="line">2.让服务端去访问自己所处内网的一些指纹文件来判断是否存在相应的cms</span><br><span class="line">3.可以使用<span class="meta">file</span>、dict、gopher[11]、ftp协议进行请求访问相应的文件</span><br><span class="line">4.攻击内网web应用（可以向内部任意主机的任意端口发送精心构造的数据包&#123;payload&#125;）</span><br><span class="line">5.攻击内网应用程序（利用跨协议通信技术）</span><br><span class="line">6.判断内网主机是否存活：方法是访问看是否有端口开放</span><br><span class="line">7.DoS攻击（请求大文件，始终保持连接<span class="meta">keep</span>-alive always）</span><br></pre></td></tr></table></figure>
+
+<h2 id="限制绕过"><a href="#限制绕过" class="headerlink" title="限制绕过"></a>限制绕过</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>.http:<span class="regexp">//</span>baidu.com@www.baidu.com<span class="regexp">/与http:/</span><span class="regexp">/www.baidu.com/</span>请求时是相同的</span><br><span class="line"><span class="number">2</span>.各种IP地址的进制转换</span><br><span class="line"><span class="number">3</span>.URL跳转绕过：http:<span class="regexp">//</span>www.hackersb.cn<span class="regexp">/redirect.php?url=http:/</span><span class="regexp">/192.168.0.1/</span></span><br><span class="line"><span class="number">4</span>.短网址绕过http:<span class="regexp">//</span>t.cn/RwbLKDx </span><br><span class="line"><span class="number">5</span>.xip.io来绕过：http:<span class="regexp">//</span>xxx.<span class="number">192.168</span>.<span class="number">0.1</span>.xip.io/== <span class="number">192.168</span>.<span class="number">0.1</span> (xxx 任意） 指向任意ip的域名：xip.io(<span class="number">37</span>signals开发实现的定制DNS服务)</span><br><span class="line"><span class="number">6</span>.限制了子网段，可以加 :<span class="number">80</span> 端口绕过。http:<span class="regexp">//</span>tieba.baidu.com<span class="regexp">/f/</span>commit<span class="regexp">/share/</span>openShareApi?url=http:<span class="regexp">//</span><span class="number">10.42</span>.<span class="number">7.78</span>:<span class="number">80</span></span><br><span class="line"><span class="number">7</span>.探测内网域名，或者将自己的域名解析到内网ip</span><br><span class="line"><span class="number">8</span>.例如http:<span class="regexp">//</span><span class="number">10.153</span>.<span class="number">138.81</span><span class="regexp">/ts.php, 修复时容易出现的获取host时以/</span>分割来确定host， 但这样可以用http:<span class="regexp">//</span>abc@<span class="number">10.153</span>.<span class="number">138.81</span>/绕过</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h2><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">1</span>	过滤内网服务器对公网服务器请求的响应。如果Web应用是获取某一类型的文件，在把返回结果展示给用户之前应先验证返回的信息是否符合文件类型标准，比如返回信息应为图片，如果返回信息是HTML，则停止将返回信息返回客户端。</span><br><span class="line"><span class="attribute">2</span>	统一错误提示信息，避免用户可以根据错误信息来判断远端服务器的端口状态。</span><br><span class="line"><span class="attribute">3</span>	在内网服务器的防火墙上限制公网服务器的请求端口为HTTP等协议常用端口，如：<span class="number">80</span>、<span class="number">443</span>、<span class="number">8080</span>、<span class="number">8090</span>。</span><br><span class="line"><span class="attribute">4</span>	若公网服务器的内网IP与内网无业务通信，建议将公网服务器对应的内网IP列入黑名单，避免应用被用来获取内网数据。</span><br><span class="line"><span class="attribute">5</span>	内网服务器禁用不必要的协议，仅允许HTTP和HTTPS请求，防止类似于file:///、gopher://、ftp:// 等协议引起的安全问题。</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -573,6 +573,50 @@
       </tags>
   </entry>
   <entry>
+    <title>word文档批量处理脚本</title>
+    <url>/2022/05/13/word%E6%96%87%E6%A1%A3%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>公司让去客户现场了，去了那边的工作不是很难，但是很繁琐，特别是word的文档处理这块，经常要处理几十个文档就很烦，挣扎了下还是打算写个脚本来批量处理这些事情，总不能因为这些事情耽误了自己进步（摸鱼）吧？由于之前没接触过py在word文档处理这块的东西，所以还是踩了一些坑的，写一下，后续有用到可以避避坑。</p>
+<span id="more"></span>
+<h1 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h1><p>老样子，一开始还是先思考下，如果正常操作，我们会如何操作，然后根据这些操作去构思我们的路线，所有的方便都不会是直接来的，不是一两个函数就能解决的事情，就好像3D打印，你没构图，3D打印也没办法打出你想要的东西出来，所以一开始我构思了三条路线：</p>
+<p>一：直接定位里面的内容，然后删除，插入自己想要的；</p>
+<p>二：把我想要的内容独立做成一个文档，然后定位内容，把老的删除，删除之后粘贴新的；</p>
+<p>三：将原文档的内容进行切块，然后再把自己想要的内容独立成一些文档，然后再把每个文档进行拼接，得到新的文档；</p>
+<p>其实还有其他的思路，但是有点太过繁琐，后面我在实现的过程中发现实际上不需要那么复杂，是自己想太多了，后面会谈到，那么先说下第一个思路，简单易懂对吧，但是具体实现起来，发现删除了之后，我重新写进去的数据，会丢失之前的格式，而py的docx对于格式方面虽然说可以赋予格式，但是没办法跟真正的word一样去设置每一部分的格式，而且有一些是不存在的，所以这块就十分的麻烦，如果你的文档不存在格式的问题，就简简单单的文字，那完全可以根据这个思路去做，而且很方便。第二个思路的话，有个很重要的点就是，定位可以定位，但是粘贴新的内容的时候，他会跟在文档末尾，也就是说，如果你想要粘贴的在文档中间，那没办法去直接粘贴到指定位置（PS：没怎么接触这个，我就只是为了实现这个东西，才去看了下，如果有话，是小弟太菜了），第三个思路的话，乍一看似乎可以得到我们想要的东西，但是如果文件量多起来的话，问题在于怎么去做到准确切割自己想要的东西。</p>
+<h1 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h1><p>多说无益，动手才知道坑在哪，如果要批量转化word的话，那么第一步肯定是先拿到我们文件夹里面的文件，然后再轮询，这个可以先不管，先试试能不能修改word里面的内容，ok，这里经过一系列的百度之后，我发现了python的一个很神奇的库—python-docx，用于创建可修改微软Word的一个python库，提供全套的 Word操作，是最常用的Word工具，而且能保留我们原有的格式，那这不是直接起飞？？？</p>
+<p>在开始使用之前，先说下关于word的一些概念：</p>
+<ul>
+<li><code>Document</code>：是一个 Word 文档 对象，不同于 VBA 中 Worksheet 的概念，Document 是独立的，打开不同的 Word 文档，就会有不同的 Document 对象，相互之间没有影响</li>
+<li><code>Paragraph</code>：是段落，一个 Word 文档由多个段落组成，当在文档中输入一个回车键，就会成为新的段落，输入 shift + 回车，不会分段</li>
+<li><code>Run</code> 表示一个节段，每个段落由多个 节段 组成，一个段落中具有相同样式的连续文本，组成一个节段，所以一个 段落 对象有个 Run 列表</li>
+</ul>
+<p>也就是说word 文档内容的结构是这样划分的：</p>
+<p><img src="https://ax-x.github.io/2022/05/13/word%E6%96%87%E6%A1%A3%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC/1.png" alt="1"></p>
+<p>第二个 段落（paragraph），没有内容，所以 节段（run）为空，了解到这，也基本上知道如何去定位我们想要的数据了，先轮询paragraph，然后在这个paragraph里面去轮询run，从而拿到我们的要的数据，说干就干，直接上，就拿上面的概念为文本，我们写个代码块去遍历这些段落，然后输出出来</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> docx <span class="keyword">import</span> Document</span><br><span class="line"></span><br><span class="line">tpl_doc=<span class="string">&#x27;title.docx&#x27;</span></span><br><span class="line">doc = Document(tpl_doc)</span><br><span class="line"><span class="keyword">for</span> paragraph <span class="keyword">in</span> doc.paragraphs:</span><br><span class="line">    <span class="built_in">print</span>(paragraph.text)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果是这样的：</p>
+<p><img src="https://ax-x.github.io/2022/05/13/word%E6%96%87%E6%A1%A3%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC/image-20220513091808872-16524046932521.png" alt="image-20220513091808872"></p>
+<p>这就是每一段的内容，再遍历每一段里面的run块出来</p>
+<p><img src="https://ax-x.github.io/2022/05/13/word%E6%96%87%E6%A1%A3%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC/image-20220513094744241-16524064658883.png" alt="image-20220513094744241"></p>
+<p>可以看到run的区分不是根据词语的，而是根据写入的时间节点，如果时间节点不一样，那么run的内容就不一样，同一段文字，可能写入的时间节点不一致，遍历run的时候结果也不一样，这点暂时没办法解决，目前能想到的就是遍历的时候组合文字，当匹配出自己想要的文之后再进行替换。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">params = &#123;</span><br><span class="line">       <span class="string">&quot;原文RUN-A&quot;</span>: <span class="string">&quot;替换的文字&quot;</span>,</span><br><span class="line">       <span class="string">&quot;原文RUN-B&quot;</span>: <span class="string">&quot;替换的文字&quot;</span>,</span><br><span class="line">       <span class="string">&quot;原文RUN-C&quot;</span>: <span class="string">&quot;替换的文字&quot;</span>,</span><br><span class="line">       <span class="string">&quot;原文RUN-D&quot;</span>: <span class="string">&quot;替换的文字&quot;</span>,</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">for</span> paragraph <span class="keyword">in</span> doc.paragraphs:</span><br><span class="line">       <span class="keyword">for</span> param <span class="keyword">in</span> params:</span><br><span class="line">           pv = <span class="built_in">str</span>(params[param])</span><br><span class="line">           ph = <span class="string">f&#x27;<span class="subst">&#123;param&#125;</span>&#x27;</span></span><br><span class="line">           <span class="keyword">if</span> ph <span class="keyword">in</span> paragraph.text:</span><br><span class="line">               <span class="keyword">for</span> run <span class="keyword">in</span> paragraph.runs:</span><br><span class="line">                   <span class="keyword">if</span> ph <span class="keyword">in</span> run.text:</span><br><span class="line">                       run.text = run.text.replace(ph, pv)</span><br><span class="line">                       run.italic = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<p>这些能有效处理开头和中间的文字，而且这种方式替换的话，不会去掉文章原有的格式，而如果有需要替换大量的文字段落在文章末的时候，可以将文末需要替换的文字删除，需要删除空行，普通的clean命令只是将内容删除，而不会去除换行，所以删除之后会存在空行的情况 ，这时候如果复制另外一个文档的内容接入到文末的话，他会接在空行后面，所以需要删除空行。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> paragraph <span class="keyword">in</span> doc.paragraphs:</span><br><span class="line">    <span class="keyword">if</span>(paragraph.text==<span class="string">&quot;段落内容&quot;</span>):</span><br><span class="line">        p = paragraph._element</span><br><span class="line">        p.getparent().remove(p)</span><br><span class="line">        p._p = p._element = <span class="literal">None</span></span><br><span class="line"><span class="comment">#这部分是遍历段落，将文末需要替换的段落进行删除去除空行，方便后续将另一个文件的内容复制进来</span></span><br></pre></td></tr></table></figure>
+
+<p>这里有一点就是，把其他文档里面的内容合并到这个文档的时候，其他文档里面的文字内容格式是不会变的，这也跟我们最初的想法一致，保留原有的格式，所以可以直接使用</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">bottom_title = <span class="string">&#x27;bottom.docx&#x27;</span></span><br><span class="line">bottom_document = Document(bottom_title)</span><br><span class="line">master = Document(<span class="string">&#x27;old_docx.docx&#x27;</span>)</span><br><span class="line">middle_new_docx = Composer(master)</span><br><span class="line">middle_new_docx.append(bottom_document)</span><br><span class="line">filename = old_docx.docx</span><br><span class="line"><span class="built_in">print</span>(filename)</span><br><span class="line">middle_new_docx.save(filename)</span><br></pre></td></tr></table></figure>
+
+<p>到这基本需要替换的就能够替换掉，并且保留文档格式了，但是有一点就是，去除空行不能够遍历全文，最好就是先定位到位置，再增加判断条件，不然容易将图片内容删除，因为当你遍历段落的时候，图片独占一行的时候该段落是空的，所以会将图片给删除掉，可以额外加一个判断，当存在图片的时候，该段落的run值是为0，而不存在图片单纯一个空行的时候，run是不存在任何值的。</p>
+]]></content>
+      <categories>
+        <category>安全开发</category>
+      </categories>
+      <tags>
+        <tag>自动化脚本</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>不出网主机的几种上线方式</title>
     <url>/2022/05/31/%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA%E7%9A%84%E5%87%A0%E7%A7%8D%E4%B8%8A%E7%BA%BF%E6%96%B9%E5%BC%8F/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>拿到一台边缘机器后，内网的机器很有可能大多数都不出网，这时又想上线cs方便后续操作。本文就如何上线不出网主机的方式进行了总结。</p>
@@ -689,50 +733,6 @@
       </tags>
   </entry>
   <entry>
-    <title>word文档批量处理脚本</title>
-    <url>/2022/05/13/word%E6%96%87%E6%A1%A3%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>公司让去客户现场了，去了那边的工作不是很难，但是很繁琐，特别是word的文档处理这块，经常要处理几十个文档就很烦，挣扎了下还是打算写个脚本来批量处理这些事情，总不能因为这些事情耽误了自己进步（摸鱼）吧？由于之前没接触过py在word文档处理这块的东西，所以还是踩了一些坑的，写一下，后续有用到可以避避坑。</p>
-<span id="more"></span>
-<h1 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h1><p>老样子，一开始还是先思考下，如果正常操作，我们会如何操作，然后根据这些操作去构思我们的路线，所有的方便都不会是直接来的，不是一两个函数就能解决的事情，就好像3D打印，你没构图，3D打印也没办法打出你想要的东西出来，所以一开始我构思了三条路线：</p>
-<p>一：直接定位里面的内容，然后删除，插入自己想要的；</p>
-<p>二：把我想要的内容独立做成一个文档，然后定位内容，把老的删除，删除之后粘贴新的；</p>
-<p>三：将原文档的内容进行切块，然后再把自己想要的内容独立成一些文档，然后再把每个文档进行拼接，得到新的文档；</p>
-<p>其实还有其他的思路，但是有点太过繁琐，后面我在实现的过程中发现实际上不需要那么复杂，是自己想太多了，后面会谈到，那么先说下第一个思路，简单易懂对吧，但是具体实现起来，发现删除了之后，我重新写进去的数据，会丢失之前的格式，而py的docx对于格式方面虽然说可以赋予格式，但是没办法跟真正的word一样去设置每一部分的格式，而且有一些是不存在的，所以这块就十分的麻烦，如果你的文档不存在格式的问题，就简简单单的文字，那完全可以根据这个思路去做，而且很方便。第二个思路的话，有个很重要的点就是，定位可以定位，但是粘贴新的内容的时候，他会跟在文档末尾，也就是说，如果你想要粘贴的在文档中间，那没办法去直接粘贴到指定位置（PS：没怎么接触这个，我就只是为了实现这个东西，才去看了下，如果有话，是小弟太菜了），第三个思路的话，乍一看似乎可以得到我们想要的东西，但是如果文件量多起来的话，问题在于怎么去做到准确切割自己想要的东西。</p>
-<h1 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h1><p>多说无益，动手才知道坑在哪，如果要批量转化word的话，那么第一步肯定是先拿到我们文件夹里面的文件，然后再轮询，这个可以先不管，先试试能不能修改word里面的内容，ok，这里经过一系列的百度之后，我发现了python的一个很神奇的库—python-docx，用于创建可修改微软Word的一个python库，提供全套的 Word操作，是最常用的Word工具，而且能保留我们原有的格式，那这不是直接起飞？？？</p>
-<p>在开始使用之前，先说下关于word的一些概念：</p>
-<ul>
-<li><code>Document</code>：是一个 Word 文档 对象，不同于 VBA 中 Worksheet 的概念，Document 是独立的，打开不同的 Word 文档，就会有不同的 Document 对象，相互之间没有影响</li>
-<li><code>Paragraph</code>：是段落，一个 Word 文档由多个段落组成，当在文档中输入一个回车键，就会成为新的段落，输入 shift + 回车，不会分段</li>
-<li><code>Run</code> 表示一个节段，每个段落由多个 节段 组成，一个段落中具有相同样式的连续文本，组成一个节段，所以一个 段落 对象有个 Run 列表</li>
-</ul>
-<p>也就是说word 文档内容的结构是这样划分的：</p>
-<p><img src="https://ax-x.github.io/2022/05/13/word%E6%96%87%E6%A1%A3%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC/1.png" alt="1"></p>
-<p>第二个 段落（paragraph），没有内容，所以 节段（run）为空，了解到这，也基本上知道如何去定位我们想要的数据了，先轮询paragraph，然后在这个paragraph里面去轮询run，从而拿到我们的要的数据，说干就干，直接上，就拿上面的概念为文本，我们写个代码块去遍历这些段落，然后输出出来</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> docx <span class="keyword">import</span> Document</span><br><span class="line"></span><br><span class="line">tpl_doc=<span class="string">&#x27;title.docx&#x27;</span></span><br><span class="line">doc = Document(tpl_doc)</span><br><span class="line"><span class="keyword">for</span> paragraph <span class="keyword">in</span> doc.paragraphs:</span><br><span class="line">    <span class="built_in">print</span>(paragraph.text)</span><br></pre></td></tr></table></figure>
-
-<p>输出结果是这样的：</p>
-<p><img src="https://ax-x.github.io/2022/05/13/word%E6%96%87%E6%A1%A3%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC/image-20220513091808872-16524046932521.png" alt="image-20220513091808872"></p>
-<p>这就是每一段的内容，再遍历每一段里面的run块出来</p>
-<p><img src="https://ax-x.github.io/2022/05/13/word%E6%96%87%E6%A1%A3%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC/image-20220513094744241-16524064658883.png" alt="image-20220513094744241"></p>
-<p>可以看到run的区分不是根据词语的，而是根据写入的时间节点，如果时间节点不一样，那么run的内容就不一样，同一段文字，可能写入的时间节点不一致，遍历run的时候结果也不一样，这点暂时没办法解决，目前能想到的就是遍历的时候组合文字，当匹配出自己想要的文之后再进行替换。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">params = &#123;</span><br><span class="line">       <span class="string">&quot;原文RUN-A&quot;</span>: <span class="string">&quot;替换的文字&quot;</span>,</span><br><span class="line">       <span class="string">&quot;原文RUN-B&quot;</span>: <span class="string">&quot;替换的文字&quot;</span>,</span><br><span class="line">       <span class="string">&quot;原文RUN-C&quot;</span>: <span class="string">&quot;替换的文字&quot;</span>,</span><br><span class="line">       <span class="string">&quot;原文RUN-D&quot;</span>: <span class="string">&quot;替换的文字&quot;</span>,</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">for</span> paragraph <span class="keyword">in</span> doc.paragraphs:</span><br><span class="line">       <span class="keyword">for</span> param <span class="keyword">in</span> params:</span><br><span class="line">           pv = <span class="built_in">str</span>(params[param])</span><br><span class="line">           ph = <span class="string">f&#x27;<span class="subst">&#123;param&#125;</span>&#x27;</span></span><br><span class="line">           <span class="keyword">if</span> ph <span class="keyword">in</span> paragraph.text:</span><br><span class="line">               <span class="keyword">for</span> run <span class="keyword">in</span> paragraph.runs:</span><br><span class="line">                   <span class="keyword">if</span> ph <span class="keyword">in</span> run.text:</span><br><span class="line">                       run.text = run.text.replace(ph, pv)</span><br><span class="line">                       run.italic = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
-<p>这些能有效处理开头和中间的文字，而且这种方式替换的话，不会去掉文章原有的格式，而如果有需要替换大量的文字段落在文章末的时候，可以将文末需要替换的文字删除，需要删除空行，普通的clean命令只是将内容删除，而不会去除换行，所以删除之后会存在空行的情况 ，这时候如果复制另外一个文档的内容接入到文末的话，他会接在空行后面，所以需要删除空行。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> paragraph <span class="keyword">in</span> doc.paragraphs:</span><br><span class="line">    <span class="keyword">if</span>(paragraph.text==<span class="string">&quot;段落内容&quot;</span>):</span><br><span class="line">        p = paragraph._element</span><br><span class="line">        p.getparent().remove(p)</span><br><span class="line">        p._p = p._element = <span class="literal">None</span></span><br><span class="line"><span class="comment">#这部分是遍历段落，将文末需要替换的段落进行删除去除空行，方便后续将另一个文件的内容复制进来</span></span><br></pre></td></tr></table></figure>
-
-<p>这里有一点就是，把其他文档里面的内容合并到这个文档的时候，其他文档里面的文字内容格式是不会变的，这也跟我们最初的想法一致，保留原有的格式，所以可以直接使用</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">bottom_title = <span class="string">&#x27;bottom.docx&#x27;</span></span><br><span class="line">bottom_document = Document(bottom_title)</span><br><span class="line">master = Document(<span class="string">&#x27;old_docx.docx&#x27;</span>)</span><br><span class="line">middle_new_docx = Composer(master)</span><br><span class="line">middle_new_docx.append(bottom_document)</span><br><span class="line">filename = old_docx.docx</span><br><span class="line"><span class="built_in">print</span>(filename)</span><br><span class="line">middle_new_docx.save(filename)</span><br></pre></td></tr></table></figure>
-
-<p>到这基本需要替换的就能够替换掉，并且保留文档格式了，但是有一点就是，去除空行不能够遍历全文，最好就是先定位到位置，再增加判断条件，不然容易将图片内容删除，因为当你遍历段落的时候，图片独占一行的时候该段落是空的，所以会将图片给删除掉，可以额外加一个判断，当存在图片的时候，该段落的run值是为0，而不存在图片单纯一个空行的时候，run是不存在任何值的。</p>
-]]></content>
-      <categories>
-        <category>安全开发</category>
-      </categories>
-      <tags>
-        <tag>自动化脚本</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>关于开深信服VPN无法抓包</title>
     <url>/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/</url>
     <content><![CDATA[<p>前些日子大佬叫去搞渗透，得走深信服的VPN，连上之后发现BP抓不了包了，关闭 BurpSuite 单独用浏览器就可以正常访问，还以为是我电脑问题，后面发现下了VPN之后能正常抓包了。</p>
@@ -763,6 +763,29 @@
 
 <h2 id="常见协议"><a href="#常见协议" class="headerlink" title="常见协议"></a>常见协议</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">21 端口（FTP)</span><br><span class="line">    安全漏洞：1、配置不当    2、明文传输    3、第三方软件提权</span><br><span class="line">    利用方式：1、匿名登录或弱口令2、嗅探ftp用户名和密码3、</span><br><span class="line">    Serv-U权限较大的账号可导致系统命令执行。</span><br><span class="line">    FTP提权命令：  # 增加系统用户   Quote site exec net user 4567 4567 /add  # 提升到管理员权限   Quote site exec net localgroup administrators 4567 /add</span><br><span class="line"></span><br><span class="line">25 端口（SMTP）</span><br><span class="line">    攻击方式：1、匿名发送邮件 2、弱口令 3、SMTP用户枚举</span><br><span class="line">    利用方式：1、SMTP服务器配置不当，攻击者可以使用任意用户发送邮件。2、SMTP弱口令扫描，获取用户账号密码，发送邮件钓鱼。3、通过SMTP用户枚举获取用户名：   nmap -p 25 -- smtp-enum-users.nse &lt;target&gt;</span><br><span class="line"></span><br><span class="line">53 端口（DNS）</span><br><span class="line">    安全攻击：1、DNS域传送漏洞、DNS欺骗、DNS缓存投毒</span><br><span class="line">    检测方式：1、DNS域传送漏洞，Windows下检测使用nslookup命令，Linux下检测使用dig命令，通过执行命令可以清楚的看到域名解析情况。2、DNS欺骗就是攻击者冒充域名服务器的一种欺骗行为。3、DNS缓存投毒是攻击者欺骗DNS服务器相信伪造的DNS响应的真实性。</span><br><span class="line"></span><br><span class="line">161 端口（SNMP）</span><br><span class="line">    安全漏洞：默认团体名/弱口令访问</span><br><span class="line">    利用方式：通过nmap自带的审计脚本进行检测，可能导致敏感信息泄露。。1、弱口令检测：nmap –sU –p161 –script=snmp-brute &lt;target&gt;2、获取系统信息：nmap –sU –p161 –script=snmp-sysdescr &lt;target&gt;3、获取用户信息：nmap -sU -p161 --script=snmp-win32-user &lt;target&gt;4、获取网络端口状态：nmap -sU -p161 --script=snmp-netstat &lt;target&gt;</span><br><span class="line"></span><br><span class="line">443 端口（SSL）</span><br><span class="line">    安全漏洞：OpenSSL 心脏出血</span><br><span class="line">    利用方式：攻击者可以远程读取存在漏洞版本的openssl服务器内存中长大64K的数据。</span><br><span class="line">    扫描脚本：nmap -sV --script=ssl-heartbleed &lt;target&gt;</span><br><span class="line"></span><br><span class="line">445 端口（SMB）</span><br><span class="line">    安全漏洞：信息泄露、远程代码执行</span><br><span class="line">    利用方式：可利用共享获取敏感信息、缓冲区溢出导致远程代码执行，如ms17010。</span><br><span class="line"></span><br><span class="line">873 端口（Rsync）</span><br><span class="line">    安全漏洞：匿名访问、弱口令</span><br><span class="line">    利用方式：攻击者可以执行下载/上传等操作，也可以尝试上传webshell。</span><br><span class="line">    1、下载：#rsync -avz a.b.c.d::path/file path/filiname  </span><br><span class="line">    2、上传：#rsync -avz path/filename a.b.c.d::path/file</span><br><span class="line"></span><br><span class="line">2181 端口（Zookeeper）</span><br><span class="line">    安全漏洞：未授权访问</span><br><span class="line">    检测方式：攻击者可通过执行envi命令获得系统大量的敏感信息，包括系统名称、Java环境。 echo envi | nc ip port</span><br><span class="line"></span><br><span class="line">2375 端口（Docker）</span><br><span class="line">    安全漏洞：未授权方式</span><br><span class="line">    检测方式：通过docker daemon api 执行docker命令。#列出容器信息，效果与docker ps -a 一致。 curl http://&lt;target&gt;:2375/containers/json docker -H tcp://&lt;target&gt;:2375 start &lt;Container Id&gt;  docker服务如果是以root用户启动的话，可以利用chroot将服务器的根目录挂在到容器里面，实现docker容器逃逸</span><br></pre></td></tr></table></figure>
 ]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>常规绕WAF思路</title>
+    <url>/2022/03/08/%E5%B8%B8%E8%A7%84%E7%BB%95WAF%E6%80%9D%E8%B7%AF/</url>
+    <content><![CDATA[<h2 id="1、错误的HTTP请求头"><a href="#1、错误的HTTP请求头" class="headerlink" title="1、错误的HTTP请求头"></a>1、错误的HTTP请求头</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">类似文件上传时的绕过，通过畸形的HTTP协议头绕过WAF检测。比如绕过某些老版本WAF可以加入请求头：<span class="attribute">Content</span>-Encoding:deflate就可以绕过WAF（此方法在文件上传绕过WAF中也适用）</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h2 id="2、通用的关键字绕过"><a href="#2、通用的关键字绕过" class="headerlink" title="2、通用的关键字绕过"></a>2、通用的关键字绕过</h2><figure class="highlight autoit"><table><tr><td class="code"><pre><span class="line">将关键字转换成Unicode或者<span class="built_in">HEX</span>编码的方式，JAVA程序会自动进行解码，所以在一定程度上能够绕过WAF</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、使用未公开的漏洞利用链"><a href="#3、使用未公开的漏洞利用链" class="headerlink" title="3、使用未公开的漏洞利用链"></a>3、使用未公开的漏洞利用链</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">部分WAF会将公开的漏洞利用链中的关键字设置为黑名单，所以重新找一条利用链吧，自己的才是最香的</span><br></pre></td></tr></table></figure>
+
+<h2 id="4、数据溢出-防匹配（xxx…）"><a href="#4、数据溢出-防匹配（xxx…）" class="headerlink" title="4、数据溢出-防匹配（xxx…）"></a>4、数据溢出-防匹配（xxx…）</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">借助常见的溢出漏洞，在数据特别多的情况下例如：构造垃圾数据，让防护的检测负载不过来在某个地方停止，从而达到绕过的目的例如在数据包内（文件名等可修改的区域）处构造大量垃圾数据，但是有可能会导致服务器崩溃，从而无法接下去进行操作</span><br></pre></td></tr></table></figure>
+
+<h2 id="5、符号变异-防匹配（’”-）"><a href="#5、符号变异-防匹配（’”-）" class="headerlink" title="5、符号变异-防匹配（’”;）"></a>5、符号变异-防匹配（’”;）</h2><figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">利用匹配的原则，猜测waf是根据在单引号或者双引号里面的数据去匹配文件名信息的，那么可以利用这个规则，将引号替换掉，尝试绕过，有可能它只检测单引号或者只检测双引号，也可尝试去掉一个引号，有开始就有结束，当去掉一个之后就可能被检测出来，或者没检测出来，或者什么都没发生这样，也可尝试将引号全部去除，而分号是利用分号后面还有数据的形式，在后面添加垃圾数据去尝试绕过</span><span class="string">,</span><span class="comment">或者构造文件名或者在引号后面写文件名，而引号内部不去写数据，或者单纯写一个a这样的数据尝试绕过</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="6、重复数据-防匹配（参数多次）"><a href="#6、重复数据-防匹配（参数多次）" class="headerlink" title="6、重复数据-防匹配（参数多次）"></a>6、重复数据-防匹配（参数多次）</h2><figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">例如：构造多个<span class="meta">filename</span>，然后查看waf最后是以哪个为主，然后构造多个<span class="meta">filename</span>，借助检测机制是递归循环，还是单次检测，类似于构造垃圾数据那样也可尝试将Content-Disposition这些的数据插入到<span class="meta">filename</span>里面去，然后后面构造php文件（利用白名单）</span><br></pre></td></tr></table></figure>
+
+<h2 id="7、数据截断-防匹配（-00-换行）"><a href="#7、数据截断-防匹配（-00-换行）" class="headerlink" title="7、数据截断-防匹配（%00;/;换行）"></a>7、数据截断-防匹配（%00;/;换行）</h2>]]></content>
       <categories>
         <category>web安全</category>
       </categories>
@@ -815,29 +838,6 @@
 ]]></content>
       <categories>
         <category>反编译</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>常规绕WAF思路</title>
-    <url>/2022/03/08/%E5%B8%B8%E8%A7%84%E7%BB%95WAF%E6%80%9D%E8%B7%AF/</url>
-    <content><![CDATA[<h2 id="1、错误的HTTP请求头"><a href="#1、错误的HTTP请求头" class="headerlink" title="1、错误的HTTP请求头"></a>1、错误的HTTP请求头</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">类似文件上传时的绕过，通过畸形的HTTP协议头绕过WAF检测。比如绕过某些老版本WAF可以加入请求头：<span class="attribute">Content</span>-Encoding:deflate就可以绕过WAF（此方法在文件上传绕过WAF中也适用）</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<h2 id="2、通用的关键字绕过"><a href="#2、通用的关键字绕过" class="headerlink" title="2、通用的关键字绕过"></a>2、通用的关键字绕过</h2><figure class="highlight autoit"><table><tr><td class="code"><pre><span class="line">将关键字转换成Unicode或者<span class="built_in">HEX</span>编码的方式，JAVA程序会自动进行解码，所以在一定程度上能够绕过WAF</span><br></pre></td></tr></table></figure>
-
-<h2 id="3、使用未公开的漏洞利用链"><a href="#3、使用未公开的漏洞利用链" class="headerlink" title="3、使用未公开的漏洞利用链"></a>3、使用未公开的漏洞利用链</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">部分WAF会将公开的漏洞利用链中的关键字设置为黑名单，所以重新找一条利用链吧，自己的才是最香的</span><br></pre></td></tr></table></figure>
-
-<h2 id="4、数据溢出-防匹配（xxx…）"><a href="#4、数据溢出-防匹配（xxx…）" class="headerlink" title="4、数据溢出-防匹配（xxx…）"></a>4、数据溢出-防匹配（xxx…）</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">借助常见的溢出漏洞，在数据特别多的情况下例如：构造垃圾数据，让防护的检测负载不过来在某个地方停止，从而达到绕过的目的例如在数据包内（文件名等可修改的区域）处构造大量垃圾数据，但是有可能会导致服务器崩溃，从而无法接下去进行操作</span><br></pre></td></tr></table></figure>
-
-<h2 id="5、符号变异-防匹配（’”-）"><a href="#5、符号变异-防匹配（’”-）" class="headerlink" title="5、符号变异-防匹配（’”;）"></a>5、符号变异-防匹配（’”;）</h2><figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">利用匹配的原则，猜测waf是根据在单引号或者双引号里面的数据去匹配文件名信息的，那么可以利用这个规则，将引号替换掉，尝试绕过，有可能它只检测单引号或者只检测双引号，也可尝试去掉一个引号，有开始就有结束，当去掉一个之后就可能被检测出来，或者没检测出来，或者什么都没发生这样，也可尝试将引号全部去除，而分号是利用分号后面还有数据的形式，在后面添加垃圾数据去尝试绕过</span><span class="string">,</span><span class="comment">或者构造文件名或者在引号后面写文件名，而引号内部不去写数据，或者单纯写一个a这样的数据尝试绕过</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="6、重复数据-防匹配（参数多次）"><a href="#6、重复数据-防匹配（参数多次）" class="headerlink" title="6、重复数据-防匹配（参数多次）"></a>6、重复数据-防匹配（参数多次）</h2><figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">例如：构造多个<span class="meta">filename</span>，然后查看waf最后是以哪个为主，然后构造多个<span class="meta">filename</span>，借助检测机制是递归循环，还是单次检测，类似于构造垃圾数据那样也可尝试将Content-Disposition这些的数据插入到<span class="meta">filename</span>里面去，然后后面构造php文件（利用白名单）</span><br></pre></td></tr></table></figure>
-
-<h2 id="7、数据截断-防匹配（-00-换行）"><a href="#7、数据截断-防匹配（-00-换行）" class="headerlink" title="7、数据截断-防匹配（%00;/;换行）"></a>7、数据截断-防匹配（%00;/;换行）</h2>]]></content>
-      <categories>
-        <category>web安全</category>
       </categories>
       <tags>
         <tag>学习笔记</tag>
@@ -1008,87 +1008,6 @@
       </tags>
   </entry>
   <entry>
-    <title>记一次windows应急响应</title>
-    <url>/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/</url>
-    <content><![CDATA[<h1 id="1、背景"><a href="#1、背景" class="headerlink" title="1、背景"></a>1、背景</h1><p>大好假期，人在家中躺，应急天上来，上了机子之后过程还算是比较顺利的，环境是Tomcat，大致思路就是，排查可疑用户和文件，看日志，连接情况，进程，定时任务，注册表这些。</p>
-<span id="more"></span>
-<h1 id="2、排查可疑用户和文件"><a href="#2、排查可疑用户和文件" class="headerlink" title="2、排查可疑用户和文件"></a>2、排查可疑用户和文件</h1><p>先排查下有没有隐藏的用户</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404011544732.png" alt="image-20220404011544732"></p>
-<p>用了net user和net user localgroup administrators都没办法看到，但是还是有可能存在隐藏用户，隐藏用户有三种方式：</p>
-<table>
-<thead>
-<tr>
-<th>方式</th>
-<th>特定</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>命令添加</td>
-<td>net user没办法查看隐藏用户<br>RDP登录过的，都会生成对应的用户目录<br>系统登录界面可以选择登录用户</td>
-</tr>
-<tr>
-<td>克隆账号</td>
-<td>net user无法查看隐藏用户<br>RDP登录不会生成相应的用户目录<br>系统登录界面选择登录用户，无法查看</td>
-</tr>
-<tr>
-<td>Guest账号利用</td>
-<td>正常都能够查看出来，但是一般会被忽略，隐蔽性相对来说会高点</td>
-</tr>
-</tbody></table>
-<p>建议开个PCHunter看下，一般都能查出来，看出来这边是存在一个test$的隐藏用户，用net user XXX$验证下</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404021642321.png" alt="image-20220404021642321"></p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404022054841.png" alt="image-20220404022054841"></p>
-<p>接着看下有没有可疑的文件在，先排查web的目录，后面再去看看系统有没有被放了CS马啥的，因为是部署的tomcat，一般站点文件都会部署在tomcat\webapps下面，先按照修改时间排序下，发现了两个不像好人的文件，打开代码一看，一个是webshell，一个是代理</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404023530823.png" alt="image-20220404023530823"></p>
-<p>这次是运气好，直接用时间排序查出来的文件，在找webshell和代理的时候，根据日志的访问记录和文件修改时间去查找效果会更好一点，日志能看到攻击者一直在访问那个文件，这样在定位webshell的时候会更加有目标一点，或者使用D盾扫描，也能扫描出webshell。</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404125014083.png" alt="image-20220404125014083"></p>
-<h1 id="3、定位机器失陷时间"><a href="#3、定位机器失陷时间" class="headerlink" title="3、定位机器失陷时间"></a>3、定位机器失陷时间</h1><p>有挺多种方法去定位的，看系统安全日志或者中间件的日志等等，这边我先去看的tomcat的日志，tomcat的日志分五种：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1. 应用日志</span><br><span class="line">该日志主要是记录应用事件的，针对应用级别的排错比较有用，比如应用性能比较慢。</span><br><span class="line">2. 服务器日志</span><br><span class="line">服务器日志和console日志是相同的，不同之处在于，服务器日志是保存在文件中的，可以随时查看。</span><br><span class="line">3. 控制台日志</span><br><span class="line">该日志记录了tomcat的启动和加载器的顺序的详细信息，该日志文件叫做catalina.out。在排查服务器启动、应用的部署错时比较有用。 配置日志是在catalina.sh中配置的。</span><br><span class="line">4. 访问日志</span><br><span class="line">该日志也非常重要，在分析很多应用的流量，带宽需求，及负载时非常有用。该日志是在server.xml中配置的。</span><br><span class="line">5. Host manager</span><br><span class="line">使用Tomcat Manager执行的活动日志，比如不同的任务执行，应用的状态，应用的部署，和tomcat的生命周期，这些配置是在logging.properties.</span><br></pre></td></tr></table></figure>
-
-<p>如果是因为站点有漏洞被传了马上去，可以看下localhost_access_log这个日志，这个是访问tomcat的日志，请求时间和资源，状态码都有记录，在日志量大的情况下可以自己去定义下，筛选文件和状态码，先把200的状态码筛选出来，然后再根据上面定位到的webshell去搜索日志信息。所以我第一时间先去找webshell，就是方便现在去定位大概攻击成功的时间和文件。</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404131319354.png" alt="image-20220404131319354"></p>
-<h1 id="4、计划任务-amp-注册表"><a href="#4、计划任务-amp-注册表" class="headerlink" title="4、计划任务&amp;注册表"></a>4、计划任务&amp;注册表</h1><p>计划任务的查看有很多种方式</p>
-<table>
-<thead>
-<tr>
-<th>方式</th>
-<th>特点</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>at（适用于win2003-win2008）</td>
-<td>包含大量系统计划任务，不容易排查</td>
-</tr>
-<tr>
-<td>schtasks.exe（win2008及其以后系统）</td>
-<td>包含大量系统计划任务，不容易排查</td>
-</tr>
-<tr>
-<td>控制面板-&gt;计划任务</td>
-<td>包含大量系统计划任务，不容易排查</td>
-</tr>
-</tbody></table>
-<p>单独看一个地方的话，会参杂大量的计划任务，干扰检查，最好就是多个搭配起来，配合计划任务的文件去检查，通过查看目录修改日期-&gt;文件修改日期，根据这两个信息，去计划任务程序里面定位，然后再查看具体内容，这就是为什么要去定位攻击成功的时间了，能有效帮助我们去排查计划任务的创建时间。</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404135302797.png" alt="image-20220404135302797"></p>
-<p>打开代码看下，在最下面发现的启动的文件路径</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404135655403.png" alt="image-20220404135655403"></p>
-<p>打开这个EXE，查看代码，在最下面看到了IP，是个阿里云的服务器，丢云沙箱一看，是个CS马。</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404141147090.png" alt="image-20220404141147090"></p>
-<p>当然我这种是比较笨的方式，这种可以直接丢云沙箱上面看下结果或者配合CurrPorts去分析，打开这个exe之后观察变化，或者看CurrPorts的log文件，也能够分析出这个IP，只是习惯先编辑一下，看看里面拿到内容，一般拉到最后面都能看到一些东西，找到CS马之后，去看windows自启动的注册表定位起来也会方便点，重点查看windows的自启动配置的注册表。</p>
-<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404142723461.png" alt="image-20220404142723461"></p>
-<h1 id="5、总结"><a href="#5、总结" class="headerlink" title="5、总结"></a>5、总结</h1><p>这次的检查算是比较简单的，没有特别难找的东西，有一些是直接找出来的，没有啥特别的技巧，多排查几个机子，就有种直觉，感觉有点问题。最后猜测下攻击链：</p>
-<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">爆破Tomcat后台</span><br><span class="line">部署webshell、HTTP隧道代理</span><br><span class="line">上<span class="keyword">CS</span>木马进行权限维持</span><br><span class="line">创建后门管理员权限账号（<span class="keyword">test</span>$）</span><br><span class="line">利用 mimikatz 抓取管理员用户的密码</span><br><span class="line">用管理员账号登录服务器</span><br><span class="line">清除操作痕迹（清空安全日志）</span><br><span class="line">利用计划任务、自启动等进行权限维持</span><br></pre></td></tr></table></figure>
-
-<p>在检查的时候，如果遇到很多数据干扰的话可以配合其他方式或者是时间，文件名，状态码去筛选，可以过滤掉绝大多数的垃圾数据再配合一些工具，D盾，PCHunter之类的能让检查顺利很多。</p>
-]]></content>
-      <categories>
-        <category>应急响应</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>逻辑越权</title>
     <url>/2022/01/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83/</url>
     <content><![CDATA[<h1 id="逻辑漏洞"><a href="#逻辑漏洞" class="headerlink" title="逻辑漏洞"></a><strong>逻辑漏洞</strong></h1><ul>
@@ -1229,6 +1148,87 @@
 ]]></content>
       <categories>
         <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>记一次windows应急响应</title>
+    <url>/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/</url>
+    <content><![CDATA[<h1 id="1、背景"><a href="#1、背景" class="headerlink" title="1、背景"></a>1、背景</h1><p>大好假期，人在家中躺，应急天上来，上了机子之后过程还算是比较顺利的，环境是Tomcat，大致思路就是，排查可疑用户和文件，看日志，连接情况，进程，定时任务，注册表这些。</p>
+<span id="more"></span>
+<h1 id="2、排查可疑用户和文件"><a href="#2、排查可疑用户和文件" class="headerlink" title="2、排查可疑用户和文件"></a>2、排查可疑用户和文件</h1><p>先排查下有没有隐藏的用户</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404011544732.png" alt="image-20220404011544732"></p>
+<p>用了net user和net user localgroup administrators都没办法看到，但是还是有可能存在隐藏用户，隐藏用户有三种方式：</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>特定</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>命令添加</td>
+<td>net user没办法查看隐藏用户<br>RDP登录过的，都会生成对应的用户目录<br>系统登录界面可以选择登录用户</td>
+</tr>
+<tr>
+<td>克隆账号</td>
+<td>net user无法查看隐藏用户<br>RDP登录不会生成相应的用户目录<br>系统登录界面选择登录用户，无法查看</td>
+</tr>
+<tr>
+<td>Guest账号利用</td>
+<td>正常都能够查看出来，但是一般会被忽略，隐蔽性相对来说会高点</td>
+</tr>
+</tbody></table>
+<p>建议开个PCHunter看下，一般都能查出来，看出来这边是存在一个test$的隐藏用户，用net user XXX$验证下</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404021642321.png" alt="image-20220404021642321"></p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404022054841.png" alt="image-20220404022054841"></p>
+<p>接着看下有没有可疑的文件在，先排查web的目录，后面再去看看系统有没有被放了CS马啥的，因为是部署的tomcat，一般站点文件都会部署在tomcat\webapps下面，先按照修改时间排序下，发现了两个不像好人的文件，打开代码一看，一个是webshell，一个是代理</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404023530823.png" alt="image-20220404023530823"></p>
+<p>这次是运气好，直接用时间排序查出来的文件，在找webshell和代理的时候，根据日志的访问记录和文件修改时间去查找效果会更好一点，日志能看到攻击者一直在访问那个文件，这样在定位webshell的时候会更加有目标一点，或者使用D盾扫描，也能扫描出webshell。</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404125014083.png" alt="image-20220404125014083"></p>
+<h1 id="3、定位机器失陷时间"><a href="#3、定位机器失陷时间" class="headerlink" title="3、定位机器失陷时间"></a>3、定位机器失陷时间</h1><p>有挺多种方法去定位的，看系统安全日志或者中间件的日志等等，这边我先去看的tomcat的日志，tomcat的日志分五种：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1. 应用日志</span><br><span class="line">该日志主要是记录应用事件的，针对应用级别的排错比较有用，比如应用性能比较慢。</span><br><span class="line">2. 服务器日志</span><br><span class="line">服务器日志和console日志是相同的，不同之处在于，服务器日志是保存在文件中的，可以随时查看。</span><br><span class="line">3. 控制台日志</span><br><span class="line">该日志记录了tomcat的启动和加载器的顺序的详细信息，该日志文件叫做catalina.out。在排查服务器启动、应用的部署错时比较有用。 配置日志是在catalina.sh中配置的。</span><br><span class="line">4. 访问日志</span><br><span class="line">该日志也非常重要，在分析很多应用的流量，带宽需求，及负载时非常有用。该日志是在server.xml中配置的。</span><br><span class="line">5. Host manager</span><br><span class="line">使用Tomcat Manager执行的活动日志，比如不同的任务执行，应用的状态，应用的部署，和tomcat的生命周期，这些配置是在logging.properties.</span><br></pre></td></tr></table></figure>
+
+<p>如果是因为站点有漏洞被传了马上去，可以看下localhost_access_log这个日志，这个是访问tomcat的日志，请求时间和资源，状态码都有记录，在日志量大的情况下可以自己去定义下，筛选文件和状态码，先把200的状态码筛选出来，然后再根据上面定位到的webshell去搜索日志信息。所以我第一时间先去找webshell，就是方便现在去定位大概攻击成功的时间和文件。</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404131319354.png" alt="image-20220404131319354"></p>
+<h1 id="4、计划任务-amp-注册表"><a href="#4、计划任务-amp-注册表" class="headerlink" title="4、计划任务&amp;注册表"></a>4、计划任务&amp;注册表</h1><p>计划任务的查看有很多种方式</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>at（适用于win2003-win2008）</td>
+<td>包含大量系统计划任务，不容易排查</td>
+</tr>
+<tr>
+<td>schtasks.exe（win2008及其以后系统）</td>
+<td>包含大量系统计划任务，不容易排查</td>
+</tr>
+<tr>
+<td>控制面板-&gt;计划任务</td>
+<td>包含大量系统计划任务，不容易排查</td>
+</tr>
+</tbody></table>
+<p>单独看一个地方的话，会参杂大量的计划任务，干扰检查，最好就是多个搭配起来，配合计划任务的文件去检查，通过查看目录修改日期-&gt;文件修改日期，根据这两个信息，去计划任务程序里面定位，然后再查看具体内容，这就是为什么要去定位攻击成功的时间了，能有效帮助我们去排查计划任务的创建时间。</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404135302797.png" alt="image-20220404135302797"></p>
+<p>打开代码看下，在最下面发现的启动的文件路径</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404135655403.png" alt="image-20220404135655403"></p>
+<p>打开这个EXE，查看代码，在最下面看到了IP，是个阿里云的服务器，丢云沙箱一看，是个CS马。</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404141147090.png" alt="image-20220404141147090"></p>
+<p>当然我这种是比较笨的方式，这种可以直接丢云沙箱上面看下结果或者配合CurrPorts去分析，打开这个exe之后观察变化，或者看CurrPorts的log文件，也能够分析出这个IP，只是习惯先编辑一下，看看里面拿到内容，一般拉到最后面都能看到一些东西，找到CS马之后，去看windows自启动的注册表定位起来也会方便点，重点查看windows的自启动配置的注册表。</p>
+<p><img src="https://ax-x.github.io/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/image-20220404142723461.png" alt="image-20220404142723461"></p>
+<h1 id="5、总结"><a href="#5、总结" class="headerlink" title="5、总结"></a>5、总结</h1><p>这次的检查算是比较简单的，没有特别难找的东西，有一些是直接找出来的，没有啥特别的技巧，多排查几个机子，就有种直觉，感觉有点问题。最后猜测下攻击链：</p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">爆破Tomcat后台</span><br><span class="line">部署webshell、HTTP隧道代理</span><br><span class="line">上<span class="keyword">CS</span>木马进行权限维持</span><br><span class="line">创建后门管理员权限账号（<span class="keyword">test</span>$）</span><br><span class="line">利用 mimikatz 抓取管理员用户的密码</span><br><span class="line">用管理员账号登录服务器</span><br><span class="line">清除操作痕迹（清空安全日志）</span><br><span class="line">利用计划任务、自启动等进行权限维持</span><br></pre></td></tr></table></figure>
+
+<p>在检查的时候，如果遇到很多数据干扰的话可以配合其他方式或者是时间，文件名，状态码去筛选，可以过滤掉绝大多数的垃圾数据再配合一些工具，D盾，PCHunter之类的能让检查顺利很多。</p>
+]]></content>
+      <categories>
+        <category>应急响应</category>
       </categories>
       <tags>
         <tag>学习笔记</tag>
