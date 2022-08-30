@@ -28,32 +28,6 @@
       </tags>
   </entry>
   <entry>
-    <title>RCE漏洞</title>
-    <url>/2022/03/08/RCE%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>RCE漏洞是对命令执行/代码执行类漏洞的统称。这类漏洞因为可以通过网络远程执行命令或代码，可以直接获取一定权限，会造成较严重的影响，因此属于较高危的一类漏洞</p>
-<span id="more"></span>
-
-<h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">由于系统开发时使用了特殊函数，能够将传输进来的数据当作是操作系统命令去执行， 攻击者将注入的语句更改为系统命令作为操作系统命令执行，仅当Web应用程序代码包含操作系统调用并且调用中使用了用户输入时，才可能进行命令攻击。</span><br></pre></td></tr></table></figure>
-
-<h2 id="远程代码执行"><a href="#远程代码执行" class="headerlink" title="远程代码执行"></a>远程代码执行</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">代码注入攻击与命令注入攻击不同。因为需求设计，后台有时候需要把用户的输入作为代码的一部分进行执行,也就造成了代码执行漏洞。</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞检测"><a href="#漏洞检测" class="headerlink" title="漏洞检测"></a>漏洞检测</h2><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">任何外部输入都可以进行验证：文本字段，列表框，单选按钮，复选框，cookie，HTTP头数据，HTTP <span class="built_in">post</span>数据，隐藏字段，参数名称和参数值</span><br></pre></td></tr></table></figure>
-
-<h2 id="敏感函数"><a href="#敏感函数" class="headerlink" title="敏感函数"></a>敏感函数</h2><h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">#命令执行</span></span><br><span class="line">    system()<span class="comment">//执行外部程序，并且显示输出</span></span><br><span class="line">    exec()<span class="comment">//执行一个外部程序</span></span><br><span class="line">    shell_exec()<span class="comment">//通过 shell 环境执行命令，并且将完整的输出以字符串的方式返回</span></span><br><span class="line">    passthru()<span class="comment">//执行外部程序并且显示原始输出</span></span><br><span class="line">    pcntl_exec()<span class="comment">//在当前进程空间执行指定程序</span></span><br><span class="line">    popen()<span class="comment">//打开进程文件指针</span></span><br><span class="line">    proc_open()<span class="comment">//执行一个命令，并且打开用来输入/输出的文件指针</span></span><br><span class="line"><span class="comment">#代码执行</span></span><br><span class="line">    <span class="keyword">eval</span>()<span class="comment">//把字符串作为PHP代码执行</span></span><br><span class="line">    assert()<span class="comment">//检查一个断言是否为 FALSE，可用来执行代码</span></span><br><span class="line">    preg_replace()<span class="comment">//执行一个正则表达式的搜索和替换</span></span><br><span class="line">    call_user_func()<span class="comment">//把第一个参数作为回调函数调用</span></span><br><span class="line">    call_user_func_array()<span class="comment">//调用回调函数，并把一个数组参数作为回调函数的参数</span></span><br><span class="line">    array_map()<span class="comment">//为数组的每个元素应用回调函数</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="JAVA"><a href="#JAVA" class="headerlink" title="JAVA"></a>JAVA</h3><figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">java.lang.<span class="module-access"><span class="module"><span class="identifier">Runtime</span>.</span></span>get<span class="constructor">Runtime(.<span class="params">exec</span>(<span class="params">command</span>)</span>）Java中没有类似php中eval 函数这种直接可以将字符串转化为代码执行的函数，但是有反射机制，并且有各种基于反射机制的表达式引擎，如：OGNL、SpEL、MVEL等，这些都能造成代码执行漏洞。</span><br></pre></td></tr></table></figure>
-
-<h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#命令执行</span></span><br><span class="line">    system()执行系统指令</span><br><span class="line">    popen()popen()方法用于从一个命令打开一个管道</span><br><span class="line">    subprocess.call执行由参数提供的命令</span><br><span class="line">    spawn 执行命令</span><br><span class="line"><span class="comment">#代码执行</span></span><br><span class="line">    <span class="built_in">exec</span>(string)<span class="comment"># Python代码的动态执行</span></span><br><span class="line">    <span class="built_in">eval</span>(string)<span class="comment"># 返回表达式或代码对象的值</span></span><br><span class="line">    execfile(string)<span class="comment"># 从一个文件中读取和执行Python脚本</span></span><br><span class="line">    <span class="built_in">input</span>(string)Python2.x 中 <span class="built_in">input</span>() 相等于 <span class="built_in">eval</span>(raw_input(prompt)) ，用来获取控制台的输入</span><br><span class="line">    <span class="built_in">compile</span>(string)<span class="comment"># 将源字符串编译为可执行对象</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="常见注入（利用）方式"><a href="#常见注入（利用）方式" class="headerlink" title="常见注入（利用）方式"></a>常见注入（利用）方式</h2><figure class="highlight perl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>、<span class="keyword">system</span>(<span class="string">&quot;$arg&quot;</span>);   可控点直接是待执行的程序如果我们能直接控制$arg，那么就能执行执行任意命令了。</span><br><span class="line"><span class="number">2</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog $arg&quot;</span>);<span class="regexp">//</span>可控点是传入程序的整个参数我们能够控制的点是程序的整个参数，我们可以直接用&amp;&amp; || 或 | 等等，利用与、或、管道命令来执行其他命令（可以涉及到很多linux命令行技巧）。</span><br><span class="line"><span class="number">3</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog -p $arg&quot;</span>);<span class="regexp">//</span>可控点是传入程序的某个参数的值（无引号包裹）我们控制的点是一个参数，我们也同样可以利用与、或、管道来执行其他命令，情境与二无异。</span><br><span class="line"><span class="number">4</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog --p=\&quot;$arg\&quot;&quot;</span>);<span class="regexp">//</span>可控点是传入程序的某个参数的值（有双引号包裹）这种情况压力大一点，有双引号包裹。如果引号没有被转义，我们可以先闭合引号，成为第三种情况后按照第三种情况来利用，如果引号被转义（addslashes），我们也不必着急。linux shell 环境下双引号中间的变量也是可以被解析的，我们可以在双引号内利用反引号执行任意命令 id</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SQL注入</title>
     <url>/2022/01/16/SQL%E6%B3%A8%E5%85%A5/</url>
     <content><![CDATA[<h1 id="sql注入是什么？"><a href="#sql注入是什么？" class="headerlink" title="sql注入是什么？"></a>sql注入是什么？</h1><ul>
@@ -305,6 +279,32 @@
 </li>
 </ul>
 ]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RCE漏洞</title>
+    <url>/2022/03/08/RCE%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>RCE漏洞是对命令执行/代码执行类漏洞的统称。这类漏洞因为可以通过网络远程执行命令或代码，可以直接获取一定权限，会造成较严重的影响，因此属于较高危的一类漏洞</p>
+<span id="more"></span>
+
+<h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">由于系统开发时使用了特殊函数，能够将传输进来的数据当作是操作系统命令去执行， 攻击者将注入的语句更改为系统命令作为操作系统命令执行，仅当Web应用程序代码包含操作系统调用并且调用中使用了用户输入时，才可能进行命令攻击。</span><br></pre></td></tr></table></figure>
+
+<h2 id="远程代码执行"><a href="#远程代码执行" class="headerlink" title="远程代码执行"></a>远程代码执行</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">代码注入攻击与命令注入攻击不同。因为需求设计，后台有时候需要把用户的输入作为代码的一部分进行执行,也就造成了代码执行漏洞。</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞检测"><a href="#漏洞检测" class="headerlink" title="漏洞检测"></a>漏洞检测</h2><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">任何外部输入都可以进行验证：文本字段，列表框，单选按钮，复选框，cookie，HTTP头数据，HTTP <span class="built_in">post</span>数据，隐藏字段，参数名称和参数值</span><br></pre></td></tr></table></figure>
+
+<h2 id="敏感函数"><a href="#敏感函数" class="headerlink" title="敏感函数"></a>敏感函数</h2><h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">#命令执行</span></span><br><span class="line">    system()<span class="comment">//执行外部程序，并且显示输出</span></span><br><span class="line">    exec()<span class="comment">//执行一个外部程序</span></span><br><span class="line">    shell_exec()<span class="comment">//通过 shell 环境执行命令，并且将完整的输出以字符串的方式返回</span></span><br><span class="line">    passthru()<span class="comment">//执行外部程序并且显示原始输出</span></span><br><span class="line">    pcntl_exec()<span class="comment">//在当前进程空间执行指定程序</span></span><br><span class="line">    popen()<span class="comment">//打开进程文件指针</span></span><br><span class="line">    proc_open()<span class="comment">//执行一个命令，并且打开用来输入/输出的文件指针</span></span><br><span class="line"><span class="comment">#代码执行</span></span><br><span class="line">    <span class="keyword">eval</span>()<span class="comment">//把字符串作为PHP代码执行</span></span><br><span class="line">    assert()<span class="comment">//检查一个断言是否为 FALSE，可用来执行代码</span></span><br><span class="line">    preg_replace()<span class="comment">//执行一个正则表达式的搜索和替换</span></span><br><span class="line">    call_user_func()<span class="comment">//把第一个参数作为回调函数调用</span></span><br><span class="line">    call_user_func_array()<span class="comment">//调用回调函数，并把一个数组参数作为回调函数的参数</span></span><br><span class="line">    array_map()<span class="comment">//为数组的每个元素应用回调函数</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="JAVA"><a href="#JAVA" class="headerlink" title="JAVA"></a>JAVA</h3><figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">java.lang.<span class="module-access"><span class="module"><span class="identifier">Runtime</span>.</span></span>get<span class="constructor">Runtime(.<span class="params">exec</span>(<span class="params">command</span>)</span>）Java中没有类似php中eval 函数这种直接可以将字符串转化为代码执行的函数，但是有反射机制，并且有各种基于反射机制的表达式引擎，如：OGNL、SpEL、MVEL等，这些都能造成代码执行漏洞。</span><br></pre></td></tr></table></figure>
+
+<h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#命令执行</span></span><br><span class="line">    system()执行系统指令</span><br><span class="line">    popen()popen()方法用于从一个命令打开一个管道</span><br><span class="line">    subprocess.call执行由参数提供的命令</span><br><span class="line">    spawn 执行命令</span><br><span class="line"><span class="comment">#代码执行</span></span><br><span class="line">    <span class="built_in">exec</span>(string)<span class="comment"># Python代码的动态执行</span></span><br><span class="line">    <span class="built_in">eval</span>(string)<span class="comment"># 返回表达式或代码对象的值</span></span><br><span class="line">    execfile(string)<span class="comment"># 从一个文件中读取和执行Python脚本</span></span><br><span class="line">    <span class="built_in">input</span>(string)Python2.x 中 <span class="built_in">input</span>() 相等于 <span class="built_in">eval</span>(raw_input(prompt)) ，用来获取控制台的输入</span><br><span class="line">    <span class="built_in">compile</span>(string)<span class="comment"># 将源字符串编译为可执行对象</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="常见注入（利用）方式"><a href="#常见注入（利用）方式" class="headerlink" title="常见注入（利用）方式"></a>常见注入（利用）方式</h2><figure class="highlight perl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>、<span class="keyword">system</span>(<span class="string">&quot;$arg&quot;</span>);   可控点直接是待执行的程序如果我们能直接控制$arg，那么就能执行执行任意命令了。</span><br><span class="line"><span class="number">2</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog $arg&quot;</span>);<span class="regexp">//</span>可控点是传入程序的整个参数我们能够控制的点是程序的整个参数，我们可以直接用&amp;&amp; || 或 | 等等，利用与、或、管道命令来执行其他命令（可以涉及到很多linux命令行技巧）。</span><br><span class="line"><span class="number">3</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog -p $arg&quot;</span>);<span class="regexp">//</span>可控点是传入程序的某个参数的值（无引号包裹）我们控制的点是一个参数，我们也同样可以利用与、或、管道来执行其他命令，情境与二无异。</span><br><span class="line"><span class="number">4</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog --p=\&quot;$arg\&quot;&quot;</span>);<span class="regexp">//</span>可控点是传入程序的某个参数的值（有双引号包裹）这种情况压力大一点，有双引号包裹。如果引号没有被转义，我们可以先闭合引号，成为第三种情况后按照第三种情况来利用，如果引号被转义（addslashes），我们也不必着急。linux shell 环境下双引号中间的变量也是可以被解析的，我们可以在双引号内利用反引号执行任意命令 id</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>web安全</category>
       </categories>
