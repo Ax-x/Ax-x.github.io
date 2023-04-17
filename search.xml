@@ -43,6 +43,18 @@
       </tags>
   </entry>
   <entry>
+    <title>First Blog</title>
+    <url>/2022/01/01/First%20Blog/</url>
+    <content><![CDATA[<p>Welcome to my blog! I’m glad to make friends with you. If you can browse my website, I will be grateful. In the future, I will upload my records and learning contents here. I hope the boss will take me with me！</p>
+]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>College Website Content Management System v1.0存在任意文件删除漏洞</title>
     <url>/2022/03/08/College-Website-Content-Management-System-v1-0%E5%AD%98%E5%9C%A8%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4%E6%BC%8F%E6%B4%9E/</url>
     <content><![CDATA[<h1 id="一、-漏洞介绍"><a href="#一、-漏洞介绍" class="headerlink" title="一、 漏洞介绍"></a>一、 漏洞介绍</h1><p>College Website - Content Management System是一款校园管理CMS,可以对学生以及学生成绩进行管理，使用PHP语言编写，该CMS存在任意文件删除漏洞，可以删除服务器上的任意文件，该CMS存在任意文件删除漏洞，可以删除服务器上的任意文件。</p>
@@ -67,44 +79,6 @@
       <tags>
         <tag>学习笔记</tag>
         <tag>PHP代码审计</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>First Blog</title>
-    <url>/2022/01/01/First%20Blog/</url>
-    <content><![CDATA[<p>Welcome to my blog! I’m glad to make friends with you. If you can browse my website, I will be grateful. In the future, I will upload my records and learning contents here. I hope the boss will take me with me！</p>
-]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RCE漏洞</title>
-    <url>/2022/03/08/RCE%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>RCE漏洞是对命令执行/代码执行类漏洞的统称。这类漏洞因为可以通过网络远程执行命令或代码，可以直接获取一定权限，会造成较严重的影响，因此属于较高危的一类漏洞</p>
-<span id="more"></span>
-
-<h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">由于系统开发时使用了特殊函数，能够将传输进来的数据当作是操作系统命令去执行， 攻击者将注入的语句更改为系统命令作为操作系统命令执行，仅当Web应用程序代码包含操作系统调用并且调用中使用了用户输入时，才可能进行命令攻击。</span><br></pre></td></tr></table></figure>
-
-<h2 id="远程代码执行"><a href="#远程代码执行" class="headerlink" title="远程代码执行"></a>远程代码执行</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">代码注入攻击与命令注入攻击不同。因为需求设计，后台有时候需要把用户的输入作为代码的一部分进行执行,也就造成了代码执行漏洞。</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞检测"><a href="#漏洞检测" class="headerlink" title="漏洞检测"></a>漏洞检测</h2><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">任何外部输入都可以进行验证：文本字段，列表框，单选按钮，复选框，cookie，HTTP头数据，HTTP <span class="built_in">post</span>数据，隐藏字段，参数名称和参数值</span><br></pre></td></tr></table></figure>
-
-<h2 id="敏感函数"><a href="#敏感函数" class="headerlink" title="敏感函数"></a>敏感函数</h2><h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">#命令执行</span></span><br><span class="line">    system()<span class="comment">//执行外部程序，并且显示输出</span></span><br><span class="line">    exec()<span class="comment">//执行一个外部程序</span></span><br><span class="line">    shell_exec()<span class="comment">//通过 shell 环境执行命令，并且将完整的输出以字符串的方式返回</span></span><br><span class="line">    passthru()<span class="comment">//执行外部程序并且显示原始输出</span></span><br><span class="line">    pcntl_exec()<span class="comment">//在当前进程空间执行指定程序</span></span><br><span class="line">    popen()<span class="comment">//打开进程文件指针</span></span><br><span class="line">    proc_open()<span class="comment">//执行一个命令，并且打开用来输入/输出的文件指针</span></span><br><span class="line"><span class="comment">#代码执行</span></span><br><span class="line">    <span class="keyword">eval</span>()<span class="comment">//把字符串作为PHP代码执行</span></span><br><span class="line">    assert()<span class="comment">//检查一个断言是否为 FALSE，可用来执行代码</span></span><br><span class="line">    preg_replace()<span class="comment">//执行一个正则表达式的搜索和替换</span></span><br><span class="line">    call_user_func()<span class="comment">//把第一个参数作为回调函数调用</span></span><br><span class="line">    call_user_func_array()<span class="comment">//调用回调函数，并把一个数组参数作为回调函数的参数</span></span><br><span class="line">    array_map()<span class="comment">//为数组的每个元素应用回调函数</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="JAVA"><a href="#JAVA" class="headerlink" title="JAVA"></a>JAVA</h3><figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">java.lang.<span class="module-access"><span class="module"><span class="identifier">Runtime</span>.</span></span>get<span class="constructor">Runtime(.<span class="params">exec</span>(<span class="params">command</span>)</span>）Java中没有类似php中eval 函数这种直接可以将字符串转化为代码执行的函数，但是有反射机制，并且有各种基于反射机制的表达式引擎，如：OGNL、SpEL、MVEL等，这些都能造成代码执行漏洞。</span><br></pre></td></tr></table></figure>
-
-<h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#命令执行</span></span><br><span class="line">    system()执行系统指令</span><br><span class="line">    popen()popen()方法用于从一个命令打开一个管道</span><br><span class="line">    subprocess.call执行由参数提供的命令</span><br><span class="line">    spawn 执行命令</span><br><span class="line"><span class="comment">#代码执行</span></span><br><span class="line">    <span class="built_in">exec</span>(string)<span class="comment"># Python代码的动态执行</span></span><br><span class="line">    <span class="built_in">eval</span>(string)<span class="comment"># 返回表达式或代码对象的值</span></span><br><span class="line">    execfile(string)<span class="comment"># 从一个文件中读取和执行Python脚本</span></span><br><span class="line">    <span class="built_in">input</span>(string)Python2.x 中 <span class="built_in">input</span>() 相等于 <span class="built_in">eval</span>(raw_input(prompt)) ，用来获取控制台的输入</span><br><span class="line">    <span class="built_in">compile</span>(string)<span class="comment"># 将源字符串编译为可执行对象</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="常见注入（利用）方式"><a href="#常见注入（利用）方式" class="headerlink" title="常见注入（利用）方式"></a>常见注入（利用）方式</h2><figure class="highlight perl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>、<span class="keyword">system</span>(<span class="string">&quot;$arg&quot;</span>);   可控点直接是待执行的程序如果我们能直接控制$arg，那么就能执行执行任意命令了。</span><br><span class="line"><span class="number">2</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog $arg&quot;</span>);<span class="regexp">//</span>可控点是传入程序的整个参数我们能够控制的点是程序的整个参数，我们可以直接用&amp;&amp; || 或 | 等等，利用与、或、管道命令来执行其他命令（可以涉及到很多linux命令行技巧）。</span><br><span class="line"><span class="number">3</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog -p $arg&quot;</span>);<span class="regexp">//</span>可控点是传入程序的某个参数的值（无引号包裹）我们控制的点是一个参数，我们也同样可以利用与、或、管道来执行其他命令，情境与二无异。</span><br><span class="line"><span class="number">4</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog --p=\&quot;$arg\&quot;&quot;</span>);<span class="regexp">//</span>可控点是传入程序的某个参数的值（有双引号包裹）这种情况压力大一点，有双引号包裹。如果引号没有被转义，我们可以先闭合引号，成为第三种情况后按照第三种情况来利用，如果引号被转义（addslashes），我们也不必着急。linux shell 环境下双引号中间的变量也是可以被解析的，我们可以在双引号内利用反引号执行任意命令 id</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -367,6 +341,32 @@
       </tags>
   </entry>
   <entry>
+    <title>RCE漏洞</title>
+    <url>/2022/03/08/RCE%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>RCE漏洞是对命令执行/代码执行类漏洞的统称。这类漏洞因为可以通过网络远程执行命令或代码，可以直接获取一定权限，会造成较严重的影响，因此属于较高危的一类漏洞</p>
+<span id="more"></span>
+
+<h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">由于系统开发时使用了特殊函数，能够将传输进来的数据当作是操作系统命令去执行， 攻击者将注入的语句更改为系统命令作为操作系统命令执行，仅当Web应用程序代码包含操作系统调用并且调用中使用了用户输入时，才可能进行命令攻击。</span><br></pre></td></tr></table></figure>
+
+<h2 id="远程代码执行"><a href="#远程代码执行" class="headerlink" title="远程代码执行"></a>远程代码执行</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">代码注入攻击与命令注入攻击不同。因为需求设计，后台有时候需要把用户的输入作为代码的一部分进行执行,也就造成了代码执行漏洞。</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞检测"><a href="#漏洞检测" class="headerlink" title="漏洞检测"></a>漏洞检测</h2><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">任何外部输入都可以进行验证：文本字段，列表框，单选按钮，复选框，cookie，HTTP头数据，HTTP <span class="built_in">post</span>数据，隐藏字段，参数名称和参数值</span><br></pre></td></tr></table></figure>
+
+<h2 id="敏感函数"><a href="#敏感函数" class="headerlink" title="敏感函数"></a>敏感函数</h2><h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">#命令执行</span></span><br><span class="line">    system()<span class="comment">//执行外部程序，并且显示输出</span></span><br><span class="line">    exec()<span class="comment">//执行一个外部程序</span></span><br><span class="line">    shell_exec()<span class="comment">//通过 shell 环境执行命令，并且将完整的输出以字符串的方式返回</span></span><br><span class="line">    passthru()<span class="comment">//执行外部程序并且显示原始输出</span></span><br><span class="line">    pcntl_exec()<span class="comment">//在当前进程空间执行指定程序</span></span><br><span class="line">    popen()<span class="comment">//打开进程文件指针</span></span><br><span class="line">    proc_open()<span class="comment">//执行一个命令，并且打开用来输入/输出的文件指针</span></span><br><span class="line"><span class="comment">#代码执行</span></span><br><span class="line">    <span class="keyword">eval</span>()<span class="comment">//把字符串作为PHP代码执行</span></span><br><span class="line">    assert()<span class="comment">//检查一个断言是否为 FALSE，可用来执行代码</span></span><br><span class="line">    preg_replace()<span class="comment">//执行一个正则表达式的搜索和替换</span></span><br><span class="line">    call_user_func()<span class="comment">//把第一个参数作为回调函数调用</span></span><br><span class="line">    call_user_func_array()<span class="comment">//调用回调函数，并把一个数组参数作为回调函数的参数</span></span><br><span class="line">    array_map()<span class="comment">//为数组的每个元素应用回调函数</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="JAVA"><a href="#JAVA" class="headerlink" title="JAVA"></a>JAVA</h3><figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">java.lang.<span class="module-access"><span class="module"><span class="identifier">Runtime</span>.</span></span>get<span class="constructor">Runtime(.<span class="params">exec</span>(<span class="params">command</span>)</span>）Java中没有类似php中eval 函数这种直接可以将字符串转化为代码执行的函数，但是有反射机制，并且有各种基于反射机制的表达式引擎，如：OGNL、SpEL、MVEL等，这些都能造成代码执行漏洞。</span><br></pre></td></tr></table></figure>
+
+<h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#命令执行</span></span><br><span class="line">    system()执行系统指令</span><br><span class="line">    popen()popen()方法用于从一个命令打开一个管道</span><br><span class="line">    subprocess.call执行由参数提供的命令</span><br><span class="line">    spawn 执行命令</span><br><span class="line"><span class="comment">#代码执行</span></span><br><span class="line">    <span class="built_in">exec</span>(string)<span class="comment"># Python代码的动态执行</span></span><br><span class="line">    <span class="built_in">eval</span>(string)<span class="comment"># 返回表达式或代码对象的值</span></span><br><span class="line">    execfile(string)<span class="comment"># 从一个文件中读取和执行Python脚本</span></span><br><span class="line">    <span class="built_in">input</span>(string)Python2.x 中 <span class="built_in">input</span>() 相等于 <span class="built_in">eval</span>(raw_input(prompt)) ，用来获取控制台的输入</span><br><span class="line">    <span class="built_in">compile</span>(string)<span class="comment"># 将源字符串编译为可执行对象</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="常见注入（利用）方式"><a href="#常见注入（利用）方式" class="headerlink" title="常见注入（利用）方式"></a>常见注入（利用）方式</h2><figure class="highlight perl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>、<span class="keyword">system</span>(<span class="string">&quot;$arg&quot;</span>);   可控点直接是待执行的程序如果我们能直接控制$arg，那么就能执行执行任意命令了。</span><br><span class="line"><span class="number">2</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog $arg&quot;</span>);<span class="regexp">//</span>可控点是传入程序的整个参数我们能够控制的点是程序的整个参数，我们可以直接用&amp;&amp; || 或 | 等等，利用与、或、管道命令来执行其他命令（可以涉及到很多linux命令行技巧）。</span><br><span class="line"><span class="number">3</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog -p $arg&quot;</span>);<span class="regexp">//</span>可控点是传入程序的某个参数的值（无引号包裹）我们控制的点是一个参数，我们也同样可以利用与、或、管道来执行其他命令，情境与二无异。</span><br><span class="line"><span class="number">4</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog --p=\&quot;$arg\&quot;&quot;</span>);<span class="regexp">//</span>可控点是传入程序的某个参数的值（有双引号包裹）这种情况压力大一点，有双引号包裹。如果引号没有被转义，我们可以先闭合引号，成为第三种情况后按照第三种情况来利用，如果引号被转义（addslashes），我们也不必着急。linux shell 环境下双引号中间的变量也是可以被解析的，我们可以在双引号内利用反引号执行任意命令 id</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SSRF服务器端请求伪造</title>
     <url>/2022/03/08/SSRF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/</url>
     <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>SSRF服务器端请求伪造是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。<span id="more"></span>（正是因为 它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）SSRF 形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。比如从指定URL地址获取网页文本内容，加载指定地址的图片，下载等等。 注释：除了http/https等方式可以造成ssrf，类似tcp connect 方式也可以探测内网一些ip 的端口是否开发服务，只不过危害比较小而已。</p>
@@ -617,6 +617,25 @@
       </tags>
   </entry>
   <entry>
+    <title>关于开深信服VPN无法抓包</title>
+    <url>/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/</url>
+    <content><![CDATA[<p>前些日子大佬叫去搞渗透，得走深信服的VPN，连上之后发现BP抓不了包了，关闭 BurpSuite 单独用浏览器就可以正常访问，还以为是我电脑问题，后面发现下了VPN之后能正常抓包了。</p>
+<span id="more"></span>
+<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217100454882.png" alt="image-20220217100454882"></p>
+<p>一开始以为是走的VPN，多个代理抓不到，然后试着用BP搞个上层代理，结果还是不行，后门觉着应该是深信服VPN不允许抓包的问题，把流量先在自己电脑跑一圈，用一层中转即可，找了个EW，开了个 sock5 服务器进行本地转发，然后再进行抓包就可以了</p>
+<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101004315.png" alt="image-20220217101004315"></p>
+<p>BP设置</p>
+<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101028945.png" alt="image-20220217101028945"></p>
+<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101050106.png" alt="image-20220217101050106"></p>
+]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>不出网主机的几种上线方式</title>
     <url>/2022/05/31/%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA%E7%9A%84%E5%87%A0%E7%A7%8D%E4%B8%8A%E7%BA%BF%E6%96%B9%E5%BC%8F/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>拿到一台边缘机器后，内网的机器很有可能大多数都不出网，这时又想上线cs方便后续操作。本文就如何上线不出网主机的方式进行了总结。</p>
@@ -733,17 +752,21 @@
       </tags>
   </entry>
   <entry>
-    <title>关于开深信服VPN无法抓包</title>
-    <url>/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/</url>
-    <content><![CDATA[<p>前些日子大佬叫去搞渗透，得走深信服的VPN，连上之后发现BP抓不了包了，关闭 BurpSuite 单独用浏览器就可以正常访问，还以为是我电脑问题，后面发现下了VPN之后能正常抓包了。</p>
+    <title>常规绕WAF思路</title>
+    <url>/2022/03/08/%E5%B8%B8%E8%A7%84%E7%BB%95WAF%E6%80%9D%E8%B7%AF/</url>
+    <content><![CDATA[<h2 id="1、错误的HTTP请求头"><a href="#1、错误的HTTP请求头" class="headerlink" title="1、错误的HTTP请求头"></a>1、错误的HTTP请求头</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">类似文件上传时的绕过，通过畸形的HTTP协议头绕过WAF检测。比如绕过某些老版本WAF可以加入请求头：<span class="attribute">Content</span>-Encoding:deflate就可以绕过WAF（此方法在文件上传绕过WAF中也适用）</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
-<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217100454882.png" alt="image-20220217100454882"></p>
-<p>一开始以为是走的VPN，多个代理抓不到，然后试着用BP搞个上层代理，结果还是不行，后门觉着应该是深信服VPN不允许抓包的问题，把流量先在自己电脑跑一圈，用一层中转即可，找了个EW，开了个 sock5 服务器进行本地转发，然后再进行抓包就可以了</p>
-<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101004315.png" alt="image-20220217101004315"></p>
-<p>BP设置</p>
-<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101028945.png" alt="image-20220217101028945"></p>
-<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101050106.png" alt="image-20220217101050106"></p>
-]]></content>
+<h2 id="2、通用的关键字绕过"><a href="#2、通用的关键字绕过" class="headerlink" title="2、通用的关键字绕过"></a>2、通用的关键字绕过</h2><figure class="highlight autoit"><table><tr><td class="code"><pre><span class="line">将关键字转换成Unicode或者<span class="built_in">HEX</span>编码的方式，JAVA程序会自动进行解码，所以在一定程度上能够绕过WAF</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、使用未公开的漏洞利用链"><a href="#3、使用未公开的漏洞利用链" class="headerlink" title="3、使用未公开的漏洞利用链"></a>3、使用未公开的漏洞利用链</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">部分WAF会将公开的漏洞利用链中的关键字设置为黑名单，所以重新找一条利用链吧，自己的才是最香的</span><br></pre></td></tr></table></figure>
+
+<h2 id="4、数据溢出-防匹配（xxx…）"><a href="#4、数据溢出-防匹配（xxx…）" class="headerlink" title="4、数据溢出-防匹配（xxx…）"></a>4、数据溢出-防匹配（xxx…）</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">借助常见的溢出漏洞，在数据特别多的情况下例如：构造垃圾数据，让防护的检测负载不过来在某个地方停止，从而达到绕过的目的例如在数据包内（文件名等可修改的区域）处构造大量垃圾数据，但是有可能会导致服务器崩溃，从而无法接下去进行操作</span><br></pre></td></tr></table></figure>
+
+<h2 id="5、符号变异-防匹配（’”-）"><a href="#5、符号变异-防匹配（’”-）" class="headerlink" title="5、符号变异-防匹配（’”;）"></a>5、符号变异-防匹配（’”;）</h2><figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">利用匹配的原则，猜测waf是根据在单引号或者双引号里面的数据去匹配文件名信息的，那么可以利用这个规则，将引号替换掉，尝试绕过，有可能它只检测单引号或者只检测双引号，也可尝试去掉一个引号，有开始就有结束，当去掉一个之后就可能被检测出来，或者没检测出来，或者什么都没发生这样，也可尝试将引号全部去除，而分号是利用分号后面还有数据的形式，在后面添加垃圾数据去尝试绕过</span><span class="string">,</span><span class="comment">或者构造文件名或者在引号后面写文件名，而引号内部不去写数据，或者单纯写一个a这样的数据尝试绕过</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="6、重复数据-防匹配（参数多次）"><a href="#6、重复数据-防匹配（参数多次）" class="headerlink" title="6、重复数据-防匹配（参数多次）"></a>6、重复数据-防匹配（参数多次）</h2><figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">例如：构造多个<span class="meta">filename</span>，然后查看waf最后是以哪个为主，然后构造多个<span class="meta">filename</span>，借助检测机制是递归循环，还是单次检测，类似于构造垃圾数据那样也可尝试将Content-Disposition这些的数据插入到<span class="meta">filename</span>里面去，然后后面构造php文件（利用白名单）</span><br></pre></td></tr></table></figure>
+
+<h2 id="7、数据截断-防匹配（-00-换行）"><a href="#7、数据截断-防匹配（-00-换行）" class="headerlink" title="7、数据截断-防匹配（%00;/;换行）"></a>7、数据截断-防匹配（%00;/;换行）</h2>]]></content>
       <categories>
         <category>web安全</category>
       </categories>
@@ -763,29 +786,6 @@
 
 <h2 id="常见协议"><a href="#常见协议" class="headerlink" title="常见协议"></a>常见协议</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">21 端口（FTP)</span><br><span class="line">    安全漏洞：1、配置不当    2、明文传输    3、第三方软件提权</span><br><span class="line">    利用方式：1、匿名登录或弱口令2、嗅探ftp用户名和密码3、</span><br><span class="line">    Serv-U权限较大的账号可导致系统命令执行。</span><br><span class="line">    FTP提权命令：  # 增加系统用户   Quote site exec net user 4567 4567 /add  # 提升到管理员权限   Quote site exec net localgroup administrators 4567 /add</span><br><span class="line"></span><br><span class="line">25 端口（SMTP）</span><br><span class="line">    攻击方式：1、匿名发送邮件 2、弱口令 3、SMTP用户枚举</span><br><span class="line">    利用方式：1、SMTP服务器配置不当，攻击者可以使用任意用户发送邮件。2、SMTP弱口令扫描，获取用户账号密码，发送邮件钓鱼。3、通过SMTP用户枚举获取用户名：   nmap -p 25 -- smtp-enum-users.nse &lt;target&gt;</span><br><span class="line"></span><br><span class="line">53 端口（DNS）</span><br><span class="line">    安全攻击：1、DNS域传送漏洞、DNS欺骗、DNS缓存投毒</span><br><span class="line">    检测方式：1、DNS域传送漏洞，Windows下检测使用nslookup命令，Linux下检测使用dig命令，通过执行命令可以清楚的看到域名解析情况。2、DNS欺骗就是攻击者冒充域名服务器的一种欺骗行为。3、DNS缓存投毒是攻击者欺骗DNS服务器相信伪造的DNS响应的真实性。</span><br><span class="line"></span><br><span class="line">161 端口（SNMP）</span><br><span class="line">    安全漏洞：默认团体名/弱口令访问</span><br><span class="line">    利用方式：通过nmap自带的审计脚本进行检测，可能导致敏感信息泄露。。1、弱口令检测：nmap –sU –p161 –script=snmp-brute &lt;target&gt;2、获取系统信息：nmap –sU –p161 –script=snmp-sysdescr &lt;target&gt;3、获取用户信息：nmap -sU -p161 --script=snmp-win32-user &lt;target&gt;4、获取网络端口状态：nmap -sU -p161 --script=snmp-netstat &lt;target&gt;</span><br><span class="line"></span><br><span class="line">443 端口（SSL）</span><br><span class="line">    安全漏洞：OpenSSL 心脏出血</span><br><span class="line">    利用方式：攻击者可以远程读取存在漏洞版本的openssl服务器内存中长大64K的数据。</span><br><span class="line">    扫描脚本：nmap -sV --script=ssl-heartbleed &lt;target&gt;</span><br><span class="line"></span><br><span class="line">445 端口（SMB）</span><br><span class="line">    安全漏洞：信息泄露、远程代码执行</span><br><span class="line">    利用方式：可利用共享获取敏感信息、缓冲区溢出导致远程代码执行，如ms17010。</span><br><span class="line"></span><br><span class="line">873 端口（Rsync）</span><br><span class="line">    安全漏洞：匿名访问、弱口令</span><br><span class="line">    利用方式：攻击者可以执行下载/上传等操作，也可以尝试上传webshell。</span><br><span class="line">    1、下载：#rsync -avz a.b.c.d::path/file path/filiname  </span><br><span class="line">    2、上传：#rsync -avz path/filename a.b.c.d::path/file</span><br><span class="line"></span><br><span class="line">2181 端口（Zookeeper）</span><br><span class="line">    安全漏洞：未授权访问</span><br><span class="line">    检测方式：攻击者可通过执行envi命令获得系统大量的敏感信息，包括系统名称、Java环境。 echo envi | nc ip port</span><br><span class="line"></span><br><span class="line">2375 端口（Docker）</span><br><span class="line">    安全漏洞：未授权方式</span><br><span class="line">    检测方式：通过docker daemon api 执行docker命令。#列出容器信息，效果与docker ps -a 一致。 curl http://&lt;target&gt;:2375/containers/json docker -H tcp://&lt;target&gt;:2375 start &lt;Container Id&gt;  docker服务如果是以root用户启动的话，可以利用chroot将服务器的根目录挂在到容器里面，实现docker容器逃逸</span><br></pre></td></tr></table></figure>
 ]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>常规绕WAF思路</title>
-    <url>/2022/03/08/%E5%B8%B8%E8%A7%84%E7%BB%95WAF%E6%80%9D%E8%B7%AF/</url>
-    <content><![CDATA[<h2 id="1、错误的HTTP请求头"><a href="#1、错误的HTTP请求头" class="headerlink" title="1、错误的HTTP请求头"></a>1、错误的HTTP请求头</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">类似文件上传时的绕过，通过畸形的HTTP协议头绕过WAF检测。比如绕过某些老版本WAF可以加入请求头：<span class="attribute">Content</span>-Encoding:deflate就可以绕过WAF（此方法在文件上传绕过WAF中也适用）</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<h2 id="2、通用的关键字绕过"><a href="#2、通用的关键字绕过" class="headerlink" title="2、通用的关键字绕过"></a>2、通用的关键字绕过</h2><figure class="highlight autoit"><table><tr><td class="code"><pre><span class="line">将关键字转换成Unicode或者<span class="built_in">HEX</span>编码的方式，JAVA程序会自动进行解码，所以在一定程度上能够绕过WAF</span><br></pre></td></tr></table></figure>
-
-<h2 id="3、使用未公开的漏洞利用链"><a href="#3、使用未公开的漏洞利用链" class="headerlink" title="3、使用未公开的漏洞利用链"></a>3、使用未公开的漏洞利用链</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">部分WAF会将公开的漏洞利用链中的关键字设置为黑名单，所以重新找一条利用链吧，自己的才是最香的</span><br></pre></td></tr></table></figure>
-
-<h2 id="4、数据溢出-防匹配（xxx…）"><a href="#4、数据溢出-防匹配（xxx…）" class="headerlink" title="4、数据溢出-防匹配（xxx…）"></a>4、数据溢出-防匹配（xxx…）</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">借助常见的溢出漏洞，在数据特别多的情况下例如：构造垃圾数据，让防护的检测负载不过来在某个地方停止，从而达到绕过的目的例如在数据包内（文件名等可修改的区域）处构造大量垃圾数据，但是有可能会导致服务器崩溃，从而无法接下去进行操作</span><br></pre></td></tr></table></figure>
-
-<h2 id="5、符号变异-防匹配（’”-）"><a href="#5、符号变异-防匹配（’”-）" class="headerlink" title="5、符号变异-防匹配（’”;）"></a>5、符号变异-防匹配（’”;）</h2><figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">利用匹配的原则，猜测waf是根据在单引号或者双引号里面的数据去匹配文件名信息的，那么可以利用这个规则，将引号替换掉，尝试绕过，有可能它只检测单引号或者只检测双引号，也可尝试去掉一个引号，有开始就有结束，当去掉一个之后就可能被检测出来，或者没检测出来，或者什么都没发生这样，也可尝试将引号全部去除，而分号是利用分号后面还有数据的形式，在后面添加垃圾数据去尝试绕过</span><span class="string">,</span><span class="comment">或者构造文件名或者在引号后面写文件名，而引号内部不去写数据，或者单纯写一个a这样的数据尝试绕过</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="6、重复数据-防匹配（参数多次）"><a href="#6、重复数据-防匹配（参数多次）" class="headerlink" title="6、重复数据-防匹配（参数多次）"></a>6、重复数据-防匹配（参数多次）</h2><figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">例如：构造多个<span class="meta">filename</span>，然后查看waf最后是以哪个为主，然后构造多个<span class="meta">filename</span>，借助检测机制是递归循环，还是单次检测，类似于构造垃圾数据那样也可尝试将Content-Disposition这些的数据插入到<span class="meta">filename</span>里面去，然后后面构造php文件（利用白名单）</span><br></pre></td></tr></table></figure>
-
-<h2 id="7、数据截断-防匹配（-00-换行）"><a href="#7、数据截断-防匹配（-00-换行）" class="headerlink" title="7、数据截断-防匹配（%00;/;换行）"></a>7、数据截断-防匹配（%00;/;换行）</h2>]]></content>
       <categories>
         <category>web安全</category>
       </categories>
@@ -953,32 +953,6 @@
       </tags>
   </entry>
   <entry>
-    <title>文件包含漏洞个人总结</title>
-    <url>/2022/03/08/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h2 id="什么是文件包含"><a href="#什么是文件包含" class="headerlink" title="什么是文件包含"></a>什么是文件包含</h2><p>程序开发人员一般希望代码更灵活，所以将被包含的文件设置为变量，用来进行动态调用，但正是由于这种灵活性，从而导致客户端可以调用一个恶意文件，造成文件包含漏洞。为了控制代码的灵活，程序要把要使用的函数写到一个文件中，其他需要其中的的函数执行，只需要通过该文件名包含进来，而且没有进行验证。</p>
-<span id="more"></span>
-
-<h2 id="文件包含分类"><a href="#文件包含分类" class="headerlink" title="文件包含分类"></a>文件包含分类</h2><p><strong>本地包含</strong></p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">当被包含的文件在服务器本地时，且能够读取或执行包含本地文件的漏洞，称为本地文件包含漏洞</span><br></pre></td></tr></table></figure>
-
-<p><strong>远程包含</strong></p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">远程文件包含和本地文件包含造成漏洞的原因是一样的，当开发配置可以读取远程文件时，例如php.ini 中的配置选项allow_url_fopen和allow_url_include为<span class="keyword">ON</span>的话，则包含的文件可以是第三方服务器中的文件，这样就形成了远程文件包含漏洞。</span><br><span class="line">代码限制：代码里面限制只能包含本地文件的话就不会有远程包含，如果没限制的话，并且在设置上允许包含远程文件的话，就会引起远程包含</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">通过文件以脚本去执行</span><br><span class="line">文件包含常用函数</span><br><span class="line"><span class="function"><span class="title">include</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">require</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">fopen</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">include_once</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">require_once</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">readfile</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
-
-<h2 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">漏扫工具</span><br><span class="line">公开漏洞</span><br><span class="line">手工看参数以及功能点</span><br><span class="line"><span class="number">1</span>、通过观察参数特征猜测是否使用文件包含，文件包含参数后面为具体文件名如：http:<span class="regexp">//</span>example.com/index.php?page=include.php</span><br><span class="line">http:<span class="regexp">//</span>example.com/index.php?page=include</span><br><span class="line"><span class="number">2</span>、通过..<span class="regexp">/目录跳转符尝试读取系统文件、服务器日志文件或者配置文件。如读取Linux的/</span>etc<span class="regexp">/passwd文件: http:/</span><span class="regexp">/example.com/i</span>ndex.php?page=..<span class="regexp">/../</span>..<span class="regexp">/../</span>etc/passwd</span><br><span class="line"><span class="number">3</span>、通过php:<span class="regexp">//</span>filter<span class="regexp">/convert.base64-encode/</span>resource=index.php读取代码文件。</span><br><span class="line"><span class="number">4</span>、通过包含远程服务器上的PHP代码文件执行代码。</span><br><span class="line"><span class="number">5</span>、如果站点存在一个文件上传功能，只允许图片类型文件，并且存在文件包含漏洞，则可以把PHP代码写入图片文件中，再通过文件包含漏洞包含之，进而执行PHP代码。</span><br><span class="line"><span class="number">6</span>、如果文件的后缀可考虑使用截断进行包含：</span><br><span class="line">  <span class="number">1</span>)%<span class="number">00</span>截断（PHP小于<span class="number">5.3</span>.<span class="number">4</span>，magic_quotes_gpc=off）</span><br><span class="line">  <span class="number">2</span>)路径长度截断：</span><br><span class="line">  <span class="regexp">/etc/</span>passwd<span class="regexp">/./</span>.<span class="regexp">/./</span>.<span class="regexp">/./</span>.[n*/.]（Linux文件名需要长于<span class="number">4096</span>，Windows 需要长于<span class="number">256</span>）</span><br></pre></td></tr></table></figure>
-
-<h2 id="如何利用"><a href="#如何利用" class="headerlink" title="如何利用"></a>如何利用</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">1.读取目标机上敏感文件</span><br><span class="line">2.远程文件包含可运行的PHP木马</span><br><span class="line">3、配合文件上传漏洞获取webshll</span><br></pre></td></tr></table></figure>
-
-<h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">固定文件后缀</span><br><span class="line">固定使用的文件</span><br><span class="line">安装WAF</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>文件下载漏洞个人总结</title>
     <url>/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>文件下载功能没有对下载的文件类型、目录做合理严谨的过滤， 利用路径回溯符…/跳出程序本身的限制目录实现来下载任意文件，导致用户可以下载服务器的任意文件。</p>
@@ -1000,6 +974,32 @@
 <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">一、Windows</span><br><span class="line">C:\boot.ini<span class="regexp">//</span>查看系统版本C:\Windows\System32\inetsrv\MetaBase.xml<span class="regexp">//</span>IIS配置文件</span><br><span class="line">C:\Windows\repair\sam<span class="regexp">//</span>存储系统初次安装的密码</span><br><span class="line">C:\Program Files\mysql\my.ini<span class="regexp">//</span>Mysql配置</span><br><span class="line">C:\Program Files\mysql\data\mysql\user.MYD <span class="regexp">//</span>Mysql root</span><br><span class="line">C:\Windows\php.ini<span class="regexp">//</span>php配置信息</span><br><span class="line">C:\Windows\my.ini<span class="regexp">//</span>Mysql配置信息</span><br><span class="line">C:\Windows\win.ini<span class="regexp">//</span>Windows系统的一个基本系统配置文件</span><br><span class="line">二、Linux</span><br><span class="line"><span class="regexp">/root/</span>.ssh/authorized_keys</span><br><span class="line"><span class="regexp">/root/</span>.ssh/id_rsa</span><br><span class="line"><span class="regexp">/root/</span>.ssh/id_ras.keystore</span><br><span class="line"><span class="regexp">/root/</span>.ssh<span class="regexp">/known_hosts/</span><span class="regexp">/记录每个访问计算机用户的公钥/</span>etc/passwd</span><br><span class="line"><span class="regexp">/etc/</span>shadow</span><br><span class="line"><span class="regexp">/etc/my</span>.cnf<span class="regexp">//my</span>sql配置文件</span><br><span class="line"><span class="regexp">/etc/</span>httpd<span class="regexp">/conf/</span>httpd.conf<span class="regexp">//</span>apachel配置文件</span><br><span class="line"><span class="regexp">/root/</span>.bash_history<span class="regexp">//</span>用户历史命令记录文件</span><br><span class="line"><span class="regexp">/root/</span>.mysql._history<span class="regexp">//my</span>sql历史命令记录文件</span><br></pre></td></tr></table></figure>
 
 <h2 id="任意文件下载漏洞防御"><a href="#任意文件下载漏洞防御" class="headerlink" title="任意文件下载漏洞防御"></a>任意文件下载漏洞防御</h2><figure class="highlight less"><table><tr><td class="code"><pre><span class="line">下载路径不可控，而是程序自动生成后保存在数据库中，根据<span class="selector-tag">ID</span>进行下载</span><br><span class="line">对参数做严格的过滤，不能进行目录遍历（穿越）</span><br><span class="line">对下载路径进行过滤，如下载前对传入的参数进行过滤，并且对下载文件类型进行检查，是否是允许下载的类型</span><br><span class="line">过滤.(点)，使用户在<span class="selector-tag">url</span>中不能回溯上级目录</span><br><span class="line">正则严格判断用户输入参数的格式</span><br><span class="line">限定文件访问范围如<span class="selector-tag">PHP</span>里的（<span class="selector-tag">php</span><span class="selector-class">.ini</span>配置<span class="selector-tag">open_basedir</span>）</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>文件包含漏洞个人总结</title>
+    <url>/2022/03/08/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h2 id="什么是文件包含"><a href="#什么是文件包含" class="headerlink" title="什么是文件包含"></a>什么是文件包含</h2><p>程序开发人员一般希望代码更灵活，所以将被包含的文件设置为变量，用来进行动态调用，但正是由于这种灵活性，从而导致客户端可以调用一个恶意文件，造成文件包含漏洞。为了控制代码的灵活，程序要把要使用的函数写到一个文件中，其他需要其中的的函数执行，只需要通过该文件名包含进来，而且没有进行验证。</p>
+<span id="more"></span>
+
+<h2 id="文件包含分类"><a href="#文件包含分类" class="headerlink" title="文件包含分类"></a>文件包含分类</h2><p><strong>本地包含</strong></p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">当被包含的文件在服务器本地时，且能够读取或执行包含本地文件的漏洞，称为本地文件包含漏洞</span><br></pre></td></tr></table></figure>
+
+<p><strong>远程包含</strong></p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">远程文件包含和本地文件包含造成漏洞的原因是一样的，当开发配置可以读取远程文件时，例如php.ini 中的配置选项allow_url_fopen和allow_url_include为<span class="keyword">ON</span>的话，则包含的文件可以是第三方服务器中的文件，这样就形成了远程文件包含漏洞。</span><br><span class="line">代码限制：代码里面限制只能包含本地文件的话就不会有远程包含，如果没限制的话，并且在设置上允许包含远程文件的话，就会引起远程包含</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">通过文件以脚本去执行</span><br><span class="line">文件包含常用函数</span><br><span class="line"><span class="function"><span class="title">include</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">require</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">fopen</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">include_once</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">require_once</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">readfile</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">漏扫工具</span><br><span class="line">公开漏洞</span><br><span class="line">手工看参数以及功能点</span><br><span class="line"><span class="number">1</span>、通过观察参数特征猜测是否使用文件包含，文件包含参数后面为具体文件名如：http:<span class="regexp">//</span>example.com/index.php?page=include.php</span><br><span class="line">http:<span class="regexp">//</span>example.com/index.php?page=include</span><br><span class="line"><span class="number">2</span>、通过..<span class="regexp">/目录跳转符尝试读取系统文件、服务器日志文件或者配置文件。如读取Linux的/</span>etc<span class="regexp">/passwd文件: http:/</span><span class="regexp">/example.com/i</span>ndex.php?page=..<span class="regexp">/../</span>..<span class="regexp">/../</span>etc/passwd</span><br><span class="line"><span class="number">3</span>、通过php:<span class="regexp">//</span>filter<span class="regexp">/convert.base64-encode/</span>resource=index.php读取代码文件。</span><br><span class="line"><span class="number">4</span>、通过包含远程服务器上的PHP代码文件执行代码。</span><br><span class="line"><span class="number">5</span>、如果站点存在一个文件上传功能，只允许图片类型文件，并且存在文件包含漏洞，则可以把PHP代码写入图片文件中，再通过文件包含漏洞包含之，进而执行PHP代码。</span><br><span class="line"><span class="number">6</span>、如果文件的后缀可考虑使用截断进行包含：</span><br><span class="line">  <span class="number">1</span>)%<span class="number">00</span>截断（PHP小于<span class="number">5.3</span>.<span class="number">4</span>，magic_quotes_gpc=off）</span><br><span class="line">  <span class="number">2</span>)路径长度截断：</span><br><span class="line">  <span class="regexp">/etc/</span>passwd<span class="regexp">/./</span>.<span class="regexp">/./</span>.<span class="regexp">/./</span>.[n*/.]（Linux文件名需要长于<span class="number">4096</span>，Windows 需要长于<span class="number">256</span>）</span><br></pre></td></tr></table></figure>
+
+<h2 id="如何利用"><a href="#如何利用" class="headerlink" title="如何利用"></a>如何利用</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">1.读取目标机上敏感文件</span><br><span class="line">2.远程文件包含可运行的PHP木马</span><br><span class="line">3、配合文件上传漏洞获取webshll</span><br></pre></td></tr></table></figure>
+
+<h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">固定文件后缀</span><br><span class="line">固定使用的文件</span><br><span class="line">安装WAF</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>web安全</category>
       </categories>
@@ -2199,6 +2199,8 @@
 <p><a href="https://devblogs.microsoft.com/scripting/">https://devblogs.microsoft.com/scripting/</a></p>
 <p><a href="https://devblogs.microsoft.com/powershell-community/">https://devblogs.microsoft.com/powershell-community/</a></p>
 <p><a href="https://blog.csdn.net/culinxia2707/article/details/108771878">https://blog.csdn.net/culinxia2707/article/details/108771878</a></p>
+<span id="more"></span>
+
 <h2 id="通过PowerShell更改驱动器字母和标签"><a href="#通过PowerShell更改驱动器字母和标签" class="headerlink" title="通过PowerShell更改驱动器字母和标签"></a>通过PowerShell更改驱动器字母和标签</h2><p>问题：如何通过PowerShell更改驱动器字母和标签？</p>
 <p>解答：其中一种方法是通过WMI和CIM命令来修改。</p>
 <p>PowerShell没有cmdlet来直接更改驱动器号或标题，但好消息是，您可以使用WMI和CIM cmdlet来更改驱动器号和驱动器标签。Windows管理工具有cmdlet (<code>Set-Partition</code>和<code>Set-Volume</code>)可以直接修改盘符和标题。但是知道如何通过WMI和CIM cmdlet来更改驱动器号和驱动器标签也是很有帮助的。实际上，当你使用<code>Set-Partition</code>时，你实际上是在使用WMI。Windows存储和Windows网络团队都大量使用WMI，并通过CDXML模块公开cmdlet。</p>

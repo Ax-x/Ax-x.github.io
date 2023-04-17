@@ -93,16 +93,16 @@
 
 
 
-<meta name="description" content="学习链接： https:&#x2F;&#x2F;devblogs.microsoft.com&#x2F;scripting&#x2F; https:&#x2F;&#x2F;devblogs.microsoft.com&#x2F;powershell-community&#x2F; https:&#x2F;&#x2F;blog.csdn.net&#x2F;culinxia2707&#x2F;article&#x2F;details&#x2F;108771878 通过PowerShell更改驱动器字母和标签问题：如何通过PowerShel">
+<meta name="description" content="学习链接： https:&#x2F;&#x2F;devblogs.microsoft.com&#x2F;scripting&#x2F; https:&#x2F;&#x2F;devblogs.microsoft.com&#x2F;powershell-community&#x2F; https:&#x2F;&#x2F;blog.csdn.net&#x2F;culinxia2707&#x2F;article&#x2F;details&#x2F;108771878">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PowerShell Community">
 <meta property="og:url" content="https://ax-x.github.io/2023/04/17/PowerShell-Community/index.html">
 <meta property="og:site_name" content="Ax-x">
-<meta property="og:description" content="学习链接： https:&#x2F;&#x2F;devblogs.microsoft.com&#x2F;scripting&#x2F; https:&#x2F;&#x2F;devblogs.microsoft.com&#x2F;powershell-community&#x2F; https:&#x2F;&#x2F;blog.csdn.net&#x2F;culinxia2707&#x2F;article&#x2F;details&#x2F;108771878 通过PowerShell更改驱动器字母和标签问题：如何通过PowerShel">
+<meta property="og:description" content="学习链接： https:&#x2F;&#x2F;devblogs.microsoft.com&#x2F;scripting&#x2F; https:&#x2F;&#x2F;devblogs.microsoft.com&#x2F;powershell-community&#x2F; https:&#x2F;&#x2F;blog.csdn.net&#x2F;culinxia2707&#x2F;article&#x2F;details&#x2F;108771878">
 <meta property="og:locale">
 <meta property="og:image" content="https://ax-x.github.io/2023/04/17/PowerShell-Community/安全学习资料\文稿\16、钓鱼\关于PowerShell\1672938921071-3f3107cc-9101-4836-b9da-40c9005e136a.png">
 <meta property="article:published_time" content="2023-04-17T01:45:01.000Z">
-<meta property="article:modified_time" content="2023-04-17T01:46:27.358Z">
+<meta property="article:modified_time" content="2023-04-17T01:49:19.362Z">
 <meta property="article:author" content="Ax-x">
 <meta property="article:tag" content="学习笔记">
 <meta property="article:tag" content="PowerShell Community">
@@ -369,7 +369,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2023-04-17T09:46:27+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2023-04-17T09:49:19+08:00">
                 2023-04-17
               </time>
             
@@ -460,6 +460,8 @@
 <p><a target="_blank" rel="noopener" href="https://devblogs.microsoft.com/scripting/">https://devblogs.microsoft.com/scripting/</a></p>
 <p><a target="_blank" rel="noopener" href="https://devblogs.microsoft.com/powershell-community/">https://devblogs.microsoft.com/powershell-community/</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/culinxia2707/article/details/108771878">https://blog.csdn.net/culinxia2707/article/details/108771878</a></p>
+<span id="more"></span>
+
 <h2 id="通过PowerShell更改驱动器字母和标签"><a href="#通过PowerShell更改驱动器字母和标签" class="headerlink" title="通过PowerShell更改驱动器字母和标签"></a>通过PowerShell更改驱动器字母和标签</h2><p>问题：如何通过PowerShell更改驱动器字母和标签？</p>
 <p>解答：其中一种方法是通过WMI和CIM命令来修改。</p>
 <p>PowerShell没有cmdlet来直接更改驱动器号或标题，但好消息是，您可以使用WMI和CIM cmdlet来更改驱动器号和驱动器标签。Windows管理工具有cmdlet (<code>Set-Partition</code>和<code>Set-Volume</code>)可以直接修改盘符和标题。但是知道如何通过WMI和CIM cmdlet来更改驱动器号和驱动器标签也是很有帮助的。实际上，当你使用<code>Set-Partition</code>时，你实际上是在使用WMI。Windows存储和Windows网络团队都大量使用WMI，并通过CDXML模块公开cmdlet。</p>
