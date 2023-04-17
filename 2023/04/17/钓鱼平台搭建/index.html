@@ -120,7 +120,7 @@
 <meta property="og:image" content="https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/1672818331165-8d1b435b-263c-4ab9-a0fd-3a237c62f1fc.png">
 <meta property="og:image" content="https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/1672818370370-37169451-e1a3-49db-8d9d-8fc585da8bab.png">
 <meta property="article:published_time" content="2023-04-17T07:47:57.000Z">
-<meta property="article:modified_time" content="2023-04-17T07:49:29.153Z">
+<meta property="article:modified_time" content="2023-04-17T07:56:32.234Z">
 <meta property="article:author" content="Ax-x">
 <meta property="article:tag" content="学习笔记">
 <meta property="article:tag" content="钓鱼平台搭建">
@@ -387,7 +387,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2023-04-17T15:49:29+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2023-04-17T15:56:32+08:00">
                 2023-04-17
               </time>
             
@@ -453,7 +453,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  5
                 </span>
               
             </div>
@@ -535,12 +535,13 @@
 <h4 id="10、钓鱼页面的坑"><a href="#10、钓鱼页面的坑" class="headerlink" title="10、钓鱼页面的坑"></a>10、钓鱼页面的坑</h4><p><strong>捕获不到提交的数据</strong></p>
 <p>1、导入后要在HTML编辑框的非Source模式下观察源码解析情况，如果明显发现存在许多地方未加载，则有可能导入的源码并非页面完全加载后的前端代码，而是一个半成品，需要通过浏览器二次解析，渲染未加载的DOM。这种情况下，除非能够直接爬取页面完全加载后的前端代码，否则无法利用gophish进行钓鱼，造成的原因是不满足第2点。</p>
 <p>2、导入的前端源码，必须存在严格存在结构</p>
-<form method="post" ···><input name="aaa" ···> ··· <input type="submit" ···></form>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;form <span class="function"><span class="keyword">method</span>=&quot;<span class="title">post</span>&quot; ···&gt;&lt;<span class="title">input</span> <span class="title">name</span>=&quot;<span class="title">aaa</span>&quot; ··· /&gt; ··· &lt;<span class="title">input</span> <span class="title">type</span>=&quot;<span class="title">submit</span>&quot; ··· /&gt;&lt;/<span class="title">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>即表单（POST方式）— Input标签（具有name属性）Input标签（submit类型）— 表单闭合的结构，如果不满足则无法捕获到提交的数据</p>
 <p>3、在满足第2点的结构的情况下，还需要求&lt;form method=”post” ···&gt;在浏览器解析渲染后（即预览情况下）不能包含action属性，或者action属性的值为空。否则将会把表单数据提交给action指定的页面，而导致无法被捕获到.</p>
 <p><strong>捕获数据不齐全</strong></p>
-<p>对于需要被捕获的表单数据，除了input标签需要被包含在<form>中，还需满足该<input>存在name属性。例如<input name="username">,否则会因为没有字段名而导致value被忽略。</form></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">对于需要被捕获的表单数据，除了<span class="keyword">input</span>标签需要被包含在&lt;form&gt;中，还需满足该&lt;<span class="keyword">input</span>&gt;存在<span class="type">name</span>属性。例如&lt;<span class="keyword">input</span> <span class="type">name</span>=&quot;username&quot;&gt;,否则会因为没有字段名而导致<span class="keyword">value</span>被忽略。</span><br></pre></td></tr></table></figure>
+
 <p><strong>密码被加密</strong></p>
 <p>针对https页面的import，通常密码会进行加密处理，这时需要通过审计导入的前端代码，找到加密的JavaScript函数（多数情况存在于单独的js文件中，通过src引入），将其在gophish的HTML编辑框中删除，阻止表单数据被加密。</p>
 <h4 id="11、Campaigns"><a href="#11、Campaigns" class="headerlink" title="11、Campaigns"></a>11、Campaigns</h4><p>发起钓鱼行动</p>
@@ -811,7 +812,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">69.6k</span>
+    <span title="Site words total count">69.7k</span>
   
 </div>
 
