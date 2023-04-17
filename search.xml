@@ -82,6 +82,32 @@
       </tags>
   </entry>
   <entry>
+    <title>RCE漏洞</title>
+    <url>/2022/03/08/RCE%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>RCE漏洞是对命令执行/代码执行类漏洞的统称。这类漏洞因为可以通过网络远程执行命令或代码，可以直接获取一定权限，会造成较严重的影响，因此属于较高危的一类漏洞</p>
+<span id="more"></span>
+
+<h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">由于系统开发时使用了特殊函数，能够将传输进来的数据当作是操作系统命令去执行， 攻击者将注入的语句更改为系统命令作为操作系统命令执行，仅当Web应用程序代码包含操作系统调用并且调用中使用了用户输入时，才可能进行命令攻击。</span><br></pre></td></tr></table></figure>
+
+<h2 id="远程代码执行"><a href="#远程代码执行" class="headerlink" title="远程代码执行"></a>远程代码执行</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">代码注入攻击与命令注入攻击不同。因为需求设计，后台有时候需要把用户的输入作为代码的一部分进行执行,也就造成了代码执行漏洞。</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞检测"><a href="#漏洞检测" class="headerlink" title="漏洞检测"></a>漏洞检测</h2><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">任何外部输入都可以进行验证：文本字段，列表框，单选按钮，复选框，cookie，HTTP头数据，HTTP <span class="built_in">post</span>数据，隐藏字段，参数名称和参数值</span><br></pre></td></tr></table></figure>
+
+<h2 id="敏感函数"><a href="#敏感函数" class="headerlink" title="敏感函数"></a>敏感函数</h2><h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">#命令执行</span></span><br><span class="line">    system()<span class="comment">//执行外部程序，并且显示输出</span></span><br><span class="line">    exec()<span class="comment">//执行一个外部程序</span></span><br><span class="line">    shell_exec()<span class="comment">//通过 shell 环境执行命令，并且将完整的输出以字符串的方式返回</span></span><br><span class="line">    passthru()<span class="comment">//执行外部程序并且显示原始输出</span></span><br><span class="line">    pcntl_exec()<span class="comment">//在当前进程空间执行指定程序</span></span><br><span class="line">    popen()<span class="comment">//打开进程文件指针</span></span><br><span class="line">    proc_open()<span class="comment">//执行一个命令，并且打开用来输入/输出的文件指针</span></span><br><span class="line"><span class="comment">#代码执行</span></span><br><span class="line">    <span class="keyword">eval</span>()<span class="comment">//把字符串作为PHP代码执行</span></span><br><span class="line">    assert()<span class="comment">//检查一个断言是否为 FALSE，可用来执行代码</span></span><br><span class="line">    preg_replace()<span class="comment">//执行一个正则表达式的搜索和替换</span></span><br><span class="line">    call_user_func()<span class="comment">//把第一个参数作为回调函数调用</span></span><br><span class="line">    call_user_func_array()<span class="comment">//调用回调函数，并把一个数组参数作为回调函数的参数</span></span><br><span class="line">    array_map()<span class="comment">//为数组的每个元素应用回调函数</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="JAVA"><a href="#JAVA" class="headerlink" title="JAVA"></a>JAVA</h3><figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">java.lang.<span class="module-access"><span class="module"><span class="identifier">Runtime</span>.</span></span>get<span class="constructor">Runtime(.<span class="params">exec</span>(<span class="params">command</span>)</span>）Java中没有类似php中eval 函数这种直接可以将字符串转化为代码执行的函数，但是有反射机制，并且有各种基于反射机制的表达式引擎，如：OGNL、SpEL、MVEL等，这些都能造成代码执行漏洞。</span><br></pre></td></tr></table></figure>
+
+<h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#命令执行</span></span><br><span class="line">    system()执行系统指令</span><br><span class="line">    popen()popen()方法用于从一个命令打开一个管道</span><br><span class="line">    subprocess.call执行由参数提供的命令</span><br><span class="line">    spawn 执行命令</span><br><span class="line"><span class="comment">#代码执行</span></span><br><span class="line">    <span class="built_in">exec</span>(string)<span class="comment"># Python代码的动态执行</span></span><br><span class="line">    <span class="built_in">eval</span>(string)<span class="comment"># 返回表达式或代码对象的值</span></span><br><span class="line">    execfile(string)<span class="comment"># 从一个文件中读取和执行Python脚本</span></span><br><span class="line">    <span class="built_in">input</span>(string)Python2.x 中 <span class="built_in">input</span>() 相等于 <span class="built_in">eval</span>(raw_input(prompt)) ，用来获取控制台的输入</span><br><span class="line">    <span class="built_in">compile</span>(string)<span class="comment"># 将源字符串编译为可执行对象</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="常见注入（利用）方式"><a href="#常见注入（利用）方式" class="headerlink" title="常见注入（利用）方式"></a>常见注入（利用）方式</h2><figure class="highlight perl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>、<span class="keyword">system</span>(<span class="string">&quot;$arg&quot;</span>);   可控点直接是待执行的程序如果我们能直接控制$arg，那么就能执行执行任意命令了。</span><br><span class="line"><span class="number">2</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog $arg&quot;</span>);<span class="regexp">//</span>可控点是传入程序的整个参数我们能够控制的点是程序的整个参数，我们可以直接用&amp;&amp; || 或 | 等等，利用与、或、管道命令来执行其他命令（可以涉及到很多linux命令行技巧）。</span><br><span class="line"><span class="number">3</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog -p $arg&quot;</span>);<span class="regexp">//</span>可控点是传入程序的某个参数的值（无引号包裹）我们控制的点是一个参数，我们也同样可以利用与、或、管道来执行其他命令，情境与二无异。</span><br><span class="line"><span class="number">4</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog --p=\&quot;$arg\&quot;&quot;</span>);<span class="regexp">//</span>可控点是传入程序的某个参数的值（有双引号包裹）这种情况压力大一点，有双引号包裹。如果引号没有被转义，我们可以先闭合引号，成为第三种情况后按照第三种情况来利用，如果引号被转义（addslashes），我们也不必着急。linux shell 环境下双引号中间的变量也是可以被解析的，我们可以在双引号内利用反引号执行任意命令 id</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SQL注入</title>
     <url>/2022/01/16/SQL%E6%B3%A8%E5%85%A5/</url>
     <content><![CDATA[<h1 id="sql注入是什么？"><a href="#sql注入是什么？" class="headerlink" title="sql注入是什么？"></a>sql注入是什么？</h1><ul>
@@ -333,32 +359,6 @@
 </li>
 </ul>
 ]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RCE漏洞</title>
-    <url>/2022/03/08/RCE%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>RCE漏洞是对命令执行/代码执行类漏洞的统称。这类漏洞因为可以通过网络远程执行命令或代码，可以直接获取一定权限，会造成较严重的影响，因此属于较高危的一类漏洞</p>
-<span id="more"></span>
-
-<h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">由于系统开发时使用了特殊函数，能够将传输进来的数据当作是操作系统命令去执行， 攻击者将注入的语句更改为系统命令作为操作系统命令执行，仅当Web应用程序代码包含操作系统调用并且调用中使用了用户输入时，才可能进行命令攻击。</span><br></pre></td></tr></table></figure>
-
-<h2 id="远程代码执行"><a href="#远程代码执行" class="headerlink" title="远程代码执行"></a>远程代码执行</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">代码注入攻击与命令注入攻击不同。因为需求设计，后台有时候需要把用户的输入作为代码的一部分进行执行,也就造成了代码执行漏洞。</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞检测"><a href="#漏洞检测" class="headerlink" title="漏洞检测"></a>漏洞检测</h2><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">任何外部输入都可以进行验证：文本字段，列表框，单选按钮，复选框，cookie，HTTP头数据，HTTP <span class="built_in">post</span>数据，隐藏字段，参数名称和参数值</span><br></pre></td></tr></table></figure>
-
-<h2 id="敏感函数"><a href="#敏感函数" class="headerlink" title="敏感函数"></a>敏感函数</h2><h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">#命令执行</span></span><br><span class="line">    system()<span class="comment">//执行外部程序，并且显示输出</span></span><br><span class="line">    exec()<span class="comment">//执行一个外部程序</span></span><br><span class="line">    shell_exec()<span class="comment">//通过 shell 环境执行命令，并且将完整的输出以字符串的方式返回</span></span><br><span class="line">    passthru()<span class="comment">//执行外部程序并且显示原始输出</span></span><br><span class="line">    pcntl_exec()<span class="comment">//在当前进程空间执行指定程序</span></span><br><span class="line">    popen()<span class="comment">//打开进程文件指针</span></span><br><span class="line">    proc_open()<span class="comment">//执行一个命令，并且打开用来输入/输出的文件指针</span></span><br><span class="line"><span class="comment">#代码执行</span></span><br><span class="line">    <span class="keyword">eval</span>()<span class="comment">//把字符串作为PHP代码执行</span></span><br><span class="line">    assert()<span class="comment">//检查一个断言是否为 FALSE，可用来执行代码</span></span><br><span class="line">    preg_replace()<span class="comment">//执行一个正则表达式的搜索和替换</span></span><br><span class="line">    call_user_func()<span class="comment">//把第一个参数作为回调函数调用</span></span><br><span class="line">    call_user_func_array()<span class="comment">//调用回调函数，并把一个数组参数作为回调函数的参数</span></span><br><span class="line">    array_map()<span class="comment">//为数组的每个元素应用回调函数</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="JAVA"><a href="#JAVA" class="headerlink" title="JAVA"></a>JAVA</h3><figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">java.lang.<span class="module-access"><span class="module"><span class="identifier">Runtime</span>.</span></span>get<span class="constructor">Runtime(.<span class="params">exec</span>(<span class="params">command</span>)</span>）Java中没有类似php中eval 函数这种直接可以将字符串转化为代码执行的函数，但是有反射机制，并且有各种基于反射机制的表达式引擎，如：OGNL、SpEL、MVEL等，这些都能造成代码执行漏洞。</span><br></pre></td></tr></table></figure>
-
-<h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#命令执行</span></span><br><span class="line">    system()执行系统指令</span><br><span class="line">    popen()popen()方法用于从一个命令打开一个管道</span><br><span class="line">    subprocess.call执行由参数提供的命令</span><br><span class="line">    spawn 执行命令</span><br><span class="line"><span class="comment">#代码执行</span></span><br><span class="line">    <span class="built_in">exec</span>(string)<span class="comment"># Python代码的动态执行</span></span><br><span class="line">    <span class="built_in">eval</span>(string)<span class="comment"># 返回表达式或代码对象的值</span></span><br><span class="line">    execfile(string)<span class="comment"># 从一个文件中读取和执行Python脚本</span></span><br><span class="line">    <span class="built_in">input</span>(string)Python2.x 中 <span class="built_in">input</span>() 相等于 <span class="built_in">eval</span>(raw_input(prompt)) ，用来获取控制台的输入</span><br><span class="line">    <span class="built_in">compile</span>(string)<span class="comment"># 将源字符串编译为可执行对象</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="常见注入（利用）方式"><a href="#常见注入（利用）方式" class="headerlink" title="常见注入（利用）方式"></a>常见注入（利用）方式</h2><figure class="highlight perl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>、<span class="keyword">system</span>(<span class="string">&quot;$arg&quot;</span>);   可控点直接是待执行的程序如果我们能直接控制$arg，那么就能执行执行任意命令了。</span><br><span class="line"><span class="number">2</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog $arg&quot;</span>);<span class="regexp">//</span>可控点是传入程序的整个参数我们能够控制的点是程序的整个参数，我们可以直接用&amp;&amp; || 或 | 等等，利用与、或、管道命令来执行其他命令（可以涉及到很多linux命令行技巧）。</span><br><span class="line"><span class="number">3</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog -p $arg&quot;</span>);<span class="regexp">//</span>可控点是传入程序的某个参数的值（无引号包裹）我们控制的点是一个参数，我们也同样可以利用与、或、管道来执行其他命令，情境与二无异。</span><br><span class="line"><span class="number">4</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog --p=\&quot;$arg\&quot;&quot;</span>);<span class="regexp">//</span>可控点是传入程序的某个参数的值（有双引号包裹）这种情况压力大一点，有双引号包裹。如果引号没有被转义，我们可以先闭合引号，成为第三种情况后按照第三种情况来利用，如果引号被转义（addslashes），我们也不必着急。linux shell 环境下双引号中间的变量也是可以被解析的，我们可以在双引号内利用反引号执行任意命令 id</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>web安全</category>
       </categories>
@@ -1059,32 +1059,6 @@
       </tags>
   </entry>
   <entry>
-    <title>文件包含漏洞个人总结</title>
-    <url>/2022/03/08/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h2 id="什么是文件包含"><a href="#什么是文件包含" class="headerlink" title="什么是文件包含"></a>什么是文件包含</h2><p>程序开发人员一般希望代码更灵活，所以将被包含的文件设置为变量，用来进行动态调用，但正是由于这种灵活性，从而导致客户端可以调用一个恶意文件，造成文件包含漏洞。为了控制代码的灵活，程序要把要使用的函数写到一个文件中，其他需要其中的的函数执行，只需要通过该文件名包含进来，而且没有进行验证。</p>
-<span id="more"></span>
-
-<h2 id="文件包含分类"><a href="#文件包含分类" class="headerlink" title="文件包含分类"></a>文件包含分类</h2><p><strong>本地包含</strong></p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">当被包含的文件在服务器本地时，且能够读取或执行包含本地文件的漏洞，称为本地文件包含漏洞</span><br></pre></td></tr></table></figure>
-
-<p><strong>远程包含</strong></p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">远程文件包含和本地文件包含造成漏洞的原因是一样的，当开发配置可以读取远程文件时，例如php.ini 中的配置选项allow_url_fopen和allow_url_include为<span class="keyword">ON</span>的话，则包含的文件可以是第三方服务器中的文件，这样就形成了远程文件包含漏洞。</span><br><span class="line">代码限制：代码里面限制只能包含本地文件的话就不会有远程包含，如果没限制的话，并且在设置上允许包含远程文件的话，就会引起远程包含</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">通过文件以脚本去执行</span><br><span class="line">文件包含常用函数</span><br><span class="line"><span class="function"><span class="title">include</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">require</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">fopen</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">include_once</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">require_once</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">readfile</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
-
-<h2 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">漏扫工具</span><br><span class="line">公开漏洞</span><br><span class="line">手工看参数以及功能点</span><br><span class="line"><span class="number">1</span>、通过观察参数特征猜测是否使用文件包含，文件包含参数后面为具体文件名如：http:<span class="regexp">//</span>example.com/index.php?page=include.php</span><br><span class="line">http:<span class="regexp">//</span>example.com/index.php?page=include</span><br><span class="line"><span class="number">2</span>、通过..<span class="regexp">/目录跳转符尝试读取系统文件、服务器日志文件或者配置文件。如读取Linux的/</span>etc<span class="regexp">/passwd文件: http:/</span><span class="regexp">/example.com/i</span>ndex.php?page=..<span class="regexp">/../</span>..<span class="regexp">/../</span>etc/passwd</span><br><span class="line"><span class="number">3</span>、通过php:<span class="regexp">//</span>filter<span class="regexp">/convert.base64-encode/</span>resource=index.php读取代码文件。</span><br><span class="line"><span class="number">4</span>、通过包含远程服务器上的PHP代码文件执行代码。</span><br><span class="line"><span class="number">5</span>、如果站点存在一个文件上传功能，只允许图片类型文件，并且存在文件包含漏洞，则可以把PHP代码写入图片文件中，再通过文件包含漏洞包含之，进而执行PHP代码。</span><br><span class="line"><span class="number">6</span>、如果文件的后缀可考虑使用截断进行包含：</span><br><span class="line">  <span class="number">1</span>)%<span class="number">00</span>截断（PHP小于<span class="number">5.3</span>.<span class="number">4</span>，magic_quotes_gpc=off）</span><br><span class="line">  <span class="number">2</span>)路径长度截断：</span><br><span class="line">  <span class="regexp">/etc/</span>passwd<span class="regexp">/./</span>.<span class="regexp">/./</span>.<span class="regexp">/./</span>.[n*/.]（Linux文件名需要长于<span class="number">4096</span>，Windows 需要长于<span class="number">256</span>）</span><br></pre></td></tr></table></figure>
-
-<h2 id="如何利用"><a href="#如何利用" class="headerlink" title="如何利用"></a>如何利用</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">1.读取目标机上敏感文件</span><br><span class="line">2.远程文件包含可运行的PHP木马</span><br><span class="line">3、配合文件上传漏洞获取webshll</span><br></pre></td></tr></table></figure>
-
-<h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">固定文件后缀</span><br><span class="line">固定使用的文件</span><br><span class="line">安装WAF</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>记一次windows应急响应</title>
     <url>/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/</url>
     <content><![CDATA[<h1 id="1、背景"><a href="#1、背景" class="headerlink" title="1、背景"></a>1、背景</h1><p>大好假期，人在家中躺，应急天上来，上了机子之后过程还算是比较顺利的，环境是Tomcat，大致思路就是，排查可疑用户和文件，看日志，连接情况，进程，定时任务，注册表这些。</p>
@@ -1160,6 +1134,32 @@
 ]]></content>
       <categories>
         <category>应急响应</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>文件包含漏洞个人总结</title>
+    <url>/2022/03/08/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h2 id="什么是文件包含"><a href="#什么是文件包含" class="headerlink" title="什么是文件包含"></a>什么是文件包含</h2><p>程序开发人员一般希望代码更灵活，所以将被包含的文件设置为变量，用来进行动态调用，但正是由于这种灵活性，从而导致客户端可以调用一个恶意文件，造成文件包含漏洞。为了控制代码的灵活，程序要把要使用的函数写到一个文件中，其他需要其中的的函数执行，只需要通过该文件名包含进来，而且没有进行验证。</p>
+<span id="more"></span>
+
+<h2 id="文件包含分类"><a href="#文件包含分类" class="headerlink" title="文件包含分类"></a>文件包含分类</h2><p><strong>本地包含</strong></p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">当被包含的文件在服务器本地时，且能够读取或执行包含本地文件的漏洞，称为本地文件包含漏洞</span><br></pre></td></tr></table></figure>
+
+<p><strong>远程包含</strong></p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">远程文件包含和本地文件包含造成漏洞的原因是一样的，当开发配置可以读取远程文件时，例如php.ini 中的配置选项allow_url_fopen和allow_url_include为<span class="keyword">ON</span>的话，则包含的文件可以是第三方服务器中的文件，这样就形成了远程文件包含漏洞。</span><br><span class="line">代码限制：代码里面限制只能包含本地文件的话就不会有远程包含，如果没限制的话，并且在设置上允许包含远程文件的话，就会引起远程包含</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">通过文件以脚本去执行</span><br><span class="line">文件包含常用函数</span><br><span class="line"><span class="function"><span class="title">include</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">require</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">fopen</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">include_once</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">require_once</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">readfile</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">漏扫工具</span><br><span class="line">公开漏洞</span><br><span class="line">手工看参数以及功能点</span><br><span class="line"><span class="number">1</span>、通过观察参数特征猜测是否使用文件包含，文件包含参数后面为具体文件名如：http:<span class="regexp">//</span>example.com/index.php?page=include.php</span><br><span class="line">http:<span class="regexp">//</span>example.com/index.php?page=include</span><br><span class="line"><span class="number">2</span>、通过..<span class="regexp">/目录跳转符尝试读取系统文件、服务器日志文件或者配置文件。如读取Linux的/</span>etc<span class="regexp">/passwd文件: http:/</span><span class="regexp">/example.com/i</span>ndex.php?page=..<span class="regexp">/../</span>..<span class="regexp">/../</span>etc/passwd</span><br><span class="line"><span class="number">3</span>、通过php:<span class="regexp">//</span>filter<span class="regexp">/convert.base64-encode/</span>resource=index.php读取代码文件。</span><br><span class="line"><span class="number">4</span>、通过包含远程服务器上的PHP代码文件执行代码。</span><br><span class="line"><span class="number">5</span>、如果站点存在一个文件上传功能，只允许图片类型文件，并且存在文件包含漏洞，则可以把PHP代码写入图片文件中，再通过文件包含漏洞包含之，进而执行PHP代码。</span><br><span class="line"><span class="number">6</span>、如果文件的后缀可考虑使用截断进行包含：</span><br><span class="line">  <span class="number">1</span>)%<span class="number">00</span>截断（PHP小于<span class="number">5.3</span>.<span class="number">4</span>，magic_quotes_gpc=off）</span><br><span class="line">  <span class="number">2</span>)路径长度截断：</span><br><span class="line">  <span class="regexp">/etc/</span>passwd<span class="regexp">/./</span>.<span class="regexp">/./</span>.<span class="regexp">/./</span>.[n*/.]（Linux文件名需要长于<span class="number">4096</span>，Windows 需要长于<span class="number">256</span>）</span><br></pre></td></tr></table></figure>
+
+<h2 id="如何利用"><a href="#如何利用" class="headerlink" title="如何利用"></a>如何利用</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">1.读取目标机上敏感文件</span><br><span class="line">2.远程文件包含可运行的PHP木马</span><br><span class="line">3、配合文件上传漏洞获取webshll</span><br></pre></td></tr></table></figure>
+
+<h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">固定文件后缀</span><br><span class="line">固定使用的文件</span><br><span class="line">安装WAF</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>web安全</category>
       </categories>
       <tags>
         <tag>学习笔记</tag>
@@ -1309,6 +1309,100 @@
       </categories>
       <tags>
         <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>钓鱼平台搭建</title>
+    <url>/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h4 id="1、在github上下载Gophish"><a href="#1、在github上下载Gophish" class="headerlink" title="1、在github上下载Gophish"></a>1、在github上下载Gophish</h4><p><a href="https://github.com/gophish/gophish/releases">https://github.com/gophish/gophish/releases</a></p>
+<span id="more"></span>
+<p><img src="https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/1672753949916-d68c7f5e-6204-4d61-8210-ab0d620c69a9.png" alt="img"></p>
+<h4 id="2、解压并安装"><a href="#2、解压并安装" class="headerlink" title="2、解压并安装"></a>2、解压并安装</h4><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">mkdir</span>  gophish</span><br><span class="line"></span><br><span class="line"><span class="attribute">unzip</span> gophish-v<span class="number">0</span>.<span class="number">12</span>.<span class="number">1</span>-linux-<span class="number">64</span>bit.zip -d ./gophish</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/1672756110888-41061e50-4887-44c4-9f51-59cc35a4c361.png" alt="img"></p>
+<h4 id="3、修改配置文件"><a href="#3、修改配置文件" class="headerlink" title="3、修改配置文件"></a>3、修改配置文件</h4><figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">vim <span class="built_in">config</span>.<span class="keyword">json</span></span><br><span class="line"><span class="keyword"></span>蒋<span class="string">&quot;listen_url&quot;</span>: <span class="string">&quot;127.0.0.1:3333&quot;</span>，修改为<span class="number">0</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">0</span>:<span class="number">443</span>(端口任意)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/1672756169833-902d24e3-e141-40ed-bcb9-1b5b8550baa6.png" alt="img"></p>
+<p><img src="https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/1672756203040-fead3079-a741-4dd2-93c0-ac29ec76c178.png" alt="img"></p>
+<p><img src="https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/1672756265682-85a6230c-5357-4f0c-961c-1d4a83fd2c40.png" alt="img"></p>
+<p>赋权</p>
+<figure class="highlight llvm"><table><tr><td class="code"><pre><span class="line">chmod +<span class="keyword">x</span> gophish</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/1672756401245-b1303864-4282-4a93-8076-ad3ca6653b47.png" alt="img"></p>
+<h4 id="4、启动gophish"><a href="#4、启动gophish" class="headerlink" title="4、启动gophish"></a>4、启动gophish</h4><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="string">./gophish</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/1672756787591-6fcb150d-591b-4806-a3b5-12e0a0e12aa6.png" alt="img"></p>
+<p>报错解决方法：</p>
+<p><a href="https://blog.csdn.net/NinjaKilling/article/details/125979091">https://blog.csdn.net/NinjaKilling/article/details/125979091</a></p>
+<h4 id="5、登录"><a href="#5、登录" class="headerlink" title="5、登录"></a>5、登录</h4><p>密码为<strong>控制台输出的随机密码</strong>，第一次登录后修改密码</p>
+<p><img src="https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/1672814086488-af26b838-71df-4802-b972-b0253658489c.png" alt="img"></p>
+<h4 id="6、基本配置"><a href="#6、基本配置" class="headerlink" title="6、基本配置"></a>6、基本配置</h4><p>Sending Profiles</p>
+<p>配置用来发送钓鱼邮件的邮箱</p>
+<p>Name：发件人策略名字(只是该条配置的名字)</p>
+<p>From：发件人(受害者收到邮件看到的发件人)</p>
+<p>Host：邮件服务器地址</p>
+<p>Username：邮箱用户名</p>
+<p>Password：邮箱密码</p>
+<p><img src="https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/1672816632662-d948a674-14fe-4208-98da-a9895503a7b4.png" alt="img"></p>
+<p>Email Headers:<br>    Email Headers 是自定义邮件头字段，例如邮件头的X-Mailer字段，若不修改此字段的值，通过gophish发出的邮件，其邮件头的X-Mailer的值默认为gophish</p>
+<p><img src="https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/1672820699054-6e9118dd-1ebc-4507-8adb-c295af1fd4fa.png" alt="img"></p>
+<p>配置完成可以发送一封测试邮件查看是否正常</p>
+<p><img src="https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/1672816710023-ac3b8ca6-c14d-4d4c-9c6c-422b1c4b340b.png" alt="img"></p>
+<p><img src="https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/1672816655974-a92fe1ca-3037-4770-9ffc-7cf7d403f013.png" alt="img"></p>
+<h4 id="7、Email-Templates"><a href="#7、Email-Templates" class="headerlink" title="7、Email Templates"></a>7、Email Templates</h4><p>配置邮件发送的模板</p>
+<p>Name：模板名称</p>
+<p>Import Mail：导入一个邮件模板，使用邮件的原始文本，形式如下</p>
+<p>Change Links to Point to Landing Page：勾选该框，会将邮件中的所有链接自动转变为钓鱼网站的URL(Landing Pages处配置的URL)。</p>
+<p>Subject：邮件主题</p>
+<p>收件显示的该部分</p>
+<p>模板主体</p>
+<p>可以使用Text或HTML</p>
+<p>Add Tracking Image：在钓鱼邮件末添加一个跟踪图像，用来跟踪受害用户是否打开了收到的钓鱼邮件。</p>
+<p>Add Files：添加邮件中的附件</p>
+<p><img src="https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/1672817141629-19826fc8-b03f-469e-b5b3-4aa2d577776e.png" alt="img"></p>
+<h4 id="8、Users-amp-Groups"><a href="#8、Users-amp-Groups" class="headerlink" title="8、Users &amp; Groups"></a>8、Users &amp; Groups</h4><p>配置钓鱼对象，用户和组</p>
+<p>批量导入用户</p>
+<p>导入邮箱可以使用CSV进行批量添加，格式如下(可点击Download CSV TEmplate获取模板)</p>
+<p><img src="https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/1672817383237-d325296b-9402-4382-9344-dd1199a5673f.png" alt="img"></p>
+<h4 id="9、Landing-Pages"><a href="#9、Landing-Pages" class="headerlink" title="9、Landing Pages"></a>9、Landing Pages</h4><p>配置钓鱼页面</p>
+<p>Landing Pages是邮件模板中URL指向的页面(如果不想使用钓鱼页面，在配置Email Templates，Import Emails时，不勾选Change Links to Point to Landing Page)</p>
+<p>与钓鱼邮件模板的编辑一样，gophish为钓鱼页面的设计也提供了两种方式，第一种则是Import Site 点击Import Site后，填写被伪造网站的URL，再点击Import，即可通过互联网自动抓取被伪造网站的前端代码 这里以伪造XX大学电子邮箱登录界面为例，在Import Site中填写<a href="https://mail.xx.edu.cn,并点击import./">https://mail.XX.edu.cn，并点击import。</a></p>
+<p><img src="https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/1672817615474-5988c220-7a72-47f3-9c90-7946064126ae.png" alt="img"></p>
+<p>Import完成后，会自动抓取前端代码</p>
+<p>同时，勾选Capture Submitted Data、Capture Passwords</p>
+<p>在Redirect to处，可以填写邮件系统的地址，受害者输入用户名密码后，会自动跳转到电子邮件系统，减少受害者的可疑心，形成一个攻击闭环。</p>
+<p><img src="https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/1672817817024-ee17eaed-2ad7-43a6-860d-e34f8ec322d1.png" alt="img"></p>
+<h4 id="10、钓鱼页面的坑"><a href="#10、钓鱼页面的坑" class="headerlink" title="10、钓鱼页面的坑"></a>10、钓鱼页面的坑</h4><p><strong>捕获不到提交的数据</strong></p>
+<p>1、导入后要在HTML编辑框的非Source模式下观察源码解析情况，如果明显发现存在许多地方未加载，则有可能导入的源码并非页面完全加载后的前端代码，而是一个半成品，需要通过浏览器二次解析，渲染未加载的DOM。这种情况下，除非能够直接爬取页面完全加载后的前端代码，否则无法利用gophish进行钓鱼，造成的原因是不满足第2点。</p>
+<p>2、导入的前端源码，必须存在严格存在结构</p>
+<form method="post" ···><input name="aaa" ···> ··· <input type="submit" ···></form>
+
+<p>即表单（POST方式）— Input标签（具有name属性）Input标签（submit类型）— 表单闭合的结构，如果不满足则无法捕获到提交的数据</p>
+<p>3、在满足第2点的结构的情况下，还需要求&lt;form method=”post” ···&gt;在浏览器解析渲染后（即预览情况下）不能包含action属性，或者action属性的值为空。否则将会把表单数据提交给action指定的页面，而导致无法被捕获到.</p>
+<p><strong>捕获数据不齐全</strong></p>
+<p>对于需要被捕获的表单数据，除了input标签需要被包含在<form>中，还需满足该<input>存在name属性。例如<input name="username">,否则会因为没有字段名而导致value被忽略。</form></p>
+<p><strong>密码被加密</strong></p>
+<p>针对https页面的import，通常密码会进行加密处理，这时需要通过审计导入的前端代码，找到加密的JavaScript函数（多数情况存在于单独的js文件中，通过src引入），将其在gophish的HTML编辑框中删除，阻止表单数据被加密。</p>
+<h4 id="11、Campaigns"><a href="#11、Campaigns" class="headerlink" title="11、Campaigns"></a>11、Campaigns</h4><p>发起钓鱼行动</p>
+<p>Name：钓鱼行动名称</p>
+<p>Email Template：选用的钓鱼邮件模板</p>
+<p>Landing Page：选用的钓鱼页面</p>
+<p>URL：为Gophish服务器搭建时配置的监听地址，默认是gophish服务器80端口，<strong>如果钓鱼服务器和Gophish同服务器，则填127.0.0.1</strong></p>
+<p>Sending Profile：选用的发件人信息</p>
+<p>Groups：选用的目标组</p>
+<p><img src="https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/1672818188158-aafa66f6-6ec0-4f96-9516-1a5eb615c3d3.png" alt="img"></p>
+<h4 id="12、Dashboard"><a href="#12、Dashboard" class="headerlink" title="12、Dashboard"></a>12、Dashboard</h4><p>用于查看钓鱼行动的进展</p>
+<p><img src="https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/1672818331165-8d1b435b-263c-4ab9-a0fd-3a237c62f1fc.png" alt="img"></p>
+<p>在Recent Campaigns可以查看钓鱼行动的详情</p>
+<p>可以看到发送成功的邮件、打开邮件的情况、点击链接的情况、提交数据的情况</p>
+<p><img src="https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/1672818370370-37169451-e1a3-49db-8d9d-8fc585da8bab.png" alt="img"></p>
+]]></content>
+      <categories>
+        <category>钓鱼</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>钓鱼平台搭建</tag>
       </tags>
   </entry>
   <entry>

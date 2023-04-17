@@ -6,7 +6,7 @@
   <link href="https://ax-x.github.io/atom.xml" rel="self"/>
   
   <link href="https://ax-x.github.io/"/>
-  <updated>2023-04-17T02:03:57.913Z</updated>
+  <updated>2023-04-17T07:49:29.153Z</updated>
   <id>https://ax-x.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>钓鱼平台搭建</title>
+    <link href="https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/"/>
+    <id>https://ax-x.github.io/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/</id>
+    <published>2023-04-17T07:47:57.000Z</published>
+    <updated>2023-04-17T07:49:29.153Z</updated>
+    
+    
+    <summary type="html">&lt;h4 id=&quot;1、在github上下载Gophish&quot;&gt;&lt;a href=&quot;#1、在github上下载Gophish&quot; class=&quot;headerlink&quot; title=&quot;1、在github上下载Gophish&quot;&gt;&lt;/a&gt;1、在github上下载Gophish&lt;/h4&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/gophish/gophish/releases&quot;&gt;https://github.com/gophish/gophish/releases&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="钓鱼" scheme="https://ax-x.github.io/categories/%E9%92%93%E9%B1%BC/"/>
+    
+    
+    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="钓鱼平台搭建" scheme="https://ax-x.github.io/tags/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/"/>
+    
+  </entry>
   
   <entry>
     <title>PowerShell Community</title>
@@ -391,27 +412,6 @@
     
     
     <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Air Cargo Management System v1.0存在SQL注入漏洞</title>
-    <link href="https://ax-x.github.io/2022/03/08/Air-Cargo-Management-System-v1-0%E5%AD%98%E5%9C%A8SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/"/>
-    <id>https://ax-x.github.io/2022/03/08/Air-Cargo-Management-System-v1-0%E5%AD%98%E5%9C%A8SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/</id>
-    <published>2022-03-08T01:13:19.000Z</published>
-    <updated>2022-08-30T08:15:22.387Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;一、漏洞介绍&quot;&gt;&lt;a href=&quot;#一、漏洞介绍&quot; class=&quot;headerlink&quot; title=&quot;一、漏洞介绍&quot;&gt;&lt;/a&gt;一、漏洞介绍&lt;/h1&gt;&lt;p&gt;Air Cargo Management System是一款航空货运管理系统。该系统包含不同的相关模块，例如交易。它有两个用户界面，即管理面板和公共端，Air Cargo Management System存在SQL注入漏洞，攻击者可以利用漏洞获取数据库数据权限等。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="代码审计" scheme="https://ax-x.github.io/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
-    
-    
-    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    <category term="PHP代码审计" scheme="https://ax-x.github.io/tags/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
   </entry>
   
