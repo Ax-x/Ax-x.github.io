@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>CSRF 跨站请求伪造漏洞</title>
-    <url>/2022/03/08/CSRF-%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>CSRF跨站请求伪造，由客户端发起，是一种劫持受信任用户向服务器发送非预期请求的攻击方式，与XSS相似，但比XSS更难防范，常与XSS一起配合攻击</p>
-<span id="more"></span>
-<p>攻击者盗用了用户的身份信息，以用户的名义发送恶意请求，对服务器来说这个请求是用户发起的，却完成了攻击者所期望的一个操作 XSS 利用站点内内的信任用户，盗取cookie CSRF通过伪装成受信任用户请求受信任的网站利用目标用户的合法身份，以目标的名义执行某些非法参数 利用条件：已经登录系统，用户访问URL 已存在的网站中让用户跳转</p>
-<h2 id="CSRF漏洞防御方案"><a href="#CSRF漏洞防御方案" class="headerlink" title="CSRF漏洞防御方案"></a>CSRF漏洞防御方案</h2><p>1.当用户发送重要的请求时输入验证码<br>2.设置随机TOKEN —数据包的唯一值<br>3.检测referer来源，请求时判断请求连接是否为当前管理员正在使用的页面（管理员在编辑文章，黑客发来恶意的修改密码链接，因为修改密码页面管理员并没有在操作，所以攻击失败）<br>4.设置验证码<br>5.限制请求方式只能为post</p>
-]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Air Cargo Management System v1.0存在SQL注入漏洞</title>
     <url>/2022/03/08/Air-Cargo-Management-System-v1-0%E5%AD%98%E5%9C%A8SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/</url>
     <content><![CDATA[<h1 id="一、漏洞介绍"><a href="#一、漏洞介绍" class="headerlink" title="一、漏洞介绍"></a>一、漏洞介绍</h1><p>Air Cargo Management System是一款航空货运管理系统。该系统包含不同的相关模块，例如交易。它有两个用户界面，即管理面板和公共端，Air Cargo Management System存在SQL注入漏洞，攻击者可以利用漏洞获取数据库数据权限等。</p>
@@ -40,6 +25,21 @@
       <tags>
         <tag>学习笔记</tag>
         <tag>PHP代码审计</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CSRF 跨站请求伪造漏洞</title>
+    <url>/2022/03/08/CSRF-%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>CSRF跨站请求伪造，由客户端发起，是一种劫持受信任用户向服务器发送非预期请求的攻击方式，与XSS相似，但比XSS更难防范，常与XSS一起配合攻击</p>
+<span id="more"></span>
+<p>攻击者盗用了用户的身份信息，以用户的名义发送恶意请求，对服务器来说这个请求是用户发起的，却完成了攻击者所期望的一个操作 XSS 利用站点内内的信任用户，盗取cookie CSRF通过伪装成受信任用户请求受信任的网站利用目标用户的合法身份，以目标的名义执行某些非法参数 利用条件：已经登录系统，用户访问URL 已存在的网站中让用户跳转</p>
+<h2 id="CSRF漏洞防御方案"><a href="#CSRF漏洞防御方案" class="headerlink" title="CSRF漏洞防御方案"></a>CSRF漏洞防御方案</h2><p>1.当用户发送重要的请求时输入验证码<br>2.设置随机TOKEN —数据包的唯一值<br>3.检测referer来源，请求时判断请求连接是否为当前管理员正在使用的页面（管理员在编辑文章，黑客发来恶意的修改密码链接，因为修改密码页面管理员并没有在操作，所以攻击失败）<br>4.设置验证码<br>5.限制请求方式只能为post</p>
+]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -74,32 +74,6 @@
     <url>/2022/01/01/First%20Blog/</url>
     <content><![CDATA[<p>Welcome to my blog! I’m glad to make friends with you. If you can browse my website, I will be grateful. In the future, I will upload my records and learning contents here. I hope the boss will take me with me！</p>
 ]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RCE漏洞</title>
-    <url>/2022/03/08/RCE%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>RCE漏洞是对命令执行/代码执行类漏洞的统称。这类漏洞因为可以通过网络远程执行命令或代码，可以直接获取一定权限，会造成较严重的影响，因此属于较高危的一类漏洞</p>
-<span id="more"></span>
-
-<h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">由于系统开发时使用了特殊函数，能够将传输进来的数据当作是操作系统命令去执行， 攻击者将注入的语句更改为系统命令作为操作系统命令执行，仅当Web应用程序代码包含操作系统调用并且调用中使用了用户输入时，才可能进行命令攻击。</span><br></pre></td></tr></table></figure>
-
-<h2 id="远程代码执行"><a href="#远程代码执行" class="headerlink" title="远程代码执行"></a>远程代码执行</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">代码注入攻击与命令注入攻击不同。因为需求设计，后台有时候需要把用户的输入作为代码的一部分进行执行,也就造成了代码执行漏洞。</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞检测"><a href="#漏洞检测" class="headerlink" title="漏洞检测"></a>漏洞检测</h2><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">任何外部输入都可以进行验证：文本字段，列表框，单选按钮，复选框，cookie，HTTP头数据，HTTP <span class="built_in">post</span>数据，隐藏字段，参数名称和参数值</span><br></pre></td></tr></table></figure>
-
-<h2 id="敏感函数"><a href="#敏感函数" class="headerlink" title="敏感函数"></a>敏感函数</h2><h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">#命令执行</span></span><br><span class="line">    system()<span class="comment">//执行外部程序，并且显示输出</span></span><br><span class="line">    exec()<span class="comment">//执行一个外部程序</span></span><br><span class="line">    shell_exec()<span class="comment">//通过 shell 环境执行命令，并且将完整的输出以字符串的方式返回</span></span><br><span class="line">    passthru()<span class="comment">//执行外部程序并且显示原始输出</span></span><br><span class="line">    pcntl_exec()<span class="comment">//在当前进程空间执行指定程序</span></span><br><span class="line">    popen()<span class="comment">//打开进程文件指针</span></span><br><span class="line">    proc_open()<span class="comment">//执行一个命令，并且打开用来输入/输出的文件指针</span></span><br><span class="line"><span class="comment">#代码执行</span></span><br><span class="line">    <span class="keyword">eval</span>()<span class="comment">//把字符串作为PHP代码执行</span></span><br><span class="line">    assert()<span class="comment">//检查一个断言是否为 FALSE，可用来执行代码</span></span><br><span class="line">    preg_replace()<span class="comment">//执行一个正则表达式的搜索和替换</span></span><br><span class="line">    call_user_func()<span class="comment">//把第一个参数作为回调函数调用</span></span><br><span class="line">    call_user_func_array()<span class="comment">//调用回调函数，并把一个数组参数作为回调函数的参数</span></span><br><span class="line">    array_map()<span class="comment">//为数组的每个元素应用回调函数</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="JAVA"><a href="#JAVA" class="headerlink" title="JAVA"></a>JAVA</h3><figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">java.lang.<span class="module-access"><span class="module"><span class="identifier">Runtime</span>.</span></span>get<span class="constructor">Runtime(.<span class="params">exec</span>(<span class="params">command</span>)</span>）Java中没有类似php中eval 函数这种直接可以将字符串转化为代码执行的函数，但是有反射机制，并且有各种基于反射机制的表达式引擎，如：OGNL、SpEL、MVEL等，这些都能造成代码执行漏洞。</span><br></pre></td></tr></table></figure>
-
-<h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#命令执行</span></span><br><span class="line">    system()执行系统指令</span><br><span class="line">    popen()popen()方法用于从一个命令打开一个管道</span><br><span class="line">    subprocess.call执行由参数提供的命令</span><br><span class="line">    spawn 执行命令</span><br><span class="line"><span class="comment">#代码执行</span></span><br><span class="line">    <span class="built_in">exec</span>(string)<span class="comment"># Python代码的动态执行</span></span><br><span class="line">    <span class="built_in">eval</span>(string)<span class="comment"># 返回表达式或代码对象的值</span></span><br><span class="line">    execfile(string)<span class="comment"># 从一个文件中读取和执行Python脚本</span></span><br><span class="line">    <span class="built_in">input</span>(string)Python2.x 中 <span class="built_in">input</span>() 相等于 <span class="built_in">eval</span>(raw_input(prompt)) ，用来获取控制台的输入</span><br><span class="line">    <span class="built_in">compile</span>(string)<span class="comment"># 将源字符串编译为可执行对象</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="常见注入（利用）方式"><a href="#常见注入（利用）方式" class="headerlink" title="常见注入（利用）方式"></a>常见注入（利用）方式</h2><figure class="highlight perl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>、<span class="keyword">system</span>(<span class="string">&quot;$arg&quot;</span>);   可控点直接是待执行的程序如果我们能直接控制$arg，那么就能执行执行任意命令了。</span><br><span class="line"><span class="number">2</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog $arg&quot;</span>);<span class="regexp">//</span>可控点是传入程序的整个参数我们能够控制的点是程序的整个参数，我们可以直接用&amp;&amp; || 或 | 等等，利用与、或、管道命令来执行其他命令（可以涉及到很多linux命令行技巧）。</span><br><span class="line"><span class="number">3</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog -p $arg&quot;</span>);<span class="regexp">//</span>可控点是传入程序的某个参数的值（无引号包裹）我们控制的点是一个参数，我们也同样可以利用与、或、管道来执行其他命令，情境与二无异。</span><br><span class="line"><span class="number">4</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog --p=\&quot;$arg\&quot;&quot;</span>);<span class="regexp">//</span>可控点是传入程序的某个参数的值（有双引号包裹）这种情况压力大一点，有双引号包裹。如果引号没有被转义，我们可以先闭合引号，成为第三种情况后按照第三种情况来利用，如果引号被转义（addslashes），我们也不必着急。linux shell 环境下双引号中间的变量也是可以被解析的，我们可以在双引号内利用反引号执行任意命令 id</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>web安全</category>
       </categories>
@@ -367,6 +341,52 @@
       </tags>
   </entry>
   <entry>
+    <title>RCE漏洞</title>
+    <url>/2022/03/08/RCE%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>RCE漏洞是对命令执行/代码执行类漏洞的统称。这类漏洞因为可以通过网络远程执行命令或代码，可以直接获取一定权限，会造成较严重的影响，因此属于较高危的一类漏洞</p>
+<span id="more"></span>
+
+<h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">由于系统开发时使用了特殊函数，能够将传输进来的数据当作是操作系统命令去执行， 攻击者将注入的语句更改为系统命令作为操作系统命令执行，仅当Web应用程序代码包含操作系统调用并且调用中使用了用户输入时，才可能进行命令攻击。</span><br></pre></td></tr></table></figure>
+
+<h2 id="远程代码执行"><a href="#远程代码执行" class="headerlink" title="远程代码执行"></a>远程代码执行</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">代码注入攻击与命令注入攻击不同。因为需求设计，后台有时候需要把用户的输入作为代码的一部分进行执行,也就造成了代码执行漏洞。</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞检测"><a href="#漏洞检测" class="headerlink" title="漏洞检测"></a>漏洞检测</h2><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">任何外部输入都可以进行验证：文本字段，列表框，单选按钮，复选框，cookie，HTTP头数据，HTTP <span class="built_in">post</span>数据，隐藏字段，参数名称和参数值</span><br></pre></td></tr></table></figure>
+
+<h2 id="敏感函数"><a href="#敏感函数" class="headerlink" title="敏感函数"></a>敏感函数</h2><h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">#命令执行</span></span><br><span class="line">    system()<span class="comment">//执行外部程序，并且显示输出</span></span><br><span class="line">    exec()<span class="comment">//执行一个外部程序</span></span><br><span class="line">    shell_exec()<span class="comment">//通过 shell 环境执行命令，并且将完整的输出以字符串的方式返回</span></span><br><span class="line">    passthru()<span class="comment">//执行外部程序并且显示原始输出</span></span><br><span class="line">    pcntl_exec()<span class="comment">//在当前进程空间执行指定程序</span></span><br><span class="line">    popen()<span class="comment">//打开进程文件指针</span></span><br><span class="line">    proc_open()<span class="comment">//执行一个命令，并且打开用来输入/输出的文件指针</span></span><br><span class="line"><span class="comment">#代码执行</span></span><br><span class="line">    <span class="keyword">eval</span>()<span class="comment">//把字符串作为PHP代码执行</span></span><br><span class="line">    assert()<span class="comment">//检查一个断言是否为 FALSE，可用来执行代码</span></span><br><span class="line">    preg_replace()<span class="comment">//执行一个正则表达式的搜索和替换</span></span><br><span class="line">    call_user_func()<span class="comment">//把第一个参数作为回调函数调用</span></span><br><span class="line">    call_user_func_array()<span class="comment">//调用回调函数，并把一个数组参数作为回调函数的参数</span></span><br><span class="line">    array_map()<span class="comment">//为数组的每个元素应用回调函数</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="JAVA"><a href="#JAVA" class="headerlink" title="JAVA"></a>JAVA</h3><figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">java.lang.<span class="module-access"><span class="module"><span class="identifier">Runtime</span>.</span></span>get<span class="constructor">Runtime(.<span class="params">exec</span>(<span class="params">command</span>)</span>）Java中没有类似php中eval 函数这种直接可以将字符串转化为代码执行的函数，但是有反射机制，并且有各种基于反射机制的表达式引擎，如：OGNL、SpEL、MVEL等，这些都能造成代码执行漏洞。</span><br></pre></td></tr></table></figure>
+
+<h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#命令执行</span></span><br><span class="line">    system()执行系统指令</span><br><span class="line">    popen()popen()方法用于从一个命令打开一个管道</span><br><span class="line">    subprocess.call执行由参数提供的命令</span><br><span class="line">    spawn 执行命令</span><br><span class="line"><span class="comment">#代码执行</span></span><br><span class="line">    <span class="built_in">exec</span>(string)<span class="comment"># Python代码的动态执行</span></span><br><span class="line">    <span class="built_in">eval</span>(string)<span class="comment"># 返回表达式或代码对象的值</span></span><br><span class="line">    execfile(string)<span class="comment"># 从一个文件中读取和执行Python脚本</span></span><br><span class="line">    <span class="built_in">input</span>(string)Python2.x 中 <span class="built_in">input</span>() 相等于 <span class="built_in">eval</span>(raw_input(prompt)) ，用来获取控制台的输入</span><br><span class="line">    <span class="built_in">compile</span>(string)<span class="comment"># 将源字符串编译为可执行对象</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="常见注入（利用）方式"><a href="#常见注入（利用）方式" class="headerlink" title="常见注入（利用）方式"></a>常见注入（利用）方式</h2><figure class="highlight perl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>、<span class="keyword">system</span>(<span class="string">&quot;$arg&quot;</span>);   可控点直接是待执行的程序如果我们能直接控制$arg，那么就能执行执行任意命令了。</span><br><span class="line"><span class="number">2</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog $arg&quot;</span>);<span class="regexp">//</span>可控点是传入程序的整个参数我们能够控制的点是程序的整个参数，我们可以直接用&amp;&amp; || 或 | 等等，利用与、或、管道命令来执行其他命令（可以涉及到很多linux命令行技巧）。</span><br><span class="line"><span class="number">3</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog -p $arg&quot;</span>);<span class="regexp">//</span>可控点是传入程序的某个参数的值（无引号包裹）我们控制的点是一个参数，我们也同样可以利用与、或、管道来执行其他命令，情境与二无异。</span><br><span class="line"><span class="number">4</span>、<span class="keyword">system</span>(<span class="string">&quot;/bin/prog --p=\&quot;$arg\&quot;&quot;</span>);<span class="regexp">//</span>可控点是传入程序的某个参数的值（有双引号包裹）这种情况压力大一点，有双引号包裹。如果引号没有被转义，我们可以先闭合引号，成为第三种情况后按照第三种情况来利用，如果引号被转义（addslashes），我们也不必着急。linux shell 环境下双引号中间的变量也是可以被解析的，我们可以在双引号内利用反引号执行任意命令 id</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SSRF服务器端请求伪造</title>
+    <url>/2022/03/08/SSRF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>SSRF服务器端请求伪造是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。<span id="more"></span>（正是因为 它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）SSRF 形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。比如从指定URL地址获取网页文本内容，加载指定地址的图片，下载等等。 注释：除了http/https等方式可以造成ssrf，类似tcp connect 方式也可以探测内网一些ip 的端口是否开发服务，只不过危害比较小而已。</p>
+<h2 id="可实现攻击"><a href="#可实现攻击" class="headerlink" title="可实现攻击"></a>可实现攻击</h2><figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>	可以对服务器所在内网、本地进行端口扫描，获取一些服务的banner信息<span class="comment">;</span></span><br><span class="line"><span class="number">2</span>	攻击运行在内网或本地的应用程序（比如溢出）<span class="comment">;</span></span><br><span class="line"><span class="number">3</span>	对内网web应用进行指纹识别，通过访问默认文件实现<span class="comment">;</span></span><br><span class="line"><span class="number">4</span>	攻击内外网的web应用，主要是使用get参数就可以实现的攻击（比如struts2，sqli等）<span class="comment">;</span></span><br><span class="line"><span class="number">5</span>	利用file协议读取本地文件等。</span><br></pre></td></tr></table></figure>
+
+<h2 id="可能出现的地方"><a href="#可能出现的地方" class="headerlink" title="可能出现的地方"></a>可能出现的地方</h2><figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>社交分享功能：获取超链接的标题等内容进行显示</span><br><span class="line"><span class="number">2.</span>转码服务：通过URL地址把原地址的网页内容调优使其适合手机屏幕浏览</span><br><span class="line"><span class="number">3.</span>在线翻译：给网址翻译对应网页的内容</span><br><span class="line"><span class="number">4.</span>图片加载/下载：例如富文本编辑器中的点击下载图片到本地；通过URL地址加载或下载图片</span><br><span class="line"><span class="number">5.</span>图片/文章收藏功能：主要其会取URL地址中title以及文本的内容作为显示以求一个好的用具体验</span><br><span class="line"><span class="number">6.</span>云服务厂商：它会远程执行一些命令来判断网站是否存活等，所以如果可以捕获相应的信息，就可以进行ssrf测试</span><br><span class="line"><span class="number">7.</span>网站采集，网站抓取的地方：一些网站会针对你输入的url进行一些信息采集工作</span><br><span class="line"><span class="number">8.</span>数据库内置功能：数据库的比如mongodb的copyDatabase函数</span><br><span class="line"><span class="number">9.</span>邮件系统：比如接收邮件服务器地址</span><br><span class="line"><span class="number">10.</span>编码处理, 属性信息处理，文件处理：比如ffpmg，ImageMagick，docx，pdf，<span class="type">xml</span>处理器等</span><br><span class="line"><span class="number">11.</span>未公开的api实现以及其他扩展调用URL的功能：可以利用google 语法加上这些关键字去寻找SSRF漏洞 一些的url中的关键字：<span class="keyword">share</span>、wap、url、link、src、source、target、u、<span class="number">3</span>g、display、sourceURl、imageURL、<span class="keyword">domain</span>……</span><br><span class="line"><span class="number">12.</span>从远程服务器请求资源（upload <span class="keyword">from</span> url 如discuz！；<span class="keyword">import</span> &amp; expost rss feed 如web blog；使用了<span class="type">xml</span>引擎对象的地方 如wordpress xmlrpc.php）</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞验证"><a href="#漏洞验证" class="headerlink" title="漏洞验证"></a>漏洞验证</h2><figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">1.让服务端去访问相应的网址</span><br><span class="line">2.让服务端去访问自己所处内网的一些指纹文件来判断是否存在相应的cms</span><br><span class="line">3.可以使用<span class="meta">file</span>、dict、gopher[11]、ftp协议进行请求访问相应的文件</span><br><span class="line">4.攻击内网web应用（可以向内部任意主机的任意端口发送精心构造的数据包&#123;payload&#125;）</span><br><span class="line">5.攻击内网应用程序（利用跨协议通信技术）</span><br><span class="line">6.判断内网主机是否存活：方法是访问看是否有端口开放</span><br><span class="line">7.DoS攻击（请求大文件，始终保持连接<span class="meta">keep</span>-alive always）</span><br></pre></td></tr></table></figure>
+
+<h2 id="限制绕过"><a href="#限制绕过" class="headerlink" title="限制绕过"></a>限制绕过</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>.http:<span class="regexp">//</span>baidu.com@www.baidu.com<span class="regexp">/与http:/</span><span class="regexp">/www.baidu.com/</span>请求时是相同的</span><br><span class="line"><span class="number">2</span>.各种IP地址的进制转换</span><br><span class="line"><span class="number">3</span>.URL跳转绕过：http:<span class="regexp">//</span>www.hackersb.cn<span class="regexp">/redirect.php?url=http:/</span><span class="regexp">/192.168.0.1/</span></span><br><span class="line"><span class="number">4</span>.短网址绕过http:<span class="regexp">//</span>t.cn/RwbLKDx </span><br><span class="line"><span class="number">5</span>.xip.io来绕过：http:<span class="regexp">//</span>xxx.<span class="number">192.168</span>.<span class="number">0.1</span>.xip.io/== <span class="number">192.168</span>.<span class="number">0.1</span> (xxx 任意） 指向任意ip的域名：xip.io(<span class="number">37</span>signals开发实现的定制DNS服务)</span><br><span class="line"><span class="number">6</span>.限制了子网段，可以加 :<span class="number">80</span> 端口绕过。http:<span class="regexp">//</span>tieba.baidu.com<span class="regexp">/f/</span>commit<span class="regexp">/share/</span>openShareApi?url=http:<span class="regexp">//</span><span class="number">10.42</span>.<span class="number">7.78</span>:<span class="number">80</span></span><br><span class="line"><span class="number">7</span>.探测内网域名，或者将自己的域名解析到内网ip</span><br><span class="line"><span class="number">8</span>.例如http:<span class="regexp">//</span><span class="number">10.153</span>.<span class="number">138.81</span><span class="regexp">/ts.php, 修复时容易出现的获取host时以/</span>分割来确定host， 但这样可以用http:<span class="regexp">//</span>abc@<span class="number">10.153</span>.<span class="number">138.81</span>/绕过</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h2><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">1</span>	过滤内网服务器对公网服务器请求的响应。如果Web应用是获取某一类型的文件，在把返回结果展示给用户之前应先验证返回的信息是否符合文件类型标准，比如返回信息应为图片，如果返回信息是HTML，则停止将返回信息返回客户端。</span><br><span class="line"><span class="attribute">2</span>	统一错误提示信息，避免用户可以根据错误信息来判断远端服务器的端口状态。</span><br><span class="line"><span class="attribute">3</span>	在内网服务器的防火墙上限制公网服务器的请求端口为HTTP等协议常用端口，如：<span class="number">80</span>、<span class="number">443</span>、<span class="number">8080</span>、<span class="number">8090</span>。</span><br><span class="line"><span class="attribute">4</span>	若公网服务器的内网IP与内网无业务通信，建议将公网服务器对应的内网IP列入黑名单，避免应用被用来获取内网数据。</span><br><span class="line"><span class="attribute">5</span>	内网服务器禁用不必要的协议，仅允许HTTP和HTTPS请求，防止类似于file:///、gopher://、ftp:// 等协议引起的安全问题。</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>TaoCMS存在代码执行漏洞</title>
     <url>/2022/03/08/TaoCMS%E5%AD%98%E5%9C%A8%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/</url>
     <content><![CDATA[<h1 id="一、漏洞介绍"><a href="#一、漏洞介绍" class="headerlink" title="一、漏洞介绍"></a>一、漏洞介绍</h1><p>TaoCMS是基于php+sqlite/mysql的国内最小(100Kb左右)的功能完善的CMS管理系统taoCMS-基于php+sqlite最小巧的CMS，TaoCMS系统存在代码执行漏洞，可以执行任意php文件。</p>
@@ -389,26 +409,6 @@
       <tags>
         <tag>学习笔记</tag>
         <tag>PHP代码审计</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SSRF服务器端请求伪造</title>
-    <url>/2022/03/08/SSRF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>SSRF服务器端请求伪造是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。<span id="more"></span>（正是因为 它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）SSRF 形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。比如从指定URL地址获取网页文本内容，加载指定地址的图片，下载等等。 注释：除了http/https等方式可以造成ssrf，类似tcp connect 方式也可以探测内网一些ip 的端口是否开发服务，只不过危害比较小而已。</p>
-<h2 id="可实现攻击"><a href="#可实现攻击" class="headerlink" title="可实现攻击"></a>可实现攻击</h2><figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>	可以对服务器所在内网、本地进行端口扫描，获取一些服务的banner信息<span class="comment">;</span></span><br><span class="line"><span class="number">2</span>	攻击运行在内网或本地的应用程序（比如溢出）<span class="comment">;</span></span><br><span class="line"><span class="number">3</span>	对内网web应用进行指纹识别，通过访问默认文件实现<span class="comment">;</span></span><br><span class="line"><span class="number">4</span>	攻击内外网的web应用，主要是使用get参数就可以实现的攻击（比如struts2，sqli等）<span class="comment">;</span></span><br><span class="line"><span class="number">5</span>	利用file协议读取本地文件等。</span><br></pre></td></tr></table></figure>
-
-<h2 id="可能出现的地方"><a href="#可能出现的地方" class="headerlink" title="可能出现的地方"></a>可能出现的地方</h2><figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>社交分享功能：获取超链接的标题等内容进行显示</span><br><span class="line"><span class="number">2.</span>转码服务：通过URL地址把原地址的网页内容调优使其适合手机屏幕浏览</span><br><span class="line"><span class="number">3.</span>在线翻译：给网址翻译对应网页的内容</span><br><span class="line"><span class="number">4.</span>图片加载/下载：例如富文本编辑器中的点击下载图片到本地；通过URL地址加载或下载图片</span><br><span class="line"><span class="number">5.</span>图片/文章收藏功能：主要其会取URL地址中title以及文本的内容作为显示以求一个好的用具体验</span><br><span class="line"><span class="number">6.</span>云服务厂商：它会远程执行一些命令来判断网站是否存活等，所以如果可以捕获相应的信息，就可以进行ssrf测试</span><br><span class="line"><span class="number">7.</span>网站采集，网站抓取的地方：一些网站会针对你输入的url进行一些信息采集工作</span><br><span class="line"><span class="number">8.</span>数据库内置功能：数据库的比如mongodb的copyDatabase函数</span><br><span class="line"><span class="number">9.</span>邮件系统：比如接收邮件服务器地址</span><br><span class="line"><span class="number">10.</span>编码处理, 属性信息处理，文件处理：比如ffpmg，ImageMagick，docx，pdf，<span class="type">xml</span>处理器等</span><br><span class="line"><span class="number">11.</span>未公开的api实现以及其他扩展调用URL的功能：可以利用google 语法加上这些关键字去寻找SSRF漏洞 一些的url中的关键字：<span class="keyword">share</span>、wap、url、link、src、source、target、u、<span class="number">3</span>g、display、sourceURl、imageURL、<span class="keyword">domain</span>……</span><br><span class="line"><span class="number">12.</span>从远程服务器请求资源（upload <span class="keyword">from</span> url 如discuz！；<span class="keyword">import</span> &amp; expost rss feed 如web blog；使用了<span class="type">xml</span>引擎对象的地方 如wordpress xmlrpc.php）</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞验证"><a href="#漏洞验证" class="headerlink" title="漏洞验证"></a>漏洞验证</h2><figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">1.让服务端去访问相应的网址</span><br><span class="line">2.让服务端去访问自己所处内网的一些指纹文件来判断是否存在相应的cms</span><br><span class="line">3.可以使用<span class="meta">file</span>、dict、gopher[11]、ftp协议进行请求访问相应的文件</span><br><span class="line">4.攻击内网web应用（可以向内部任意主机的任意端口发送精心构造的数据包&#123;payload&#125;）</span><br><span class="line">5.攻击内网应用程序（利用跨协议通信技术）</span><br><span class="line">6.判断内网主机是否存活：方法是访问看是否有端口开放</span><br><span class="line">7.DoS攻击（请求大文件，始终保持连接<span class="meta">keep</span>-alive always）</span><br></pre></td></tr></table></figure>
-
-<h2 id="限制绕过"><a href="#限制绕过" class="headerlink" title="限制绕过"></a>限制绕过</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>.http:<span class="regexp">//</span>baidu.com@www.baidu.com<span class="regexp">/与http:/</span><span class="regexp">/www.baidu.com/</span>请求时是相同的</span><br><span class="line"><span class="number">2</span>.各种IP地址的进制转换</span><br><span class="line"><span class="number">3</span>.URL跳转绕过：http:<span class="regexp">//</span>www.hackersb.cn<span class="regexp">/redirect.php?url=http:/</span><span class="regexp">/192.168.0.1/</span></span><br><span class="line"><span class="number">4</span>.短网址绕过http:<span class="regexp">//</span>t.cn/RwbLKDx </span><br><span class="line"><span class="number">5</span>.xip.io来绕过：http:<span class="regexp">//</span>xxx.<span class="number">192.168</span>.<span class="number">0.1</span>.xip.io/== <span class="number">192.168</span>.<span class="number">0.1</span> (xxx 任意） 指向任意ip的域名：xip.io(<span class="number">37</span>signals开发实现的定制DNS服务)</span><br><span class="line"><span class="number">6</span>.限制了子网段，可以加 :<span class="number">80</span> 端口绕过。http:<span class="regexp">//</span>tieba.baidu.com<span class="regexp">/f/</span>commit<span class="regexp">/share/</span>openShareApi?url=http:<span class="regexp">//</span><span class="number">10.42</span>.<span class="number">7.78</span>:<span class="number">80</span></span><br><span class="line"><span class="number">7</span>.探测内网域名，或者将自己的域名解析到内网ip</span><br><span class="line"><span class="number">8</span>.例如http:<span class="regexp">//</span><span class="number">10.153</span>.<span class="number">138.81</span><span class="regexp">/ts.php, 修复时容易出现的获取host时以/</span>分割来确定host， 但这样可以用http:<span class="regexp">//</span>abc@<span class="number">10.153</span>.<span class="number">138.81</span>/绕过</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h2><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">1</span>	过滤内网服务器对公网服务器请求的响应。如果Web应用是获取某一类型的文件，在把返回结果展示给用户之前应先验证返回的信息是否符合文件类型标准，比如返回信息应为图片，如果返回信息是HTML，则停止将返回信息返回客户端。</span><br><span class="line"><span class="attribute">2</span>	统一错误提示信息，避免用户可以根据错误信息来判断远端服务器的端口状态。</span><br><span class="line"><span class="attribute">3</span>	在内网服务器的防火墙上限制公网服务器的请求端口为HTTP等协议常用端口，如：<span class="number">80</span>、<span class="number">443</span>、<span class="number">8080</span>、<span class="number">8090</span>。</span><br><span class="line"><span class="attribute">4</span>	若公网服务器的内网IP与内网无业务通信，建议将公网服务器对应的内网IP列入黑名单，避免应用被用来获取内网数据。</span><br><span class="line"><span class="attribute">5</span>	内网服务器禁用不必要的协议，仅允许HTTP和HTTPS请求，防止类似于file:///、gopher://、ftp:// 等协议引起的安全问题。</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
