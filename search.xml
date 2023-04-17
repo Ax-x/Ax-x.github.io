@@ -43,6 +43,18 @@
       </tags>
   </entry>
   <entry>
+    <title>First Blog</title>
+    <url>/2022/01/01/First%20Blog/</url>
+    <content><![CDATA[<p>Welcome to my blog! I’m glad to make friends with you. If you can browse my website, I will be grateful. In the future, I will upload my records and learning contents here. I hope the boss will take me with me！</p>
+]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>College Website Content Management System v1.0存在任意文件删除漏洞</title>
     <url>/2022/03/08/College-Website-Content-Management-System-v1-0%E5%AD%98%E5%9C%A8%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4%E6%BC%8F%E6%B4%9E/</url>
     <content><![CDATA[<h1 id="一、-漏洞介绍"><a href="#一、-漏洞介绍" class="headerlink" title="一、 漏洞介绍"></a>一、 漏洞介绍</h1><p>College Website - Content Management System是一款校园管理CMS,可以对学生以及学生成绩进行管理，使用PHP语言编写，该CMS存在任意文件删除漏洞，可以删除服务器上的任意文件，该CMS存在任意文件删除漏洞，可以删除服务器上的任意文件。</p>
@@ -67,18 +79,6 @@
       <tags>
         <tag>学习笔记</tag>
         <tag>PHP代码审计</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>First Blog</title>
-    <url>/2022/01/01/First%20Blog/</url>
-    <content><![CDATA[<p>Welcome to my blog! I’m glad to make friends with you. If you can browse my website, I will be grateful. In the future, I will upload my records and learning contents here. I hope the boss will take me with me！</p>
-]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -730,6 +730,83 @@
       </categories>
       <tags>
         <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>六种常见的网络钓鱼攻击以及如何防范它们</title>
+    <url>/2022/09/17/%E5%85%AD%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BD%91%E7%BB%9C%E9%92%93%E9%B1%BC%E6%94%BB%E5%87%BB%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E9%98%B2%E8%8C%83%E5%AE%83%E4%BB%AC/</url>
+    <content><![CDATA[<h1 id="6-种常见的网络钓鱼攻击以及如何防范它们"><a href="#6-种常见的网络钓鱼攻击以及如何防范它们" class="headerlink" title="6 种常见的网络钓鱼攻击以及如何防范它们"></a>6 种常见的网络钓鱼攻击以及如何防范它们</h1><h1 id="一、欺骗性网络钓鱼"><a href="#一、欺骗性网络钓鱼" class="headerlink" title="一、欺骗性网络钓鱼"></a>一、欺骗性网络钓鱼</h1><p>欺骗性网络钓鱼是最常见的网络钓鱼诈骗类型。在这种策略中，欺诈者冒充合法公司窃取人们的个人数据或登录凭据。这些电子邮件使用威胁和紧迫感来恐吓用户按照攻击者的意愿行事。</p>
+<span id="more"></span>
+<h2 id="欺骗性网络钓鱼中使用的技术"><a href="#欺骗性网络钓鱼中使用的技术" class="headerlink" title="欺骗性网络钓鱼中使用的技术"></a>欺骗性网络钓鱼中使用的技术</h2><ul>
+<li><strong>合法链接</strong>——许多攻击者试图通过将合法链接合并到他们的欺骗性网络钓鱼电子邮件中来逃避电子邮件过滤器的检测。他们可以通过包括他们可能正在欺骗的组织的联系信息来做到这一点。</li>
+<li><strong>混合恶意代码和良性代码</strong>——负责创建网络钓鱼登录页面的人员通常将恶意代码和良性代码混合在一起以欺骗 <code>Exchange Online Protection (EOP)</code>。可能会采取复制科技巨头登录页面的 CSS 和 JavaScript 的形式来窃取用户的帐户凭据。</li>
+<li><strong>重定向和短链接</strong>——恶意行为者不想向他们的受害者发出任何危险信号。因此，他们使用缩短的 URL 来欺骗<code>安全电子邮件网关 (SEG)</code>。他们还使用“定时炸弹”仅在电子邮件发送后将用户重定向到网络钓鱼登录页面。在受害者没收其凭据后，该活动会将受害者重定向到合法网页。</li>
+<li><strong>修改品牌标志</strong>——一些电子邮件过滤器可以发现恶意行为者何时窃取组织的标志并将其合并到他们的攻击电子邮件或他们的网络钓鱼登录页面上。他们通过寻找徽标的 HTML 属性来做到这一点。为了欺骗这些检测工具，恶意行为者会更改徽标的 HTML 属性，例如颜色。</li>
+<li><strong>最少的电子邮件内容</strong>——数字攻击者试图通过在他们的攻击电子邮件中包含最少的内容来逃避检测。例如，他们可能会选择通过包含图像而不是文本来做到这一点。</li>
+</ul>
+<h2 id="如何抵御欺骗性网络钓鱼"><a href="#如何抵御欺骗性网络钓鱼" class="headerlink" title="如何抵御欺骗性网络钓鱼"></a>如何抵御欺骗性网络钓鱼</h2><p>欺骗性网络钓鱼的成功取决于攻击电子邮件在多大程度上类似于来自受欺骗公司的官方信件。承认这一事实后，用户应仔细检查所有 URL，以查看它们是否重定向到未知和/或可疑网站。他们还应该注意通用称呼、语法错误和拼写错误。</p>
+<h1 id="二、鱼叉式网络钓鱼"><a href="#二、鱼叉式网络钓鱼" class="headerlink" title="二、鱼叉式网络钓鱼"></a>二、鱼叉式网络钓鱼</h1><p>鱼叉式网络钓鱼并不是采用广撒网，愿者上钩的技术，而更多地针对某个人/集体以提高钓鱼的成功率。在这种类型的策略中，欺诈者使用目标的姓名、职位、公司、工作电话号码和其他信息来定制他们的攻击电子邮件，<strong>以诱使收件人相信他们与发件人有联系</strong>。然而，目标与欺骗性网络钓鱼相同：让受害者点击恶意 URL 或电子邮件附件，以便他们交出个人数据。攻击者可以在这些网站上使用多个数据源来制作有针对性的攻击电子邮件。</p>
+<h2 id="鱼叉式网络钓鱼中使用的技术"><a href="#鱼叉式网络钓鱼中使用的技术" class="headerlink" title="鱼叉式网络钓鱼中使用的技术"></a>鱼叉式网络钓鱼中使用的技术</h2><ul>
+<li><p><strong>在云服务上存放恶意文件</strong>：<a href="https://www.csoonline.com/article/3334617/what-is-spear-phishing-why-targeted-email-attacks-are-so-difficult-to-stop.html">CSO</a>报告说，数字攻击者越来越多地在 Dropbox、Box、Google Drive 和其他云服务上存放恶意文件。默认情况下，IT 不太可能阻止这些服务，这意味着组织的电子邮件过滤器不会标记武器化文档。</p>
+</li>
+<li><p><strong>破坏令牌</strong>：CSO 还指出，数字犯罪分子正试图破坏 API 令牌或会话令牌。这方面的成功将使他们能够窃取对电子邮件帐户、SharePoint 站点或其他资源的访问权限。</p>
+</li>
+<li><p><strong>收集员工离职通知</strong>：攻击者需要大量情报才能发起令人信服的鱼叉式网络钓鱼活动。根据<a href="https://www.trendmicro.com/vinfo/us/security/definition/spear-phishing">Trend Micro</a>的说法，他们可以做到这一点的一种方法是通过向全体员工发送电子邮件并收集员工离职通知以了解内部员工使用的电子邮件地址的格式。</p>
+</li>
+<li><p><strong>探索社交媒体</strong>：恶意行为者需要了解谁在目标公司工作。他们可以通过使用社交媒体调查组织的结构并决定他们希望挑出谁进行有针对性的攻击来做到这一点。</p>
+</li>
+<li><p><strong>人工智能</strong>：人工智能越来越多地被用于此类攻击，以及一般的网络钓鱼攻击，这为几乎所有网络钓鱼攻击打开了大门，很快就会成为“鱼叉式网络钓鱼”。人工智能可以做几件事：</p>
+</li>
+<li><ul>
+<li>它可以从社交媒体网站上抓取个人数据，让黑客更容易定制电子邮件和欺诈性通信；</li>
+<li>它可以制作“深度伪造”视频，让定制欺骗变得更加容易。正如<a href="https://www.scmagazine.com/feature/emerging-technology/2023-tech-predictions-ai-and-machine-learning-wicome-into-their-own-for-security">SC Media</a>报道的那样，“网络犯罪分子将能够访问不断增长的数据宝库，<strong>从招聘信息等开源数据到数据泄露中泄露的个人信息</strong>，利用这些数据可以制作针对性很强的鱼叉式网络钓鱼诱饵。”</li>
+</ul>
+</li>
+</ul>
+<p>除了给招聘网hr发恶意office文档，还可以反过来定制虚假工作机会。在打开虚假工作机会（文档）后，受害者无意中启动了无文件后门的秘密安装。加载后，复杂的后门可以下载其他恶意插件并提供对受害者计算机的实际访问权限。</p>
+<h2 id="如何抵御鱼叉式网络钓鱼"><a href="#如何抵御鱼叉式网络钓鱼" class="headerlink" title="如何抵御鱼叉式网络钓鱼"></a>如何抵御鱼叉式网络钓鱼</h2><p>为防止此类骗局，组织应持续开展员工安全意识培训，其中包括阻止用户在社交媒体上发布敏感的个人或公司信息。公司还应该投资<strong>鱼叉式网络钓鱼预防解决方案</strong>，分析入站电子邮件中的已知恶意链接/电子邮件附件。该解决方案应该能够识别已知恶意软件和零日威胁的指标。此外，有针对性的<strong>社交媒体保护解决方案</strong>可以专门监控这些平台上的威胁，消除误报并阻止攻击。</p>
+<h1 id="三、捕鲸式网络钓鱼"><a href="#三、捕鲸式网络钓鱼" class="headerlink" title="三、捕鲸式网络钓鱼"></a>三、捕鲸式网络钓鱼</h1><p>捕鲸式网络钓鱼是鱼叉式网络钓鱼的一种，但它只针对公司高管。在这些骗局中，欺诈者试图用鱼叉攻击高管并窃取他们的登录详细信息。</p>
+<p>如果他们的攻击被证明是成功的，欺诈者可以选择进行 CEO 欺诈。作为<a href="https://www.tripwire.com/state-of-security/business-email-compromise-scam-alert-issued-by-fs-isac">企业电子邮件泄露(BEC) </a>骗局的第二阶段，CEO 欺诈是指攻击者滥用 CEO 或其他高级管理人员的受损电子邮件帐户，授权向他们选择的金融机构进行欺诈性电汇。或者，他们可以利用同一个电子邮件帐户进行 <a href="https://en.wikipedia.org/wiki/Form_W-2">W-2</a> 网络钓鱼，在其中他们要求所有员工提供 W-2 信息，以便他们可以代表他们提交虚假的纳税申报表或将这些数据发布到暗网上。</p>
+<h2 id="捕鲸式网络钓鱼中使用的技术"><a href="#捕鲸式网络钓鱼中使用的技术" class="headerlink" title="捕鲸式网络钓鱼中使用的技术"></a>捕鲸式网络钓鱼中使用的技术</h2><p>捕鲸攻击通常使用与鱼叉式网络钓鱼活动相同的技术。以下是恶意行为者可以使用的一些额外策略：</p>
+<ul>
+<li><strong>渗透网络</strong>：受感染的高管帐户比受骗的电子邮件帐户更有效。正如<a href="https://www.varonis.com/blog/whaling-attack/">Varonis</a>所指出的，数字攻击者因此可以使用恶意软件和 Rootkit 来渗透他们的目标网络。</li>
+<li><strong>通过电话跟进</strong>：<a href="https://www.ncsc.gov.uk/guidance/whaling-how-it-works-and-what-your-organisation-can-do-about-it">英国国家网络安全中心</a>(NCSC) 了解到攻击者通过电话确认电子邮件请求来跟进捕鲸电子邮件的多个实例。这种社会工程策略有助于减轻目标对可能存在可疑行为的恐惧。</li>
+<li><strong>追查供应链</strong>：此外，NCSC 还目睹了恶意行为者利用目标供应商和供应商的信息来使他们的捕鲸电子邮件看起来像是来自可信赖的合作伙伴的情况。</li>
+</ul>
+<h2 id="如何抵御捕鲸式网络钓鱼"><a href="#如何抵御捕鲸式网络钓鱼" class="headerlink" title="如何抵御捕鲸式网络钓鱼"></a>如何抵御捕鲸式网络钓鱼</h2><p>捕鲸攻击之所以奏效，是因为高管们通常不与员工一起参加安全意识培训。为了应对 CEO 欺诈和 W-2 网络钓鱼的威胁，组织应要求所有公司人员（包括高管）持续参与安全意识培训。商业电子邮件泄露和社会工程策略也可以通过安全的电子邮件安全措施来减轻，这些安全措施可以在恶意发件人漏网时捕获。</p>
+<p>组织还应考虑将多因素身份验证(MFA) 渠道注入其财务授权流程，以便任何人都无法仅通过电子邮件授权付款。</p>
+<h1 id="四、网络钓鱼攻击"><a href="#四、网络钓鱼攻击" class="headerlink" title="四、网络钓鱼攻击"></a>四、网络钓鱼攻击</h1><p>到目前为止，我们已经讨论了大部分依赖于电子邮件的网络钓鱼攻击。但欺诈者有时确实会转向其他媒体实施攻击。</p>
+<p>以网络钓鱼为例。这种类型的网络钓鱼攻击无需发送电子邮件，而是拨打电话。正如<a href="https://www.comparitech.com/blog/information-security/common-phishing-scams-how-to-avoid/">Comparitech</a>所指出的那样，攻击者可以通过设置<strong>互联网协议语音 (VoIP) 服务器</strong>来模仿各种实体来实施钓鱼活动，以窃取敏感数据和/或资金。FBI发现，恶意行为者利用这些策略在 2020 年加强了钓鱼活动，并以远程工作者为目标。</p>
+<h2 id="钓鱼中使用的技术"><a href="#钓鱼中使用的技术" class="headerlink" title="钓鱼中使用的技术"></a>钓鱼中使用的技术</h2><ul>
+<li>“喃喃自语技术”：数字攻击者通常会采用独特的策略来追踪特定目标。例如，据<a href="https://www.social-engineer.org/framework/attack-vectors/vishing/">Social-Engineer, LLC</a>报道，当他们试图以客户服务代表或呼叫中心代理为目标时，恶意行为者可能会使用所谓的“含糊不清的技术”来含糊不清地回答问题，希望他们的“答案”就足够了。</li>
+<li>技术术语：如果恶意行为者以公司员工为目标，Social-Engineer, LLC 指出，他们可能会冒充内部技术支持，使用技术术语并暗指诸如速度问题或徽章之类的事情，以说服员工他们可以交出他们的资料。</li>
+<li>ID 欺骗：在这里，恶意行为者伪装他们的电话号码，使他们的电话看起来像是来自目标区号中的合法电话号码。<a href="https://blog.twinstate.com/cybersecurity/what-is-vishing-recognize-and-prevent-phishing">Twinstate</a>指出，这种技术可以使目标陷入一种虚假的安全感。、</li>
+</ul>
+<h2 id="虚拟钓鱼攻击示例"><a href="#虚拟钓鱼攻击示例" class="headerlink" title="虚拟钓鱼攻击示例"></a>虚拟钓鱼攻击示例</h2><p>2022 年 8 月，思科遭受了一次巧妙的钓鱼攻击，该攻击始于一名员工的 Google 帐户遭到入侵。存储的密码被泄露，然后使用语音网络钓鱼让员工接受 MFA 推送，最终允许攻击者访问公司 VPN（虚拟专用网络）。  </p>
+<p>现在是未来事物的可能预兆。2019 年，攻击者利用 AI 瞄准了一家英国能源供应商的首席执行官，电话中一名男子的电话听起来完全像他的老板，德国口音等等。这种深度造假非常成功，以至于这位高管最终将超过 20 万美元转移给了公司的“匈牙利供应商”——换句话说，就是骗子。</p>
+<h2 id="如何抵御网络钓鱼"><a href="#如何抵御网络钓鱼" class="headerlink" title="如何抵御网络钓鱼"></a>如何抵御网络钓鱼</h2><p>为防止钓鱼攻击，用户应避免接听来自未知电话号码的电话，切勿在电话中透露个人信息，并使用来电显示应用程序。</p>
+<h1 id="五、短信诈骗"><a href="#五、短信诈骗" class="headerlink" title="五、短信诈骗"></a>五、短信诈骗</h1><p>网络钓鱼并不是数字欺诈者可以使用电话进行的唯一类型的网络钓鱼。他们还可以进行所谓的网络钓鱼。该方法利用恶意短信诱骗用户点击恶意链接或交出个人信息。</p>
+<h2 id="短信诈骗使用的技术"><a href="#短信诈骗使用的技术" class="headerlink" title="短信诈骗使用的技术"></a>短信诈骗使用的技术</h2><ul>
+<li>触发下载恶意应用程序：攻击者可以使用恶意链接触发受害者移动设备上的恶意应用程序自动下载。然后，这些应用程序可以部署勒索软件或使不法分子能够远程控制他们的设备。</li>
+<li>链接到数据窃取表单：攻击者可以利用文本消息和欺骗性网络钓鱼技术来诱骗用户单击恶意链接。然后，该活动可以将他们重定向到一个旨在窃取他们的个人信息的网站。</li>
+<li>指示用户联系技术支持：使用这种类型的攻击策略，恶意行为者会发送短信，指示收件人联系号码以获得客户支持。骗子随后会伪装成合法的客户服务代表，并试图诱骗受害人交出他们的个人资料。</li>
+</ul>
+<h2 id="如何抵御短信诈骗攻击"><a href="#如何抵御短信诈骗攻击" class="headerlink" title="如何抵御短信诈骗攻击"></a>如何抵御短信诈骗攻击</h2><p>用户可以通过研究未知电话号码以及在有任何疑问时致电可疑 SMS 消息中指定的公司来帮助抵御诈骗攻击。</p>
+<h1 id="六、域欺骗"><a href="#六、域欺骗" class="headerlink" title="六、域欺骗"></a>六、域欺骗</h1><p>随着用户对传统网络钓鱼诈骗越来越了解，一些欺诈者正在完全放弃“引诱”受害者的想法。相反，他们正在求助于<strong>pharming</strong>。这种网络钓鱼方法利用针对域名系统 (DNS) 的缓存中毒，DNS 是一种命名系统，Internet 使用该系统将字母网站名称（例如“ <a href="http://www.microsoft.com/">www.microsoft.com</a> ”）转换为数字 IP 地址，以便它可以定位，从而引导访问者访问计算机服务和设备。</p>
+<p>在 DNS 缓存中毒攻击中，攻击者以 DNS 服务器为目标并更改与目标网站名称关联的 IP 地址。这意味着攻击者可以将用户重定向到他们选择的恶意网站。即使受害者输入了正确的站点名称也是如此。</p>
+<h2 id="域欺骗中使用的技术"><a href="#域欺骗中使用的技术" class="headerlink" title="域欺骗中使用的技术"></a>域欺骗中使用的技术</h2><ul>
+<li>恶意电子邮件代码：在这种域欺骗攻击变体中，恶意行为者发送包含修改收件人计算机上的主机文件的恶意代码的电子邮件。这些主机文件随后将所有 URL 重定向到攻击者控制下的网站，以便他们可以安装恶意软件或窃取受害者的信息。</li>
+<li>以 DNS 服务器为目标：或者，恶意行为者可能会选择跳过以个人用户的计算机为目标并直接攻击 DNS 服务器。这可能会危及数百万网络用户的 URL 请求。</li>
+</ul>
+<h2 id="如何抵御域欺骗"><a href="#如何抵御域欺骗" class="headerlink" title="如何抵御域欺骗"></a>如何抵御域欺骗</h2><p>为防止域欺骗攻击，组织应鼓励员工仅在受 HTTPS 保护的站点上输入登录凭据。公司还应在所有公司设备上部署防病毒软件，并定期更新病毒库。最后，他们应该掌握由受信任的互联网服务提供商 (ISP) 发布的安全升级。</p>
+<h1 id="七、总结"><a href="#七、总结" class="headerlink" title="七、总结"></a>七、总结</h1><p>使用上面的指南，组织可以发现一些最常见的网络钓鱼攻击类型。即便如此，这并不意味着他们能够发现每一个网络钓鱼。网络钓鱼不断发展以采用新的形式和技术。考虑到这一点，组织必须持续进行安全意识培训，以便他们的员工和管理人员能够掌握网络钓鱼的演变。这与自动化安全方法齐头并进，该方法与当今网络钓鱼趋势保持同步，并构建了面向未来的防御所需的策略。</p>
+]]></content>
+      <categories>
+        <category>钓鱼</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>钓鱼攻击方式</tag>
       </tags>
   </entry>
   <entry>
@@ -1406,118 +1483,6 @@
       </tags>
   </entry>
   <entry>
-    <title>安全小白怎么从零开始拥有自己的武器库</title>
-    <url>/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/</url>
-    <content><![CDATA[<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>前些日子跟个大佬搞攻防，看着大佬超神我超鬼，不得不佩服大佬，看着大佬用的很多工具都没见过，问了下这些工具是啥，大佬掏出了他的大宝贝给我看，嚯，好家伙，一整个文件夹都是自己开发的工具还有一些魔改的工具，属实羡慕，看着大佬那些工具，陷入沉思，是不是我也可以有自己的武器库🤨总不能当伸手党吧，而且还能熟悉语言，增强自己在代码审计那块的。刚好之前搞过一段时间的开发，对于开发一些工具啥的还是有自己的想法的，说干就干，这个系列是写安全小白怎么从零开始拥有自己的一个工具库的文章，在开发方面我也是菜鸟，所以可能有些工具的开发思路跟那些流行的工具思路可能不一样，有哪写得不好的地方，希望大佬们能带带我。</p>
-<span id="more"></span>
-
-<h1 id="二、前期准备"><a href="#二、前期准备" class="headerlink" title="二、前期准备"></a>二、前期准备</h1><h2 id="2-1语言选择"><a href="#2-1语言选择" class="headerlink" title="2.1语言选择"></a>2.1语言选择</h2><p>开发工具嘛，肯定要会一两个语言，相信各位大佬肯定掌握了不止三四种的语言，小弟没啥能力，只掌握了C，java，python，php，go这几种，用来开发工具的话比较常见的就是java，python，go了，我比较熟悉那个java和python，而且一些常见的工具也是用的java和python来开发的，这两种语言的区别就不介绍了，大家都懂的，选择哪种主要看个人的需求，如果想省点事的话可以用python，里面的库用到才知道香，但是python虚拟机没有java强，毕竟java虚拟机是java的核心，而且python是全动态性的，可以在运行时自己修改自己的代码，java只能通过变通方法实现。python的变量是动态的，而java的变量是静态的，需要事先声明，所以java ide的代码提示功能优于python ide。</p>
-<p>用java开发工具的话主要是习惯了用java开发有界面的工具，而python的话主要是因为库强大，可以少写很多东西，省很多时间，当然不是说python没办法搞界面，python是推出了一些框架用于开发界面的，其中最常用的就是一个是Django，Django是一个较为高级的Python Web框架，以快速开发和实用简洁的设计闻名，关于语言的选择还是看个人习惯吧，没有谁好谁坏的说法。</p>
-<h2 id="2-2编译器"><a href="#2-2编译器" class="headerlink" title="2.2编译器"></a>2.2编译器</h2><p>java用的编译器是IDEA和eclipse，python用的是PyCharm，这几个都是很不错的编译器，就是有些只能试用或者找破解，下完编译器，先建个项目，这边拿eclipse做下示范，进来先建个项目，这边选的是1.8.0的，然后把名字命名一下，搞一个com.AX.Database_listening，然后直接finish。</p>
-<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211220102525498.png" alt="image-20211220102525498"></p>
-<p>搞完建好了，先看下目录结构SRC是我们之后写代码的地方，然后JRE这块是我们导入的包，事先有导入别的包，所以创建完之后会直接存在。</p>
-<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211220112758035.png" alt="image-20211220112758035"></p>
-<p>一般我们在开发的时候都会用到别人写好的东西，而有些是需要你导入的，我们下载完别人的jar之后，在自己项目下面创建一个lib，把我们下载好的jar拉进去，然后右键项目，点击Properties，然后选择Java Build Path</p>
-<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211220103338819.png" alt="image-20211220103338819"></p>
-<p>找到你刚刚拉进来的jar，选中添加，然后保存，整个流程就结束了，这样我们在写其他功能的时候就会方便很多了。</p>
-<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211220112652185.png" alt="image-20211220112652185"></p>
-<p>然后可以开始写你自己代码了。</p>
-<h2 id="2-3语言能力"><a href="#2-3语言能力" class="headerlink" title="2.3语言能力"></a>2.3语言能力</h2><p>语言和编译器选完了，就该有人问了，我这语言得掌握到啥程度才能开发自己的工具，嚯，要问这话我也不知道该怎么回，毕竟我自己学的也不是很深，就JAVA来说，如果你接受过系统的学习的话，基本上都会在学完基础语法之后进入到线程，异常，文件访问，接口，继承等等这些知识，后面可能会学到例如网络通信协议的东西让你写一些通信的小demo，当然要会到什么程度才能开发自己的工具的话，看你个人的需求，我觉得基本上只要你会基础语法，知道函数，类，子类，父类，重写，继承啥的就可以自己去开发一些工具了。</p>
-<p>如果你的工具只是针对于本地的东西的话，你只需了解你想要实现的原理，后面根据这个原理去设计你的开发架构，那你压根不需要用到什么网络通信协议啥的，但是如果你需要对接网络上的一些资源的话，那么通信协议还是得会的，当然，这些对百度工程师是例外的，把你想要实现的去百度上搜索，基本上都会有解答，百度能实现百分之99的困难。</p>
-<h2 id="2-4开发思路"><a href="#2-4开发思路" class="headerlink" title="2.4开发思路"></a>2.4开发思路</h2><p>不管是开发啥，你对成果一定要有个大概的框架，不一定要先想好界面，但是功能，要实现怎样的功能，这些功能能实现什么样的效果，以及如何去实现这些功能。大部分工具开发的流程都是一致的，基本上都是三部分：</p>
-<ol>
-<li>数据获取：怎么获取你想要的数据，例如怎么和网站进行通信，怎么连接数据库，怎么获取数据库的数据等等</li>
-<li>数据处理：拿到数据之后，如何对数据进行处理，获取到你想要的那部分数据，一般我们在数据获取的的时候，是没办法直接获取到你想要的那部分数据的，基本上都是一锅端回来，然后根据显示出来的数据情况进行筛选，过滤，还有一种情况就是你获取到的数据需要进一步的处理，例如你获取回来的数据需要再进行一轮的数据分析，或者与你现有的特征进行比对等等这些情况，所以在数据获取和数据处理这两个方面是开发工具的时候最难的地方。</li>
-<li>数据显示：如果前面数据获取和数据处理都完成了，那么就来到了最简单的地方，怎么呈现你的结果，是命令行还是界面，这个取决于个人喜好。</li>
-</ol>
-<p>所以，根据这三个部分基本上能满足你开发大部分的工具，而且你在开发这些工具的时候思路会很清晰，始终清楚自己在哪一部分，在哪一部分就干哪一部分的事情，找那块的解决方法，网上会有很多教程，其实工具就类似是拼图，你这找一下怎么实现，那找一下怎么实现，然后拼接起来，就成了工具，一句话，CCV，一把梭哈，冲就完事了。这里附下小弟我搞小工具的时候常规的思维导图。</p>
-<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211127004010265.png" alt="image-20211127004010265"></p>
-<h1 id="三、开发过程"><a href="#三、开发过程" class="headerlink" title="三、开发过程"></a>三、开发过程</h1><p>这里如果空讲的话会有点空泛，我用我之前搞的一个小工具来做例子吧，直接说我自己开发这个工具的时候的一个开发思路会比较好一点，这是个子域名的一个探测工具，主要功能的话就是根据你输入的域名进行子域名的探测，然后根据页面的状态剔除那些无法访问的，把可以访问的留下来保存数据，这个是我后面用来采集页面样本然后做页面分类的，所以还有其他功能，这里我主要讲下如何探测子域名状态值的设计思路和开发过程。</p>
-<h2 id="3-1开发架构"><a href="#3-1开发架构" class="headerlink" title="3.1开发架构"></a>3.1开发架构</h2><p>架构的话根据三个流程来准备，然后搞个思维导图（虽然也没啥必要，但是可以让后面自己的思路清晰，不会跑偏）</p>
-<ol>
-<li>数据获取：怎么通过域名连接到网站，然后获取到网站的状态值</li>
-<li>数据处理：获取完数据之后怎么处理数据，将数据整理成我想要的格式，例如，域名，IP，开放端口，网站状态这样，把有用的数据单独拿出来</li>
-<li>数据显示：数据处理完之后通过界面显示出收集的结果，然后把数据导出来，通过固定格式保存，方便之后的操作。</li>
-</ol>
-<p>贴下思维导图，这里只写了探测网站状态值那部分，其他的功能都差不多的，每个人的思路会有所不同，所以这块没啥大问题。</p>
-<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211128180018515.png" alt="image-20211128180018515"></p>
-<h2 id="3-2实现目标"><a href="#3-2实现目标" class="headerlink" title="3.2实现目标"></a>3.2实现目标</h2><h3 id="3-2-1获取网站状态值"><a href="#3-2-1获取网站状态值" class="headerlink" title="3.2.1获取网站状态值"></a>3.2.1获取网站状态值</h3><p>如何获取网站状态值在上面的思维导图上面已经写了，通过java的uConnection.getResponseCode()可以获取状态码。进而判断该网站是否存在，具体代码怎么用以及返回的值，类型可以自己百度一下，我这里贴一下关键代码</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">URL u = <span class="keyword">new</span> URL(<span class="string">&quot;http://www.baidu.com&quot;</span>);</span><br><span class="line"><span class="keyword">try</span> &#123;  </span><br><span class="line">	HttpURLConnection uConnection = (HttpURLConnection)u.openConnection();  </span><br><span class="line">	<span class="keyword">try</span> &#123;  </span><br><span class="line">		uConnection.connect();</span><br><span class="line">		System.out.println(uConnection.getResponseCode());  </span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;  </span><br><span class="line">			e.printStackTrace();  </span><br><span class="line">		&#125;                    </span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;  </span><br><span class="line">			e.printStackTrace();  </span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面就是一个简单的通过url去连接网站，获取它返回的状态值，然后输出状态值，因为这里是连接的<a href="http://www.baidu.com,所以返回的是200,这个你们可以直接拿去运行看看内容,这个就是简单的一个实现过程,然后后面的可以把自己的字典导进去,获取你字典的数据,拼接到.baidu.com前面,再弄个多线程让他一直探测下去获取返回的值就行了./">www.baidu.com，所以返回的是200，这个你们可以直接拿去运行看看内容，这个就是简单的一个实现过程，然后后面的可以把自己的字典导进去，获取你字典的数据，拼接到.baidu.com前面，再弄个多线程让他一直探测下去获取返回的值就行了。</a></p>
-<h3 id="3-2-2筛选自己想要的数据"><a href="#3-2-2筛选自己想要的数据" class="headerlink" title="3.2.2筛选自己想要的数据"></a>3.2.2筛选自己想要的数据</h3><p>上面我们已经拿到了网站的状态值，那么我们可以根据返回的状态值去对数据进行判断是不是该存起来，一个if就能解决的事情了，如果你想根据状态值来分类的话搞个switch就行了，例如说我们想要过滤一些数据，用if去过滤这些数据</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="keyword">if</span> (!logres.equals(logsql) &amp;&amp; !logres.contains(<span class="string">&quot;/* mysql&quot;</span>) &amp;&amp; !logres.contains(<span class="string">&quot;SHOW WARNINGS&quot;</span>) &amp;&amp; !logres.contains(<span class="string">&quot;select event_time,argument from%%&quot;</span>))</span><br><span class="line">Database_listening.sql_date.appendText(time.format(Long.valueOf(System.currentTimeMillis()))+<span class="string">&quot;------&quot;</span>+logres+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这样虽然方便，但是当你想要过滤的数据过多的时候，就需要列很长的条件，这样就太麻烦了，这时候就需要用其他的一些技能，比如说把黑名单存到文档然后根据文档里的内容去进行拦截等其他方式。</p>
-<h3 id="3-2-3界面实现"><a href="#3-2-3界面实现" class="headerlink" title="3.2.3界面实现"></a>3.2.3界面实现</h3><p>这里说下几个面板，这个算是JAVAFX里面比较常见的面板了，其实界面没什么，就跟HTML差不多，一个套一个，套娃来的，你只要提前想好你自己的数据想要显示的位置，然后去布置按钮位置，数据显示位置就行了。</p>
-<ul>
-<li>StackPane（堆叠面板）：节点按照被添加的顺序从左到右、从上到下显示。</li>
-<li>FlowPane（流式面板 ）：节点在5个区域显示－上、下、左、右、中</li>
-<li>GridPane（栅格面板）：节点以灵活的行列栅格形式排列，这个可以根据自己的安排去排列那些元素的位置(0,0),(0,1),(1,0)(1,1)这样</li>
-<li>BorderPane（边界面板）：将节点有序地排列在一个水平行中。当节点到达面板边界时，不会折行显示。</li>
-<li>Hbox、Vbox（盒式面板）：Hbox将节点有序地排列在一个垂直列中。当节点到达面板边界时，不会折行显示，Vbox将节点有序地排列在一个中。当节点到达面板边界时，不会折行显示。</li>
-</ul>
-<p>其实这个是很简单的面板介绍，基本上都是按这些面板去堆叠出来的，我这里贴一个简单的面板加按钮的示例代码，运行这个看的话可能会更理解点。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">label = <span class="keyword">new</span> Label(<span class="string">&quot;累加计数 &quot;</span>+count);</span><br><span class="line">Button btnPush = <span class="keyword">new</span> Button (<span class="string">&quot;+1&quot;</span>);	</span><br><span class="line"><span class="comment">//设置一个label和button</span></span><br><span class="line">btnPush.setOnAction(<span class="keyword">this</span>::btnPushHandler);</span><br><span class="line"><span class="comment">//设置按钮的事件，点击按钮之后会发生什么事情</span></span><br><span class="line">FlowPane pane = <span class="keyword">new</span> FlowPane (btnPush,label);</span><br><span class="line"><span class="comment">//然后把按钮和label放到面板里面，这个是流式的，直接横着排列</span></span><br><span class="line">pane.setHgap(<span class="number">20</span>);</span><br><span class="line">pane.setAlignment(Pos.CENTER);</span><br><span class="line">Scene scene = <span class="keyword">new</span> Scene(pane, <span class="number">300</span>,<span class="number">100</span>);</span><br><span class="line"><span class="comment">//设置面板大小</span></span><br><span class="line">stage.setScene(scene);</span><br><span class="line">stage.setTitle(<span class="string">&quot;面板示例&quot;</span>);</span><br><span class="line"><span class="comment">//面板title</span></span><br><span class="line">stage.show();</span><br><span class="line"><span class="comment">//显示出来</span></span><br></pre></td></tr></table></figure>
-
-<p>这个面板也完成了，当你把面板设计好之后，把你完成的代码分模块放到每个按钮的事件里面去，上面的那句btnPush.setOnAction(this::btnPbushHandler)是把btnPbushHandler事件设置到btnPush这个按钮里面去，当点击到btnPush按钮的时候，执行该事件，例如</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Connect_SQL = <span class="keyword">new</span> Button(<span class="string">&quot;连接数据库&quot;</span>);</span><br><span class="line"><span class="comment">//设置一个按钮叫Connect_SQL</span></span><br><span class="line">Connect_SQL.setOnAction(<span class="keyword">this</span>::ConnectSQL);</span><br><span class="line"><span class="comment">//点击该按钮之后执行ConnectSQL事件</span></span><br><span class="line">------------------------------------------------------------------------------------------------------------------------</span><br><span class="line"><span class="comment">//编写ConnectSQL，当点击了该按钮之后执行ConnectSQL事件，去连接数据库</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ConnectSQL</span><span class="params">(ActionEvent event)</span></span>&#123;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	ConnectSQL.Connect(sql_addr.getText(), sql_port.getText(), sql_user.getText(), sql_password.getText());</span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">	<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">	e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样就把按钮和事件响应连接起来，设计相对应的按钮和事件，去达到自己想要实现的目标，基本上这个工具就完成了，当工具写完了之后，不可能每次都进编译器里面去运行吧，把它导出来成为一个.jar的文件，之后直接执行这个文件就行了。</p>
-<p>右键项目，点击Export，选择jar file</p>
-<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211220112323902.png" alt="image-20211220112323902"></p>
-<p>然后把自己的项目勾选上，直接finish，就完成了。</p>
-<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211220112454283.png" alt="image-20211220112454283"></p>
-<p>至此，整个工具的编写就完成了</p>
-<h1 id="四、实战"><a href="#四、实战" class="headerlink" title="四、实战"></a>四、实战</h1><h2 id="4-1工具说明"><a href="#4-1工具说明" class="headerlink" title="4.1工具说明"></a>4.1工具说明</h2><p>一个Mysql监控工具的思路以及实现方式，实现了指定数据库名监控跟它有关的sql语句，单独显示特定的sql语句,刚开始自己用的那些网上的工具不是很理想，所以就打算自己写一个，目前只实现了这两个功能，后面会把它改成一个代审工具，实现从sql语句跳定位到代码啥的。</p>
-<h2 id="4-2开发思路"><a href="#4-2开发思路" class="headerlink" title="4.2开发思路"></a>4.2开发思路</h2><p>工具的思路其实也很简单，主要就是这四块</p>
-<ol>
-<li>连接数据库</li>
-<li>监听数据库日志</li>
-<li>对数据库日志的数据进行过滤</li>
-<li>显示数据</li>
-</ol>
-<p>而工具最终目标是：用户连接上数据库之后，在测试代码或者网站功能的时候，经过该工具过滤能够定位到执行的sql语句，方便进行代码审计</p>
-<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/20211115165221-5892b92c-45f1-1-16407678891502.png" alt="image.png"></p>
-<h2 id="4-3前期准备"><a href="#4-3前期准备" class="headerlink" title="4.3前期准备"></a>4.3前期准备</h2><ul>
-<li>连接数据库实现</li>
-<li>兼容不同的Mysql版本</li>
-<li>监听数据库的方式</li>
-<li>过滤脏数据</li>
-<li>准确过滤出自己想要的语句</li>
-</ul>
-<h2 id="4-4目标实现"><a href="#4-4目标实现" class="headerlink" title="4.4目标实现"></a>4.4目标实现</h2><h3 id="4-4-1连接数据库"><a href="#4-4-1连接数据库" class="headerlink" title="4.4.1连接数据库"></a>4.4.1连接数据库</h3><h4 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h4><p>连接数据库我用的是JDBC去连接MySQL数据库，连接 MySQL的话需要 需要驱动包，最新版下载地址为：**<a href="http://dev.mysql.com/downloads/connector/j/**%EF%BC%8C%E8%A7%A3%E5%8E%8B%E5%90%8E%E5%BE%97%E5%88%B0">http://dev.mysql.com/downloads/connector/j/**，解压后得到</a> jar 库文件，然后在对应的项目中导入该库文件。要兼容版本的话得下两个jar，一个兼容8以上的，一个兼容以下的。</p>
-<p>MySQL 8.0 以上版本的数据库连接部分不同：</p>
-<p>MySQL 8.0 以上版本驱动包版本<a href="https://static.runoob.com/download/mysql-connector-java-8.0.16.jar">mysql-connector-java-8.0.16.jar</a>。</p>
-<p>com.mysql.jdbc.Driver 更换为com.mysql.cj.jdbc.Driver。</p>
-<p>MySQL 8.0以上版本无需建立SSL连接，需要显示关闭。</p>
-<p>allowPublicKeyRetrieval=true 允许客户端从服务器获取密钥，最后还需要设置 CST</p>
-<p>加载驱动与连接数据库方式如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Class.forName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);</span><br><span class="line">conn = DriverManager.getConnection(<span class="string">&quot;jdbc:mysql://localhost:3306/test_demo?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC&quot;</span>,<span class="string">&quot;root&quot;</span>,<span class="string">&quot;password&quot;</span>);</span><br><span class="line">MySQL <span class="number">8.0</span> 以下版本 - JDBC 驱动名及数据库 URL   </span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> String JDBC_DRIVER = <span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>; </span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> String DB_URL = <span class="string">&quot;jdbc:mysql://[localhost:3306/RUNOOB](http://localhost:3306/RUNOOB)&quot;</span>;</span><br><span class="line"><span class="comment">// MySQL 8.0 以上版本 - JDBC 驱动名及数据库 URL    </span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> String JDBC_DRIVER = <span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>; </span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> String DB_URL = <span class="string">&quot;jdbc:mysql://[localhost:3306/RUNOOB?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC](http://localhost:3306/RUNOOB?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC)&quot;</span>;</span><br></pre></td></tr></table></figure>
-
-<h4 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> EventHandler&lt;ActionEvent&gt; <span class="title">Connect</span><span class="params">(String sql_addr, String sql_port, String sql_user,String sql_password)</span><span class="keyword">throws</span> ClassNotFoundException, SQLException  </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		USER = sql_user;</span><br><span class="line">		PASS = sql_password;</span><br><span class="line">		Connection conn = <span class="keyword">null</span>;</span><br><span class="line">        Statement stmt = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">        	JDBC_DRIVER = <span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>;</span><br><span class="line">        	DB_URL = <span class="string">&quot;jdbc:mysql://&quot;</span> + sql_addr + <span class="string">&quot;:&quot;</span> + sql_port + <span class="string">&quot;/mysql?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=GMT%2B8&amp;useSSL=false&quot;</span>;</span><br><span class="line">        	 <span class="comment">// 注册 JDBC 驱动</span></span><br><span class="line">            Class.forName(JDBC_DRIVER);</span><br><span class="line">            <span class="comment">// 打开链接</span></span><br><span class="line">            Database_listening.sql_date.appendText(time.format(Long.valueOf(System.currentTimeMillis()))+<span class="string">&quot;------正在连接数据库...&quot;</span>+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"><span class="comment">//            System.out.println(&quot;正在连接数据库...&quot;);</span></span><br><span class="line">            conn = DriverManager.getConnection(DB_URL,USER,PASS);</span><br><span class="line">            conn.prepareStatement(<span class="string">&quot;SET global general_log=on&quot;</span>).executeUpdate();</span><br><span class="line">            conn.prepareStatement(<span class="string">&quot;SET GLOBAL log_output=&#x27;table&#x27;&quot;</span>).executeUpdate();</span><br><span class="line">            DatabaseMetaData metaData = (DatabaseMetaData) conn.getMetaData();</span><br><span class="line">            String version = metaData.getDatabaseProductVersion();<span class="comment">//得到数据库版本信息</span></span><br><span class="line"><span class="comment">//            System.out.println(time.format(Long.valueOf(System.currentTimeMillis()))+&quot;--当前数据库版本为：&quot;+version);</span></span><br><span class="line">            Database_listening.sql_date.appendText(time.format(Long.valueOf(System.currentTimeMillis()))+<span class="string">&quot;------当前数据库版本为：&quot;</span>+version+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            </span><br><span class="line">        &#125;<span class="keyword">catch</span>(SQLException se)&#123;</span><br><span class="line">        </span><br><span class="line">            JDBC_DRIVER = <span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>;</span><br><span class="line">        	DB_URL = <span class="string">&quot;jdbc:mysql://&quot;</span>+sql_addr+<span class="string">&quot;:&quot;</span>+sql_port+<span class="string">&quot;/mysql?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=GMT%2B8&amp;useSSL=false&quot;</span>;</span><br><span class="line">        	 <span class="comment">// 注册 JDBC 驱动</span></span><br><span class="line">            Class.forName(JDBC_DRIVER);</span><br><span class="line">            <span class="comment">// 打开链接</span></span><br><span class="line"><span class="comment">//            System.out.println(&quot;正在连接数据库...&quot;);</span></span><br><span class="line">            Database_listening.sql_date.appendText(time.format(Long.valueOf(System.currentTimeMillis()))+<span class="string">&quot;------正在连接数据库...&quot;</span>+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            conn = DriverManager.getConnection(DB_URL,USER,PASS);</span><br><span class="line">            DatabaseMetaData metaData = (DatabaseMetaData) conn.getMetaData();</span><br><span class="line">            conn.prepareStatement(<span class="string">&quot;SET global general_log=on&quot;</span>).executeUpdate();</span><br><span class="line">            conn.prepareStatement(<span class="string">&quot;SET GLOBAL log_output=&#x27;table&#x27;&quot;</span>).executeUpdate();</span><br><span class="line">            String version = metaData.getDatabaseProductVersion();<span class="comment">//得到数据库版本信息</span></span><br><span class="line"><span class="comment">//            System.out.println(time.format(Long.valueOf(System.currentTimeMillis()))+&quot;--当前数据库版本为：&quot;+version);</span></span><br><span class="line">            Database_listening.sql_date.appendText(time.format(Long.valueOf(System.currentTimeMillis()))+<span class="string">&quot;------当前数据库版本为：&quot;</span>+version+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        </span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            <span class="comment">// 处理 Class.forName 错误</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-4-2监听数据库日志"><a href="#4-4-2监听数据库日志" class="headerlink" title="4.4.2监听数据库日志"></a>4.4.2监听数据库日志</h3><h4 id="监听思路"><a href="#监听思路" class="headerlink" title="监听思路"></a>监听思路</h4><p>刚开始想的是直接对某个数据库的日志进行监听，但是后面发现需要修改数据库的配置文件，不是很方便，毕竟不想每监听一个就去改一下这个数据库的配置文件(想偷懒),还有就是监听缓存文件以及监听mysql数据库里面的一个表，我想着之后有可能把它改成一个代码审计的工具，所以直接监听整mysql的日志，后面再对脏数据进行过滤就行了。</p>
-<p>根据上面的思路，我直接对Mysql里的general_log表进行监听，但是后面发现有很多脏数据，而且因为这个是整个Mysql的所以那些数据库运行的数据也会显示出来，导致我后面过滤脏数据一度尴尬，为了验证可行性，直接用if去过滤那些无用的数据，后面改成黑名单，直接把那些脏数据加进去然后过滤了</p>
-<h4 id="关键代码-1"><a href="#关键代码-1" class="headerlink" title="关键代码"></a>关键代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String logsql = <span class="string">&quot;select * from mysql.general_log where command_type =\&quot;Query\&quot; OR command_type =\&quot;Execute\&quot; order by event_time desc limit 1,15&quot;</span>;</span><br><span class="line">	Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);</span><br><span class="line">	ResultSet rs = conn.prepareStatement(logsql).executeQuery();</span><br><span class="line"><span class="keyword">while</span> (rs.next()) &#123;</span><br><span class="line">	String logres = rs.getString(<span class="string">&quot;argument&quot;</span>);</span><br><span class="line"><span class="comment">//System.out.println(time.format(Long.valueOf(System.currentTimeMillis()))+&quot;：&quot;+logres);</span></span><br><span class="line">	Database_listening.sql_date.appendText(time.format(Long.valueOf(System.currentTimeMillis()))+<span class="string">&quot;------&quot;</span>+logres+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>连接数据库，然后通过查询表内的数据，再不断输出，但是太多无用数据显示了，基本上每次都会显示SET NAMES utf8，SELECT @@session.autocommit，SHOW WARNINGS这些数据出来，太干扰看那些正常的语句了，所以我刚开始只是用了一层if去过滤这些数据，后面发现不大灵活，所以整成一个黑名单，可以动态添加删除拦截那些数据的规则。</p>
-<h3 id="4-4-3过滤数据"><a href="#4-4-3过滤数据" class="headerlink" title="4.4.3过滤数据"></a>4.4.3过滤数据</h3><h4 id="过滤思路"><a href="#过滤思路" class="headerlink" title="过滤思路"></a>过滤思路</h4><p>刚开始获取的时候看到很多其他的数据来干扰，例如SELECT QUERY_ID，SHOW STATUS，SHOW FULL TABLES WHERE Table_type != ‘VIEW’这些，上面说到我用了个if去过滤那些带这个特征的数据，其实挺好用的，只不过后面想要动态的去调整这些黑名单，所以用了个下拉列表来存储数据，然后把数据过来只后再把下拉列表里面的数据进行处理，再把获取到的数据库信息一个个过滤掉，从而达到过滤的效果，</p>
-<h4 id="关键代码-2"><a href="#关键代码-2" class="headerlink" title="关键代码"></a>关键代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!logres.equals(logsql) &amp;&amp; !logres.contains(<span class="string">&quot;/* mysql&quot;</span>) &amp;&amp; !logres.contains(<span class="string">&quot;SHOW WARNINGS&quot;</span>) &amp;&amp; !logres.contains(<span class="string">&quot;select event_time,argument from%%&quot;</span>) &amp;&amp; !logres.contains(<span class="string">&quot;SELECT STATE&quot;</span>) &amp;&amp; !logres.contains(<span class="string">&quot;SHOW STATUS&quot;</span>) &amp;&amp; !logres.contains(<span class="string">&quot;SELECT QUERY_ID&quot;</span>))&#123;</span><br><span class="line">     Database_listening.sql_date.appendText(time.format(Long.valueOf(System.currentTimeMillis()))+<span class="string">&quot;------&quot;</span>+logres+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>到这基本上工具就写完了，这个算是比较简单的工具，开发思路也比较简单，也没用到什么奇奇怪怪的操作，基本上都是基础语法，挺适合小白上手工具开发的，</p>
-<p>排版完面板之后把功能加入到各个按钮事件里面导出称jar文件，运行就可以用了，当然在编译器了也可以直接使用，看个人选择吧。</p>
-<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20220106231423032-16414820643301.png" alt="image-20220106231423032"></p>
-<h1 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h1><p>总的来说，开发工具其实没什么难度，把每一块拆分成多个小点去完成，然后拼接起来就行了，第一次写这种关于工具开发的文，有些可能没表达到位，我尽量把需要注意的地方给写出来，这个是针对于小白的，所以有些简单的东西还是选择说得仔细点，大佬们可以选择性的跳一跳，这个是第一篇，后面的话会根据自己平时开发的一些插件，工具啥的写一些开发思路或者教程，后面可能就不会讲面板这些东西了，如果有那里写得不对的，希望大佬们带带我。</p>
-]]></content>
-      <categories>
-        <category>安全开发</category>
-      </categories>
-      <tags>
-        <tag>安全工具</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>外网渗透信息收集</title>
     <url>/2022/02/10/%E5%A4%96%E7%BD%91%E6%B8%97%E9%80%8F%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/</url>
     <content><![CDATA[<h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><p><strong>什么是信息搜集？</strong></p>
@@ -2023,6 +1988,118 @@
       </categories>
       <tags>
         <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>安全小白怎么从零开始拥有自己的武器库</title>
+    <url>/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/</url>
+    <content><![CDATA[<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>前些日子跟个大佬搞攻防，看着大佬超神我超鬼，不得不佩服大佬，看着大佬用的很多工具都没见过，问了下这些工具是啥，大佬掏出了他的大宝贝给我看，嚯，好家伙，一整个文件夹都是自己开发的工具还有一些魔改的工具，属实羡慕，看着大佬那些工具，陷入沉思，是不是我也可以有自己的武器库🤨总不能当伸手党吧，而且还能熟悉语言，增强自己在代码审计那块的。刚好之前搞过一段时间的开发，对于开发一些工具啥的还是有自己的想法的，说干就干，这个系列是写安全小白怎么从零开始拥有自己的一个工具库的文章，在开发方面我也是菜鸟，所以可能有些工具的开发思路跟那些流行的工具思路可能不一样，有哪写得不好的地方，希望大佬们能带带我。</p>
+<span id="more"></span>
+
+<h1 id="二、前期准备"><a href="#二、前期准备" class="headerlink" title="二、前期准备"></a>二、前期准备</h1><h2 id="2-1语言选择"><a href="#2-1语言选择" class="headerlink" title="2.1语言选择"></a>2.1语言选择</h2><p>开发工具嘛，肯定要会一两个语言，相信各位大佬肯定掌握了不止三四种的语言，小弟没啥能力，只掌握了C，java，python，php，go这几种，用来开发工具的话比较常见的就是java，python，go了，我比较熟悉那个java和python，而且一些常见的工具也是用的java和python来开发的，这两种语言的区别就不介绍了，大家都懂的，选择哪种主要看个人的需求，如果想省点事的话可以用python，里面的库用到才知道香，但是python虚拟机没有java强，毕竟java虚拟机是java的核心，而且python是全动态性的，可以在运行时自己修改自己的代码，java只能通过变通方法实现。python的变量是动态的，而java的变量是静态的，需要事先声明，所以java ide的代码提示功能优于python ide。</p>
+<p>用java开发工具的话主要是习惯了用java开发有界面的工具，而python的话主要是因为库强大，可以少写很多东西，省很多时间，当然不是说python没办法搞界面，python是推出了一些框架用于开发界面的，其中最常用的就是一个是Django，Django是一个较为高级的Python Web框架，以快速开发和实用简洁的设计闻名，关于语言的选择还是看个人习惯吧，没有谁好谁坏的说法。</p>
+<h2 id="2-2编译器"><a href="#2-2编译器" class="headerlink" title="2.2编译器"></a>2.2编译器</h2><p>java用的编译器是IDEA和eclipse，python用的是PyCharm，这几个都是很不错的编译器，就是有些只能试用或者找破解，下完编译器，先建个项目，这边拿eclipse做下示范，进来先建个项目，这边选的是1.8.0的，然后把名字命名一下，搞一个com.AX.Database_listening，然后直接finish。</p>
+<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211220102525498.png" alt="image-20211220102525498"></p>
+<p>搞完建好了，先看下目录结构SRC是我们之后写代码的地方，然后JRE这块是我们导入的包，事先有导入别的包，所以创建完之后会直接存在。</p>
+<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211220112758035.png" alt="image-20211220112758035"></p>
+<p>一般我们在开发的时候都会用到别人写好的东西，而有些是需要你导入的，我们下载完别人的jar之后，在自己项目下面创建一个lib，把我们下载好的jar拉进去，然后右键项目，点击Properties，然后选择Java Build Path</p>
+<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211220103338819.png" alt="image-20211220103338819"></p>
+<p>找到你刚刚拉进来的jar，选中添加，然后保存，整个流程就结束了，这样我们在写其他功能的时候就会方便很多了。</p>
+<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211220112652185.png" alt="image-20211220112652185"></p>
+<p>然后可以开始写你自己代码了。</p>
+<h2 id="2-3语言能力"><a href="#2-3语言能力" class="headerlink" title="2.3语言能力"></a>2.3语言能力</h2><p>语言和编译器选完了，就该有人问了，我这语言得掌握到啥程度才能开发自己的工具，嚯，要问这话我也不知道该怎么回，毕竟我自己学的也不是很深，就JAVA来说，如果你接受过系统的学习的话，基本上都会在学完基础语法之后进入到线程，异常，文件访问，接口，继承等等这些知识，后面可能会学到例如网络通信协议的东西让你写一些通信的小demo，当然要会到什么程度才能开发自己的工具的话，看你个人的需求，我觉得基本上只要你会基础语法，知道函数，类，子类，父类，重写，继承啥的就可以自己去开发一些工具了。</p>
+<p>如果你的工具只是针对于本地的东西的话，你只需了解你想要实现的原理，后面根据这个原理去设计你的开发架构，那你压根不需要用到什么网络通信协议啥的，但是如果你需要对接网络上的一些资源的话，那么通信协议还是得会的，当然，这些对百度工程师是例外的，把你想要实现的去百度上搜索，基本上都会有解答，百度能实现百分之99的困难。</p>
+<h2 id="2-4开发思路"><a href="#2-4开发思路" class="headerlink" title="2.4开发思路"></a>2.4开发思路</h2><p>不管是开发啥，你对成果一定要有个大概的框架，不一定要先想好界面，但是功能，要实现怎样的功能，这些功能能实现什么样的效果，以及如何去实现这些功能。大部分工具开发的流程都是一致的，基本上都是三部分：</p>
+<ol>
+<li>数据获取：怎么获取你想要的数据，例如怎么和网站进行通信，怎么连接数据库，怎么获取数据库的数据等等</li>
+<li>数据处理：拿到数据之后，如何对数据进行处理，获取到你想要的那部分数据，一般我们在数据获取的的时候，是没办法直接获取到你想要的那部分数据的，基本上都是一锅端回来，然后根据显示出来的数据情况进行筛选，过滤，还有一种情况就是你获取到的数据需要进一步的处理，例如你获取回来的数据需要再进行一轮的数据分析，或者与你现有的特征进行比对等等这些情况，所以在数据获取和数据处理这两个方面是开发工具的时候最难的地方。</li>
+<li>数据显示：如果前面数据获取和数据处理都完成了，那么就来到了最简单的地方，怎么呈现你的结果，是命令行还是界面，这个取决于个人喜好。</li>
+</ol>
+<p>所以，根据这三个部分基本上能满足你开发大部分的工具，而且你在开发这些工具的时候思路会很清晰，始终清楚自己在哪一部分，在哪一部分就干哪一部分的事情，找那块的解决方法，网上会有很多教程，其实工具就类似是拼图，你这找一下怎么实现，那找一下怎么实现，然后拼接起来，就成了工具，一句话，CCV，一把梭哈，冲就完事了。这里附下小弟我搞小工具的时候常规的思维导图。</p>
+<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211127004010265.png" alt="image-20211127004010265"></p>
+<h1 id="三、开发过程"><a href="#三、开发过程" class="headerlink" title="三、开发过程"></a>三、开发过程</h1><p>这里如果空讲的话会有点空泛，我用我之前搞的一个小工具来做例子吧，直接说我自己开发这个工具的时候的一个开发思路会比较好一点，这是个子域名的一个探测工具，主要功能的话就是根据你输入的域名进行子域名的探测，然后根据页面的状态剔除那些无法访问的，把可以访问的留下来保存数据，这个是我后面用来采集页面样本然后做页面分类的，所以还有其他功能，这里我主要讲下如何探测子域名状态值的设计思路和开发过程。</p>
+<h2 id="3-1开发架构"><a href="#3-1开发架构" class="headerlink" title="3.1开发架构"></a>3.1开发架构</h2><p>架构的话根据三个流程来准备，然后搞个思维导图（虽然也没啥必要，但是可以让后面自己的思路清晰，不会跑偏）</p>
+<ol>
+<li>数据获取：怎么通过域名连接到网站，然后获取到网站的状态值</li>
+<li>数据处理：获取完数据之后怎么处理数据，将数据整理成我想要的格式，例如，域名，IP，开放端口，网站状态这样，把有用的数据单独拿出来</li>
+<li>数据显示：数据处理完之后通过界面显示出收集的结果，然后把数据导出来，通过固定格式保存，方便之后的操作。</li>
+</ol>
+<p>贴下思维导图，这里只写了探测网站状态值那部分，其他的功能都差不多的，每个人的思路会有所不同，所以这块没啥大问题。</p>
+<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211128180018515.png" alt="image-20211128180018515"></p>
+<h2 id="3-2实现目标"><a href="#3-2实现目标" class="headerlink" title="3.2实现目标"></a>3.2实现目标</h2><h3 id="3-2-1获取网站状态值"><a href="#3-2-1获取网站状态值" class="headerlink" title="3.2.1获取网站状态值"></a>3.2.1获取网站状态值</h3><p>如何获取网站状态值在上面的思维导图上面已经写了，通过java的uConnection.getResponseCode()可以获取状态码。进而判断该网站是否存在，具体代码怎么用以及返回的值，类型可以自己百度一下，我这里贴一下关键代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">URL u = <span class="keyword">new</span> URL(<span class="string">&quot;http://www.baidu.com&quot;</span>);</span><br><span class="line"><span class="keyword">try</span> &#123;  </span><br><span class="line">	HttpURLConnection uConnection = (HttpURLConnection)u.openConnection();  </span><br><span class="line">	<span class="keyword">try</span> &#123;  </span><br><span class="line">		uConnection.connect();</span><br><span class="line">		System.out.println(uConnection.getResponseCode());  </span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;  </span><br><span class="line">			e.printStackTrace();  </span><br><span class="line">		&#125;                    </span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;  </span><br><span class="line">			e.printStackTrace();  </span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面就是一个简单的通过url去连接网站，获取它返回的状态值，然后输出状态值，因为这里是连接的<a href="http://www.baidu.com,所以返回的是200,这个你们可以直接拿去运行看看内容,这个就是简单的一个实现过程,然后后面的可以把自己的字典导进去,获取你字典的数据,拼接到.baidu.com前面,再弄个多线程让他一直探测下去获取返回的值就行了./">www.baidu.com，所以返回的是200，这个你们可以直接拿去运行看看内容，这个就是简单的一个实现过程，然后后面的可以把自己的字典导进去，获取你字典的数据，拼接到.baidu.com前面，再弄个多线程让他一直探测下去获取返回的值就行了。</a></p>
+<h3 id="3-2-2筛选自己想要的数据"><a href="#3-2-2筛选自己想要的数据" class="headerlink" title="3.2.2筛选自己想要的数据"></a>3.2.2筛选自己想要的数据</h3><p>上面我们已经拿到了网站的状态值，那么我们可以根据返回的状态值去对数据进行判断是不是该存起来，一个if就能解决的事情了，如果你想根据状态值来分类的话搞个switch就行了，例如说我们想要过滤一些数据，用if去过滤这些数据</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="keyword">if</span> (!logres.equals(logsql) &amp;&amp; !logres.contains(<span class="string">&quot;/* mysql&quot;</span>) &amp;&amp; !logres.contains(<span class="string">&quot;SHOW WARNINGS&quot;</span>) &amp;&amp; !logres.contains(<span class="string">&quot;select event_time,argument from%%&quot;</span>))</span><br><span class="line">Database_listening.sql_date.appendText(time.format(Long.valueOf(System.currentTimeMillis()))+<span class="string">&quot;------&quot;</span>+logres+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这样虽然方便，但是当你想要过滤的数据过多的时候，就需要列很长的条件，这样就太麻烦了，这时候就需要用其他的一些技能，比如说把黑名单存到文档然后根据文档里的内容去进行拦截等其他方式。</p>
+<h3 id="3-2-3界面实现"><a href="#3-2-3界面实现" class="headerlink" title="3.2.3界面实现"></a>3.2.3界面实现</h3><p>这里说下几个面板，这个算是JAVAFX里面比较常见的面板了，其实界面没什么，就跟HTML差不多，一个套一个，套娃来的，你只要提前想好你自己的数据想要显示的位置，然后去布置按钮位置，数据显示位置就行了。</p>
+<ul>
+<li>StackPane（堆叠面板）：节点按照被添加的顺序从左到右、从上到下显示。</li>
+<li>FlowPane（流式面板 ）：节点在5个区域显示－上、下、左、右、中</li>
+<li>GridPane（栅格面板）：节点以灵活的行列栅格形式排列，这个可以根据自己的安排去排列那些元素的位置(0,0),(0,1),(1,0)(1,1)这样</li>
+<li>BorderPane（边界面板）：将节点有序地排列在一个水平行中。当节点到达面板边界时，不会折行显示。</li>
+<li>Hbox、Vbox（盒式面板）：Hbox将节点有序地排列在一个垂直列中。当节点到达面板边界时，不会折行显示，Vbox将节点有序地排列在一个中。当节点到达面板边界时，不会折行显示。</li>
+</ul>
+<p>其实这个是很简单的面板介绍，基本上都是按这些面板去堆叠出来的，我这里贴一个简单的面板加按钮的示例代码，运行这个看的话可能会更理解点。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">label = <span class="keyword">new</span> Label(<span class="string">&quot;累加计数 &quot;</span>+count);</span><br><span class="line">Button btnPush = <span class="keyword">new</span> Button (<span class="string">&quot;+1&quot;</span>);	</span><br><span class="line"><span class="comment">//设置一个label和button</span></span><br><span class="line">btnPush.setOnAction(<span class="keyword">this</span>::btnPushHandler);</span><br><span class="line"><span class="comment">//设置按钮的事件，点击按钮之后会发生什么事情</span></span><br><span class="line">FlowPane pane = <span class="keyword">new</span> FlowPane (btnPush,label);</span><br><span class="line"><span class="comment">//然后把按钮和label放到面板里面，这个是流式的，直接横着排列</span></span><br><span class="line">pane.setHgap(<span class="number">20</span>);</span><br><span class="line">pane.setAlignment(Pos.CENTER);</span><br><span class="line">Scene scene = <span class="keyword">new</span> Scene(pane, <span class="number">300</span>,<span class="number">100</span>);</span><br><span class="line"><span class="comment">//设置面板大小</span></span><br><span class="line">stage.setScene(scene);</span><br><span class="line">stage.setTitle(<span class="string">&quot;面板示例&quot;</span>);</span><br><span class="line"><span class="comment">//面板title</span></span><br><span class="line">stage.show();</span><br><span class="line"><span class="comment">//显示出来</span></span><br></pre></td></tr></table></figure>
+
+<p>这个面板也完成了，当你把面板设计好之后，把你完成的代码分模块放到每个按钮的事件里面去，上面的那句btnPush.setOnAction(this::btnPbushHandler)是把btnPbushHandler事件设置到btnPush这个按钮里面去，当点击到btnPush按钮的时候，执行该事件，例如</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Connect_SQL = <span class="keyword">new</span> Button(<span class="string">&quot;连接数据库&quot;</span>);</span><br><span class="line"><span class="comment">//设置一个按钮叫Connect_SQL</span></span><br><span class="line">Connect_SQL.setOnAction(<span class="keyword">this</span>::ConnectSQL);</span><br><span class="line"><span class="comment">//点击该按钮之后执行ConnectSQL事件</span></span><br><span class="line">------------------------------------------------------------------------------------------------------------------------</span><br><span class="line"><span class="comment">//编写ConnectSQL，当点击了该按钮之后执行ConnectSQL事件，去连接数据库</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ConnectSQL</span><span class="params">(ActionEvent event)</span></span>&#123;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	ConnectSQL.Connect(sql_addr.getText(), sql_port.getText(), sql_user.getText(), sql_password.getText());</span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">	<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">	e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就把按钮和事件响应连接起来，设计相对应的按钮和事件，去达到自己想要实现的目标，基本上这个工具就完成了，当工具写完了之后，不可能每次都进编译器里面去运行吧，把它导出来成为一个.jar的文件，之后直接执行这个文件就行了。</p>
+<p>右键项目，点击Export，选择jar file</p>
+<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211220112323902.png" alt="image-20211220112323902"></p>
+<p>然后把自己的项目勾选上，直接finish，就完成了。</p>
+<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20211220112454283.png" alt="image-20211220112454283"></p>
+<p>至此，整个工具的编写就完成了</p>
+<h1 id="四、实战"><a href="#四、实战" class="headerlink" title="四、实战"></a>四、实战</h1><h2 id="4-1工具说明"><a href="#4-1工具说明" class="headerlink" title="4.1工具说明"></a>4.1工具说明</h2><p>一个Mysql监控工具的思路以及实现方式，实现了指定数据库名监控跟它有关的sql语句，单独显示特定的sql语句,刚开始自己用的那些网上的工具不是很理想，所以就打算自己写一个，目前只实现了这两个功能，后面会把它改成一个代审工具，实现从sql语句跳定位到代码啥的。</p>
+<h2 id="4-2开发思路"><a href="#4-2开发思路" class="headerlink" title="4.2开发思路"></a>4.2开发思路</h2><p>工具的思路其实也很简单，主要就是这四块</p>
+<ol>
+<li>连接数据库</li>
+<li>监听数据库日志</li>
+<li>对数据库日志的数据进行过滤</li>
+<li>显示数据</li>
+</ol>
+<p>而工具最终目标是：用户连接上数据库之后，在测试代码或者网站功能的时候，经过该工具过滤能够定位到执行的sql语句，方便进行代码审计</p>
+<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/20211115165221-5892b92c-45f1-1-16407678891502.png" alt="image.png"></p>
+<h2 id="4-3前期准备"><a href="#4-3前期准备" class="headerlink" title="4.3前期准备"></a>4.3前期准备</h2><ul>
+<li>连接数据库实现</li>
+<li>兼容不同的Mysql版本</li>
+<li>监听数据库的方式</li>
+<li>过滤脏数据</li>
+<li>准确过滤出自己想要的语句</li>
+</ul>
+<h2 id="4-4目标实现"><a href="#4-4目标实现" class="headerlink" title="4.4目标实现"></a>4.4目标实现</h2><h3 id="4-4-1连接数据库"><a href="#4-4-1连接数据库" class="headerlink" title="4.4.1连接数据库"></a>4.4.1连接数据库</h3><h4 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h4><p>连接数据库我用的是JDBC去连接MySQL数据库，连接 MySQL的话需要 需要驱动包，最新版下载地址为：**<a href="http://dev.mysql.com/downloads/connector/j/**%EF%BC%8C%E8%A7%A3%E5%8E%8B%E5%90%8E%E5%BE%97%E5%88%B0">http://dev.mysql.com/downloads/connector/j/**，解压后得到</a> jar 库文件，然后在对应的项目中导入该库文件。要兼容版本的话得下两个jar，一个兼容8以上的，一个兼容以下的。</p>
+<p>MySQL 8.0 以上版本的数据库连接部分不同：</p>
+<p>MySQL 8.0 以上版本驱动包版本<a href="https://static.runoob.com/download/mysql-connector-java-8.0.16.jar">mysql-connector-java-8.0.16.jar</a>。</p>
+<p>com.mysql.jdbc.Driver 更换为com.mysql.cj.jdbc.Driver。</p>
+<p>MySQL 8.0以上版本无需建立SSL连接，需要显示关闭。</p>
+<p>allowPublicKeyRetrieval=true 允许客户端从服务器获取密钥，最后还需要设置 CST</p>
+<p>加载驱动与连接数据库方式如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Class.forName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);</span><br><span class="line">conn = DriverManager.getConnection(<span class="string">&quot;jdbc:mysql://localhost:3306/test_demo?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC&quot;</span>,<span class="string">&quot;root&quot;</span>,<span class="string">&quot;password&quot;</span>);</span><br><span class="line">MySQL <span class="number">8.0</span> 以下版本 - JDBC 驱动名及数据库 URL   </span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> String JDBC_DRIVER = <span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>; </span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> String DB_URL = <span class="string">&quot;jdbc:mysql://[localhost:3306/RUNOOB](http://localhost:3306/RUNOOB)&quot;</span>;</span><br><span class="line"><span class="comment">// MySQL 8.0 以上版本 - JDBC 驱动名及数据库 URL    </span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> String JDBC_DRIVER = <span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>; </span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> String DB_URL = <span class="string">&quot;jdbc:mysql://[localhost:3306/RUNOOB?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC](http://localhost:3306/RUNOOB?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC)&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> EventHandler&lt;ActionEvent&gt; <span class="title">Connect</span><span class="params">(String sql_addr, String sql_port, String sql_user,String sql_password)</span><span class="keyword">throws</span> ClassNotFoundException, SQLException  </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		USER = sql_user;</span><br><span class="line">		PASS = sql_password;</span><br><span class="line">		Connection conn = <span class="keyword">null</span>;</span><br><span class="line">        Statement stmt = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">        	JDBC_DRIVER = <span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>;</span><br><span class="line">        	DB_URL = <span class="string">&quot;jdbc:mysql://&quot;</span> + sql_addr + <span class="string">&quot;:&quot;</span> + sql_port + <span class="string">&quot;/mysql?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=GMT%2B8&amp;useSSL=false&quot;</span>;</span><br><span class="line">        	 <span class="comment">// 注册 JDBC 驱动</span></span><br><span class="line">            Class.forName(JDBC_DRIVER);</span><br><span class="line">            <span class="comment">// 打开链接</span></span><br><span class="line">            Database_listening.sql_date.appendText(time.format(Long.valueOf(System.currentTimeMillis()))+<span class="string">&quot;------正在连接数据库...&quot;</span>+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"><span class="comment">//            System.out.println(&quot;正在连接数据库...&quot;);</span></span><br><span class="line">            conn = DriverManager.getConnection(DB_URL,USER,PASS);</span><br><span class="line">            conn.prepareStatement(<span class="string">&quot;SET global general_log=on&quot;</span>).executeUpdate();</span><br><span class="line">            conn.prepareStatement(<span class="string">&quot;SET GLOBAL log_output=&#x27;table&#x27;&quot;</span>).executeUpdate();</span><br><span class="line">            DatabaseMetaData metaData = (DatabaseMetaData) conn.getMetaData();</span><br><span class="line">            String version = metaData.getDatabaseProductVersion();<span class="comment">//得到数据库版本信息</span></span><br><span class="line"><span class="comment">//            System.out.println(time.format(Long.valueOf(System.currentTimeMillis()))+&quot;--当前数据库版本为：&quot;+version);</span></span><br><span class="line">            Database_listening.sql_date.appendText(time.format(Long.valueOf(System.currentTimeMillis()))+<span class="string">&quot;------当前数据库版本为：&quot;</span>+version+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            </span><br><span class="line">        &#125;<span class="keyword">catch</span>(SQLException se)&#123;</span><br><span class="line">        </span><br><span class="line">            JDBC_DRIVER = <span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>;</span><br><span class="line">        	DB_URL = <span class="string">&quot;jdbc:mysql://&quot;</span>+sql_addr+<span class="string">&quot;:&quot;</span>+sql_port+<span class="string">&quot;/mysql?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=GMT%2B8&amp;useSSL=false&quot;</span>;</span><br><span class="line">        	 <span class="comment">// 注册 JDBC 驱动</span></span><br><span class="line">            Class.forName(JDBC_DRIVER);</span><br><span class="line">            <span class="comment">// 打开链接</span></span><br><span class="line"><span class="comment">//            System.out.println(&quot;正在连接数据库...&quot;);</span></span><br><span class="line">            Database_listening.sql_date.appendText(time.format(Long.valueOf(System.currentTimeMillis()))+<span class="string">&quot;------正在连接数据库...&quot;</span>+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            conn = DriverManager.getConnection(DB_URL,USER,PASS);</span><br><span class="line">            DatabaseMetaData metaData = (DatabaseMetaData) conn.getMetaData();</span><br><span class="line">            conn.prepareStatement(<span class="string">&quot;SET global general_log=on&quot;</span>).executeUpdate();</span><br><span class="line">            conn.prepareStatement(<span class="string">&quot;SET GLOBAL log_output=&#x27;table&#x27;&quot;</span>).executeUpdate();</span><br><span class="line">            String version = metaData.getDatabaseProductVersion();<span class="comment">//得到数据库版本信息</span></span><br><span class="line"><span class="comment">//            System.out.println(time.format(Long.valueOf(System.currentTimeMillis()))+&quot;--当前数据库版本为：&quot;+version);</span></span><br><span class="line">            Database_listening.sql_date.appendText(time.format(Long.valueOf(System.currentTimeMillis()))+<span class="string">&quot;------当前数据库版本为：&quot;</span>+version+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        </span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            <span class="comment">// 处理 Class.forName 错误</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-4-2监听数据库日志"><a href="#4-4-2监听数据库日志" class="headerlink" title="4.4.2监听数据库日志"></a>4.4.2监听数据库日志</h3><h4 id="监听思路"><a href="#监听思路" class="headerlink" title="监听思路"></a>监听思路</h4><p>刚开始想的是直接对某个数据库的日志进行监听，但是后面发现需要修改数据库的配置文件，不是很方便，毕竟不想每监听一个就去改一下这个数据库的配置文件(想偷懒),还有就是监听缓存文件以及监听mysql数据库里面的一个表，我想着之后有可能把它改成一个代码审计的工具，所以直接监听整mysql的日志，后面再对脏数据进行过滤就行了。</p>
+<p>根据上面的思路，我直接对Mysql里的general_log表进行监听，但是后面发现有很多脏数据，而且因为这个是整个Mysql的所以那些数据库运行的数据也会显示出来，导致我后面过滤脏数据一度尴尬，为了验证可行性，直接用if去过滤那些无用的数据，后面改成黑名单，直接把那些脏数据加进去然后过滤了</p>
+<h4 id="关键代码-1"><a href="#关键代码-1" class="headerlink" title="关键代码"></a>关键代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String logsql = <span class="string">&quot;select * from mysql.general_log where command_type =\&quot;Query\&quot; OR command_type =\&quot;Execute\&quot; order by event_time desc limit 1,15&quot;</span>;</span><br><span class="line">	Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);</span><br><span class="line">	ResultSet rs = conn.prepareStatement(logsql).executeQuery();</span><br><span class="line"><span class="keyword">while</span> (rs.next()) &#123;</span><br><span class="line">	String logres = rs.getString(<span class="string">&quot;argument&quot;</span>);</span><br><span class="line"><span class="comment">//System.out.println(time.format(Long.valueOf(System.currentTimeMillis()))+&quot;：&quot;+logres);</span></span><br><span class="line">	Database_listening.sql_date.appendText(time.format(Long.valueOf(System.currentTimeMillis()))+<span class="string">&quot;------&quot;</span>+logres+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>连接数据库，然后通过查询表内的数据，再不断输出，但是太多无用数据显示了，基本上每次都会显示SET NAMES utf8，SELECT @@session.autocommit，SHOW WARNINGS这些数据出来，太干扰看那些正常的语句了，所以我刚开始只是用了一层if去过滤这些数据，后面发现不大灵活，所以整成一个黑名单，可以动态添加删除拦截那些数据的规则。</p>
+<h3 id="4-4-3过滤数据"><a href="#4-4-3过滤数据" class="headerlink" title="4.4.3过滤数据"></a>4.4.3过滤数据</h3><h4 id="过滤思路"><a href="#过滤思路" class="headerlink" title="过滤思路"></a>过滤思路</h4><p>刚开始获取的时候看到很多其他的数据来干扰，例如SELECT QUERY_ID，SHOW STATUS，SHOW FULL TABLES WHERE Table_type != ‘VIEW’这些，上面说到我用了个if去过滤那些带这个特征的数据，其实挺好用的，只不过后面想要动态的去调整这些黑名单，所以用了个下拉列表来存储数据，然后把数据过来只后再把下拉列表里面的数据进行处理，再把获取到的数据库信息一个个过滤掉，从而达到过滤的效果，</p>
+<h4 id="关键代码-2"><a href="#关键代码-2" class="headerlink" title="关键代码"></a>关键代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!logres.equals(logsql) &amp;&amp; !logres.contains(<span class="string">&quot;/* mysql&quot;</span>) &amp;&amp; !logres.contains(<span class="string">&quot;SHOW WARNINGS&quot;</span>) &amp;&amp; !logres.contains(<span class="string">&quot;select event_time,argument from%%&quot;</span>) &amp;&amp; !logres.contains(<span class="string">&quot;SELECT STATE&quot;</span>) &amp;&amp; !logres.contains(<span class="string">&quot;SHOW STATUS&quot;</span>) &amp;&amp; !logres.contains(<span class="string">&quot;SELECT QUERY_ID&quot;</span>))&#123;</span><br><span class="line">     Database_listening.sql_date.appendText(time.format(Long.valueOf(System.currentTimeMillis()))+<span class="string">&quot;------&quot;</span>+logres+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>到这基本上工具就写完了，这个算是比较简单的工具，开发思路也比较简单，也没用到什么奇奇怪怪的操作，基本上都是基础语法，挺适合小白上手工具开发的，</p>
+<p>排版完面板之后把功能加入到各个按钮事件里面导出称jar文件，运行就可以用了，当然在编译器了也可以直接使用，看个人选择吧。</p>
+<p><img src="https://ax-x.github.io/2022/01/20/%E5%AE%89%E5%85%A8%E5%B0%8F%E7%99%BD%E6%80%8E%E4%B9%88%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93/image-20220106231423032-16414820643301.png" alt="image-20220106231423032"></p>
+<h1 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h1><p>总的来说，开发工具其实没什么难度，把每一块拆分成多个小点去完成，然后拼接起来就行了，第一次写这种关于工具开发的文，有些可能没表达到位，我尽量把需要注意的地方给写出来，这个是针对于小白的，所以有些简单的东西还是选择说得仔细点，大佬们可以选择性的跳一跳，这个是第一篇，后面的话会根据自己平时开发的一些插件，工具啥的写一些开发思路或者教程，后面可能就不会讲面板这些东西了，如果有那里写得不对的，希望大佬们带带我。</p>
+]]></content>
+      <categories>
+        <category>安全开发</category>
+      </categories>
+      <tags>
+        <tag>安全工具</tag>
       </tags>
   </entry>
   <entry>
