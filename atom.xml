@@ -6,7 +6,7 @@
   <link href="https://ax-x.github.io/atom.xml" rel="self"/>
   
   <link href="https://ax-x.github.io/"/>
-  <updated>2023-04-17T07:56:32.234Z</updated>
+  <updated>2023-04-18T16:11:14.073Z</updated>
   <id>https://ax-x.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Windows权限维持总结</title>
+    <link href="https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/"/>
+    <id>https://ax-x.github.io/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/</id>
+    <published>2023-04-18T16:08:48.000Z</published>
+    <updated>2023-04-18T16:11:14.073Z</updated>
+    
+    
+    <summary type="html">&lt;h4 id=&quot;一、影子账户&quot;&gt;&lt;a href=&quot;#一、影子账户&quot; class=&quot;headerlink&quot; title=&quot;一、影子账户&quot;&gt;&lt;/a&gt;&lt;strong&gt;一、影子账户&lt;/strong&gt;&lt;/h4&gt;&lt;p&gt;1.使用如下命令创建隐藏用户并加入管理员组&lt;/p&gt;
+&lt;figure class=&quot;highlight powershell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;net user test&lt;span class=&quot;variable&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;123456&lt;/span&gt; /addnet localgroup administrators test&lt;span class=&quot;variable&quot;&gt;$&lt;/span&gt; /add&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="内网" scheme="https://ax-x.github.io/categories/%E5%86%85%E7%BD%91/"/>
+    
+    
+    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="Windows权限维持" scheme="https://ax-x.github.io/tags/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/"/>
+    
+  </entry>
   
   <entry>
     <title>钓鱼平台搭建</title>
@@ -386,25 +408,6 @@
     
     
     <summary type="html">&lt;h2 id=&quot;什么是文件包含&quot;&gt;&lt;a href=&quot;#什么是文件包含&quot; class=&quot;headerlink&quot; title=&quot;什么是文件包含&quot;&gt;&lt;/a&gt;什么是文件包含&lt;/h2&gt;&lt;p&gt;程序开发人员一般希望代码更灵活，所以将被包含的文件设置为变量，用来进行动态调用，但正是由于这种灵活性，从而导致客户端可以调用一个恶意文件，造成文件包含漏洞。为了控制代码的灵活，程序要把要使用的函数写到一个文件中，其他需要其中的的函数执行，只需要通过该文件名包含进来，而且没有进行验证。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="web安全" scheme="https://ax-x.github.io/categories/web%E5%AE%89%E5%85%A8/"/>
-    
-    
-    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>文件上传漏洞个人总结</title>
-    <link href="https://ax-x.github.io/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/"/>
-    <id>https://ax-x.github.io/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</id>
-    <published>2022-03-08T09:24:44.000Z</published>
-    <updated>2022-03-08T09:35:36.927Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;什么是文件上传&quot;&gt;&lt;a href=&quot;#什么是文件上传&quot; class=&quot;headerlink&quot; title=&quot;什么是文件上传&quot;&gt;&lt;/a&gt;什么是文件上传&lt;/h2&gt;&lt;p&gt;文件上传漏洞是指上传文件的时，如果未对上传的文件进行严格的验证和过滤，就容易造成文件上传漏洞，上传脚本等。用户可以上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。 常见场景是web服务器允许用户上传图片或者普通文本文件保存，而用户绕过上传机制上传恶意代码并执行从而控制服务器。这种漏洞是getshell最快最直接的方法之一，上传文件操作本身是没有问题的，问题在于文件上传到服务器后，服务器怎么处理和解释文件，有文件上传不一定有文件上传漏洞，要看代码情况。&lt;/p&gt;</summary>
     
     
     
