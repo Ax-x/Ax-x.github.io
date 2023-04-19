@@ -28,6 +28,21 @@
       </tags>
   </entry>
   <entry>
+    <title>CSRF 跨站请求伪造漏洞</title>
+    <url>/2022/03/08/CSRF-%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>CSRF跨站请求伪造，由客户端发起，是一种劫持受信任用户向服务器发送非预期请求的攻击方式，与XSS相似，但比XSS更难防范，常与XSS一起配合攻击</p>
+<span id="more"></span>
+<p>攻击者盗用了用户的身份信息，以用户的名义发送恶意请求，对服务器来说这个请求是用户发起的，却完成了攻击者所期望的一个操作 XSS 利用站点内内的信任用户，盗取cookie CSRF通过伪装成受信任用户请求受信任的网站利用目标用户的合法身份，以目标的名义执行某些非法参数 利用条件：已经登录系统，用户访问URL 已存在的网站中让用户跳转</p>
+<h2 id="CSRF漏洞防御方案"><a href="#CSRF漏洞防御方案" class="headerlink" title="CSRF漏洞防御方案"></a>CSRF漏洞防御方案</h2><p>1.当用户发送重要的请求时输入验证码<br>2.设置随机TOKEN —数据包的唯一值<br>3.检测referer来源，请求时判断请求连接是否为当前管理员正在使用的页面（管理员在编辑文章，黑客发来恶意的修改密码链接，因为修改密码页面管理员并没有在操作，所以攻击失败）<br>4.设置验证码<br>5.限制请求方式只能为post</p>
+]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>College Website Content Management System v1.0存在任意文件删除漏洞</title>
     <url>/2022/03/08/College-Website-Content-Management-System-v1-0%E5%AD%98%E5%9C%A8%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4%E6%BC%8F%E6%B4%9E/</url>
     <content><![CDATA[<h1 id="一、-漏洞介绍"><a href="#一、-漏洞介绍" class="headerlink" title="一、 漏洞介绍"></a>一、 漏洞介绍</h1><p>College Website - Content Management System是一款校园管理CMS,可以对学生以及学生成绩进行管理，使用PHP语言编写，该CMS存在任意文件删除漏洞，可以删除服务器上的任意文件，该CMS存在任意文件删除漏洞，可以删除服务器上的任意文件。</p>
@@ -52,21 +67,6 @@
       <tags>
         <tag>学习笔记</tag>
         <tag>PHP代码审计</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CSRF 跨站请求伪造漏洞</title>
-    <url>/2022/03/08/CSRF-%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>CSRF跨站请求伪造，由客户端发起，是一种劫持受信任用户向服务器发送非预期请求的攻击方式，与XSS相似，但比XSS更难防范，常与XSS一起配合攻击</p>
-<span id="more"></span>
-<p>攻击者盗用了用户的身份信息，以用户的名义发送恶意请求，对服务器来说这个请求是用户发起的，却完成了攻击者所期望的一个操作 XSS 利用站点内内的信任用户，盗取cookie CSRF通过伪装成受信任用户请求受信任的网站利用目标用户的合法身份，以目标的名义执行某些非法参数 利用条件：已经登录系统，用户访问URL 已存在的网站中让用户跳转</p>
-<h2 id="CSRF漏洞防御方案"><a href="#CSRF漏洞防御方案" class="headerlink" title="CSRF漏洞防御方案"></a>CSRF漏洞防御方案</h2><p>1.当用户发送重要的请求时输入验证码<br>2.设置随机TOKEN —数据包的唯一值<br>3.检测referer来源，请求时判断请求连接是否为当前管理员正在使用的页面（管理员在编辑文章，黑客发来恶意的修改密码链接，因为修改密码页面管理员并没有在操作，所以攻击失败）<br>4.设置验证码<br>5.限制请求方式只能为post</p>
-]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -367,6 +367,26 @@
       </tags>
   </entry>
   <entry>
+    <title>SSRF服务器端请求伪造</title>
+    <url>/2022/03/08/SSRF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>SSRF服务器端请求伪造是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。<span id="more"></span>（正是因为 它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）SSRF 形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。比如从指定URL地址获取网页文本内容，加载指定地址的图片，下载等等。 注释：除了http/https等方式可以造成ssrf，类似tcp connect 方式也可以探测内网一些ip 的端口是否开发服务，只不过危害比较小而已。</p>
+<h2 id="可实现攻击"><a href="#可实现攻击" class="headerlink" title="可实现攻击"></a>可实现攻击</h2><figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>	可以对服务器所在内网、本地进行端口扫描，获取一些服务的banner信息<span class="comment">;</span></span><br><span class="line"><span class="number">2</span>	攻击运行在内网或本地的应用程序（比如溢出）<span class="comment">;</span></span><br><span class="line"><span class="number">3</span>	对内网web应用进行指纹识别，通过访问默认文件实现<span class="comment">;</span></span><br><span class="line"><span class="number">4</span>	攻击内外网的web应用，主要是使用get参数就可以实现的攻击（比如struts2，sqli等）<span class="comment">;</span></span><br><span class="line"><span class="number">5</span>	利用file协议读取本地文件等。</span><br></pre></td></tr></table></figure>
+
+<h2 id="可能出现的地方"><a href="#可能出现的地方" class="headerlink" title="可能出现的地方"></a>可能出现的地方</h2><figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>社交分享功能：获取超链接的标题等内容进行显示</span><br><span class="line"><span class="number">2.</span>转码服务：通过URL地址把原地址的网页内容调优使其适合手机屏幕浏览</span><br><span class="line"><span class="number">3.</span>在线翻译：给网址翻译对应网页的内容</span><br><span class="line"><span class="number">4.</span>图片加载/下载：例如富文本编辑器中的点击下载图片到本地；通过URL地址加载或下载图片</span><br><span class="line"><span class="number">5.</span>图片/文章收藏功能：主要其会取URL地址中title以及文本的内容作为显示以求一个好的用具体验</span><br><span class="line"><span class="number">6.</span>云服务厂商：它会远程执行一些命令来判断网站是否存活等，所以如果可以捕获相应的信息，就可以进行ssrf测试</span><br><span class="line"><span class="number">7.</span>网站采集，网站抓取的地方：一些网站会针对你输入的url进行一些信息采集工作</span><br><span class="line"><span class="number">8.</span>数据库内置功能：数据库的比如mongodb的copyDatabase函数</span><br><span class="line"><span class="number">9.</span>邮件系统：比如接收邮件服务器地址</span><br><span class="line"><span class="number">10.</span>编码处理, 属性信息处理，文件处理：比如ffpmg，ImageMagick，docx，pdf，<span class="type">xml</span>处理器等</span><br><span class="line"><span class="number">11.</span>未公开的api实现以及其他扩展调用URL的功能：可以利用google 语法加上这些关键字去寻找SSRF漏洞 一些的url中的关键字：<span class="keyword">share</span>、wap、url、link、src、source、target、u、<span class="number">3</span>g、display、sourceURl、imageURL、<span class="keyword">domain</span>……</span><br><span class="line"><span class="number">12.</span>从远程服务器请求资源（upload <span class="keyword">from</span> url 如discuz！；<span class="keyword">import</span> &amp; expost rss feed 如web blog；使用了<span class="type">xml</span>引擎对象的地方 如wordpress xmlrpc.php）</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞验证"><a href="#漏洞验证" class="headerlink" title="漏洞验证"></a>漏洞验证</h2><figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">1.让服务端去访问相应的网址</span><br><span class="line">2.让服务端去访问自己所处内网的一些指纹文件来判断是否存在相应的cms</span><br><span class="line">3.可以使用<span class="meta">file</span>、dict、gopher[11]、ftp协议进行请求访问相应的文件</span><br><span class="line">4.攻击内网web应用（可以向内部任意主机的任意端口发送精心构造的数据包&#123;payload&#125;）</span><br><span class="line">5.攻击内网应用程序（利用跨协议通信技术）</span><br><span class="line">6.判断内网主机是否存活：方法是访问看是否有端口开放</span><br><span class="line">7.DoS攻击（请求大文件，始终保持连接<span class="meta">keep</span>-alive always）</span><br></pre></td></tr></table></figure>
+
+<h2 id="限制绕过"><a href="#限制绕过" class="headerlink" title="限制绕过"></a>限制绕过</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>.http:<span class="regexp">//</span>baidu.com@www.baidu.com<span class="regexp">/与http:/</span><span class="regexp">/www.baidu.com/</span>请求时是相同的</span><br><span class="line"><span class="number">2</span>.各种IP地址的进制转换</span><br><span class="line"><span class="number">3</span>.URL跳转绕过：http:<span class="regexp">//</span>www.hackersb.cn<span class="regexp">/redirect.php?url=http:/</span><span class="regexp">/192.168.0.1/</span></span><br><span class="line"><span class="number">4</span>.短网址绕过http:<span class="regexp">//</span>t.cn/RwbLKDx </span><br><span class="line"><span class="number">5</span>.xip.io来绕过：http:<span class="regexp">//</span>xxx.<span class="number">192.168</span>.<span class="number">0.1</span>.xip.io/== <span class="number">192.168</span>.<span class="number">0.1</span> (xxx 任意） 指向任意ip的域名：xip.io(<span class="number">37</span>signals开发实现的定制DNS服务)</span><br><span class="line"><span class="number">6</span>.限制了子网段，可以加 :<span class="number">80</span> 端口绕过。http:<span class="regexp">//</span>tieba.baidu.com<span class="regexp">/f/</span>commit<span class="regexp">/share/</span>openShareApi?url=http:<span class="regexp">//</span><span class="number">10.42</span>.<span class="number">7.78</span>:<span class="number">80</span></span><br><span class="line"><span class="number">7</span>.探测内网域名，或者将自己的域名解析到内网ip</span><br><span class="line"><span class="number">8</span>.例如http:<span class="regexp">//</span><span class="number">10.153</span>.<span class="number">138.81</span><span class="regexp">/ts.php, 修复时容易出现的获取host时以/</span>分割来确定host， 但这样可以用http:<span class="regexp">//</span>abc@<span class="number">10.153</span>.<span class="number">138.81</span>/绕过</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h2><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">1</span>	过滤内网服务器对公网服务器请求的响应。如果Web应用是获取某一类型的文件，在把返回结果展示给用户之前应先验证返回的信息是否符合文件类型标准，比如返回信息应为图片，如果返回信息是HTML，则停止将返回信息返回客户端。</span><br><span class="line"><span class="attribute">2</span>	统一错误提示信息，避免用户可以根据错误信息来判断远端服务器的端口状态。</span><br><span class="line"><span class="attribute">3</span>	在内网服务器的防火墙上限制公网服务器的请求端口为HTTP等协议常用端口，如：<span class="number">80</span>、<span class="number">443</span>、<span class="number">8080</span>、<span class="number">8090</span>。</span><br><span class="line"><span class="attribute">4</span>	若公网服务器的内网IP与内网无业务通信，建议将公网服务器对应的内网IP列入黑名单，避免应用被用来获取内网数据。</span><br><span class="line"><span class="attribute">5</span>	内网服务器禁用不必要的协议，仅允许HTTP和HTTPS请求，防止类似于file:///、gopher://、ftp:// 等协议引起的安全问题。</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>TaoCMS存在代码执行漏洞</title>
     <url>/2022/03/08/TaoCMS%E5%AD%98%E5%9C%A8%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/</url>
     <content><![CDATA[<h1 id="一、漏洞介绍"><a href="#一、漏洞介绍" class="headerlink" title="一、漏洞介绍"></a>一、漏洞介绍</h1><p>TaoCMS是基于php+sqlite/mysql的国内最小(100Kb左右)的功能完善的CMS管理系统taoCMS-基于php+sqlite最小巧的CMS，TaoCMS系统存在代码执行漏洞，可以执行任意php文件。</p>
@@ -389,26 +409,6 @@
       <tags>
         <tag>学习笔记</tag>
         <tag>PHP代码审计</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SSRF服务器端请求伪造</title>
-    <url>/2022/03/08/SSRF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>SSRF服务器端请求伪造是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。<span id="more"></span>（正是因为 它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）SSRF 形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。比如从指定URL地址获取网页文本内容，加载指定地址的图片，下载等等。 注释：除了http/https等方式可以造成ssrf，类似tcp connect 方式也可以探测内网一些ip 的端口是否开发服务，只不过危害比较小而已。</p>
-<h2 id="可实现攻击"><a href="#可实现攻击" class="headerlink" title="可实现攻击"></a>可实现攻击</h2><figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>	可以对服务器所在内网、本地进行端口扫描，获取一些服务的banner信息<span class="comment">;</span></span><br><span class="line"><span class="number">2</span>	攻击运行在内网或本地的应用程序（比如溢出）<span class="comment">;</span></span><br><span class="line"><span class="number">3</span>	对内网web应用进行指纹识别，通过访问默认文件实现<span class="comment">;</span></span><br><span class="line"><span class="number">4</span>	攻击内外网的web应用，主要是使用get参数就可以实现的攻击（比如struts2，sqli等）<span class="comment">;</span></span><br><span class="line"><span class="number">5</span>	利用file协议读取本地文件等。</span><br></pre></td></tr></table></figure>
-
-<h2 id="可能出现的地方"><a href="#可能出现的地方" class="headerlink" title="可能出现的地方"></a>可能出现的地方</h2><figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>社交分享功能：获取超链接的标题等内容进行显示</span><br><span class="line"><span class="number">2.</span>转码服务：通过URL地址把原地址的网页内容调优使其适合手机屏幕浏览</span><br><span class="line"><span class="number">3.</span>在线翻译：给网址翻译对应网页的内容</span><br><span class="line"><span class="number">4.</span>图片加载/下载：例如富文本编辑器中的点击下载图片到本地；通过URL地址加载或下载图片</span><br><span class="line"><span class="number">5.</span>图片/文章收藏功能：主要其会取URL地址中title以及文本的内容作为显示以求一个好的用具体验</span><br><span class="line"><span class="number">6.</span>云服务厂商：它会远程执行一些命令来判断网站是否存活等，所以如果可以捕获相应的信息，就可以进行ssrf测试</span><br><span class="line"><span class="number">7.</span>网站采集，网站抓取的地方：一些网站会针对你输入的url进行一些信息采集工作</span><br><span class="line"><span class="number">8.</span>数据库内置功能：数据库的比如mongodb的copyDatabase函数</span><br><span class="line"><span class="number">9.</span>邮件系统：比如接收邮件服务器地址</span><br><span class="line"><span class="number">10.</span>编码处理, 属性信息处理，文件处理：比如ffpmg，ImageMagick，docx，pdf，<span class="type">xml</span>处理器等</span><br><span class="line"><span class="number">11.</span>未公开的api实现以及其他扩展调用URL的功能：可以利用google 语法加上这些关键字去寻找SSRF漏洞 一些的url中的关键字：<span class="keyword">share</span>、wap、url、link、src、source、target、u、<span class="number">3</span>g、display、sourceURl、imageURL、<span class="keyword">domain</span>……</span><br><span class="line"><span class="number">12.</span>从远程服务器请求资源（upload <span class="keyword">from</span> url 如discuz！；<span class="keyword">import</span> &amp; expost rss feed 如web blog；使用了<span class="type">xml</span>引擎对象的地方 如wordpress xmlrpc.php）</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞验证"><a href="#漏洞验证" class="headerlink" title="漏洞验证"></a>漏洞验证</h2><figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">1.让服务端去访问相应的网址</span><br><span class="line">2.让服务端去访问自己所处内网的一些指纹文件来判断是否存在相应的cms</span><br><span class="line">3.可以使用<span class="meta">file</span>、dict、gopher[11]、ftp协议进行请求访问相应的文件</span><br><span class="line">4.攻击内网web应用（可以向内部任意主机的任意端口发送精心构造的数据包&#123;payload&#125;）</span><br><span class="line">5.攻击内网应用程序（利用跨协议通信技术）</span><br><span class="line">6.判断内网主机是否存活：方法是访问看是否有端口开放</span><br><span class="line">7.DoS攻击（请求大文件，始终保持连接<span class="meta">keep</span>-alive always）</span><br></pre></td></tr></table></figure>
-
-<h2 id="限制绕过"><a href="#限制绕过" class="headerlink" title="限制绕过"></a>限制绕过</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>.http:<span class="regexp">//</span>baidu.com@www.baidu.com<span class="regexp">/与http:/</span><span class="regexp">/www.baidu.com/</span>请求时是相同的</span><br><span class="line"><span class="number">2</span>.各种IP地址的进制转换</span><br><span class="line"><span class="number">3</span>.URL跳转绕过：http:<span class="regexp">//</span>www.hackersb.cn<span class="regexp">/redirect.php?url=http:/</span><span class="regexp">/192.168.0.1/</span></span><br><span class="line"><span class="number">4</span>.短网址绕过http:<span class="regexp">//</span>t.cn/RwbLKDx </span><br><span class="line"><span class="number">5</span>.xip.io来绕过：http:<span class="regexp">//</span>xxx.<span class="number">192.168</span>.<span class="number">0.1</span>.xip.io/== <span class="number">192.168</span>.<span class="number">0.1</span> (xxx 任意） 指向任意ip的域名：xip.io(<span class="number">37</span>signals开发实现的定制DNS服务)</span><br><span class="line"><span class="number">6</span>.限制了子网段，可以加 :<span class="number">80</span> 端口绕过。http:<span class="regexp">//</span>tieba.baidu.com<span class="regexp">/f/</span>commit<span class="regexp">/share/</span>openShareApi?url=http:<span class="regexp">//</span><span class="number">10.42</span>.<span class="number">7.78</span>:<span class="number">80</span></span><br><span class="line"><span class="number">7</span>.探测内网域名，或者将自己的域名解析到内网ip</span><br><span class="line"><span class="number">8</span>.例如http:<span class="regexp">//</span><span class="number">10.153</span>.<span class="number">138.81</span><span class="regexp">/ts.php, 修复时容易出现的获取host时以/</span>分割来确定host， 但这样可以用http:<span class="regexp">//</span>abc@<span class="number">10.153</span>.<span class="number">138.81</span>/绕过</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h2><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">1</span>	过滤内网服务器对公网服务器请求的响应。如果Web应用是获取某一类型的文件，在把返回结果展示给用户之前应先验证返回的信息是否符合文件类型标准，比如返回信息应为图片，如果返回信息是HTML，则停止将返回信息返回客户端。</span><br><span class="line"><span class="attribute">2</span>	统一错误提示信息，避免用户可以根据错误信息来判断远端服务器的端口状态。</span><br><span class="line"><span class="attribute">3</span>	在内网服务器的防火墙上限制公网服务器的请求端口为HTTP等协议常用端口，如：<span class="number">80</span>、<span class="number">443</span>、<span class="number">8080</span>、<span class="number">8090</span>。</span><br><span class="line"><span class="attribute">4</span>	若公网服务器的内网IP与内网无业务通信，建议将公网服务器对应的内网IP列入黑名单，避免应用被用来获取内网数据。</span><br><span class="line"><span class="attribute">5</span>	内网服务器禁用不必要的协议，仅允许HTTP和HTTPS请求，防止类似于file:///、gopher://、ftp:// 等协议引起的安全问题。</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -951,6 +951,44 @@
       </tags>
   </entry>
   <entry>
+    <title>关于开深信服VPN无法抓包</title>
+    <url>/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/</url>
+    <content><![CDATA[<p>前些日子大佬叫去搞渗透，得走深信服的VPN，连上之后发现BP抓不了包了，关闭 BurpSuite 单独用浏览器就可以正常访问，还以为是我电脑问题，后面发现下了VPN之后能正常抓包了。</p>
+<span id="more"></span>
+<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217100454882.png" alt="image-20220217100454882"></p>
+<p>一开始以为是走的VPN，多个代理抓不到，然后试着用BP搞个上层代理，结果还是不行，后门觉着应该是深信服VPN不允许抓包的问题，把流量先在自己电脑跑一圈，用一层中转即可，找了个EW，开了个 sock5 服务器进行本地转发，然后再进行抓包就可以了</p>
+<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101004315.png" alt="image-20220217101004315"></p>
+<p>BP设置</p>
+<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101028945.png" alt="image-20220217101028945"></p>
+<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101050106.png" alt="image-20220217101050106"></p>
+]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>常见端口攻击方式</title>
+    <url>/2022/03/08/%E5%B8%B8%E8%A7%81%E7%AB%AF%E5%8F%A3%E6%94%BB%E5%87%BB%E6%96%B9%E5%BC%8F/</url>
+    <content><![CDATA[<h2 id="远程管理端口"><a href="#远程管理端口" class="headerlink" title="远程管理端口"></a>远程管理端口</h2><span id="more"></span>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">22  端口（ssh）</span><br><span class="line">    安全攻击：弱口令、暴力猜解、用户名枚举</span><br><span class="line">    利用方式：1、通过用户名枚举可以判断某个用户名是否存在于目标主机中，2、利用弱口令/暴力破解，获取目标主机权限。</span><br><span class="line">    </span><br><span class="line">23  端口（telnet）</span><br><span class="line">    安全漏洞：弱口令、明文传输</span><br><span class="line">    利用方式：1、通过弱口令或暴力破解，获取目标主机权限。2、嗅探抓取telnet明文账户密码。</span><br><span class="line">    </span><br><span class="line">3389 端口（RDP）</span><br><span class="line">     安全漏洞：暴力破解</span><br><span class="line">     利用方式：通过弱口令或暴力破解，获取目标主机权限。</span><br><span class="line"></span><br><span class="line">5632 端口（Pcanywhere）</span><br><span class="line">     安全漏洞：弱口令、暴力破解</span><br><span class="line">     利用方式：通过弱口令或暴力破解，获取目标主机权限</span><br><span class="line"></span><br><span class="line">5900 端口（VNC）</span><br><span class="line">     安全漏洞：弱口令、暴力破解</span><br><span class="line">     利用方式：通过弱口令或暴力破解，获取目标主机权限。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="WEB中间件-服务端口"><a href="#WEB中间件-服务端口" class="headerlink" title="WEB中间件/服务端口"></a>WEB中间件/服务端口</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1090/1099 端口（RMI）</span><br><span class="line">    安全漏洞：JAVA RMI 反序列化远程命令执行漏洞</span><br><span class="line">    利用方式：使用nmap检测端口信息。</span><br><span class="line">    端口信息：1099/1090    Java-rmi    Java RMI Registry</span><br><span class="line">    检测工具：attackRMI.jar</span><br><span class="line"></span><br><span class="line">7001 端口（Weblogic）</span><br><span class="line">    安全漏洞：弱口令、SSRF、反序列化漏洞</span><br><span class="line">    利用方式：1、控制台弱口令上传war木马2、SSRF内网探测3、反序列化远程代码执行等</span><br><span class="line"></span><br><span class="line">8000 端口（jdwp）</span><br><span class="line">    安全漏洞：JDWP 远程命令执行漏洞</span><br><span class="line">    端口信息：8000  jdwp     </span><br><span class="line">    java Debug Wire Protocol检测工具：https://github.com/IOActive/jdwp-shellifier</span><br><span class="line"></span><br><span class="line">8080 端口（Tomcat）</span><br><span class="line">    安全漏洞：弱口令、示例目录</span><br><span class="line">    利用方式：通过弱口令登录控制台，上传war包。</span><br><span class="line"></span><br><span class="line">8080 端口（Jboss）</span><br><span class="line">    安全漏洞：未授权访问、反序列化。</span><br><span class="line">    利用方式：1、未授权访问控制台，远程部署木马2、反序列化导致远程命令执行等。</span><br><span class="line">    检测工具：https://github.com/joaomatosf/jexboss</span><br><span class="line"></span><br><span class="line">8080 端口（Resin）</span><br><span class="line">    安全漏洞：目录遍历、远程文件读取</span><br><span class="line">    利用方式：通过目录遍历/远程文件读取获取敏感信息，为进一步攻击提供必要的信息。</span><br><span class="line">    任意文件读取POC：</span><br><span class="line">    payload1 = &quot;/resin-doc/resource/tutorial/jndi-appconfig/test?inputFile=/etc/passwd&quot;</span><br><span class="line">    payload2 = &quot;/resin-doc/examples/jndi-appconfig/test?inputFile=../../../../../../../../../../etc/passwd&quot;</span><br><span class="line">    payload3 = &quot;/ ..\\\\web-inf&quot;</span><br><span class="line"></span><br><span class="line">8080 端口（Jetty）</span><br><span class="line">    安全漏洞：远程共享缓冲区泄漏</span><br><span class="line">    利用方式：攻击者可以通过精心构造headers值来触发异常并偏移到共享缓冲区，其中包含了之前其他用户提交的请求，服务器会根据攻击者的payload返回特定位置的数据。</span><br><span class="line">    检测工具：https://github.com/GDSSecurity/Jetleak-Testing-Script</span><br><span class="line"></span><br><span class="line">8080 /4848 端口（GlassFish）</span><br><span class="line">    安全漏洞：弱口令、任意文件读取</span><br><span class="line">    利用方式：1、弱口令admin/admin，直接部署shell    2、任意文件读取获取服务器敏感配置信息</span><br><span class="line"></span><br><span class="line">8080 端口（Jenkins）</span><br><span class="line">    安全漏洞：未授权访问 、远程代码执行</span><br><span class="line">    利用方式：访问如下url，可以执行脚本命令，反弹shell，写入webshell等。</span><br><span class="line">    http://&lt;target&gt;:8080/manage</span><br><span class="line">    http://&lt;target&gt;:8080/script</span><br><span class="line"></span><br><span class="line">8161 端口（ActiveMQ）</span><br><span class="line">    安全漏洞：弱口令、任意文件写入、反序列化</span><br><span class="line">    利用方式：默认密码admin/admin登陆控制台、写入webshell、上传ssh key等方式。</span><br><span class="line"></span><br><span class="line">9043 端口（webSphere）</span><br><span class="line">    安全漏洞：控制台弱口令、远程代码执行</span><br><span class="line">    后台地址：https://:9043/ibm/console/logon.jsp</span><br><span class="line"></span><br><span class="line">50000 端口 （SAP）</span><br><span class="line">    安全漏洞：远程代码执行</span><br><span class="line">    利用方式：攻击者通过构造url请求，实现远程代码执行。POC:http://&lt;target&gt;:50000/ctc/servlet/com.sap.ctc.util.ConfigServlet?param=com.sap.ctc.util.FileSystemConfig;EXECUTE_CMD;CMDLINE=cmd.exe /c ipconfig /all</span><br><span class="line"></span><br><span class="line">50070 端口（hadoop）</span><br><span class="line">    安全漏洞：未授权访问</span><br><span class="line">    利用方式：攻击者可以通过命令行操作多个目录下的数据，如进行删除操作。</span><br><span class="line">    curl -i -X DELETE “http://ip:50070/webhdfs/v1/tmp?op=DELETE&amp;recursive=true“</span><br><span class="line">    curl -i -X PUT “http://ip:50070/webhdfs/v1/NODATA4U_SECUREYOURSHIT?op=MKDIRS“</span><br></pre></td></tr></table></figure>
+
+<h2 id="数据库端口"><a href="#数据库端口" class="headerlink" title="数据库端口"></a>数据库端口</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">389 端口（ldap）</span><br><span class="line">    安全漏洞：未授权访问 、弱口令</span><br><span class="line">    利用方式：通过LdapBrowser工具直接连入。</span><br><span class="line"></span><br><span class="line">1433 端口（Mssql）</span><br><span class="line">    安全漏洞：弱口令、暴力破解</span><br><span class="line">    利用方式：差异备份getshell、SA账户提权等</span><br><span class="line"></span><br><span class="line">1521 端口（Oracle）</span><br><span class="line">    安全漏洞：弱口令、暴力破解</span><br><span class="line">    利用方式：通过弱口令/暴力破解进行入侵。</span><br><span class="line"></span><br><span class="line">3306 端口（MySQL）</span><br><span class="line">    安全漏洞：弱口令、暴力破解</span><br><span class="line">    利用方式：利用日志写入webshell、udf提权、mof提权等。</span><br><span class="line"></span><br><span class="line">5432 端口（ PostgreSQL）</span><br><span class="line">    安全漏洞：弱口令、高权限命令执行</span><br><span class="line">    利用方式：攻击者通过弱口令获取账号信息，连入postgres中，可执行系统命令。。</span><br><span class="line">    PoC参考：    DROP TABLE IF EXISTS cmd_exec;    CREATE TABLE cmd_exec(cmd_output text);    COPY cmd_exec FROM PROGRAM &#x27;id&#x27;;    SELECT * FROM cmd_exec;</span><br><span class="line"></span><br><span class="line">5984 端口（CouchDB）</span><br><span class="line">    安全漏洞：垂直权限绕过、任意命令执行</span><br><span class="line">    利用方式：通过构造数据创建管理员用户，使用管理员用户登录，构造恶意请求触发任意命令执行。</span><br><span class="line">    后台访问：http://&lt;target&gt;:5984/_utils</span><br><span class="line"></span><br><span class="line">6379 端口（Redis）</span><br><span class="line">    安全漏洞：未授权访问</span><br><span class="line">    利用方式：绝对路径写webshell 、利用计划任务执行命令反弹shell、公私钥认证获取root权限、主从复制RCE等。</span><br><span class="line"></span><br><span class="line">9200 端口（elasticsearch）</span><br><span class="line">    安全漏洞：未授权访问、命令执行</span><br><span class="line">    检测方式：</span><br><span class="line">        1、直接访问如下url，获取相关敏感信息。  http://&lt;target&gt;:9200/_nodes  查看节点数据  http://&lt;target&gt;:9200/_river  查看数据库敏感信息</span><br><span class="line">        2、通过构造特定的数据包，执行任意命令。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">11211 端口（MemCache）</span><br><span class="line">    安全漏洞：未授权访问</span><br><span class="line">    检测方式：无需用户名密码，可以直接连接memcache 服务的11211端口。nc -vv &lt;target&gt; 11211</span><br><span class="line"></span><br><span class="line">27017 端口（Mongodb）</span><br><span class="line">    安全漏洞：未授权访问、弱口令</span><br><span class="line">    利用方式：未授权访问/弱口令，远程连入数据库，导致敏感信息泄露。</span><br></pre></td></tr></table></figure>
+
+<h2 id="常见协议"><a href="#常见协议" class="headerlink" title="常见协议"></a>常见协议</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">21 端口（FTP)</span><br><span class="line">    安全漏洞：1、配置不当    2、明文传输    3、第三方软件提权</span><br><span class="line">    利用方式：1、匿名登录或弱口令2、嗅探ftp用户名和密码3、</span><br><span class="line">    Serv-U权限较大的账号可导致系统命令执行。</span><br><span class="line">    FTP提权命令：  # 增加系统用户   Quote site exec net user 4567 4567 /add  # 提升到管理员权限   Quote site exec net localgroup administrators 4567 /add</span><br><span class="line"></span><br><span class="line">25 端口（SMTP）</span><br><span class="line">    攻击方式：1、匿名发送邮件 2、弱口令 3、SMTP用户枚举</span><br><span class="line">    利用方式：1、SMTP服务器配置不当，攻击者可以使用任意用户发送邮件。2、SMTP弱口令扫描，获取用户账号密码，发送邮件钓鱼。3、通过SMTP用户枚举获取用户名：   nmap -p 25 -- smtp-enum-users.nse &lt;target&gt;</span><br><span class="line"></span><br><span class="line">53 端口（DNS）</span><br><span class="line">    安全攻击：1、DNS域传送漏洞、DNS欺骗、DNS缓存投毒</span><br><span class="line">    检测方式：1、DNS域传送漏洞，Windows下检测使用nslookup命令，Linux下检测使用dig命令，通过执行命令可以清楚的看到域名解析情况。2、DNS欺骗就是攻击者冒充域名服务器的一种欺骗行为。3、DNS缓存投毒是攻击者欺骗DNS服务器相信伪造的DNS响应的真实性。</span><br><span class="line"></span><br><span class="line">161 端口（SNMP）</span><br><span class="line">    安全漏洞：默认团体名/弱口令访问</span><br><span class="line">    利用方式：通过nmap自带的审计脚本进行检测，可能导致敏感信息泄露。。1、弱口令检测：nmap –sU –p161 –script=snmp-brute &lt;target&gt;2、获取系统信息：nmap –sU –p161 –script=snmp-sysdescr &lt;target&gt;3、获取用户信息：nmap -sU -p161 --script=snmp-win32-user &lt;target&gt;4、获取网络端口状态：nmap -sU -p161 --script=snmp-netstat &lt;target&gt;</span><br><span class="line"></span><br><span class="line">443 端口（SSL）</span><br><span class="line">    安全漏洞：OpenSSL 心脏出血</span><br><span class="line">    利用方式：攻击者可以远程读取存在漏洞版本的openssl服务器内存中长大64K的数据。</span><br><span class="line">    扫描脚本：nmap -sV --script=ssl-heartbleed &lt;target&gt;</span><br><span class="line"></span><br><span class="line">445 端口（SMB）</span><br><span class="line">    安全漏洞：信息泄露、远程代码执行</span><br><span class="line">    利用方式：可利用共享获取敏感信息、缓冲区溢出导致远程代码执行，如ms17010。</span><br><span class="line"></span><br><span class="line">873 端口（Rsync）</span><br><span class="line">    安全漏洞：匿名访问、弱口令</span><br><span class="line">    利用方式：攻击者可以执行下载/上传等操作，也可以尝试上传webshell。</span><br><span class="line">    1、下载：#rsync -avz a.b.c.d::path/file path/filiname  </span><br><span class="line">    2、上传：#rsync -avz path/filename a.b.c.d::path/file</span><br><span class="line"></span><br><span class="line">2181 端口（Zookeeper）</span><br><span class="line">    安全漏洞：未授权访问</span><br><span class="line">    检测方式：攻击者可通过执行envi命令获得系统大量的敏感信息，包括系统名称、Java环境。 echo envi | nc ip port</span><br><span class="line"></span><br><span class="line">2375 端口（Docker）</span><br><span class="line">    安全漏洞：未授权方式</span><br><span class="line">    检测方式：通过docker daemon api 执行docker命令。#列出容器信息，效果与docker ps -a 一致。 curl http://&lt;target&gt;:2375/containers/json docker -H tcp://&lt;target&gt;:2375 start &lt;Container Id&gt;  docker服务如果是以root用户启动的话，可以利用chroot将服务器的根目录挂在到容器里面，实现docker容器逃逸</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>六种常见的网络钓鱼攻击以及如何防范它们</title>
     <url>/2022/09/17/%E5%85%AD%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BD%91%E7%BB%9C%E9%92%93%E9%B1%BC%E6%94%BB%E5%87%BB%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E9%98%B2%E8%8C%83%E5%AE%83%E4%BB%AC/</url>
     <content><![CDATA[<h1 id="一、欺骗性网络钓鱼"><a href="#一、欺骗性网络钓鱼" class="headerlink" title="一、欺骗性网络钓鱼"></a>一、欺骗性网络钓鱼</h1><p>欺骗性网络钓鱼是最常见的网络钓鱼诈骗类型。在这种策略中，欺诈者冒充合法公司窃取人们的个人数据或登录凭据。这些电子邮件使用威胁和紧迫感来恐吓用户按照攻击者的意愿行事。</p>
@@ -1028,36 +1066,21 @@
       </tags>
   </entry>
   <entry>
-    <title>关于开深信服VPN无法抓包</title>
-    <url>/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/</url>
-    <content><![CDATA[<p>前些日子大佬叫去搞渗透，得走深信服的VPN，连上之后发现BP抓不了包了，关闭 BurpSuite 单独用浏览器就可以正常访问，还以为是我电脑问题，后面发现下了VPN之后能正常抓包了。</p>
+    <title>常规绕WAF思路</title>
+    <url>/2022/03/08/%E5%B8%B8%E8%A7%84%E7%BB%95WAF%E6%80%9D%E8%B7%AF/</url>
+    <content><![CDATA[<h2 id="1、错误的HTTP请求头"><a href="#1、错误的HTTP请求头" class="headerlink" title="1、错误的HTTP请求头"></a>1、错误的HTTP请求头</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">类似文件上传时的绕过，通过畸形的HTTP协议头绕过WAF检测。比如绕过某些老版本WAF可以加入请求头：<span class="attribute">Content</span>-Encoding:deflate就可以绕过WAF（此方法在文件上传绕过WAF中也适用）</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
-<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217100454882.png" alt="image-20220217100454882"></p>
-<p>一开始以为是走的VPN，多个代理抓不到，然后试着用BP搞个上层代理，结果还是不行，后门觉着应该是深信服VPN不允许抓包的问题，把流量先在自己电脑跑一圈，用一层中转即可，找了个EW，开了个 sock5 服务器进行本地转发，然后再进行抓包就可以了</p>
-<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101004315.png" alt="image-20220217101004315"></p>
-<p>BP设置</p>
-<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101028945.png" alt="image-20220217101028945"></p>
-<p><img src="https://ax-x.github.io/2022/02/17/%E5%85%B3%E4%BA%8E%E5%BC%80%E6%B7%B1%E4%BF%A1%E6%9C%8DVPN%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85/image-20220217101050106.png" alt="image-20220217101050106"></p>
-]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>常见端口攻击方式</title>
-    <url>/2022/03/08/%E5%B8%B8%E8%A7%81%E7%AB%AF%E5%8F%A3%E6%94%BB%E5%87%BB%E6%96%B9%E5%BC%8F/</url>
-    <content><![CDATA[<h2 id="远程管理端口"><a href="#远程管理端口" class="headerlink" title="远程管理端口"></a>远程管理端口</h2><span id="more"></span>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">22  端口（ssh）</span><br><span class="line">    安全攻击：弱口令、暴力猜解、用户名枚举</span><br><span class="line">    利用方式：1、通过用户名枚举可以判断某个用户名是否存在于目标主机中，2、利用弱口令/暴力破解，获取目标主机权限。</span><br><span class="line">    </span><br><span class="line">23  端口（telnet）</span><br><span class="line">    安全漏洞：弱口令、明文传输</span><br><span class="line">    利用方式：1、通过弱口令或暴力破解，获取目标主机权限。2、嗅探抓取telnet明文账户密码。</span><br><span class="line">    </span><br><span class="line">3389 端口（RDP）</span><br><span class="line">     安全漏洞：暴力破解</span><br><span class="line">     利用方式：通过弱口令或暴力破解，获取目标主机权限。</span><br><span class="line"></span><br><span class="line">5632 端口（Pcanywhere）</span><br><span class="line">     安全漏洞：弱口令、暴力破解</span><br><span class="line">     利用方式：通过弱口令或暴力破解，获取目标主机权限</span><br><span class="line"></span><br><span class="line">5900 端口（VNC）</span><br><span class="line">     安全漏洞：弱口令、暴力破解</span><br><span class="line">     利用方式：通过弱口令或暴力破解，获取目标主机权限。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="2、通用的关键字绕过"><a href="#2、通用的关键字绕过" class="headerlink" title="2、通用的关键字绕过"></a>2、通用的关键字绕过</h2><figure class="highlight autoit"><table><tr><td class="code"><pre><span class="line">将关键字转换成Unicode或者<span class="built_in">HEX</span>编码的方式，JAVA程序会自动进行解码，所以在一定程度上能够绕过WAF</span><br></pre></td></tr></table></figure>
 
-<h2 id="WEB中间件-服务端口"><a href="#WEB中间件-服务端口" class="headerlink" title="WEB中间件/服务端口"></a>WEB中间件/服务端口</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1090/1099 端口（RMI）</span><br><span class="line">    安全漏洞：JAVA RMI 反序列化远程命令执行漏洞</span><br><span class="line">    利用方式：使用nmap检测端口信息。</span><br><span class="line">    端口信息：1099/1090    Java-rmi    Java RMI Registry</span><br><span class="line">    检测工具：attackRMI.jar</span><br><span class="line"></span><br><span class="line">7001 端口（Weblogic）</span><br><span class="line">    安全漏洞：弱口令、SSRF、反序列化漏洞</span><br><span class="line">    利用方式：1、控制台弱口令上传war木马2、SSRF内网探测3、反序列化远程代码执行等</span><br><span class="line"></span><br><span class="line">8000 端口（jdwp）</span><br><span class="line">    安全漏洞：JDWP 远程命令执行漏洞</span><br><span class="line">    端口信息：8000  jdwp     </span><br><span class="line">    java Debug Wire Protocol检测工具：https://github.com/IOActive/jdwp-shellifier</span><br><span class="line"></span><br><span class="line">8080 端口（Tomcat）</span><br><span class="line">    安全漏洞：弱口令、示例目录</span><br><span class="line">    利用方式：通过弱口令登录控制台，上传war包。</span><br><span class="line"></span><br><span class="line">8080 端口（Jboss）</span><br><span class="line">    安全漏洞：未授权访问、反序列化。</span><br><span class="line">    利用方式：1、未授权访问控制台，远程部署木马2、反序列化导致远程命令执行等。</span><br><span class="line">    检测工具：https://github.com/joaomatosf/jexboss</span><br><span class="line"></span><br><span class="line">8080 端口（Resin）</span><br><span class="line">    安全漏洞：目录遍历、远程文件读取</span><br><span class="line">    利用方式：通过目录遍历/远程文件读取获取敏感信息，为进一步攻击提供必要的信息。</span><br><span class="line">    任意文件读取POC：</span><br><span class="line">    payload1 = &quot;/resin-doc/resource/tutorial/jndi-appconfig/test?inputFile=/etc/passwd&quot;</span><br><span class="line">    payload2 = &quot;/resin-doc/examples/jndi-appconfig/test?inputFile=../../../../../../../../../../etc/passwd&quot;</span><br><span class="line">    payload3 = &quot;/ ..\\\\web-inf&quot;</span><br><span class="line"></span><br><span class="line">8080 端口（Jetty）</span><br><span class="line">    安全漏洞：远程共享缓冲区泄漏</span><br><span class="line">    利用方式：攻击者可以通过精心构造headers值来触发异常并偏移到共享缓冲区，其中包含了之前其他用户提交的请求，服务器会根据攻击者的payload返回特定位置的数据。</span><br><span class="line">    检测工具：https://github.com/GDSSecurity/Jetleak-Testing-Script</span><br><span class="line"></span><br><span class="line">8080 /4848 端口（GlassFish）</span><br><span class="line">    安全漏洞：弱口令、任意文件读取</span><br><span class="line">    利用方式：1、弱口令admin/admin，直接部署shell    2、任意文件读取获取服务器敏感配置信息</span><br><span class="line"></span><br><span class="line">8080 端口（Jenkins）</span><br><span class="line">    安全漏洞：未授权访问 、远程代码执行</span><br><span class="line">    利用方式：访问如下url，可以执行脚本命令，反弹shell，写入webshell等。</span><br><span class="line">    http://&lt;target&gt;:8080/manage</span><br><span class="line">    http://&lt;target&gt;:8080/script</span><br><span class="line"></span><br><span class="line">8161 端口（ActiveMQ）</span><br><span class="line">    安全漏洞：弱口令、任意文件写入、反序列化</span><br><span class="line">    利用方式：默认密码admin/admin登陆控制台、写入webshell、上传ssh key等方式。</span><br><span class="line"></span><br><span class="line">9043 端口（webSphere）</span><br><span class="line">    安全漏洞：控制台弱口令、远程代码执行</span><br><span class="line">    后台地址：https://:9043/ibm/console/logon.jsp</span><br><span class="line"></span><br><span class="line">50000 端口 （SAP）</span><br><span class="line">    安全漏洞：远程代码执行</span><br><span class="line">    利用方式：攻击者通过构造url请求，实现远程代码执行。POC:http://&lt;target&gt;:50000/ctc/servlet/com.sap.ctc.util.ConfigServlet?param=com.sap.ctc.util.FileSystemConfig;EXECUTE_CMD;CMDLINE=cmd.exe /c ipconfig /all</span><br><span class="line"></span><br><span class="line">50070 端口（hadoop）</span><br><span class="line">    安全漏洞：未授权访问</span><br><span class="line">    利用方式：攻击者可以通过命令行操作多个目录下的数据，如进行删除操作。</span><br><span class="line">    curl -i -X DELETE “http://ip:50070/webhdfs/v1/tmp?op=DELETE&amp;recursive=true“</span><br><span class="line">    curl -i -X PUT “http://ip:50070/webhdfs/v1/NODATA4U_SECUREYOURSHIT?op=MKDIRS“</span><br></pre></td></tr></table></figure>
+<h2 id="3、使用未公开的漏洞利用链"><a href="#3、使用未公开的漏洞利用链" class="headerlink" title="3、使用未公开的漏洞利用链"></a>3、使用未公开的漏洞利用链</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">部分WAF会将公开的漏洞利用链中的关键字设置为黑名单，所以重新找一条利用链吧，自己的才是最香的</span><br></pre></td></tr></table></figure>
 
-<h2 id="数据库端口"><a href="#数据库端口" class="headerlink" title="数据库端口"></a>数据库端口</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">389 端口（ldap）</span><br><span class="line">    安全漏洞：未授权访问 、弱口令</span><br><span class="line">    利用方式：通过LdapBrowser工具直接连入。</span><br><span class="line"></span><br><span class="line">1433 端口（Mssql）</span><br><span class="line">    安全漏洞：弱口令、暴力破解</span><br><span class="line">    利用方式：差异备份getshell、SA账户提权等</span><br><span class="line"></span><br><span class="line">1521 端口（Oracle）</span><br><span class="line">    安全漏洞：弱口令、暴力破解</span><br><span class="line">    利用方式：通过弱口令/暴力破解进行入侵。</span><br><span class="line"></span><br><span class="line">3306 端口（MySQL）</span><br><span class="line">    安全漏洞：弱口令、暴力破解</span><br><span class="line">    利用方式：利用日志写入webshell、udf提权、mof提权等。</span><br><span class="line"></span><br><span class="line">5432 端口（ PostgreSQL）</span><br><span class="line">    安全漏洞：弱口令、高权限命令执行</span><br><span class="line">    利用方式：攻击者通过弱口令获取账号信息，连入postgres中，可执行系统命令。。</span><br><span class="line">    PoC参考：    DROP TABLE IF EXISTS cmd_exec;    CREATE TABLE cmd_exec(cmd_output text);    COPY cmd_exec FROM PROGRAM &#x27;id&#x27;;    SELECT * FROM cmd_exec;</span><br><span class="line"></span><br><span class="line">5984 端口（CouchDB）</span><br><span class="line">    安全漏洞：垂直权限绕过、任意命令执行</span><br><span class="line">    利用方式：通过构造数据创建管理员用户，使用管理员用户登录，构造恶意请求触发任意命令执行。</span><br><span class="line">    后台访问：http://&lt;target&gt;:5984/_utils</span><br><span class="line"></span><br><span class="line">6379 端口（Redis）</span><br><span class="line">    安全漏洞：未授权访问</span><br><span class="line">    利用方式：绝对路径写webshell 、利用计划任务执行命令反弹shell、公私钥认证获取root权限、主从复制RCE等。</span><br><span class="line"></span><br><span class="line">9200 端口（elasticsearch）</span><br><span class="line">    安全漏洞：未授权访问、命令执行</span><br><span class="line">    检测方式：</span><br><span class="line">        1、直接访问如下url，获取相关敏感信息。  http://&lt;target&gt;:9200/_nodes  查看节点数据  http://&lt;target&gt;:9200/_river  查看数据库敏感信息</span><br><span class="line">        2、通过构造特定的数据包，执行任意命令。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">11211 端口（MemCache）</span><br><span class="line">    安全漏洞：未授权访问</span><br><span class="line">    检测方式：无需用户名密码，可以直接连接memcache 服务的11211端口。nc -vv &lt;target&gt; 11211</span><br><span class="line"></span><br><span class="line">27017 端口（Mongodb）</span><br><span class="line">    安全漏洞：未授权访问、弱口令</span><br><span class="line">    利用方式：未授权访问/弱口令，远程连入数据库，导致敏感信息泄露。</span><br></pre></td></tr></table></figure>
+<h2 id="4、数据溢出-防匹配（xxx…）"><a href="#4、数据溢出-防匹配（xxx…）" class="headerlink" title="4、数据溢出-防匹配（xxx…）"></a>4、数据溢出-防匹配（xxx…）</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">借助常见的溢出漏洞，在数据特别多的情况下例如：构造垃圾数据，让防护的检测负载不过来在某个地方停止，从而达到绕过的目的例如在数据包内（文件名等可修改的区域）处构造大量垃圾数据，但是有可能会导致服务器崩溃，从而无法接下去进行操作</span><br></pre></td></tr></table></figure>
 
-<h2 id="常见协议"><a href="#常见协议" class="headerlink" title="常见协议"></a>常见协议</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">21 端口（FTP)</span><br><span class="line">    安全漏洞：1、配置不当    2、明文传输    3、第三方软件提权</span><br><span class="line">    利用方式：1、匿名登录或弱口令2、嗅探ftp用户名和密码3、</span><br><span class="line">    Serv-U权限较大的账号可导致系统命令执行。</span><br><span class="line">    FTP提权命令：  # 增加系统用户   Quote site exec net user 4567 4567 /add  # 提升到管理员权限   Quote site exec net localgroup administrators 4567 /add</span><br><span class="line"></span><br><span class="line">25 端口（SMTP）</span><br><span class="line">    攻击方式：1、匿名发送邮件 2、弱口令 3、SMTP用户枚举</span><br><span class="line">    利用方式：1、SMTP服务器配置不当，攻击者可以使用任意用户发送邮件。2、SMTP弱口令扫描，获取用户账号密码，发送邮件钓鱼。3、通过SMTP用户枚举获取用户名：   nmap -p 25 -- smtp-enum-users.nse &lt;target&gt;</span><br><span class="line"></span><br><span class="line">53 端口（DNS）</span><br><span class="line">    安全攻击：1、DNS域传送漏洞、DNS欺骗、DNS缓存投毒</span><br><span class="line">    检测方式：1、DNS域传送漏洞，Windows下检测使用nslookup命令，Linux下检测使用dig命令，通过执行命令可以清楚的看到域名解析情况。2、DNS欺骗就是攻击者冒充域名服务器的一种欺骗行为。3、DNS缓存投毒是攻击者欺骗DNS服务器相信伪造的DNS响应的真实性。</span><br><span class="line"></span><br><span class="line">161 端口（SNMP）</span><br><span class="line">    安全漏洞：默认团体名/弱口令访问</span><br><span class="line">    利用方式：通过nmap自带的审计脚本进行检测，可能导致敏感信息泄露。。1、弱口令检测：nmap –sU –p161 –script=snmp-brute &lt;target&gt;2、获取系统信息：nmap –sU –p161 –script=snmp-sysdescr &lt;target&gt;3、获取用户信息：nmap -sU -p161 --script=snmp-win32-user &lt;target&gt;4、获取网络端口状态：nmap -sU -p161 --script=snmp-netstat &lt;target&gt;</span><br><span class="line"></span><br><span class="line">443 端口（SSL）</span><br><span class="line">    安全漏洞：OpenSSL 心脏出血</span><br><span class="line">    利用方式：攻击者可以远程读取存在漏洞版本的openssl服务器内存中长大64K的数据。</span><br><span class="line">    扫描脚本：nmap -sV --script=ssl-heartbleed &lt;target&gt;</span><br><span class="line"></span><br><span class="line">445 端口（SMB）</span><br><span class="line">    安全漏洞：信息泄露、远程代码执行</span><br><span class="line">    利用方式：可利用共享获取敏感信息、缓冲区溢出导致远程代码执行，如ms17010。</span><br><span class="line"></span><br><span class="line">873 端口（Rsync）</span><br><span class="line">    安全漏洞：匿名访问、弱口令</span><br><span class="line">    利用方式：攻击者可以执行下载/上传等操作，也可以尝试上传webshell。</span><br><span class="line">    1、下载：#rsync -avz a.b.c.d::path/file path/filiname  </span><br><span class="line">    2、上传：#rsync -avz path/filename a.b.c.d::path/file</span><br><span class="line"></span><br><span class="line">2181 端口（Zookeeper）</span><br><span class="line">    安全漏洞：未授权访问</span><br><span class="line">    检测方式：攻击者可通过执行envi命令获得系统大量的敏感信息，包括系统名称、Java环境。 echo envi | nc ip port</span><br><span class="line"></span><br><span class="line">2375 端口（Docker）</span><br><span class="line">    安全漏洞：未授权方式</span><br><span class="line">    检测方式：通过docker daemon api 执行docker命令。#列出容器信息，效果与docker ps -a 一致。 curl http://&lt;target&gt;:2375/containers/json docker -H tcp://&lt;target&gt;:2375 start &lt;Container Id&gt;  docker服务如果是以root用户启动的话，可以利用chroot将服务器的根目录挂在到容器里面，实现docker容器逃逸</span><br></pre></td></tr></table></figure>
-]]></content>
+<h2 id="5、符号变异-防匹配（’”-）"><a href="#5、符号变异-防匹配（’”-）" class="headerlink" title="5、符号变异-防匹配（’”;）"></a>5、符号变异-防匹配（’”;）</h2><figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">利用匹配的原则，猜测waf是根据在单引号或者双引号里面的数据去匹配文件名信息的，那么可以利用这个规则，将引号替换掉，尝试绕过，有可能它只检测单引号或者只检测双引号，也可尝试去掉一个引号，有开始就有结束，当去掉一个之后就可能被检测出来，或者没检测出来，或者什么都没发生这样，也可尝试将引号全部去除，而分号是利用分号后面还有数据的形式，在后面添加垃圾数据去尝试绕过</span><span class="string">,</span><span class="comment">或者构造文件名或者在引号后面写文件名，而引号内部不去写数据，或者单纯写一个a这样的数据尝试绕过</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="6、重复数据-防匹配（参数多次）"><a href="#6、重复数据-防匹配（参数多次）" class="headerlink" title="6、重复数据-防匹配（参数多次）"></a>6、重复数据-防匹配（参数多次）</h2><figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">例如：构造多个<span class="meta">filename</span>，然后查看waf最后是以哪个为主，然后构造多个<span class="meta">filename</span>，借助检测机制是递归循环，还是单次检测，类似于构造垃圾数据那样也可尝试将Content-Disposition这些的数据插入到<span class="meta">filename</span>里面去，然后后面构造php文件（利用白名单）</span><br></pre></td></tr></table></figure>
+
+<h2 id="7、数据截断-防匹配（-00-换行）"><a href="#7、数据截断-防匹配（-00-换行）" class="headerlink" title="7、数据截断-防匹配（%00;/;换行）"></a>7、数据截断-防匹配（%00;/;换行）</h2>]]></content>
       <categories>
         <category>web安全</category>
       </categories>
@@ -1167,21 +1190,29 @@
       </tags>
   </entry>
   <entry>
-    <title>常规绕WAF思路</title>
-    <url>/2022/03/08/%E5%B8%B8%E8%A7%84%E7%BB%95WAF%E6%80%9D%E8%B7%AF/</url>
-    <content><![CDATA[<h2 id="1、错误的HTTP请求头"><a href="#1、错误的HTTP请求头" class="headerlink" title="1、错误的HTTP请求头"></a>1、错误的HTTP请求头</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">类似文件上传时的绕过，通过畸形的HTTP协议头绕过WAF检测。比如绕过某些老版本WAF可以加入请求头：<span class="attribute">Content</span>-Encoding:deflate就可以绕过WAF（此方法在文件上传绕过WAF中也适用）</span><br></pre></td></tr></table></figure>
+    <title>文件上传漏洞个人总结</title>
+    <url>/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h2 id="什么是文件上传"><a href="#什么是文件上传" class="headerlink" title="什么是文件上传"></a>什么是文件上传</h2><p>文件上传漏洞是指上传文件的时，如果未对上传的文件进行严格的验证和过滤，就容易造成文件上传漏洞，上传脚本等。用户可以上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。 常见场景是web服务器允许用户上传图片或者普通文本文件保存，而用户绕过上传机制上传恶意代码并执行从而控制服务器。这种漏洞是getshell最快最直接的方法之一，上传文件操作本身是没有问题的，问题在于文件上传到服务器后，服务器怎么处理和解释文件，有文件上传不一定有文件上传漏洞，要看代码情况。</p>
 <span id="more"></span>
-<h2 id="2、通用的关键字绕过"><a href="#2、通用的关键字绕过" class="headerlink" title="2、通用的关键字绕过"></a>2、通用的关键字绕过</h2><figure class="highlight autoit"><table><tr><td class="code"><pre><span class="line">将关键字转换成Unicode或者<span class="built_in">HEX</span>编码的方式，JAVA程序会自动进行解码，所以在一定程度上能够绕过WAF</span><br></pre></td></tr></table></figure>
+<h2 id="文件上传危害"><a href="#文件上传危害" class="headerlink" title="文件上传危害"></a>文件上传危害</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">自定义上传什么东西，通过文件上传上传网站后门，拿到网站权限，高危漏洞</span><br></pre></td></tr></table></figure>
 
-<h2 id="3、使用未公开的漏洞利用链"><a href="#3、使用未公开的漏洞利用链" class="headerlink" title="3、使用未公开的漏洞利用链"></a>3、使用未公开的漏洞利用链</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">部分WAF会将公开的漏洞利用链中的关键字设置为黑名单，所以重新找一条利用链吧，自己的才是最香的</span><br></pre></td></tr></table></figure>
+<h2 id="如何查找"><a href="#如何查找" class="headerlink" title="如何查找"></a>如何查找</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">黑盒查找：代码，网站情况是不知道的需要自己判断，需要用扫描器去扫描敏感文件，扫描常见的上传地址，通过网站给出的上传应用或者后台去找。</span><br><span class="line">白盒查找：拿到源码，cms等等判断</span><br><span class="line">通过抓包修改数据进行判断</span><br></pre></td></tr></table></figure>
 
-<h2 id="4、数据溢出-防匹配（xxx…）"><a href="#4、数据溢出-防匹配（xxx…）" class="headerlink" title="4、数据溢出-防匹配（xxx…）"></a>4、数据溢出-防匹配（xxx…）</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">借助常见的溢出漏洞，在数据特别多的情况下例如：构造垃圾数据，让防护的检测负载不过来在某个地方停止，从而达到绕过的目的例如在数据包内（文件名等可修改的区域）处构造大量垃圾数据，但是有可能会导致服务器崩溃，从而无法接下去进行操作</span><br></pre></td></tr></table></figure>
+<h2 id="文件上传常见验证方式"><a href="#文件上传常见验证方式" class="headerlink" title="文件上传常见验证方式"></a>文件上传常见验证方式</h2><figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line">后缀名：类型，文件头等</span><br><span class="line">文件头，MIME信息，image/gif，后缀</span><br><span class="line"><span class="section">黑名单:明确不让上传的格式后缀（黑名单缺陷：定义后缀名不完整的情况，可以通过其他格式绕过达到同样的效果，具体情况具体看待）asp php jsp aspx cgi war</span></span><br><span class="line">黑名单缺陷：php5，phtml（例如PHP：如果对方支持这个类型的格式的话是可以运行的）</span><br><span class="line"><span class="section">白名单:明确可以上传的格式后缀（白名单相对黑名单要安全点）Jpg png zip rar gif</span></span><br><span class="line"><span class="section">文件类型:MIME信息image/gif</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="5、符号变异-防匹配（’”-）"><a href="#5、符号变异-防匹配（’”-）" class="headerlink" title="5、符号变异-防匹配（’”;）"></a>5、符号变异-防匹配（’”;）</h2><figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">利用匹配的原则，猜测waf是根据在单引号或者双引号里面的数据去匹配文件名信息的，那么可以利用这个规则，将引号替换掉，尝试绕过，有可能它只检测单引号或者只检测双引号，也可尝试去掉一个引号，有开始就有结束，当去掉一个之后就可能被检测出来，或者没检测出来，或者什么都没发生这样，也可尝试将引号全部去除，而分号是利用分号后面还有数据的形式，在后面添加垃圾数据去尝试绕过</span><span class="string">,</span><span class="comment">或者构造文件名或者在引号后面写文件名，而引号内部不去写数据，或者单纯写一个a这样的数据尝试绕过</span></span><br></pre></td></tr></table></figure>
+<h2 id="常见绕过方式"><a href="#常见绕过方式" class="headerlink" title="常见绕过方式"></a>常见绕过方式</h2><figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">JS验证绕过</span><br><span class="line">特殊解析后缀（php3，php5，phtml），.htaccess（apache）</span><br><span class="line">大小写</span><br><span class="line">点绕过</span><br><span class="line">空格绕过</span><br><span class="line">::<span class="variable">$$</span>DATA</span><br><span class="line">双后缀名绕过</span><br><span class="line">MIME绕过</span><br><span class="line">截断</span><br><span class="line">文件头检测</span><br><span class="line">二次渲染</span><br><span class="line">条件竞争</span><br><span class="line">突破getimagesize</span><br><span class="line">突破exif_imagetype</span><br></pre></td></tr></table></figure>
 
-<h2 id="6、重复数据-防匹配（参数多次）"><a href="#6、重复数据-防匹配（参数多次）" class="headerlink" title="6、重复数据-防匹配（参数多次）"></a>6、重复数据-防匹配（参数多次）</h2><figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">例如：构造多个<span class="meta">filename</span>，然后查看waf最后是以哪个为主，然后构造多个<span class="meta">filename</span>，借助检测机制是递归循环，还是单次检测，类似于构造垃圾数据那样也可尝试将Content-Disposition这些的数据插入到<span class="meta">filename</span>里面去，然后后面构造php文件（利用白名单）</span><br></pre></td></tr></table></figure>
+<h2 id="上传参数名解析-明确哪些东西能修改？"><a href="#上传参数名解析-明确哪些东西能修改？" class="headerlink" title="上传参数名解析:明确哪些东西能修改？"></a>上传参数名解析:明确哪些东西能修改？</h2><figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="attribute">Content-Disposition-</span>:一般可更改</span><br><span class="line"><span class="attribute">name</span>:表单参数值，不能更改</span><br><span class="line"><span class="attribute">filename</span>:文件名，可以更改</span><br><span class="line"><span class="attribute">Content-type</span>:文件</span><br><span class="line">MIME，视情况更改</span><br></pre></td></tr></table></figure>
 
-<h2 id="7、数据截断-防匹配（-00-换行）"><a href="#7、数据截断-防匹配（-00-换行）" class="headerlink" title="7、数据截断-防匹配（%00;/;换行）"></a>7、数据截断-防匹配（%00;/;换行）</h2>]]></content>
+<h2 id="文件上传安全修复方案"><a href="#文件上传安全修复方案" class="headerlink" title="文件上传安全修复方案"></a>文件上传安全修复方案</h2><figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">后端验证：采用服务端验证模式</span><br><span class="line">后缀检测：基于黑名单，白名单过滤</span><br><span class="line">MIME检测：基于上传自带类型检测</span><br><span class="line">内容检测：文件头，完整性检测,后缀等等</span><br><span class="line">自带函数过滤：参考 uploadlabs函数</span><br><span class="line">自定义函数过滤：<span class="keyword">function</span> <span class="title">check_file</span>()</span><br><span class="line">WAF防护产品：安全狗，宝塔，云盾，安全公司类似产品等</span><br></pre></td></tr></table></figure>
+
+<h2 id="解析漏洞"><a href="#解析漏洞" class="headerlink" title="解析漏洞"></a>解析漏洞</h2><h3 id="IIS6-0解析漏洞"><a href="#IIS6-0解析漏洞" class="headerlink" title="IIS6.0解析漏洞"></a>IIS6.0解析漏洞</h3><figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line">建立\*.asa,\*.asp文件夹时，文件夹下的任意文件都会被当成asp文件来执行</span><br><span class="line">\*.asp;1.jpg同样会被当成asp脚本执行</span><br></pre></td></tr></table></figure>
+
+<h3 id="IIS-7-0-7-5"><a href="#IIS-7-0-7-5" class="headerlink" title="IIS 7.0/7.5"></a>IIS 7.0/7.5</h3><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">默认Fast-CGI开启，直接在url中图片地址后面输入<span class="string">/1.php</span>，会把正常图片当成php解析</span><br></pre></td></tr></table></figure>
+
+<h3 id="Apache解析漏洞"><a href="#Apache解析漏洞" class="headerlink" title="Apache解析漏洞"></a>Apache解析漏洞</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">当文件拓展名Apache没有配置解析器解析时，就会向前遍历，直到遇到配置的解析器解析的域名</span><br></pre></td></tr></table></figure>
+
+<h3 id="nginx解析漏洞"><a href="#nginx解析漏洞" class="headerlink" title="nginx解析漏洞"></a>nginx解析漏洞</h3><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">上传<span class="string">/.php</span>时就能作为php文件解析</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>web安全</category>
       </categories>
@@ -1217,29 +1248,27 @@
       </tags>
   </entry>
   <entry>
-    <title>文件上传漏洞个人总结</title>
-    <url>/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h2 id="什么是文件上传"><a href="#什么是文件上传" class="headerlink" title="什么是文件上传"></a>什么是文件上传</h2><p>文件上传漏洞是指上传文件的时，如果未对上传的文件进行严格的验证和过滤，就容易造成文件上传漏洞，上传脚本等。用户可以上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。 常见场景是web服务器允许用户上传图片或者普通文本文件保存，而用户绕过上传机制上传恶意代码并执行从而控制服务器。这种漏洞是getshell最快最直接的方法之一，上传文件操作本身是没有问题的，问题在于文件上传到服务器后，服务器怎么处理和解释文件，有文件上传不一定有文件上传漏洞，要看代码情况。</p>
+    <title>文件下载漏洞个人总结</title>
+    <url>/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>文件下载功能没有对下载的文件类型、目录做合理严谨的过滤， 利用路径回溯符…/跳出程序本身的限制目录实现来下载任意文件，导致用户可以下载服务器的任意文件。</p>
 <span id="more"></span>
-<h2 id="文件上传危害"><a href="#文件上传危害" class="headerlink" title="文件上传危害"></a>文件上传危害</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">自定义上传什么东西，通过文件上传上传网站后门，拿到网站权限，高危漏洞</span><br></pre></td></tr></table></figure>
+<h2 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">存在读文件的函数</span><br><span class="line">读取文件的路径用户可控且未校验或校验不严</span><br><span class="line">输出了文件内容</span><br></pre></td></tr></table></figure>
 
-<h2 id="如何查找"><a href="#如何查找" class="headerlink" title="如何查找"></a>如何查找</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">黑盒查找：代码，网站情况是不知道的需要自己判断，需要用扫描器去扫描敏感文件，扫描常见的上传地址，通过网站给出的上传应用或者后台去找。</span><br><span class="line">白盒查找：拿到源码，cms等等判断</span><br><span class="line">通过抓包修改数据进行判断</span><br></pre></td></tr></table></figure>
+<h2 id="漏洞危害"><a href="#漏洞危害" class="headerlink" title="漏洞危害"></a>漏洞危害</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">可以下载服务器的任意文件，web业务的代码，服务器和系统的具体配置信息，也可以下载数据库的配置信息，以及对内网的信息探测等等。</span><br><span class="line">可用得到的代码进一步代码审计，得到更多可利用漏洞</span><br><span class="line">任意文件下载漏洞的利用主要是为了信息收集，我们通过对服务器配置文件的下载，获取到大量的配置信息、源码，从而根据获取的信息来进一步挖掘服务器漏洞从而入侵。</span><br></pre></td></tr></table></figure>
 
-<h2 id="文件上传常见验证方式"><a href="#文件上传常见验证方式" class="headerlink" title="文件上传常见验证方式"></a>文件上传常见验证方式</h2><figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line">后缀名：类型，文件头等</span><br><span class="line">文件头，MIME信息，image/gif，后缀</span><br><span class="line"><span class="section">黑名单:明确不让上传的格式后缀（黑名单缺陷：定义后缀名不完整的情况，可以通过其他格式绕过达到同样的效果，具体情况具体看待）asp php jsp aspx cgi war</span></span><br><span class="line">黑名单缺陷：php5，phtml（例如PHP：如果对方支持这个类型的格式的话是可以运行的）</span><br><span class="line"><span class="section">白名单:明确可以上传的格式后缀（白名单相对黑名单要安全点）Jpg png zip rar gif</span></span><br><span class="line"><span class="section">文件类型:MIME信息image/gif</span></span><br></pre></td></tr></table></figure>
+<h2 id="如何发现"><a href="#如何发现" class="headerlink" title="如何发现"></a>如何发现</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">网站URL中存在下载参数，并且未进行过滤…<span class="regexp">/…/</span>…/字符，且输出了文件内容</span><br><span class="line">从链接上看</span><br><span class="line">从参数上看</span><br><span class="line">具体情况具体分析</span><br></pre></td></tr></table></figure>
 
-<h2 id="常见绕过方式"><a href="#常见绕过方式" class="headerlink" title="常见绕过方式"></a>常见绕过方式</h2><figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">JS验证绕过</span><br><span class="line">特殊解析后缀（php3，php5，phtml），.htaccess（apache）</span><br><span class="line">大小写</span><br><span class="line">点绕过</span><br><span class="line">空格绕过</span><br><span class="line">::<span class="variable">$$</span>DATA</span><br><span class="line">双后缀名绕过</span><br><span class="line">MIME绕过</span><br><span class="line">截断</span><br><span class="line">文件头检测</span><br><span class="line">二次渲染</span><br><span class="line">条件竞争</span><br><span class="line">突破getimagesize</span><br><span class="line">突破exif_imagetype</span><br></pre></td></tr></table></figure>
+<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">获得站点源码（黑盒 -&gt; 白盒）</span><br><span class="line">获得站点与中间件配置文件</span><br><span class="line">获得应用于系统配置文件（ssh、mysql）</span><br></pre></td></tr></table></figure>
 
-<h2 id="上传参数名解析-明确哪些东西能修改？"><a href="#上传参数名解析-明确哪些东西能修改？" class="headerlink" title="上传参数名解析:明确哪些东西能修改？"></a>上传参数名解析:明确哪些东西能修改？</h2><figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="attribute">Content-Disposition-</span>:一般可更改</span><br><span class="line"><span class="attribute">name</span>:表单参数值，不能更改</span><br><span class="line"><span class="attribute">filename</span>:文件名，可以更改</span><br><span class="line"><span class="attribute">Content-type</span>:文件</span><br><span class="line">MIME，视情况更改</span><br></pre></td></tr></table></figure>
+<h2 id="利用原理"><a href="#利用原理" class="headerlink" title="利用原理"></a>利用原理</h2><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">（信息收集信息&gt;猜路径 &gt;&gt;下载配置文件/代码文件 &gt;&gt; 利用服务器软件漏洞&gt; <span class="built_in">shell</span>&gt; 提权）</span><br><span class="line">任意文件下载漏洞的利用主要是为了信息收集，我们通过对服务器配置文件的下载，获取到大量的配置信息、源码，从而根据获取的信息来进一步挖掘服务器漏洞从而入侵。</span><br><span class="line">下载常规的配置文件，例如: ssh,weblogic,<span class="keyword">ftp</span>,mysql等相关配置下载各种.<span class="built_in">log</span>文件，从中寻找一些后台地址，文件上传点之类的地方，如果运气好的话会获得一些前辈们的后门。</span><br><span class="line">下载web业务文件进行白盒审计，利用漏洞进一步攻入服务器</span><br></pre></td></tr></table></figure>
 
-<h2 id="文件上传安全修复方案"><a href="#文件上传安全修复方案" class="headerlink" title="文件上传安全修复方案"></a>文件上传安全修复方案</h2><figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">后端验证：采用服务端验证模式</span><br><span class="line">后缀检测：基于黑名单，白名单过滤</span><br><span class="line">MIME检测：基于上传自带类型检测</span><br><span class="line">内容检测：文件头，完整性检测,后缀等等</span><br><span class="line">自带函数过滤：参考 uploadlabs函数</span><br><span class="line">自定义函数过滤：<span class="keyword">function</span> <span class="title">check_file</span>()</span><br><span class="line">WAF防护产品：安全狗，宝塔，云盾，安全公司类似产品等</span><br></pre></td></tr></table></figure>
+<h2 id="常规文件位置"><a href="#常规文件位置" class="headerlink" title="常规文件位置"></a>常规文件位置</h2><p><strong>WEB应用</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">PHP</span></span><br><span class="line">1、获取inc/config·php获得数据库连接字符串中的口令信息。</span><br><span class="line"><span class="meta">#</span><span class="bash">asp</span></span><br><span class="line">1、获取inc/conn.asp文件，获得数据库连接字符串，得到数据库口令。若是ACCESS数据库，可以得到数据库</span><br><span class="line">路径，在下载数据库内容。</span><br><span class="line"><span class="meta">#</span><span class="bash">aspx</span></span><br><span class="line">1、获取网站根目录web，config文件，获得数据库连接字符串中的口令信息。</span><br><span class="line">2、获取bin/*.dll文件，获取网站源码（不完整代码）。使用.NET refl ector工具打开编译后的dll文件。</span><br><span class="line"><span class="meta">#</span><span class="bash">JSP</span></span><br><span class="line">1、获取conf/tomcat-user.xml文件，获得tomcat管理界面的口令信息，上传war包GetShel1，</span><br><span class="line">2、获取WEB-INF/Web.xml文件，获得数据库连接字符串中的口令信息。</span><br></pre></td></tr></table></figure>
 
-<h2 id="解析漏洞"><a href="#解析漏洞" class="headerlink" title="解析漏洞"></a>解析漏洞</h2><h3 id="IIS6-0解析漏洞"><a href="#IIS6-0解析漏洞" class="headerlink" title="IIS6.0解析漏洞"></a>IIS6.0解析漏洞</h3><figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line">建立\*.asa,\*.asp文件夹时，文件夹下的任意文件都会被当成asp文件来执行</span><br><span class="line">\*.asp;1.jpg同样会被当成asp脚本执行</span><br></pre></td></tr></table></figure>
+<p><strong>应用，系统配置文件</strong></p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">一、Windows</span><br><span class="line">C:\boot.ini<span class="regexp">//</span>查看系统版本C:\Windows\System32\inetsrv\MetaBase.xml<span class="regexp">//</span>IIS配置文件</span><br><span class="line">C:\Windows\repair\sam<span class="regexp">//</span>存储系统初次安装的密码</span><br><span class="line">C:\Program Files\mysql\my.ini<span class="regexp">//</span>Mysql配置</span><br><span class="line">C:\Program Files\mysql\data\mysql\user.MYD <span class="regexp">//</span>Mysql root</span><br><span class="line">C:\Windows\php.ini<span class="regexp">//</span>php配置信息</span><br><span class="line">C:\Windows\my.ini<span class="regexp">//</span>Mysql配置信息</span><br><span class="line">C:\Windows\win.ini<span class="regexp">//</span>Windows系统的一个基本系统配置文件</span><br><span class="line">二、Linux</span><br><span class="line"><span class="regexp">/root/</span>.ssh/authorized_keys</span><br><span class="line"><span class="regexp">/root/</span>.ssh/id_rsa</span><br><span class="line"><span class="regexp">/root/</span>.ssh/id_ras.keystore</span><br><span class="line"><span class="regexp">/root/</span>.ssh<span class="regexp">/known_hosts/</span><span class="regexp">/记录每个访问计算机用户的公钥/</span>etc/passwd</span><br><span class="line"><span class="regexp">/etc/</span>shadow</span><br><span class="line"><span class="regexp">/etc/my</span>.cnf<span class="regexp">//my</span>sql配置文件</span><br><span class="line"><span class="regexp">/etc/</span>httpd<span class="regexp">/conf/</span>httpd.conf<span class="regexp">//</span>apachel配置文件</span><br><span class="line"><span class="regexp">/root/</span>.bash_history<span class="regexp">//</span>用户历史命令记录文件</span><br><span class="line"><span class="regexp">/root/</span>.mysql._history<span class="regexp">//my</span>sql历史命令记录文件</span><br></pre></td></tr></table></figure>
 
-<h3 id="IIS-7-0-7-5"><a href="#IIS-7-0-7-5" class="headerlink" title="IIS 7.0/7.5"></a>IIS 7.0/7.5</h3><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">默认Fast-CGI开启，直接在url中图片地址后面输入<span class="string">/1.php</span>，会把正常图片当成php解析</span><br></pre></td></tr></table></figure>
-
-<h3 id="Apache解析漏洞"><a href="#Apache解析漏洞" class="headerlink" title="Apache解析漏洞"></a>Apache解析漏洞</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">当文件拓展名Apache没有配置解析器解析时，就会向前遍历，直到遇到配置的解析器解析的域名</span><br></pre></td></tr></table></figure>
-
-<h3 id="nginx解析漏洞"><a href="#nginx解析漏洞" class="headerlink" title="nginx解析漏洞"></a>nginx解析漏洞</h3><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">上传<span class="string">/.php</span>时就能作为php文件解析</span><br></pre></td></tr></table></figure>]]></content>
+<h2 id="任意文件下载漏洞防御"><a href="#任意文件下载漏洞防御" class="headerlink" title="任意文件下载漏洞防御"></a>任意文件下载漏洞防御</h2><figure class="highlight less"><table><tr><td class="code"><pre><span class="line">下载路径不可控，而是程序自动生成后保存在数据库中，根据<span class="selector-tag">ID</span>进行下载</span><br><span class="line">对参数做严格的过滤，不能进行目录遍历（穿越）</span><br><span class="line">对下载路径进行过滤，如下载前对传入的参数进行过滤，并且对下载文件类型进行检查，是否是允许下载的类型</span><br><span class="line">过滤.(点)，使用户在<span class="selector-tag">url</span>中不能回溯上级目录</span><br><span class="line">正则严格判断用户输入参数的格式</span><br><span class="line">限定文件访问范围如<span class="selector-tag">PHP</span>里的（<span class="selector-tag">php</span><span class="selector-class">.ini</span>配置<span class="selector-tag">open_basedir</span>）</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>web安全</category>
       </categories>
@@ -1266,35 +1295,6 @@
 <h2 id="如何利用"><a href="#如何利用" class="headerlink" title="如何利用"></a>如何利用</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">1.读取目标机上敏感文件</span><br><span class="line">2.远程文件包含可运行的PHP木马</span><br><span class="line">3、配合文件上传漏洞获取webshll</span><br></pre></td></tr></table></figure>
 
 <h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">固定文件后缀</span><br><span class="line">固定使用的文件</span><br><span class="line">安装WAF</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>文件下载漏洞个人总结</title>
-    <url>/2022/03/08/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>文件下载功能没有对下载的文件类型、目录做合理严谨的过滤， 利用路径回溯符…/跳出程序本身的限制目录实现来下载任意文件，导致用户可以下载服务器的任意文件。</p>
-<span id="more"></span>
-<h2 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">存在读文件的函数</span><br><span class="line">读取文件的路径用户可控且未校验或校验不严</span><br><span class="line">输出了文件内容</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞危害"><a href="#漏洞危害" class="headerlink" title="漏洞危害"></a>漏洞危害</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">可以下载服务器的任意文件，web业务的代码，服务器和系统的具体配置信息，也可以下载数据库的配置信息，以及对内网的信息探测等等。</span><br><span class="line">可用得到的代码进一步代码审计，得到更多可利用漏洞</span><br><span class="line">任意文件下载漏洞的利用主要是为了信息收集，我们通过对服务器配置文件的下载，获取到大量的配置信息、源码，从而根据获取的信息来进一步挖掘服务器漏洞从而入侵。</span><br></pre></td></tr></table></figure>
-
-<h2 id="如何发现"><a href="#如何发现" class="headerlink" title="如何发现"></a>如何发现</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">网站URL中存在下载参数，并且未进行过滤…<span class="regexp">/…/</span>…/字符，且输出了文件内容</span><br><span class="line">从链接上看</span><br><span class="line">从参数上看</span><br><span class="line">具体情况具体分析</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">获得站点源码（黑盒 -&gt; 白盒）</span><br><span class="line">获得站点与中间件配置文件</span><br><span class="line">获得应用于系统配置文件（ssh、mysql）</span><br></pre></td></tr></table></figure>
-
-<h2 id="利用原理"><a href="#利用原理" class="headerlink" title="利用原理"></a>利用原理</h2><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">（信息收集信息&gt;猜路径 &gt;&gt;下载配置文件/代码文件 &gt;&gt; 利用服务器软件漏洞&gt; <span class="built_in">shell</span>&gt; 提权）</span><br><span class="line">任意文件下载漏洞的利用主要是为了信息收集，我们通过对服务器配置文件的下载，获取到大量的配置信息、源码，从而根据获取的信息来进一步挖掘服务器漏洞从而入侵。</span><br><span class="line">下载常规的配置文件，例如: ssh,weblogic,<span class="keyword">ftp</span>,mysql等相关配置下载各种.<span class="built_in">log</span>文件，从中寻找一些后台地址，文件上传点之类的地方，如果运气好的话会获得一些前辈们的后门。</span><br><span class="line">下载web业务文件进行白盒审计，利用漏洞进一步攻入服务器</span><br></pre></td></tr></table></figure>
-
-<h2 id="常规文件位置"><a href="#常规文件位置" class="headerlink" title="常规文件位置"></a>常规文件位置</h2><p><strong>WEB应用</strong></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">PHP</span></span><br><span class="line">1、获取inc/config·php获得数据库连接字符串中的口令信息。</span><br><span class="line"><span class="meta">#</span><span class="bash">asp</span></span><br><span class="line">1、获取inc/conn.asp文件，获得数据库连接字符串，得到数据库口令。若是ACCESS数据库，可以得到数据库</span><br><span class="line">路径，在下载数据库内容。</span><br><span class="line"><span class="meta">#</span><span class="bash">aspx</span></span><br><span class="line">1、获取网站根目录web，config文件，获得数据库连接字符串中的口令信息。</span><br><span class="line">2、获取bin/*.dll文件，获取网站源码（不完整代码）。使用.NET refl ector工具打开编译后的dll文件。</span><br><span class="line"><span class="meta">#</span><span class="bash">JSP</span></span><br><span class="line">1、获取conf/tomcat-user.xml文件，获得tomcat管理界面的口令信息，上传war包GetShel1，</span><br><span class="line">2、获取WEB-INF/Web.xml文件，获得数据库连接字符串中的口令信息。</span><br></pre></td></tr></table></figure>
-
-<p><strong>应用，系统配置文件</strong></p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">一、Windows</span><br><span class="line">C:\boot.ini<span class="regexp">//</span>查看系统版本C:\Windows\System32\inetsrv\MetaBase.xml<span class="regexp">//</span>IIS配置文件</span><br><span class="line">C:\Windows\repair\sam<span class="regexp">//</span>存储系统初次安装的密码</span><br><span class="line">C:\Program Files\mysql\my.ini<span class="regexp">//</span>Mysql配置</span><br><span class="line">C:\Program Files\mysql\data\mysql\user.MYD <span class="regexp">//</span>Mysql root</span><br><span class="line">C:\Windows\php.ini<span class="regexp">//</span>php配置信息</span><br><span class="line">C:\Windows\my.ini<span class="regexp">//</span>Mysql配置信息</span><br><span class="line">C:\Windows\win.ini<span class="regexp">//</span>Windows系统的一个基本系统配置文件</span><br><span class="line">二、Linux</span><br><span class="line"><span class="regexp">/root/</span>.ssh/authorized_keys</span><br><span class="line"><span class="regexp">/root/</span>.ssh/id_rsa</span><br><span class="line"><span class="regexp">/root/</span>.ssh/id_ras.keystore</span><br><span class="line"><span class="regexp">/root/</span>.ssh<span class="regexp">/known_hosts/</span><span class="regexp">/记录每个访问计算机用户的公钥/</span>etc/passwd</span><br><span class="line"><span class="regexp">/etc/</span>shadow</span><br><span class="line"><span class="regexp">/etc/my</span>.cnf<span class="regexp">//my</span>sql配置文件</span><br><span class="line"><span class="regexp">/etc/</span>httpd<span class="regexp">/conf/</span>httpd.conf<span class="regexp">//</span>apachel配置文件</span><br><span class="line"><span class="regexp">/root/</span>.bash_history<span class="regexp">//</span>用户历史命令记录文件</span><br><span class="line"><span class="regexp">/root/</span>.mysql._history<span class="regexp">//my</span>sql历史命令记录文件</span><br></pre></td></tr></table></figure>
-
-<h2 id="任意文件下载漏洞防御"><a href="#任意文件下载漏洞防御" class="headerlink" title="任意文件下载漏洞防御"></a>任意文件下载漏洞防御</h2><figure class="highlight less"><table><tr><td class="code"><pre><span class="line">下载路径不可控，而是程序自动生成后保存在数据库中，根据<span class="selector-tag">ID</span>进行下载</span><br><span class="line">对参数做严格的过滤，不能进行目录遍历（穿越）</span><br><span class="line">对下载路径进行过滤，如下载前对传入的参数进行过滤，并且对下载文件类型进行检查，是否是允许下载的类型</span><br><span class="line">过滤.(点)，使用户在<span class="selector-tag">url</span>中不能回溯上级目录</span><br><span class="line">正则严格判断用户输入参数的格式</span><br><span class="line">限定文件访问范围如<span class="selector-tag">PHP</span>里的（<span class="selector-tag">php</span><span class="selector-class">.ini</span>配置<span class="selector-tag">open_basedir</span>）</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>web安全</category>
       </categories>
@@ -1381,6 +1381,58 @@
       </categories>
       <tags>
         <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>钓鱼场景下微信聊天记录回传</title>
+    <url>/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/</url>
+    <content><![CDATA[<h2 id="一、使用场景"><a href="#一、使用场景" class="headerlink" title="一、使用场景"></a>一、使用场景</h2><p>钓鱼攻击（通过钓鱼 / 微信控到的机器通常都是登录状态）</p>
+<p>渗透到运维机器（有些运维机器会日常登录自己的微信）</p>
+<p>实战中钓鱼时常在微信聊天记录中找到目标内网系统账号、机器账号密码，尽可能的不触发大量扫描告警下在内网中精准打到跳板机。</p>
+<span id="more"></span>
+<h2 id="二、获取微信聊天记录过程"><a href="#二、获取微信聊天记录过程" class="headerlink" title="二、获取微信聊天记录过程"></a>二、获取微信聊天记录过程</h2><p>在第一步需要用到，Sharp-dumpkey工具，下面对<strong>Sharp-dumpkey工具进行介绍</strong>：</p>
+<p>基于C#实现的获取微信数据库密钥的小工具，可配合chatViewTool使用。可直接执行命令.\dumpkey.exe,查看微信数据库密钥，并回传DBpass.bin文件中。</p>
+<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170733607.png" alt="image-20230413170733607"></p>
+<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170740349.png" alt="image-20230413170740349"></p>
+<ul>
+<li> 暂时不支持微信多开场景的密钥获取。</li>
+<li> • 需微信登录后才可抓取密钥。</li>
+<li> • 程序未采用动态获取基址的方式，因此为保证程序可用性，运行时会在线拉取基址。</li>
+</ul>
+<p>在被获取权限PC端执行 .\co.exe shellcode -f .\cece.txt，可连接到CS服务器</p>
+<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170756093.png" alt="image-20230413170756093"></p>
+<p>在被获取权限PC处，右键选择Interact，可进入命令执行</p>
+<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170802035.png" alt="image-20230413170802035"></p>
+<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170818847.png" alt="image-20230413170818847"></p>
+<h4 id="1、获取微信数据库密钥，执行命令execute-assembly-C-Users-summer-Desktop-test-dumpkey-exe"><a href="#1、获取微信数据库密钥，执行命令execute-assembly-C-Users-summer-Desktop-test-dumpkey-exe" class="headerlink" title="1、获取微信数据库密钥，执行命令execute-assembly C:\Users\summer\Desktop\test\dumpkey.exe"></a>1、获取微信数据库密钥，执行命令execute-assembly C:\Users\summer\Desktop\test\dumpkey.exe</h4><p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170827305.png" alt="image-20230413170827305"></p>
+<p>回传 DBpass.bin，该文件中记录了微信数据库密钥</p>
+<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170834611.png" alt="image-20230413170834611"></p>
+<h4 id="2、下载目标聊天数据库文件，默认保存目录在以下目录，超出-240MB-会自动生成-MSG1-db，以此类推。"><a href="#2、下载目标聊天数据库文件，默认保存目录在以下目录，超出-240MB-会自动生成-MSG1-db，以此类推。" class="headerlink" title="2、下载目标聊天数据库文件，默认保存目录在以下目录，超出 240MB 会自动生成 MSG1.db，以此类推。"></a>2、下载目标聊天数据库文件，默认保存目录在以下目录，超出 240MB 会自动生成 MSG1.db，以此类推。</h4><p>C:\Users\summer\Documents\WeChat Files\wxid_vd0nxyv6n20t22\Msg\Multi\MSG0.db C:\Users\summer\Documents\WeChat Files\wxid_vd0nxyv6n20t22\Msg\MicroMsg.db</p>
+<p><strong>备注：</strong> MSG0.db文件存放聊天记录 MicroMsg.db文件存放好友列表</p>
+<p>执行命令shell C:\Users\summer\Desktop\test\FileSearch.exe search C:\ MSG，可找到文件MSG0.</p>
+<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170844841.png" alt="image-20230413170844841"></p>
+<p>连接被获取权限PC的文件夹，找到目录C:\Users\summer\Documents\WeChat Files\wxid_vd0nxyv6n20t22\Msg\Multi，下载文件MSG0.db并存放到自定义目录即可</p>
+<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170852209.png" alt="image-20230413170852209"></p>
+<p>找到目录C:\Users\summer\Documents\WeChat Files\wxid_vd0nxyv6n20t22\Msg，下载文件MicroMsg.db并存放到自定义目录（与MSG0.db放到同一目录下）</p>
+<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170904727.png" alt="image-20230413170904727"></p>
+<p>在第3步之前对<strong>ChatViewTool工具进行介绍</strong>：</p>
+<p>ChatViewTool是一个配合dumpkey(微信数据库秘钥获取工具)使用的小工具，该工具实现了微信数据库解密以及展示数据库聊天记录的功能。</p>
+<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170911961.png" alt="image-20230413170911961"></p>
+<p><strong>使用方法</strong> 在获取数据库秘钥之后将内容保存为文本文件DBPass.Bin，随后提取以下相关的数据库放于秘钥文件同目录。C:\Users\summer\Documents\WeChat Files\wxid_vd0nxyv6n20t22\Msg\Multi\MSG0.db</p>
+<p>C:\Users\summer\Documents\WeChat Files\wxid_vd0nxyv6n20t22\Msg\MicroMsg.db</p>
+<p>随后打开ChatViewTool点击“数据库解密”并选择秘钥及数据库所在的目录，待解密完成后</p>
+<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170918359.png" alt="image-20230413170918359"></p>
+<p>点击“查看数据库”选择同目录即可完成会话展示，双击联系人列表可展示对应的聊天记录</p>
+<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170925110-1681376967905-1.png" alt="image-20230413170925110"></p>
+<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170931102.png" alt="image-20230413170931102"></p>
+<h4 id="3、将上面DBpass-bin、MSG0-db、MicroMsg-db三个文件回传到同目录，配合-ChatViewTool-打开解密即可查看，在搜索处-“administrator”-“root”-“密码”-“ip-等”，项目地址。"><a href="#3、将上面DBpass-bin、MSG0-db、MicroMsg-db三个文件回传到同目录，配合-ChatViewTool-打开解密即可查看，在搜索处-“administrator”-“root”-“密码”-“ip-等”，项目地址。" class="headerlink" title="3、将上面DBpass.bin、MSG0.db、MicroMsg.db三个文件回传到同目录，配合 ChatViewTool 打开解密即可查看，在搜索处 “administrator” “root” “密码” “ip 等”，项目地址。"></a>3、将上面DBpass.bin、MSG0.db、MicroMsg.db三个文件回传到同目录，配合 ChatViewTool 打开解密即可查看，在搜索处 “administrator” “root” “密码” “ip 等”，项目地址。</h4><p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170937812.png" alt="image-20230413170937812"></p>
+]]></content>
+      <categories>
+        <category>钓鱼</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>微信记录获取</tag>
       </tags>
   </entry>
   <entry>
@@ -1622,58 +1674,6 @@
       <tags>
         <tag>学习笔记</tag>
         <tag>钓鱼平台搭建</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>钓鱼场景下微信聊天记录回传</title>
-    <url>/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/</url>
-    <content><![CDATA[<h2 id="一、使用场景"><a href="#一、使用场景" class="headerlink" title="一、使用场景"></a>一、使用场景</h2><p>钓鱼攻击（通过钓鱼 / 微信控到的机器通常都是登录状态）</p>
-<p>渗透到运维机器（有些运维机器会日常登录自己的微信）</p>
-<p>实战中钓鱼时常在微信聊天记录中找到目标内网系统账号、机器账号密码，尽可能的不触发大量扫描告警下在内网中精准打到跳板机。</p>
-<span id="more"></span>
-<h2 id="二、获取微信聊天记录过程"><a href="#二、获取微信聊天记录过程" class="headerlink" title="二、获取微信聊天记录过程"></a>二、获取微信聊天记录过程</h2><p>在第一步需要用到，Sharp-dumpkey工具，下面对<strong>Sharp-dumpkey工具进行介绍</strong>：</p>
-<p>基于C#实现的获取微信数据库密钥的小工具，可配合chatViewTool使用。可直接执行命令.\dumpkey.exe,查看微信数据库密钥，并回传DBpass.bin文件中。</p>
-<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170733607.png" alt="image-20230413170733607"></p>
-<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170740349.png" alt="image-20230413170740349"></p>
-<ul>
-<li> 暂时不支持微信多开场景的密钥获取。</li>
-<li> • 需微信登录后才可抓取密钥。</li>
-<li> • 程序未采用动态获取基址的方式，因此为保证程序可用性，运行时会在线拉取基址。</li>
-</ul>
-<p>在被获取权限PC端执行 .\co.exe shellcode -f .\cece.txt，可连接到CS服务器</p>
-<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170756093.png" alt="image-20230413170756093"></p>
-<p>在被获取权限PC处，右键选择Interact，可进入命令执行</p>
-<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170802035.png" alt="image-20230413170802035"></p>
-<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170818847.png" alt="image-20230413170818847"></p>
-<h4 id="1、获取微信数据库密钥，执行命令execute-assembly-C-Users-summer-Desktop-test-dumpkey-exe"><a href="#1、获取微信数据库密钥，执行命令execute-assembly-C-Users-summer-Desktop-test-dumpkey-exe" class="headerlink" title="1、获取微信数据库密钥，执行命令execute-assembly C:\Users\summer\Desktop\test\dumpkey.exe"></a>1、获取微信数据库密钥，执行命令execute-assembly C:\Users\summer\Desktop\test\dumpkey.exe</h4><p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170827305.png" alt="image-20230413170827305"></p>
-<p>回传 DBpass.bin，该文件中记录了微信数据库密钥</p>
-<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170834611.png" alt="image-20230413170834611"></p>
-<h4 id="2、下载目标聊天数据库文件，默认保存目录在以下目录，超出-240MB-会自动生成-MSG1-db，以此类推。"><a href="#2、下载目标聊天数据库文件，默认保存目录在以下目录，超出-240MB-会自动生成-MSG1-db，以此类推。" class="headerlink" title="2、下载目标聊天数据库文件，默认保存目录在以下目录，超出 240MB 会自动生成 MSG1.db，以此类推。"></a>2、下载目标聊天数据库文件，默认保存目录在以下目录，超出 240MB 会自动生成 MSG1.db，以此类推。</h4><p>C:\Users\summer\Documents\WeChat Files\wxid_vd0nxyv6n20t22\Msg\Multi\MSG0.db C:\Users\summer\Documents\WeChat Files\wxid_vd0nxyv6n20t22\Msg\MicroMsg.db</p>
-<p><strong>备注：</strong> MSG0.db文件存放聊天记录 MicroMsg.db文件存放好友列表</p>
-<p>执行命令shell C:\Users\summer\Desktop\test\FileSearch.exe search C:\ MSG，可找到文件MSG0.</p>
-<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170844841.png" alt="image-20230413170844841"></p>
-<p>连接被获取权限PC的文件夹，找到目录C:\Users\summer\Documents\WeChat Files\wxid_vd0nxyv6n20t22\Msg\Multi，下载文件MSG0.db并存放到自定义目录即可</p>
-<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170852209.png" alt="image-20230413170852209"></p>
-<p>找到目录C:\Users\summer\Documents\WeChat Files\wxid_vd0nxyv6n20t22\Msg，下载文件MicroMsg.db并存放到自定义目录（与MSG0.db放到同一目录下）</p>
-<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170904727.png" alt="image-20230413170904727"></p>
-<p>在第3步之前对<strong>ChatViewTool工具进行介绍</strong>：</p>
-<p>ChatViewTool是一个配合dumpkey(微信数据库秘钥获取工具)使用的小工具，该工具实现了微信数据库解密以及展示数据库聊天记录的功能。</p>
-<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170911961.png" alt="image-20230413170911961"></p>
-<p><strong>使用方法</strong> 在获取数据库秘钥之后将内容保存为文本文件DBPass.Bin，随后提取以下相关的数据库放于秘钥文件同目录。C:\Users\summer\Documents\WeChat Files\wxid_vd0nxyv6n20t22\Msg\Multi\MSG0.db</p>
-<p>C:\Users\summer\Documents\WeChat Files\wxid_vd0nxyv6n20t22\Msg\MicroMsg.db</p>
-<p>随后打开ChatViewTool点击“数据库解密”并选择秘钥及数据库所在的目录，待解密完成后</p>
-<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170918359.png" alt="image-20230413170918359"></p>
-<p>点击“查看数据库”选择同目录即可完成会话展示，双击联系人列表可展示对应的聊天记录</p>
-<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170925110-1681376967905-1.png" alt="image-20230413170925110"></p>
-<p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170931102.png" alt="image-20230413170931102"></p>
-<h4 id="3、将上面DBpass-bin、MSG0-db、MicroMsg-db三个文件回传到同目录，配合-ChatViewTool-打开解密即可查看，在搜索处-“administrator”-“root”-“密码”-“ip-等”，项目地址。"><a href="#3、将上面DBpass-bin、MSG0-db、MicroMsg-db三个文件回传到同目录，配合-ChatViewTool-打开解密即可查看，在搜索处-“administrator”-“root”-“密码”-“ip-等”，项目地址。" class="headerlink" title="3、将上面DBpass.bin、MSG0.db、MicroMsg.db三个文件回传到同目录，配合 ChatViewTool 打开解密即可查看，在搜索处 “administrator” “root” “密码” “ip 等”，项目地址。"></a>3、将上面DBpass.bin、MSG0.db、MicroMsg.db三个文件回传到同目录，配合 ChatViewTool 打开解密即可查看，在搜索处 “administrator” “root” “密码” “ip 等”，项目地址。</h4><p><img src="https://ax-x.github.io/2022/10/27/%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E4%B8%8B%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%9B%9E%E4%BC%A0/image-20230413170937812.png" alt="image-20230413170937812"></p>
-]]></content>
-      <categories>
-        <category>钓鱼</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-        <tag>微信记录获取</tag>
       </tags>
   </entry>
   <entry>
