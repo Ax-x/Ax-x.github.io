@@ -6,7 +6,7 @@
   <link href="https://ax-x.github.io/atom.xml" rel="self"/>
   
   <link href="https://ax-x.github.io/"/>
-  <updated>2023-04-18T16:11:14.073Z</updated>
+  <updated>2023-04-19T13:06:39.664Z</updated>
   <id>https://ax-x.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>委派攻击</title>
+    <link href="https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/"/>
+    <id>https://ax-x.github.io/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/</id>
+    <published>2023-04-19T13:05:14.000Z</published>
+    <updated>2023-04-19T13:06:39.664Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;域委派&quot;&gt;&lt;a href=&quot;#域委派&quot; class=&quot;headerlink&quot; title=&quot;域委派&quot;&gt;&lt;/a&gt;域委派&lt;/h2&gt;&lt;p&gt;是将域用户的权限委派给服务账号，委派之后，服务账号就可以以域用户的身份去做域用户能够做的事&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="内网" scheme="https://ax-x.github.io/categories/%E5%86%85%E7%BD%91/"/>
+    
+    
+    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="委派攻击" scheme="https://ax-x.github.io/tags/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>Windows权限维持总结</title>
@@ -192,14 +213,14 @@
     <link href="https://ax-x.github.io/2022/05/31/%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA%E7%9A%84%E5%87%A0%E7%A7%8D%E4%B8%8A%E7%BA%BF%E6%96%B9%E5%BC%8F/"/>
     <id>https://ax-x.github.io/2022/05/31/%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA%E7%9A%84%E5%87%A0%E7%A7%8D%E4%B8%8A%E7%BA%BF%E6%96%B9%E5%BC%8F/</id>
     <published>2022-05-31T07:22:01.000Z</published>
-    <updated>2022-05-31T07:25:13.143Z</updated>
+    <updated>2023-04-19T13:04:34.375Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;拿到一台边缘机器后，内网的机器很有可能大多数都不出网，这时又想上线cs方便后续操作。本文就如何上线不出网主机的方式进行了总结。&lt;/p&gt;</summary>
     
     
     
-    <category term="内网渗透" scheme="https://ax-x.github.io/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/"/>
+    <category term="内网" scheme="https://ax-x.github.io/categories/%E5%86%85%E7%BD%91/"/>
     
     
     <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
@@ -211,7 +232,7 @@
     <link href="https://ax-x.github.io/2022/05/13/%E5%8F%8D%E5%BC%B9shell%E5%90%88%E9%9B%86/"/>
     <id>https://ax-x.github.io/2022/05/13/%E5%8F%8D%E5%BC%B9shell%E5%90%88%E9%9B%86/</id>
     <published>2022-05-13T08:25:02.000Z</published>
-    <updated>2022-05-13T08:27:37.067Z</updated>
+    <updated>2023-04-19T13:04:40.389Z</updated>
     
     
     <summary type="html">&lt;p&gt;假设本机地址10.10.10.11，监听端口443。&lt;/p&gt;
@@ -220,7 +241,7 @@
     
     
     
-    <category term="内网渗透" scheme="https://ax-x.github.io/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/"/>
+    <category term="内网" scheme="https://ax-x.github.io/categories/%E5%86%85%E7%BD%91/"/>
     
     
     <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
@@ -389,25 +410,6 @@
     
     
     <summary type="html">&lt;h2 id=&quot;原理&quot;&gt;&lt;a href=&quot;#原理&quot; class=&quot;headerlink&quot; title=&quot;原理&quot;&gt;&lt;/a&gt;原理&lt;/h2&gt;&lt;p&gt;文件下载功能没有对下载的文件类型、目录做合理严谨的过滤， 利用路径回溯符…/跳出程序本身的限制目录实现来下载任意文件，导致用户可以下载服务器的任意文件。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="web安全" scheme="https://ax-x.github.io/categories/web%E5%AE%89%E5%85%A8/"/>
-    
-    
-    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>文件包含漏洞个人总结</title>
-    <link href="https://ax-x.github.io/2022/03/08/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/"/>
-    <id>https://ax-x.github.io/2022/03/08/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</id>
-    <published>2022-03-08T12:16:56.000Z</published>
-    <updated>2022-03-08T12:19:46.172Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;什么是文件包含&quot;&gt;&lt;a href=&quot;#什么是文件包含&quot; class=&quot;headerlink&quot; title=&quot;什么是文件包含&quot;&gt;&lt;/a&gt;什么是文件包含&lt;/h2&gt;&lt;p&gt;程序开发人员一般希望代码更灵活，所以将被包含的文件设置为变量，用来进行动态调用，但正是由于这种灵活性，从而导致客户端可以调用一个恶意文件，造成文件包含漏洞。为了控制代码的灵活，程序要把要使用的函数写到一个文件中，其他需要其中的的函数执行，只需要通过该文件名包含进来，而且没有进行验证。&lt;/p&gt;</summary>
     
     
     
