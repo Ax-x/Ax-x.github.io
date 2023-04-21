@@ -387,6 +387,31 @@
       </tags>
   </entry>
   <entry>
+    <title>TaoCMS存在代码执行漏洞</title>
+    <url>/2022/03/08/TaoCMS%E5%AD%98%E5%9C%A8%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h1 id="一、漏洞介绍"><a href="#一、漏洞介绍" class="headerlink" title="一、漏洞介绍"></a>一、漏洞介绍</h1><p>TaoCMS是基于php+sqlite/mysql的国内最小(100Kb左右)的功能完善的CMS管理系统taoCMS-基于php+sqlite最小巧的CMS，TaoCMS系统存在代码执行漏洞，可以执行任意php文件。</p>
+<span id="more"></span>
+<h1 id="二、-漏洞细节"><a href="#二、-漏洞细节" class="headerlink" title="二、 漏洞细节"></a>二、 漏洞细节</h1><p>在include\Model\File.php 55行edit()代码,代码可以看出可以编辑任意文件，包括php文件。</p>
+<p><img src="https://ax-x.github.io/2022/03/08/TaoCMS%E5%AD%98%E5%9C%A8%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/image-20220830155608718.png" alt="image-20220830155608718"></p>
+<p>而save()保存函数，对文件没有进行任何验证便保存下来，造成代码执行漏洞。</p>
+<p> <img src="https://ax-x.github.io/2022/03/08/TaoCMS%E5%AD%98%E5%9C%A8%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/image-20220830155816381.png" alt="image-20220830155816381"></p>
+<h1 id="3-漏洞利用"><a href="#3-漏洞利用" class="headerlink" title="3 漏洞利用"></a>3 漏洞利用</h1><p>漏洞验证：</p>
+<p>首先进入后台，点击文件管理。</p>
+<p> <img src="https://ax-x.github.io/2022/03/08/TaoCMS%E5%AD%98%E5%9C%A8%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/image-20220830155826832.png" alt="image-20220830155826832"></p>
+<p>在api.php文件后面点编辑，并在第一行添加代码 phpinfo();</p>
+<p> <img src="https://ax-x.github.io/2022/03/08/TaoCMS%E5%AD%98%E5%9C%A8%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/image-20220830155840712.png" alt="image-20220830155840712"></p>
+<p>保存后访问api.php,成功执行代码。</p>
+<p> <img src="https://ax-x.github.io/2022/03/08/TaoCMS%E5%AD%98%E5%9C%A8%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/image-20220830155849238.png" alt="image-20220830155849238"></p>
+]]></content>
+      <categories>
+        <category>代码审计</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>PHP代码审计</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Windows权限维持总结</title>
     <url>/2023/04/19/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h4 id="一、影子账户"><a href="#一、影子账户" class="headerlink" title="一、影子账户"></a><strong>一、影子账户</strong></h4><p>1.使用如下命令创建隐藏用户并加入管理员组</p>
@@ -602,31 +627,6 @@
       <tags>
         <tag>学习笔记</tag>
         <tag>Windows权限维持</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>TaoCMS存在代码执行漏洞</title>
-    <url>/2022/03/08/TaoCMS%E5%AD%98%E5%9C%A8%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h1 id="一、漏洞介绍"><a href="#一、漏洞介绍" class="headerlink" title="一、漏洞介绍"></a>一、漏洞介绍</h1><p>TaoCMS是基于php+sqlite/mysql的国内最小(100Kb左右)的功能完善的CMS管理系统taoCMS-基于php+sqlite最小巧的CMS，TaoCMS系统存在代码执行漏洞，可以执行任意php文件。</p>
-<span id="more"></span>
-<h1 id="二、-漏洞细节"><a href="#二、-漏洞细节" class="headerlink" title="二、 漏洞细节"></a>二、 漏洞细节</h1><p>在include\Model\File.php 55行edit()代码,代码可以看出可以编辑任意文件，包括php文件。</p>
-<p><img src="https://ax-x.github.io/2022/03/08/TaoCMS%E5%AD%98%E5%9C%A8%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/image-20220830155608718.png" alt="image-20220830155608718"></p>
-<p>而save()保存函数，对文件没有进行任何验证便保存下来，造成代码执行漏洞。</p>
-<p> <img src="https://ax-x.github.io/2022/03/08/TaoCMS%E5%AD%98%E5%9C%A8%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/image-20220830155816381.png" alt="image-20220830155816381"></p>
-<h1 id="3-漏洞利用"><a href="#3-漏洞利用" class="headerlink" title="3 漏洞利用"></a>3 漏洞利用</h1><p>漏洞验证：</p>
-<p>首先进入后台，点击文件管理。</p>
-<p> <img src="https://ax-x.github.io/2022/03/08/TaoCMS%E5%AD%98%E5%9C%A8%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/image-20220830155826832.png" alt="image-20220830155826832"></p>
-<p>在api.php文件后面点编辑，并在第一行添加代码 phpinfo();</p>
-<p> <img src="https://ax-x.github.io/2022/03/08/TaoCMS%E5%AD%98%E5%9C%A8%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/image-20220830155840712.png" alt="image-20220830155840712"></p>
-<p>保存后访问api.php,成功执行代码。</p>
-<p> <img src="https://ax-x.github.io/2022/03/08/TaoCMS%E5%AD%98%E5%9C%A8%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/image-20220830155849238.png" alt="image-20220830155849238"></p>
-]]></content>
-      <categories>
-        <category>代码审计</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-        <tag>PHP代码审计</tag>
       </tags>
   </entry>
   <entry>
@@ -1127,6 +1127,29 @@
       </tags>
   </entry>
   <entry>
+    <title>常规绕WAF思路</title>
+    <url>/2022/03/08/%E5%B8%B8%E8%A7%84%E7%BB%95WAF%E6%80%9D%E8%B7%AF/</url>
+    <content><![CDATA[<h2 id="1、错误的HTTP请求头"><a href="#1、错误的HTTP请求头" class="headerlink" title="1、错误的HTTP请求头"></a>1、错误的HTTP请求头</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">类似文件上传时的绕过，通过畸形的HTTP协议头绕过WAF检测。比如绕过某些老版本WAF可以加入请求头：<span class="attribute">Content</span>-Encoding:deflate就可以绕过WAF（此方法在文件上传绕过WAF中也适用）</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h2 id="2、通用的关键字绕过"><a href="#2、通用的关键字绕过" class="headerlink" title="2、通用的关键字绕过"></a>2、通用的关键字绕过</h2><figure class="highlight autoit"><table><tr><td class="code"><pre><span class="line">将关键字转换成Unicode或者<span class="built_in">HEX</span>编码的方式，JAVA程序会自动进行解码，所以在一定程度上能够绕过WAF</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、使用未公开的漏洞利用链"><a href="#3、使用未公开的漏洞利用链" class="headerlink" title="3、使用未公开的漏洞利用链"></a>3、使用未公开的漏洞利用链</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">部分WAF会将公开的漏洞利用链中的关键字设置为黑名单，所以重新找一条利用链吧，自己的才是最香的</span><br></pre></td></tr></table></figure>
+
+<h2 id="4、数据溢出-防匹配（xxx…）"><a href="#4、数据溢出-防匹配（xxx…）" class="headerlink" title="4、数据溢出-防匹配（xxx…）"></a>4、数据溢出-防匹配（xxx…）</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">借助常见的溢出漏洞，在数据特别多的情况下例如：构造垃圾数据，让防护的检测负载不过来在某个地方停止，从而达到绕过的目的例如在数据包内（文件名等可修改的区域）处构造大量垃圾数据，但是有可能会导致服务器崩溃，从而无法接下去进行操作</span><br></pre></td></tr></table></figure>
+
+<h2 id="5、符号变异-防匹配（’”-）"><a href="#5、符号变异-防匹配（’”-）" class="headerlink" title="5、符号变异-防匹配（’”;）"></a>5、符号变异-防匹配（’”;）</h2><figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">利用匹配的原则，猜测waf是根据在单引号或者双引号里面的数据去匹配文件名信息的，那么可以利用这个规则，将引号替换掉，尝试绕过，有可能它只检测单引号或者只检测双引号，也可尝试去掉一个引号，有开始就有结束，当去掉一个之后就可能被检测出来，或者没检测出来，或者什么都没发生这样，也可尝试将引号全部去除，而分号是利用分号后面还有数据的形式，在后面添加垃圾数据去尝试绕过</span><span class="string">,</span><span class="comment">或者构造文件名或者在引号后面写文件名，而引号内部不去写数据，或者单纯写一个a这样的数据尝试绕过</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="6、重复数据-防匹配（参数多次）"><a href="#6、重复数据-防匹配（参数多次）" class="headerlink" title="6、重复数据-防匹配（参数多次）"></a>6、重复数据-防匹配（参数多次）</h2><figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">例如：构造多个<span class="meta">filename</span>，然后查看waf最后是以哪个为主，然后构造多个<span class="meta">filename</span>，借助检测机制是递归循环，还是单次检测，类似于构造垃圾数据那样也可尝试将Content-Disposition这些的数据插入到<span class="meta">filename</span>里面去，然后后面构造php文件（利用白名单）</span><br></pre></td></tr></table></figure>
+
+<h2 id="7、数据截断-防匹配（-00-换行）"><a href="#7、数据截断-防匹配（-00-换行）" class="headerlink" title="7、数据截断-防匹配（%00;/;换行）"></a>7、数据截断-防匹配（%00;/;换行）</h2>]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>微信小程序反编译-PC微信版</title>
     <url>/2022/08/29/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91-PC%E5%BE%AE%E4%BF%A1%E7%89%88/</url>
     <content><![CDATA[<p>现在网上也有很多关于小程序反编译的教程，随时间的流逝或许随着微信的更新，有出现编译不成功的现象。</p>
@@ -1175,29 +1198,6 @@
       <tags>
         <tag>学习笔记</tag>
         <tag>小程序反编译</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>常规绕WAF思路</title>
-    <url>/2022/03/08/%E5%B8%B8%E8%A7%84%E7%BB%95WAF%E6%80%9D%E8%B7%AF/</url>
-    <content><![CDATA[<h2 id="1、错误的HTTP请求头"><a href="#1、错误的HTTP请求头" class="headerlink" title="1、错误的HTTP请求头"></a>1、错误的HTTP请求头</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">类似文件上传时的绕过，通过畸形的HTTP协议头绕过WAF检测。比如绕过某些老版本WAF可以加入请求头：<span class="attribute">Content</span>-Encoding:deflate就可以绕过WAF（此方法在文件上传绕过WAF中也适用）</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<h2 id="2、通用的关键字绕过"><a href="#2、通用的关键字绕过" class="headerlink" title="2、通用的关键字绕过"></a>2、通用的关键字绕过</h2><figure class="highlight autoit"><table><tr><td class="code"><pre><span class="line">将关键字转换成Unicode或者<span class="built_in">HEX</span>编码的方式，JAVA程序会自动进行解码，所以在一定程度上能够绕过WAF</span><br></pre></td></tr></table></figure>
-
-<h2 id="3、使用未公开的漏洞利用链"><a href="#3、使用未公开的漏洞利用链" class="headerlink" title="3、使用未公开的漏洞利用链"></a>3、使用未公开的漏洞利用链</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">部分WAF会将公开的漏洞利用链中的关键字设置为黑名单，所以重新找一条利用链吧，自己的才是最香的</span><br></pre></td></tr></table></figure>
-
-<h2 id="4、数据溢出-防匹配（xxx…）"><a href="#4、数据溢出-防匹配（xxx…）" class="headerlink" title="4、数据溢出-防匹配（xxx…）"></a>4、数据溢出-防匹配（xxx…）</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">借助常见的溢出漏洞，在数据特别多的情况下例如：构造垃圾数据，让防护的检测负载不过来在某个地方停止，从而达到绕过的目的例如在数据包内（文件名等可修改的区域）处构造大量垃圾数据，但是有可能会导致服务器崩溃，从而无法接下去进行操作</span><br></pre></td></tr></table></figure>
-
-<h2 id="5、符号变异-防匹配（’”-）"><a href="#5、符号变异-防匹配（’”-）" class="headerlink" title="5、符号变异-防匹配（’”;）"></a>5、符号变异-防匹配（’”;）</h2><figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">利用匹配的原则，猜测waf是根据在单引号或者双引号里面的数据去匹配文件名信息的，那么可以利用这个规则，将引号替换掉，尝试绕过，有可能它只检测单引号或者只检测双引号，也可尝试去掉一个引号，有开始就有结束，当去掉一个之后就可能被检测出来，或者没检测出来，或者什么都没发生这样，也可尝试将引号全部去除，而分号是利用分号后面还有数据的形式，在后面添加垃圾数据去尝试绕过</span><span class="string">,</span><span class="comment">或者构造文件名或者在引号后面写文件名，而引号内部不去写数据，或者单纯写一个a这样的数据尝试绕过</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="6、重复数据-防匹配（参数多次）"><a href="#6、重复数据-防匹配（参数多次）" class="headerlink" title="6、重复数据-防匹配（参数多次）"></a>6、重复数据-防匹配（参数多次）</h2><figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">例如：构造多个<span class="meta">filename</span>，然后查看waf最后是以哪个为主，然后构造多个<span class="meta">filename</span>，借助检测机制是递归循环，还是单次检测，类似于构造垃圾数据那样也可尝试将Content-Disposition这些的数据插入到<span class="meta">filename</span>里面去，然后后面构造php文件（利用白名单）</span><br></pre></td></tr></table></figure>
-
-<h2 id="7、数据截断-防匹配（-00-换行）"><a href="#7、数据截断-防匹配（-00-换行）" class="headerlink" title="7、数据截断-防匹配（%00;/;换行）"></a>7、数据截断-防匹配（%00;/;换行）</h2>]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -1340,32 +1340,6 @@
       </tags>
   </entry>
   <entry>
-    <title>文件包含漏洞个人总结</title>
-    <url>/2022/03/08/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h2 id="什么是文件包含"><a href="#什么是文件包含" class="headerlink" title="什么是文件包含"></a>什么是文件包含</h2><p>程序开发人员一般希望代码更灵活，所以将被包含的文件设置为变量，用来进行动态调用，但正是由于这种灵活性，从而导致客户端可以调用一个恶意文件，造成文件包含漏洞。为了控制代码的灵活，程序要把要使用的函数写到一个文件中，其他需要其中的的函数执行，只需要通过该文件名包含进来，而且没有进行验证。</p>
-<span id="more"></span>
-
-<h2 id="文件包含分类"><a href="#文件包含分类" class="headerlink" title="文件包含分类"></a>文件包含分类</h2><p><strong>本地包含</strong></p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">当被包含的文件在服务器本地时，且能够读取或执行包含本地文件的漏洞，称为本地文件包含漏洞</span><br></pre></td></tr></table></figure>
-
-<p><strong>远程包含</strong></p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">远程文件包含和本地文件包含造成漏洞的原因是一样的，当开发配置可以读取远程文件时，例如php.ini 中的配置选项allow_url_fopen和allow_url_include为<span class="keyword">ON</span>的话，则包含的文件可以是第三方服务器中的文件，这样就形成了远程文件包含漏洞。</span><br><span class="line">代码限制：代码里面限制只能包含本地文件的话就不会有远程包含，如果没限制的话，并且在设置上允许包含远程文件的话，就会引起远程包含</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">通过文件以脚本去执行</span><br><span class="line">文件包含常用函数</span><br><span class="line"><span class="function"><span class="title">include</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">require</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">fopen</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">include_once</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">require_once</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">readfile</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
-
-<h2 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">漏扫工具</span><br><span class="line">公开漏洞</span><br><span class="line">手工看参数以及功能点</span><br><span class="line"><span class="number">1</span>、通过观察参数特征猜测是否使用文件包含，文件包含参数后面为具体文件名如：http:<span class="regexp">//</span>example.com/index.php?page=include.php</span><br><span class="line">http:<span class="regexp">//</span>example.com/index.php?page=include</span><br><span class="line"><span class="number">2</span>、通过..<span class="regexp">/目录跳转符尝试读取系统文件、服务器日志文件或者配置文件。如读取Linux的/</span>etc<span class="regexp">/passwd文件: http:/</span><span class="regexp">/example.com/i</span>ndex.php?page=..<span class="regexp">/../</span>..<span class="regexp">/../</span>etc/passwd</span><br><span class="line"><span class="number">3</span>、通过php:<span class="regexp">//</span>filter<span class="regexp">/convert.base64-encode/</span>resource=index.php读取代码文件。</span><br><span class="line"><span class="number">4</span>、通过包含远程服务器上的PHP代码文件执行代码。</span><br><span class="line"><span class="number">5</span>、如果站点存在一个文件上传功能，只允许图片类型文件，并且存在文件包含漏洞，则可以把PHP代码写入图片文件中，再通过文件包含漏洞包含之，进而执行PHP代码。</span><br><span class="line"><span class="number">6</span>、如果文件的后缀可考虑使用截断进行包含：</span><br><span class="line">  <span class="number">1</span>)%<span class="number">00</span>截断（PHP小于<span class="number">5.3</span>.<span class="number">4</span>，magic_quotes_gpc=off）</span><br><span class="line">  <span class="number">2</span>)路径长度截断：</span><br><span class="line">  <span class="regexp">/etc/</span>passwd<span class="regexp">/./</span>.<span class="regexp">/./</span>.<span class="regexp">/./</span>.[n*/.]（Linux文件名需要长于<span class="number">4096</span>，Windows 需要长于<span class="number">256</span>）</span><br></pre></td></tr></table></figure>
-
-<h2 id="如何利用"><a href="#如何利用" class="headerlink" title="如何利用"></a>如何利用</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">1.读取目标机上敏感文件</span><br><span class="line">2.远程文件包含可运行的PHP木马</span><br><span class="line">3、配合文件上传漏洞获取webshll</span><br></pre></td></tr></table></figure>
-
-<h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">固定文件后缀</span><br><span class="line">固定使用的文件</span><br><span class="line">安装WAF</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>记一次windows应急响应</title>
     <url>/2022/04/24/%E8%AE%B0%E4%B8%80%E6%AC%A1windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/</url>
     <content><![CDATA[<h1 id="1、背景"><a href="#1、背景" class="headerlink" title="1、背景"></a>1、背景</h1><p>大好假期，人在家中躺，应急天上来，上了机子之后过程还算是比较顺利的，环境是Tomcat，大致思路就是，排查可疑用户和文件，看日志，连接情况，进程，定时任务，注册表这些。</p>
@@ -1441,6 +1415,32 @@
 ]]></content>
       <categories>
         <category>应急响应</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>文件包含漏洞个人总结</title>
+    <url>/2022/03/08/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h2 id="什么是文件包含"><a href="#什么是文件包含" class="headerlink" title="什么是文件包含"></a>什么是文件包含</h2><p>程序开发人员一般希望代码更灵活，所以将被包含的文件设置为变量，用来进行动态调用，但正是由于这种灵活性，从而导致客户端可以调用一个恶意文件，造成文件包含漏洞。为了控制代码的灵活，程序要把要使用的函数写到一个文件中，其他需要其中的的函数执行，只需要通过该文件名包含进来，而且没有进行验证。</p>
+<span id="more"></span>
+
+<h2 id="文件包含分类"><a href="#文件包含分类" class="headerlink" title="文件包含分类"></a>文件包含分类</h2><p><strong>本地包含</strong></p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">当被包含的文件在服务器本地时，且能够读取或执行包含本地文件的漏洞，称为本地文件包含漏洞</span><br></pre></td></tr></table></figure>
+
+<p><strong>远程包含</strong></p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">远程文件包含和本地文件包含造成漏洞的原因是一样的，当开发配置可以读取远程文件时，例如php.ini 中的配置选项allow_url_fopen和allow_url_include为<span class="keyword">ON</span>的话，则包含的文件可以是第三方服务器中的文件，这样就形成了远程文件包含漏洞。</span><br><span class="line">代码限制：代码里面限制只能包含本地文件的话就不会有远程包含，如果没限制的话，并且在设置上允许包含远程文件的话，就会引起远程包含</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">通过文件以脚本去执行</span><br><span class="line">文件包含常用函数</span><br><span class="line"><span class="function"><span class="title">include</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">require</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">fopen</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">include_once</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">require_once</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">readfile</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">漏扫工具</span><br><span class="line">公开漏洞</span><br><span class="line">手工看参数以及功能点</span><br><span class="line"><span class="number">1</span>、通过观察参数特征猜测是否使用文件包含，文件包含参数后面为具体文件名如：http:<span class="regexp">//</span>example.com/index.php?page=include.php</span><br><span class="line">http:<span class="regexp">//</span>example.com/index.php?page=include</span><br><span class="line"><span class="number">2</span>、通过..<span class="regexp">/目录跳转符尝试读取系统文件、服务器日志文件或者配置文件。如读取Linux的/</span>etc<span class="regexp">/passwd文件: http:/</span><span class="regexp">/example.com/i</span>ndex.php?page=..<span class="regexp">/../</span>..<span class="regexp">/../</span>etc/passwd</span><br><span class="line"><span class="number">3</span>、通过php:<span class="regexp">//</span>filter<span class="regexp">/convert.base64-encode/</span>resource=index.php读取代码文件。</span><br><span class="line"><span class="number">4</span>、通过包含远程服务器上的PHP代码文件执行代码。</span><br><span class="line"><span class="number">5</span>、如果站点存在一个文件上传功能，只允许图片类型文件，并且存在文件包含漏洞，则可以把PHP代码写入图片文件中，再通过文件包含漏洞包含之，进而执行PHP代码。</span><br><span class="line"><span class="number">6</span>、如果文件的后缀可考虑使用截断进行包含：</span><br><span class="line">  <span class="number">1</span>)%<span class="number">00</span>截断（PHP小于<span class="number">5.3</span>.<span class="number">4</span>，magic_quotes_gpc=off）</span><br><span class="line">  <span class="number">2</span>)路径长度截断：</span><br><span class="line">  <span class="regexp">/etc/</span>passwd<span class="regexp">/./</span>.<span class="regexp">/./</span>.<span class="regexp">/./</span>.[n*/.]（Linux文件名需要长于<span class="number">4096</span>，Windows 需要长于<span class="number">256</span>）</span><br></pre></td></tr></table></figure>
+
+<h2 id="如何利用"><a href="#如何利用" class="headerlink" title="如何利用"></a>如何利用</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">1.读取目标机上敏感文件</span><br><span class="line">2.远程文件包含可运行的PHP木马</span><br><span class="line">3、配合文件上传漏洞获取webshll</span><br></pre></td></tr></table></figure>
+
+<h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">固定文件后缀</span><br><span class="line">固定使用的文件</span><br><span class="line">安装WAF</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>web安全</category>
       </categories>
       <tags>
         <tag>学习笔记</tag>
