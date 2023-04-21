@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script>
+
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/hacker-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/hacker-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习笔记,钓鱼邮件服务器搭建," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Ax-x" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="钓鱼服务器搭建前准备：1、目标公司相似域名（可去GoDaddy 购买）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="邮件服务器搭建">
+<meta property="og:url" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/index.html">
+<meta property="og:site_name" content="Ax-x">
+<meta property="og:description" content="钓鱼服务器搭建前准备：1、目标公司相似域名（可去GoDaddy 购买）">
+<meta property="og:locale">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1670999895903-e095f595-654e-4739-b970-dc44aea8b9a0.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727564674-5d780c41-695d-4c28-bc98-e9a7fd5a4367.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727627906-e40dcb4e-970b-4eeb-92b4-d902a3f611c5.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727653886-7722d1a3-6846-45c1-ba8a-bc1c57296798.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727697735-4a05b4df-d3fe-457a-bad6-adaecad5ab5d.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727713585-0ca0772b-83aa-4a40-9e09-f9ed4cb95289.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727737547-0eb9f674-0640-471d-ba76-b3f75e21a623.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727766561-b143c9c8-164f-4cd0-9efd-633300fa7e5a.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727789434-a463d90f-5186-4bfc-96b9-e9c1b3f854b3.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727839772-8ebc8e9b-affe-40e9-bfb6-bae84584cf11.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727862447-35513104-647c-4fb6-ba2a-cb51d9e05e4b.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727890064-67ac28e1-5578-4417-a184-696443e01a56.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727916041-127d0e2d-9c05-4bc7-a3fb-d2f7810963a0.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727952026-191a6608-8c58-4748-a767-37db2735e76d.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727982374-aa5a510d-9cb5-4534-80ab-2f5857369057.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672728017623-8699321f-f1e3-4e7e-82c2-2ab4640e7a16.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1671001627707-e75e60dc-b246-42c4-84de-16c6dc449d7d.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672728043253-7dd42dda-5856-49b4-858b-b4c3b58eb199.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672728078042-a03618b5-d27a-4de9-85af-90a22df1e828.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1671001813472-2258de4e-3a17-4616-a012-35fa3e1f50d6.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672728104632-9b21e1e8-57c8-4ce1-8316-29efd4df67cd.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1671001876184-93632402-6e29-46ae-9a86-5525a4cd7b59.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672728686637-633f32df-3258-41a5-be95-c6ca1ee5097d.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1671002301964-d5d2fe9e-8d04-448e-948e-a4d973f18bd4.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1671002477410-d0ea3d32-c959-4ffd-bde0-f74ab153a994.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672728138757-c42bdb1b-41d0-4664-8b1c-52c537b175b5.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672728901479-925c837d-d8de-43ea-b852-8d33aeb4af12.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1671004148719-f522be40-387c-4678-8fc1-d0a0c5aab0f7.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1671004127306-afe7f87a-bf9d-4412-ab57-1494712d99e5.png">
+<meta property="article:published_time" content="2023-04-21T15:04:22.000Z">
+<meta property="article:modified_time" content="2023-04-21T15:06:01.809Z">
+<meta property="article:author" content="Ax-x">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="钓鱼邮件服务器搭建">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1670999895903-e095f595-654e-4739-b970-dc44aea8b9a0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://ax-x.github.io/2023/04/21/邮件服务器搭建/"/>
+
+
+
+
+
+  <title>邮件服务器搭建 | Ax-x</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ax-x</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">以有限的时间，做无限的事情</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head_portrait.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ax-x">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">邮件服务器搭建</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-04-21T23:04:22+08:00">
+                2023-04-21
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2023-04-21T23:06:01+08:00">
+                2023-04-21
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%92%93%E9%B1%BC/" itemprop="url" rel="index">
+                    <span itemprop="name">钓鱼</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  808
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="钓鱼服务器搭建前准备："><a href="#钓鱼服务器搭建前准备：" class="headerlink" title="钓鱼服务器搭建前准备："></a>钓鱼服务器搭建前准备：</h3><p>1、目标公司相似域名（可去GoDaddy 购买）</p>
+<span id="more"></span>
+<p>2、开启25端口的服务器（建议首选国外服务器，国外小型厂商一般都会开启25端口，国内厂商目前就腾讯云可申请开启25端口）</p>
+<p>如本次目标是春耕中国移动：</p>
+<p>所准备域名为：chinanobile.com</p>
+<p>3、尽量使用centos系统，以免引起不必要的坑</p>
+<p>4、服务器的防火墙最好关闭，以免搭建后无法访问</p>
+<h3 id="1、关闭selinux"><a href="#1、关闭selinux" class="headerlink" title="1、关闭selinux"></a>1、关闭selinux</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/selinux</span><br><span class="line"><span class="attribute">SELINUX</span>=enforcing 改为 <span class="attribute">SELINUX</span>=disabled</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1670999895903-e095f595-654e-4739-b970-dc44aea8b9a0.png" alt="img"></p>
+<h3 id="2、Centos7关闭防火墙"><a href="#2、Centos7关闭防火墙" class="headerlink" title="2、Centos7关闭防火墙"></a>2、Centos7关闭防火墙</h3><p>**1.**<strong>查看防火状态</strong></p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">systemctl status firewalld</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727564674-5d780c41-695d-4c28-bc98-e9a7fd5a4367.png" alt="img"></p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">service iptables status</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727627906-e40dcb4e-970b-4eeb-92b4-d902a3f611c5.png" alt="img"></p>
+<p><strong>2.暂时关闭防火墙</strong></p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727653886-7722d1a3-6846-45c1-ba8a-bc1c57296798.png" alt="img"></p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service  iptables stop</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727697735-4a05b4df-d3fe-457a-bad6-adaecad5ab5d.png" alt="img"></p>
+<p><strong>3.永久关闭防火墙</strong></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="builtin-name">disable</span> firewalld</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727713585-0ca0772b-83aa-4a40-9e09-f9ed4cb95289.png" alt="img"></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">chkconfig</span> iptables <span class="literal">off</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727737547-0eb9f674-0640-471d-ba76-b3f75e21a623.png" alt="img"></p>
+<p><strong>4.重启防火墙</strong></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="builtin-name">enable</span> firewalld<span class="built_in"></span></span><br><span class="line"><span class="built_in">service </span>iptables restart </span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727766561-b143c9c8-164f-4cd0-9efd-633300fa7e5a.png" alt="img"></p>
+<p><strong>5.永久关闭后重启</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">chkconfig</span> iptables <span class="literal">on</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727789434-a463d90f-5186-4bfc-96b9-e9c1b3f854b3.png" alt="img"></p>
+<h3 id="3、安装EwoMail"><a href="#3、安装EwoMail" class="headerlink" title="3、安装EwoMail"></a>3、安装EwoMail</h3><p><strong>1.国内网络</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gitee 项目地址 https:<span class="regexp">//gi</span>tee.com<span class="regexp">/laowu5/</span>EwoMail</span><br><span class="line">yum -y install git</span><br><span class="line">cd /root</span><br><span class="line">git clone https:<span class="regexp">//gi</span>tee.com<span class="regexp">/laowu5/</span>EwoMail.git</span><br><span class="line">cd <span class="regexp">/root/</span>EwoMail/install</span><br><span class="line">\<span class="comment">#需要输入一个邮箱域名，不需要前缀，列如下面的ewomail.cn</span></span><br><span class="line">sh ./start.sh ewomail.cn</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.国外网络</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">github 项目地址 https:<span class="regexp">//gi</span>thub.com<span class="regexp">/gyxuehu/</span>EwoMail</span><br><span class="line">yum -y install git</span><br><span class="line">cd /root</span><br><span class="line">git clone https:<span class="regexp">//gi</span>thub.com<span class="regexp">/gyxuehu/</span>EwoMail.git</span><br><span class="line">cd <span class="regexp">/root/</span>EwoMail/install</span><br><span class="line">\<span class="comment">#需要输入一个邮箱域名，不需要前缀，列如下面的ewomail.cn</span></span><br><span class="line">sh ./start.sh ewomail.cn en</span><br></pre></td></tr></table></figure>
+
+<p>安装演示</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y <span class="keyword">install</span> git</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727839772-8ebc8e9b-affe-40e9-bfb6-bae84584cf11.png" alt="img"></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /root</span><br><span class="line">git clone https:<span class="regexp">//gi</span>thub.com<span class="regexp">/gyxuehu/</span>EwoMail.git</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727862447-35513104-647c-4fb6-ba2a-cb51d9e05e4b.png" alt="img"></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> /root/EwoMail/install</span><br><span class="line"><span class="keyword">sh</span> ./start.<span class="keyword">sh</span> chinanobile.<span class="keyword">com</span> <span class="keyword">en</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727890064-67ac28e1-5578-4417-a184-696443e01a56.png" alt="img"></p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727916041-127d0e2d-9c05-4bc7-a3fb-d2f7810963a0.png" alt="img"></p>
+<p><strong>3.EwoMail在安装后会默认使用域名前缀mail的主机名，例如mail.ewomail.cn</strong></p>
+<p>将系统主机名改成mail.ewomail.cn</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">hostnamectl</span> <span class="built_in">set-hostname</span> <span class="string">mail</span>.<span class="string">ewomail</span>.<span class="string">cn</span></span><br><span class="line"><span class="string">vi</span> /<span class="string">etc</span>/<span class="string">hosts</span></span><br><span class="line"><span class="string">127</span>.<span class="string">0</span>.<span class="string">0</span>.<span class="string">1</span> <span class="string">mail</span>.<span class="string">chinanobile</span>.<span class="string">com</span> <span class="string">chinanobile</span>.<span class="string">com</span> <span class="string">smtp</span>.<span class="string">chinanobile</span>.<span class="string">com</span> <span class="string">imap</span>.<span class="string">chinanobile</span>.<span class="string">com</span></span><br><span class="line"><span class="string">hostnamectl</span> <span class="built_in">set-hostname</span> <span class="string">mail</span>.<span class="string">chinanobile</span>.<span class="string">com</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727952026-191a6608-8c58-4748-a767-37db2735e76d.png" alt="img"></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/hosts</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span> mail<span class="selector-class">.chinanobile</span><span class="selector-class">.com</span> chinanobile<span class="selector-class">.com</span> smtp<span class="selector-class">.chinanobile</span><span class="selector-class">.com</span> imap<span class="selector-class">.chinanobile</span>.com</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727982374-aa5a510d-9cb5-4534-80ab-2f5857369057.png" alt="img"></p>
+<h3 id="4、后台和web系统"><a href="#4、后台和web系统" class="headerlink" title="4、后台和web系统"></a>4、后台和web系统</h3><p>邮箱管理后台：<a target="_blank" rel="noopener" href="http://ip:8010/">http://IP:8010</a></p>
+<p>默认用户名密码：admin/ewomail123</p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672728017623-8699321f-f1e3-4e7e-82c2-2ab4640e7a16.png" alt="img"></p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1671001627707-e75e60dc-b246-42c4-84de-16c6dc449d7d.png" alt="img"></p>
+<p>web邮件系统：<a target="_blank" rel="noopener" href="http://ip:8000/">http://IP:8000</a></p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672728043253-7dd42dda-5856-49b4-858b-b4c3b58eb199.png" alt="img"></p>
+<h3 id="5、域名解析配置"><a href="#5、域名解析配置" class="headerlink" title="5、域名解析配置"></a>5、域名解析配置</h3><p>解析记录配置</p>
+<table>
+<thead>
+<tr>
+<th><strong>主机记录</strong></th>
+<th><strong>记录类型</strong></th>
+<th><strong>解析线路</strong></th>
+<th><strong>记录值</strong></th>
+<th><strong>MX优先级</strong></th>
+<th><strong>TTL值</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>@</td>
+<td>TXT</td>
+<td>默认</td>
+<td>v=spf1 ip4:邮件服务器IP -all</td>
+<td></td>
+<td>600</td>
+</tr>
+<tr>
+<td>dkim._domainkey</td>
+<td>TXT</td>
+<td>默认</td>
+<td>DKIM值</td>
+<td></td>
+<td>600</td>
+</tr>
+<tr>
+<td>mail</td>
+<td>A</td>
+<td>默认</td>
+<td>邮件服务器IP</td>
+<td></td>
+<td>600</td>
+</tr>
+<tr>
+<td>smtp</td>
+<td>CNAME</td>
+<td>默认</td>
+<td>mail.xxx.xxx</td>
+<td></td>
+<td>600</td>
+</tr>
+<tr>
+<td>pop</td>
+<td>CNAME</td>
+<td>默认</td>
+<td>mail.xxx.xxx</td>
+<td></td>
+<td>600</td>
+</tr>
+<tr>
+<td>imap</td>
+<td>CNAME</td>
+<td>默认</td>
+<td>mail.xxx.xxx</td>
+<td></td>
+<td>600</td>
+</tr>
+<tr>
+<td>@</td>
+<td>MX</td>
+<td>默认</td>
+<td>mail.xxx.xxx</td>
+<td>1</td>
+<td>600</td>
+</tr>
+</tbody></table>
+<p><strong>DKIM的值通过如下方式获取</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">amavisd -c <span class="regexp">/etc/</span>amavisd/amavisd.conf showkeys</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672728078042-a03618b5-d27a-4de9-85af-90a22df1e828.png" alt="img"></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用http:<span class="regexp">//</span>www.ewomail.com/list-<span class="number">20</span>.html对结果进行整理</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1671001813472-2258de4e-3a17-4616-a012-35fa3e1f50d6.png" alt="img"></p>
+<p><strong>DNS配置</strong></p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672728104632-9b21e1e8-57c8-4ce1-8316-29efd4df67cd.png" alt="img"></p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1671001876184-93632402-6e29-46ae-9a86-5525a4cd7b59.png" alt="img"></p>
+<p><strong>spf值配置</strong></p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672728686637-633f32df-3258-41a5-be95-c6ca1ee5097d.png" alt="img"></p>
+<h3 id="6、exe附件收发"><a href="#6、exe附件收发" class="headerlink" title="6、exe附件收发"></a>6、exe附件收发</h3><p>系统默认会禁止exe后缀文件附件的收发，如果你需要开通这个权限，请操作以下步骤</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">修改<span class="regexp">/etc/</span>amavisd/amavisd.conf</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1671002301964-d5d2fe9e-8d04-448e-948e-a4d973f18bd4.png" alt="img"></p>
+<p>将图上的红色圈，每行的前面加上#注释掉</p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1671002477410-d0ea3d32-c959-4ffd-bde0-f74ab153a994.png" alt="img"></p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">最后执行systemctl <span class="built_in">restart</span> amavisd</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672728138757-c42bdb1b-41d0-4664-8b1c-52c537b175b5.png" alt="img"></p>
+<h3 id="7、注意事项"><a href="#7、注意事项" class="headerlink" title="7、注意事项"></a>7、注意事项</h3><p>1、spf值配置好可避免大部分厂商的邮件服务器拦截</p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672728901479-925c837d-d8de-43ea-b852-8d33aeb4af12.png" alt="img"></p>
+<p>2、发件邮箱或邮件内容命名会影响发送的邮件进垃圾箱的概率</p>
+<p>如 <a href="mailto:&#116;&#101;&#x73;&#x74;&#x40;&#x78;&#120;&#120;&#46;&#x63;&#x6f;&#109;">&#116;&#101;&#x73;&#x74;&#x40;&#x78;&#120;&#120;&#46;&#x63;&#x6f;&#109;</a>、<a href="mailto:&#x63;&#x65;&#x73;&#x68;&#105;&#x40;&#120;&#x78;&#x78;&#x2e;&#99;&#111;&#x6d;">&#x63;&#x65;&#x73;&#x68;&#105;&#x40;&#120;&#x78;&#x78;&#x2e;&#99;&#111;&#x6d;</a>、<a href="mailto:&#x7a;&#x68;&#97;&#x6e;&#x67;&#x73;&#97;&#x6e;&#64;&#x78;&#120;&#x78;&#46;&#x63;&#x6f;&#109;">&#x7a;&#x68;&#97;&#x6e;&#x67;&#x73;&#97;&#x6e;&#64;&#x78;&#120;&#x78;&#46;&#x63;&#x6f;&#109;</a>，xx测试类或常见人姓名拼音邮箱</p>
+<p>邮件内容：test xxx内容，测试</p>
+<p>样例：</p>
+<p>垃圾箱</p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1671004148719-f522be40-387c-4678-8fc1-d0a0c5aab0f7.png" alt="img"></p>
+<p>正常邮箱</p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1671004127306-afe7f87a-bf9d-4412-ab57-1494712d99e5.png" alt="img"></p>
+
+      
+    </div>
+    
+    
+    
+	
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Ax-x
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/" title="邮件服务器搭建">https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"><i class="fa fa-tag"></i> 学习笔记</a>
+          
+            <a href="/tags/%E9%92%93%E9%B1%BC%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/" rel="tag"><i class="fa fa-tag"></i> 钓鱼邮件服务器搭建</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/" rel="next" title="如何在不进行审计的情况下对小程序加密数据进行解密">
+                <i class="fa fa-chevron-left"></i> 如何在不进行审计的情况下对小程序加密数据进行解密
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/" rel="prev" title="gophish搭建&使用">
+                gophish搭建&使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+		
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+		
+      
+		
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/head_portrait.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+		
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Ax-x" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%92%93%E9%B1%BC%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E5%89%8D%E5%87%86%E5%A4%87%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">钓鱼服务器搭建前准备：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%85%B3%E9%97%ADselinux"><span class="nav-number">2.</span> <span class="nav-text">1、关闭selinux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81Centos7%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99"><span class="nav-number">3.</span> <span class="nav-text">2、Centos7关闭防火墙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%AE%89%E8%A3%85EwoMail"><span class="nav-number">4.</span> <span class="nav-text">3、安装EwoMail</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E5%90%8E%E5%8F%B0%E5%92%8Cweb%E7%B3%BB%E7%BB%9F"><span class="nav-number">5.</span> <span class="nav-text">4、后台和web系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E9%85%8D%E7%BD%AE"><span class="nav-number">6.</span> <span class="nav-text">5、域名解析配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81exe%E9%99%84%E4%BB%B6%E6%94%B6%E5%8F%91"><span class="nav-number">7.</span> <span class="nav-text">6、exe附件收发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">8.</span> <span class="nav-text">7、注意事项</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ax-x</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">79.4k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -729,6 +729,89 @@
       </tags>
   </entry>
   <entry>
+    <title>gophish搭建&amp;使用</title>
+    <url>/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="1-服务搭建"><a href="#1-服务搭建" class="headerlink" title="1. 服务搭建"></a>1. 服务搭建</h2><span id="more"></span>
+<h3 id="1-1-项目地址"><a href="#1-1-项目地址" class="headerlink" title="1.1 项目地址"></a>1.1 项目地址</h3><p><a href="https://github.com/gophish/gophish">https://github.com/gophish/gophish</a></p>
+<p>下载对应的版本到服务器，这里使用的是gophish-v0.11.0-linux-64bit版本。</p>
+<h3 id="1-2-修改配置文件并运行"><a href="#1-2-修改配置文件并运行" class="headerlink" title="1.2 修改配置文件并运行"></a>1.2 修改配置文件并运行</h3><p>使用unzip gophish-v0.11.0-linux-64bit.zip命令解压缩</p>
+<p>修改配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vim config.json</span><br></pre></td></tr></table></figure>
+
+<p>修改后台管理地址为<code>0.0.0.0</code>，可以方便进行外部访问，</p>
+<p>再自定义管理端口和钓鱼服务页面端口</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//配置文件</span><br><span class="line">&#123;</span><br><span class="line">        &quot;admin_server&quot;: &#123;</span><br><span class="line">&quot;listen_url&quot;: &quot;0.0.0.0:33808&quot;, //管理地址可远程访问</span><br><span class="line">                &quot;use_tls&quot;: true,</span><br><span class="line">                &quot;cert_path&quot;: &quot;gophish_admin.crt&quot;,</span><br><span class="line">                &quot;key_path&quot;: &quot;gophish_admin.key&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;phish_server&quot;: &#123;</span><br><span class="line">&quot;listen_url&quot;: &quot;0.0.0.0:443&quot;, //钓鱼页面服务地址</span><br><span class="line">                &quot;use_tls&quot;: false,                //改为ture</span><br><span class="line">                &quot;cert_path&quot;: &quot;example.crt&quot;,</span><br><span class="line">                &quot;key_path&quot;: &quot;example.key&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;db_name&quot;: &quot;sqlite3&quot;,</span><br><span class="line">        &quot;db_path&quot;: &quot;gophish.db&quot;,</span><br><span class="line">        &quot;migrations_prefix&quot;: &quot;db/db_&quot;,</span><br><span class="line">        &quot;contact_address&quot;: &quot;&quot;,</span><br><span class="line">        &quot;logging&quot;: &#123;</span><br><span class="line">&quot;filename&quot;: &quot;/var/log/gophish/gophish.log&quot;, //日志，需新建gophish文件夹</span><br><span class="line">                &quot;level&quot;: &quot;&quot;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完成配置后运行<code>gophish</code>服务：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">chmod +x gophish   //加执行权限</span><br><span class="line">./gophish</span><br></pre></td></tr></table></figure>
+
+<p>初始密码在控制台日志可获取</p>
+<h2 id="2-开启一次钓鱼"><a href="#2-开启一次钓鱼" class="headerlink" title="2. 开启一次钓鱼"></a>2. 开启一次钓鱼</h2><h3 id="2-1-Sending-Profiles配置"><a href="#2-1-Sending-Profiles配置" class="headerlink" title="2.1 Sending Profiles配置"></a>2.1 Sending Profiles配置</h3><p>点new profile，添加配置</p>
+<p>以zoho邮箱邮箱为例</p>
+<h3 id="2-2注册邮箱"><a href="#2-2注册邮箱" class="headerlink" title="2.2注册邮箱"></a>2.2注册邮箱</h3><p><a href="https://www.zoho.com/">https://www.zoho.com/</a></p>
+<p>用Google账号登陆或者邮箱注册</p>
+<p>然后进入<code>域名</code>，根据步骤添加我们的域名</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979932170-cf3e2802-b6dd-4171-ba6e-bc78033c3938.png" alt="img"></p>
+<p>再到用户中去添加域名邮箱账户</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979976483-525b6066-b415-423a-83f9-0540891be3f1.png" alt="img"></p>
+<p>添加完成后访问mail.zoho.com登陆创建的邮箱即可发信</p>
+<p>添加gophish</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Name:</span><br><span class="line">  发件人名字</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Interface Type:</span><br><span class="line">  SMTP</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">SMTP From:</span><br><span class="line">  张三 &lt;xxx@xxx.com&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Host:</span><br><span class="line">  smtp.zoho.com:465</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Username:</span><br><span class="line">  xxx@xxx.com</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Password:</span><br><span class="line">  登陆zoho邮箱的密码</span><br></pre></td></tr></table></figure>
+
+<p>Email Headers添加</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">X-Mailer QQMail 2.x</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979279729-bbad7c3b-1c81-4fdf-8694-74729e3d476e.png" alt="img"></p>
+<h2 id="2-2-Email-Templates配置"><a href="#2-2-Email-Templates配置" class="headerlink" title="2.2 Email Templates配置"></a>2.2 Email Templates配置</h2><p>这里配置钓鱼邮件的模板</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979344615-8ca3f97f-faa3-4e30-af4e-aa1ea86a7a96.png" alt="img"></p>
+<p>邮件eml导入:(QQ邮件)下载eml文件，打开导入（有时候需要base64解码）</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979360419-0664dbfe-5197-49e2-a112-86c43bc69e45.png" alt="img"></p>
+<p>可以先用自己邮箱编写钓鱼模板，然后发送给自己，在拷贝邮件内容</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p&gt;您好：&lt;/p&gt;</span><br><span class="line">&lt;p&gt;近期检测到您在学者网教学科研协作单位平台的密码已过期， 请点击&lt;a href=&quot;&#123;&#123;.URL&#125;&#125;&quot;&gt;</span><br><span class="line">此链接&lt;/a&gt;尽快修改密码，谢谢配合！&lt;/p&gt;</span><br><span class="line">&#123;&#123;.Tracker&#125;&#125;&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>选取文字点击link，即可插入点击链接</p>
+<p><code>&#123;&#123;.URL&#125;&#125;</code>表示插入钓鱼链接</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979377034-99eea447-f305-4e0c-9210-b2720c559e3a.png" alt="img"></p>
+<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">变量参考</span><br><span class="line"></span><br><span class="line">|<span class="string"> Variable         </span>|<span class="string"> Description                                                  </span>|</span><br><span class="line">|<span class="string"> ---------------- </span>|<span class="string"> ------------------------------------------------------------ </span>|</span><br><span class="line">|<span class="string"> &#123;&#123;.RId&#125;&#125;         </span>|<span class="string"> The target’s unique ID                                       </span>|</span><br><span class="line">|<span class="string"> &#123;&#123;.FirstName&#125;&#125;   </span>|<span class="string"> The target’s first name                                      </span>|</span><br><span class="line">|<span class="string"> &#123;&#123;.LastName&#125;&#125;    </span>|<span class="string"> The target’s last name                                       </span>|</span><br><span class="line">|<span class="string"> &#123;&#123;.Position&#125;&#125;    </span>|<span class="string"> The target’s position                                        </span>|</span><br><span class="line">|<span class="string"> &#123;&#123;.Email&#125;&#125;       </span>|<span class="string"> The target’s email address                                   </span>|</span><br><span class="line">|<span class="string"> &#123;&#123;.From&#125;&#125;        </span>|<span class="string"> The spoofed sender                                           </span>|</span><br><span class="line">|<span class="string"> &#123;&#123;.TrackingURL&#125;&#125; </span>|<span class="string"> The URL to the tracking handler                              </span>|</span><br><span class="line">|<span class="string"> &#123;&#123;.Tracker&#125;&#125;     </span>|<span class="string"> An alias for `&lt;img src=&quot;&#123;&#123;.TrackingURL&#125;&#125;&quot;/&gt;`                 </span>|</span><br><span class="line">|<span class="string"> &#123;&#123;.URL&#125;&#125;         </span>|<span class="string"> The phishing URL                                             </span>|</span><br><span class="line">|<span class="string"> &#123;&#123;.BaseURL&#125;&#125;     </span>|<span class="string"> The base URL with the path and `rid` parameter stripped. Useful for making links to static files. </span>|</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-Landing-Pages（钓鱼页面）配置"><a href="#2-3-Landing-Pages（钓鱼页面）配置" class="headerlink" title="2.3 Landing Pages（钓鱼页面）配置"></a>2.3 Landing Pages（钓鱼页面）配置</h3><p>两种方式：</p>
+<ul>
+<li>直接从目录地址的网页自动制作</li>
+</ul>
+<p>点击Import Site</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979386868-5e5b6af0-8879-4f42-b607-89f3c52451c2.png" alt="img"></p>
+<p>输入想被伪造的目标</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979393932-c80823ed-92c2-4939-bec9-8aeda1f5c803.png" alt="img"></p>
+<p>此方法伪造一般页面都不正常</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979404245-3e44fd22-9815-47ca-870c-5b6bb312baee.png" alt="img"></p>
+<p>自行写入html代码</p>
+<ul>
+<li>自行写入html代码</li>
+</ul>
+<p>使用浏览器插件SingleFile保存想要被克隆的页面</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979409933-c46c7dfc-23cd-4ba8-a761-2f4190869674.png" alt="img"></p>
+<p>然后修改html代码，再将htmld代码拷贝到gophish中</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979416591-0c0a2fb5-b62d-4c87-9222-af01ae0ac19e.png" alt="img"></p>
+<p>页面正常</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979427856-b35c7f47-1b57-4a5d-8fff-157f8b94fc01.png" alt="img"></p>
+<p>勾选<code>Capture Submitted Data</code>，用户输入文字到表单中并点击提交，gophish可以获取内容</p>
+<p>勾选<code>Capture Passwords</code>，用户输入密码，gophish可获取密码内容</p>
+<p><code>Redirect to</code>中填入自定义url，当用户提交表单，自动跳转</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979433459-3c2ba8f2-b026-4323-882c-62837a352a4d.png" alt="img"></p>
+<h2 id="2-4-添加目标"><a href="#2-4-添加目标" class="headerlink" title="2.4 添加目标"></a>2.4 添加目标</h2><p>在Users &amp; Groups中可导入目标的</p>
+<p>姓名、email地址、其他描述</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979441936-19e6d83f-77b5-42a3-826a-3922382656d8.png" alt="img"></p>
+<h2 id="2-5-创建任务Campaigns"><a href="#2-5-创建任务Campaigns" class="headerlink" title="2.5 创建任务Campaigns"></a>2.5 创建任务Campaigns</h2><p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979497150-b6df838f-bdce-4007-ae4b-17e4af3a37eb.png" alt="img"></p>
+]]></content>
+      <categories>
+        <category>钓鱼</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>gophish</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>python&amp;&amp;shell--批量跑主机脚本</title>
     <url>/2022/01/21/python-shell-%E6%89%B9%E9%87%8F%E8%B7%91%E4%B8%BB%E6%9C%BA%E8%84%9A%E6%9C%AC/</url>
     <content><![CDATA[<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>上周去现场，大佬说年前要跑主机脚本，就是服务器有点多，问有没有办法一键下发，然后执行脚本去跑，跑完之后回收数据，我听这需求，这不是有手就行？然后就应了下来，说我试试，我本以为就是简单的写个py脚本的事情，确认好需求之后就直接开整，刚开始我写的是使用ssh服务去批量搞。</p>
@@ -1100,7 +1183,7 @@
 <h3 id="3-6、访问页面，查看控制台"><a href="#3-6、访问页面，查看控制台" class="headerlink" title="3.6、访问页面，查看控制台"></a>3.6、访问页面，查看控制台</h3><p><img src="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106101100274.png" alt="image-20230106101100274"></p>
 ]]></content>
       <categories>
-        <category>钓鱼</category>
+        <category>反编译</category>
       </categories>
       <tags>
         <tag>学习笔记</tag>
@@ -1193,7 +1276,7 @@
 <p>好了剩下的就是自己组合一下包的架构目录了~~~~</p>
 ]]></content>
       <categories>
-        <category>钓鱼</category>
+        <category>反编译</category>
       </categories>
       <tags>
         <tag>学习笔记</tag>
@@ -1245,7 +1328,7 @@
 <p>使用编辑器打开项目即可。</p>
 ]]></content>
       <categories>
-        <category>钓鱼</category>
+        <category>反编译</category>
       </categories>
       <tags>
         <tag>学习笔记</tag>
@@ -1590,6 +1673,188 @@
       </categories>
       <tags>
         <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>邮件服务器搭建</title>
+    <url>/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h3 id="钓鱼服务器搭建前准备："><a href="#钓鱼服务器搭建前准备：" class="headerlink" title="钓鱼服务器搭建前准备："></a>钓鱼服务器搭建前准备：</h3><p>1、目标公司相似域名（可去GoDaddy 购买）</p>
+<span id="more"></span>
+<p>2、开启25端口的服务器（建议首选国外服务器，国外小型厂商一般都会开启25端口，国内厂商目前就腾讯云可申请开启25端口）</p>
+<p>如本次目标是春耕中国移动：</p>
+<p>所准备域名为：chinanobile.com</p>
+<p>3、尽量使用centos系统，以免引起不必要的坑</p>
+<p>4、服务器的防火墙最好关闭，以免搭建后无法访问</p>
+<h3 id="1、关闭selinux"><a href="#1、关闭selinux" class="headerlink" title="1、关闭selinux"></a>1、关闭selinux</h3><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">vi /etc/sysconfig/selinux</span><br><span class="line"><span class="attribute">SELINUX</span>=enforcing 改为 <span class="attribute">SELINUX</span>=disabled</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1670999895903-e095f595-654e-4739-b970-dc44aea8b9a0.png" alt="img"></p>
+<h3 id="2、Centos7关闭防火墙"><a href="#2、Centos7关闭防火墙" class="headerlink" title="2、Centos7关闭防火墙"></a>2、Centos7关闭防火墙</h3><p>**1.**<strong>查看防火状态</strong></p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">systemctl status firewalld</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727564674-5d780c41-695d-4c28-bc98-e9a7fd5a4367.png" alt="img"></p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">service iptables status</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727627906-e40dcb4e-970b-4eeb-92b4-d902a3f611c5.png" alt="img"></p>
+<p><strong>2.暂时关闭防火墙</strong></p>
+<figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">systemctl stop firewalld</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727653886-7722d1a3-6846-45c1-ba8a-bc1c57296798.png" alt="img"></p>
+<figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">service  iptables stop</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727697735-4a05b4df-d3fe-457a-bad6-adaecad5ab5d.png" alt="img"></p>
+<p><strong>3.永久关闭防火墙</strong></p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">systemctl <span class="builtin-name">disable</span> firewalld</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727713585-0ca0772b-83aa-4a40-9e09-f9ed4cb95289.png" alt="img"></p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">chkconfig</span> iptables <span class="literal">off</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727737547-0eb9f674-0640-471d-ba76-b3f75e21a623.png" alt="img"></p>
+<p><strong>4.重启防火墙</strong></p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">systemctl <span class="builtin-name">enable</span> firewalld<span class="built_in"></span></span><br><span class="line"><span class="built_in">service </span>iptables restart </span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727766561-b143c9c8-164f-4cd0-9efd-633300fa7e5a.png" alt="img"></p>
+<p><strong>5.永久关闭后重启</strong></p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">chkconfig</span> iptables <span class="literal">on</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727789434-a463d90f-5186-4bfc-96b9-e9c1b3f854b3.png" alt="img"></p>
+<h3 id="3、安装EwoMail"><a href="#3、安装EwoMail" class="headerlink" title="3、安装EwoMail"></a>3、安装EwoMail</h3><p><strong>1.国内网络</strong></p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">gitee 项目地址 https:<span class="regexp">//gi</span>tee.com<span class="regexp">/laowu5/</span>EwoMail</span><br><span class="line">yum -y install git</span><br><span class="line">cd /root</span><br><span class="line">git clone https:<span class="regexp">//gi</span>tee.com<span class="regexp">/laowu5/</span>EwoMail.git</span><br><span class="line">cd <span class="regexp">/root/</span>EwoMail/install</span><br><span class="line">\<span class="comment">#需要输入一个邮箱域名，不需要前缀，列如下面的ewomail.cn</span></span><br><span class="line">sh ./start.sh ewomail.cn</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.国外网络</strong></p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">github 项目地址 https:<span class="regexp">//gi</span>thub.com<span class="regexp">/gyxuehu/</span>EwoMail</span><br><span class="line">yum -y install git</span><br><span class="line">cd /root</span><br><span class="line">git clone https:<span class="regexp">//gi</span>thub.com<span class="regexp">/gyxuehu/</span>EwoMail.git</span><br><span class="line">cd <span class="regexp">/root/</span>EwoMail/install</span><br><span class="line">\<span class="comment">#需要输入一个邮箱域名，不需要前缀，列如下面的ewomail.cn</span></span><br><span class="line">sh ./start.sh ewomail.cn en</span><br></pre></td></tr></table></figure>
+
+<p>安装演示</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">yum -y <span class="keyword">install</span> git</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727839772-8ebc8e9b-affe-40e9-bfb6-bae84584cf11.png" alt="img"></p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">cd /root</span><br><span class="line">git clone https:<span class="regexp">//gi</span>thub.com<span class="regexp">/gyxuehu/</span>EwoMail.git</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727862447-35513104-647c-4fb6-ba2a-cb51d9e05e4b.png" alt="img"></p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cd</span> /root/EwoMail/install</span><br><span class="line"><span class="keyword">sh</span> ./start.<span class="keyword">sh</span> chinanobile.<span class="keyword">com</span> <span class="keyword">en</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727890064-67ac28e1-5578-4417-a184-696443e01a56.png" alt="img"></p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727916041-127d0e2d-9c05-4bc7-a3fb-d2f7810963a0.png" alt="img"></p>
+<p><strong>3.EwoMail在安装后会默认使用域名前缀mail的主机名，例如mail.ewomail.cn</strong></p>
+<p>将系统主机名改成mail.ewomail.cn</p>
+<figure class="highlight dsconfig"><table><tr><td class="code"><pre><span class="line"><span class="string">hostnamectl</span> <span class="built_in">set-hostname</span> <span class="string">mail</span>.<span class="string">ewomail</span>.<span class="string">cn</span></span><br><span class="line"><span class="string">vi</span> /<span class="string">etc</span>/<span class="string">hosts</span></span><br><span class="line"><span class="string">127</span>.<span class="string">0</span>.<span class="string">0</span>.<span class="string">1</span> <span class="string">mail</span>.<span class="string">chinanobile</span>.<span class="string">com</span> <span class="string">chinanobile</span>.<span class="string">com</span> <span class="string">smtp</span>.<span class="string">chinanobile</span>.<span class="string">com</span> <span class="string">imap</span>.<span class="string">chinanobile</span>.<span class="string">com</span></span><br><span class="line"><span class="string">hostnamectl</span> <span class="built_in">set-hostname</span> <span class="string">mail</span>.<span class="string">chinanobile</span>.<span class="string">com</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727952026-191a6608-8c58-4748-a767-37db2735e76d.png" alt="img"></p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">vi /etc/hosts</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span> mail<span class="selector-class">.chinanobile</span><span class="selector-class">.com</span> chinanobile<span class="selector-class">.com</span> smtp<span class="selector-class">.chinanobile</span><span class="selector-class">.com</span> imap<span class="selector-class">.chinanobile</span>.com</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672727982374-aa5a510d-9cb5-4534-80ab-2f5857369057.png" alt="img"></p>
+<h3 id="4、后台和web系统"><a href="#4、后台和web系统" class="headerlink" title="4、后台和web系统"></a>4、后台和web系统</h3><p>邮箱管理后台：<a href="http://ip:8010/">http://IP:8010</a></p>
+<p>默认用户名密码：admin/ewomail123</p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672728017623-8699321f-f1e3-4e7e-82c2-2ab4640e7a16.png" alt="img"></p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1671001627707-e75e60dc-b246-42c4-84de-16c6dc449d7d.png" alt="img"></p>
+<p>web邮件系统：<a href="http://ip:8000/">http://IP:8000</a></p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672728043253-7dd42dda-5856-49b4-858b-b4c3b58eb199.png" alt="img"></p>
+<h3 id="5、域名解析配置"><a href="#5、域名解析配置" class="headerlink" title="5、域名解析配置"></a>5、域名解析配置</h3><p>解析记录配置</p>
+<table>
+<thead>
+<tr>
+<th><strong>主机记录</strong></th>
+<th><strong>记录类型</strong></th>
+<th><strong>解析线路</strong></th>
+<th><strong>记录值</strong></th>
+<th><strong>MX优先级</strong></th>
+<th><strong>TTL值</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>@</td>
+<td>TXT</td>
+<td>默认</td>
+<td>v=spf1 ip4:邮件服务器IP -all</td>
+<td></td>
+<td>600</td>
+</tr>
+<tr>
+<td>dkim._domainkey</td>
+<td>TXT</td>
+<td>默认</td>
+<td>DKIM值</td>
+<td></td>
+<td>600</td>
+</tr>
+<tr>
+<td>mail</td>
+<td>A</td>
+<td>默认</td>
+<td>邮件服务器IP</td>
+<td></td>
+<td>600</td>
+</tr>
+<tr>
+<td>smtp</td>
+<td>CNAME</td>
+<td>默认</td>
+<td>mail.xxx.xxx</td>
+<td></td>
+<td>600</td>
+</tr>
+<tr>
+<td>pop</td>
+<td>CNAME</td>
+<td>默认</td>
+<td>mail.xxx.xxx</td>
+<td></td>
+<td>600</td>
+</tr>
+<tr>
+<td>imap</td>
+<td>CNAME</td>
+<td>默认</td>
+<td>mail.xxx.xxx</td>
+<td></td>
+<td>600</td>
+</tr>
+<tr>
+<td>@</td>
+<td>MX</td>
+<td>默认</td>
+<td>mail.xxx.xxx</td>
+<td>1</td>
+<td>600</td>
+</tr>
+</tbody></table>
+<p><strong>DKIM的值通过如下方式获取</strong></p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">amavisd -c <span class="regexp">/etc/</span>amavisd/amavisd.conf showkeys</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672728078042-a03618b5-d27a-4de9-85af-90a22df1e828.png" alt="img"></p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">使用http:<span class="regexp">//</span>www.ewomail.com/list-<span class="number">20</span>.html对结果进行整理</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1671001813472-2258de4e-3a17-4616-a012-35fa3e1f50d6.png" alt="img"></p>
+<p><strong>DNS配置</strong></p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672728104632-9b21e1e8-57c8-4ce1-8316-29efd4df67cd.png" alt="img"></p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1671001876184-93632402-6e29-46ae-9a86-5525a4cd7b59.png" alt="img"></p>
+<p><strong>spf值配置</strong></p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672728686637-633f32df-3258-41a5-be95-c6ca1ee5097d.png" alt="img"></p>
+<h3 id="6、exe附件收发"><a href="#6、exe附件收发" class="headerlink" title="6、exe附件收发"></a>6、exe附件收发</h3><p>系统默认会禁止exe后缀文件附件的收发，如果你需要开通这个权限，请操作以下步骤</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">修改<span class="regexp">/etc/</span>amavisd/amavisd.conf</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1671002301964-d5d2fe9e-8d04-448e-948e-a4d973f18bd4.png" alt="img"></p>
+<p>将图上的红色圈，每行的前面加上#注释掉</p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1671002477410-d0ea3d32-c959-4ffd-bde0-f74ab153a994.png" alt="img"></p>
+<figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">最后执行systemctl <span class="built_in">restart</span> amavisd</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672728138757-c42bdb1b-41d0-4664-8b1c-52c537b175b5.png" alt="img"></p>
+<h3 id="7、注意事项"><a href="#7、注意事项" class="headerlink" title="7、注意事项"></a>7、注意事项</h3><p>1、spf值配置好可避免大部分厂商的邮件服务器拦截</p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1672728901479-925c837d-d8de-43ea-b852-8d33aeb4af12.png" alt="img"></p>
+<p>2、发件邮箱或邮件内容命名会影响发送的邮件进垃圾箱的概率</p>
+<p>如 <a href="mailto:&#116;&#101;&#x73;&#x74;&#x40;&#x78;&#120;&#120;&#46;&#x63;&#x6f;&#109;">&#116;&#101;&#x73;&#x74;&#x40;&#x78;&#120;&#120;&#46;&#x63;&#x6f;&#109;</a>、<a href="mailto:&#x63;&#x65;&#x73;&#x68;&#105;&#x40;&#120;&#x78;&#x78;&#x2e;&#99;&#111;&#x6d;">&#x63;&#x65;&#x73;&#x68;&#105;&#x40;&#120;&#x78;&#x78;&#x2e;&#99;&#111;&#x6d;</a>、<a href="mailto:&#x7a;&#x68;&#97;&#x6e;&#x67;&#x73;&#97;&#x6e;&#64;&#x78;&#120;&#x78;&#46;&#x63;&#x6f;&#109;">&#x7a;&#x68;&#97;&#x6e;&#x67;&#x73;&#97;&#x6e;&#64;&#x78;&#120;&#x78;&#46;&#x63;&#x6f;&#109;</a>，xx测试类或常见人姓名拼音邮箱</p>
+<p>邮件内容：test xxx内容，测试</p>
+<p>样例：</p>
+<p>垃圾箱</p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1671004148719-f522be40-387c-4678-8fc1-d0a0c5aab0f7.png" alt="img"></p>
+<p>正常邮箱</p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/1671004127306-afe7f87a-bf9d-4412-ab57-1494712d99e5.png" alt="img"></p>
+]]></content>
+      <categories>
+        <category>钓鱼</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>钓鱼邮件服务器搭建</tag>
       </tags>
   </entry>
   <entry>

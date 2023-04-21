@@ -6,7 +6,7 @@
   <link href="https://ax-x.github.io/atom.xml" rel="self"/>
   
   <link href="https://ax-x.github.io/"/>
-  <updated>2023-04-21T09:31:13.060Z</updated>
+  <updated>2023-04-21T15:12:14.502Z</updated>
   <id>https://ax-x.github.io/</id>
   
   <author>
@@ -17,18 +17,60 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>gophish搭建&amp;使用</title>
+    <link href="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/"/>
+    <id>https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/</id>
+    <published>2023-04-21T15:06:23.000Z</published>
+    <updated>2023-04-21T15:12:14.502Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;1-服务搭建&quot;&gt;&lt;a href=&quot;#1-服务搭建&quot; class=&quot;headerlink&quot; title=&quot;1. 服务搭建&quot;&gt;&lt;/a&gt;1. 服务搭建&lt;/h2&gt;</summary>
+    
+    
+    
+    <category term="钓鱼" scheme="https://ax-x.github.io/categories/%E9%92%93%E9%B1%BC/"/>
+    
+    
+    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="gophish" scheme="https://ax-x.github.io/tags/gophish/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>邮件服务器搭建</title>
+    <link href="https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/"/>
+    <id>https://ax-x.github.io/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</id>
+    <published>2023-04-21T15:04:22.000Z</published>
+    <updated>2023-04-21T15:06:01.809Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;钓鱼服务器搭建前准备：&quot;&gt;&lt;a href=&quot;#钓鱼服务器搭建前准备：&quot; class=&quot;headerlink&quot; title=&quot;钓鱼服务器搭建前准备：&quot;&gt;&lt;/a&gt;钓鱼服务器搭建前准备：&lt;/h3&gt;&lt;p&gt;1、目标公司相似域名（可去GoDaddy 购买）&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="钓鱼" scheme="https://ax-x.github.io/categories/%E9%92%93%E9%B1%BC/"/>
+    
+    
+    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="钓鱼邮件服务器搭建" scheme="https://ax-x.github.io/tags/%E9%92%93%E9%B1%BC%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/"/>
+    
+  </entry>
+  
+  <entry>
     <title>如何在不进行审计的情况下对小程序加密数据进行解密</title>
     <link href="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/"/>
     <id>https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/</id>
     <published>2023-04-21T09:21:26.000Z</published>
-    <updated>2023-04-21T09:31:13.060Z</updated>
+    <updated>2023-04-21T15:07:52.757Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;1、小程序反编译&quot;&gt;&lt;a href=&quot;#1、小程序反编译&quot; class=&quot;headerlink&quot; title=&quot;1、小程序反编译&quot;&gt;&lt;/a&gt;1、小程序反编译&lt;/h2&gt;</summary>
     
     
     
-    <category term="钓鱼" scheme="https://ax-x.github.io/categories/%E9%92%93%E9%B1%BC/"/>
+    <category term="反编译" scheme="https://ax-x.github.io/categories/%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
     
     
     <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
@@ -174,7 +216,7 @@
     <link href="https://ax-x.github.io/2022/08/29/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91-PC%E5%BE%AE%E4%BF%A1%E7%89%88/"/>
     <id>https://ax-x.github.io/2022/08/29/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91-PC%E5%BE%AE%E4%BF%A1%E7%89%88/</id>
     <published>2022-08-29T06:39:44.000Z</published>
-    <updated>2023-04-21T09:27:44.195Z</updated>
+    <updated>2023-04-21T15:08:30.536Z</updated>
     
     
     <summary type="html">&lt;p&gt;现在网上也有很多关于小程序反编译的教程，随时间的流逝或许随着微信的更新，有出现编译不成功的现象。&lt;/p&gt;
@@ -182,7 +224,7 @@
     
     
     
-    <category term="钓鱼" scheme="https://ax-x.github.io/categories/%E9%92%93%E9%B1%BC/"/>
+    <category term="反编译" scheme="https://ax-x.github.io/categories/%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
     
     
     <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
@@ -196,14 +238,14 @@
     <link href="https://ax-x.github.io/2022/08/29/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91-%E6%A8%A1%E6%8B%9F%E5%99%A8%E7%89%88/"/>
     <id>https://ax-x.github.io/2022/08/29/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91-%E6%A8%A1%E6%8B%9F%E5%99%A8%E7%89%88/</id>
     <published>2022-08-29T06:31:30.000Z</published>
-    <updated>2023-04-21T09:28:00.897Z</updated>
+    <updated>2023-04-21T15:08:22.817Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文主要写如何通过PC手机模拟器获取微信小程序的代码&lt;/p&gt;</summary>
     
     
     
-    <category term="钓鱼" scheme="https://ax-x.github.io/categories/%E9%92%93%E9%B1%BC/"/>
+    <category term="反编译" scheme="https://ax-x.github.io/categories/%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
     
     
     <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
@@ -378,44 +420,6 @@
     
     
     <summary type="html">&lt;h2 id=&quot;原理&quot;&gt;&lt;a href=&quot;#原理&quot; class=&quot;headerlink&quot; title=&quot;原理&quot;&gt;&lt;/a&gt;原理&lt;/h2&gt;&lt;p&gt;RCE漏洞是对命令执行/代码执行类漏洞的统称。这类漏洞因为可以通过网络远程执行命令或代码，可以直接获取一定权限，会造成较严重的影响，因此属于较高危的一类漏洞&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="web安全" scheme="https://ax-x.github.io/categories/web%E5%AE%89%E5%85%A8/"/>
-    
-    
-    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SSRF服务器端请求伪造</title>
-    <link href="https://ax-x.github.io/2022/03/08/SSRF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/"/>
-    <id>https://ax-x.github.io/2022/03/08/SSRF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/</id>
-    <published>2022-03-08T12:30:40.000Z</published>
-    <updated>2022-03-12T17:58:02.224Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;原理&quot;&gt;&lt;a href=&quot;#原理&quot; class=&quot;headerlink&quot; title=&quot;原理&quot;&gt;&lt;/a&gt;原理&lt;/h2&gt;&lt;p&gt;SSRF服务器端请求伪造是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="web安全" scheme="https://ax-x.github.io/categories/web%E5%AE%89%E5%85%A8/"/>
-    
-    
-    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CSRF 跨站请求伪造漏洞</title>
-    <link href="https://ax-x.github.io/2022/03/08/CSRF-%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/"/>
-    <id>https://ax-x.github.io/2022/03/08/CSRF-%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/</id>
-    <published>2022-03-08T12:28:25.000Z</published>
-    <updated>2022-03-08T12:29:02.601Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;原理&quot;&gt;&lt;a href=&quot;#原理&quot; class=&quot;headerlink&quot; title=&quot;原理&quot;&gt;&lt;/a&gt;原理&lt;/h2&gt;&lt;p&gt;CSRF跨站请求伪造，由客户端发起，是一种劫持受信任用户向服务器发送非预期请求的攻击方式，与XSS相似，但比XSS更难防范，常与XSS一起配合攻击&lt;/p&gt;</summary>
     
     
     

@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script>
+
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/hacker-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/hacker-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习笔记,gophish," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Ax-x" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="1. 服务搭建">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gophish搭建&amp;使用">
+<meta property="og:url" content="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Ax-x">
+<meta property="og:description" content="1. 服务搭建">
+<meta property="og:locale">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979932170-cf3e2802-b6dd-4171-ba6e-bc78033c3938.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979976483-525b6066-b415-423a-83f9-0540891be3f1.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979279729-bbad7c3b-1c81-4fdf-8694-74729e3d476e.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979344615-8ca3f97f-faa3-4e30-af4e-aa1ea86a7a96.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979360419-0664dbfe-5197-49e2-a112-86c43bc69e45.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979377034-99eea447-f305-4e0c-9210-b2720c559e3a.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979386868-5e5b6af0-8879-4f42-b607-89f3c52451c2.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979393932-c80823ed-92c2-4939-bec9-8aeda1f5c803.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979404245-3e44fd22-9815-47ca-870c-5b6bb312baee.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979409933-c46c7dfc-23cd-4ba8-a761-2f4190869674.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979416591-0c0a2fb5-b62d-4c87-9222-af01ae0ac19e.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979427856-b35c7f47-1b57-4a5d-8fff-157f8b94fc01.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979433459-3c2ba8f2-b026-4323-882c-62837a352a4d.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979441936-19e6d83f-77b5-42a3-826a-3922382656d8.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979497150-b6df838f-bdce-4007-ae4b-17e4af3a37eb.png">
+<meta property="article:published_time" content="2023-04-21T15:06:23.000Z">
+<meta property="article:modified_time" content="2023-04-21T15:12:14.502Z">
+<meta property="article:author" content="Ax-x">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="gophish">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979932170-cf3e2802-b6dd-4171-ba6e-bc78033c3938.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://ax-x.github.io/2023/04/21/gophish搭建-使用/"/>
+
+
+
+
+
+  <title>gophish搭建&使用 | Ax-x</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ax-x</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">以有限的时间，做无限的事情</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head_portrait.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ax-x">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">gophish搭建&使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-04-21T23:06:23+08:00">
+                2023-04-21
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2023-04-21T23:12:14+08:00">
+                2023-04-21
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%92%93%E9%B1%BC/" itemprop="url" rel="index">
+                    <span itemprop="name">钓鱼</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  965
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-服务搭建"><a href="#1-服务搭建" class="headerlink" title="1. 服务搭建"></a>1. 服务搭建</h2><span id="more"></span>
+<h3 id="1-1-项目地址"><a href="#1-1-项目地址" class="headerlink" title="1.1 项目地址"></a>1.1 项目地址</h3><p><a target="_blank" rel="noopener" href="https://github.com/gophish/gophish">https://github.com/gophish/gophish</a></p>
+<p>下载对应的版本到服务器，这里使用的是gophish-v0.11.0-linux-64bit版本。</p>
+<h3 id="1-2-修改配置文件并运行"><a href="#1-2-修改配置文件并运行" class="headerlink" title="1.2 修改配置文件并运行"></a>1.2 修改配置文件并运行</h3><p>使用unzip gophish-v0.11.0-linux-64bit.zip命令解压缩</p>
+<p>修改配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim config.json</span><br></pre></td></tr></table></figure>
+
+<p>修改后台管理地址为<code>0.0.0.0</code>，可以方便进行外部访问，</p>
+<p>再自定义管理端口和钓鱼服务页面端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">//配置文件</span><br><span class="line">&#123;</span><br><span class="line">        &quot;admin_server&quot;: &#123;</span><br><span class="line">&quot;listen_url&quot;: &quot;0.0.0.0:33808&quot;, //管理地址可远程访问</span><br><span class="line">                &quot;use_tls&quot;: true,</span><br><span class="line">                &quot;cert_path&quot;: &quot;gophish_admin.crt&quot;,</span><br><span class="line">                &quot;key_path&quot;: &quot;gophish_admin.key&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;phish_server&quot;: &#123;</span><br><span class="line">&quot;listen_url&quot;: &quot;0.0.0.0:443&quot;, //钓鱼页面服务地址</span><br><span class="line">                &quot;use_tls&quot;: false,                //改为ture</span><br><span class="line">                &quot;cert_path&quot;: &quot;example.crt&quot;,</span><br><span class="line">                &quot;key_path&quot;: &quot;example.key&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;db_name&quot;: &quot;sqlite3&quot;,</span><br><span class="line">        &quot;db_path&quot;: &quot;gophish.db&quot;,</span><br><span class="line">        &quot;migrations_prefix&quot;: &quot;db/db_&quot;,</span><br><span class="line">        &quot;contact_address&quot;: &quot;&quot;,</span><br><span class="line">        &quot;logging&quot;: &#123;</span><br><span class="line">&quot;filename&quot;: &quot;/var/log/gophish/gophish.log&quot;, //日志，需新建gophish文件夹</span><br><span class="line">                &quot;level&quot;: &quot;&quot;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完成配置后运行<code>gophish</code>服务：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x gophish   //加执行权限</span><br><span class="line">./gophish</span><br></pre></td></tr></table></figure>
+
+<p>初始密码在控制台日志可获取</p>
+<h2 id="2-开启一次钓鱼"><a href="#2-开启一次钓鱼" class="headerlink" title="2. 开启一次钓鱼"></a>2. 开启一次钓鱼</h2><h3 id="2-1-Sending-Profiles配置"><a href="#2-1-Sending-Profiles配置" class="headerlink" title="2.1 Sending Profiles配置"></a>2.1 Sending Profiles配置</h3><p>点new profile，添加配置</p>
+<p>以zoho邮箱邮箱为例</p>
+<h3 id="2-2注册邮箱"><a href="#2-2注册邮箱" class="headerlink" title="2.2注册邮箱"></a>2.2注册邮箱</h3><p><a target="_blank" rel="noopener" href="https://www.zoho.com/">https://www.zoho.com/</a></p>
+<p>用Google账号登陆或者邮箱注册</p>
+<p>然后进入<code>域名</code>，根据步骤添加我们的域名</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979932170-cf3e2802-b6dd-4171-ba6e-bc78033c3938.png" alt="img"></p>
+<p>再到用户中去添加域名邮箱账户</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979976483-525b6066-b415-423a-83f9-0540891be3f1.png" alt="img"></p>
+<p>添加完成后访问mail.zoho.com登陆创建的邮箱即可发信</p>
+<p>添加gophish</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Name:</span><br><span class="line">  发件人名字</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Interface Type:</span><br><span class="line">  SMTP</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">SMTP From:</span><br><span class="line">  张三 &lt;xxx@xxx.com&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Host:</span><br><span class="line">  smtp.zoho.com:465</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Username:</span><br><span class="line">  xxx@xxx.com</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Password:</span><br><span class="line">  登陆zoho邮箱的密码</span><br></pre></td></tr></table></figure>
+
+<p>Email Headers添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X-Mailer QQMail 2.x</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979279729-bbad7c3b-1c81-4fdf-8694-74729e3d476e.png" alt="img"></p>
+<h2 id="2-2-Email-Templates配置"><a href="#2-2-Email-Templates配置" class="headerlink" title="2.2 Email Templates配置"></a>2.2 Email Templates配置</h2><p>这里配置钓鱼邮件的模板</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979344615-8ca3f97f-faa3-4e30-af4e-aa1ea86a7a96.png" alt="img"></p>
+<p>邮件eml导入:(QQ邮件)下载eml文件，打开导入（有时候需要base64解码）</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979360419-0664dbfe-5197-49e2-a112-86c43bc69e45.png" alt="img"></p>
+<p>可以先用自己邮箱编写钓鱼模板，然后发送给自己，在拷贝邮件内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p&gt;您好：&lt;/p&gt;</span><br><span class="line">&lt;p&gt;近期检测到您在学者网教学科研协作单位平台的密码已过期， 请点击&lt;a href=&quot;&#123;&#123;.URL&#125;&#125;&quot;&gt;</span><br><span class="line">此链接&lt;/a&gt;尽快修改密码，谢谢配合！&lt;/p&gt;</span><br><span class="line">&#123;&#123;.Tracker&#125;&#125;&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>选取文字点击link，即可插入点击链接</p>
+<p><code>&#123;&#123;.URL&#125;&#125;</code>表示插入钓鱼链接</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979377034-99eea447-f305-4e0c-9210-b2720c559e3a.png" alt="img"></p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">变量参考</span><br><span class="line"></span><br><span class="line">|<span class="string"> Variable         </span>|<span class="string"> Description                                                  </span>|</span><br><span class="line">|<span class="string"> ---------------- </span>|<span class="string"> ------------------------------------------------------------ </span>|</span><br><span class="line">|<span class="string"> &#123;&#123;.RId&#125;&#125;         </span>|<span class="string"> The target’s unique ID                                       </span>|</span><br><span class="line">|<span class="string"> &#123;&#123;.FirstName&#125;&#125;   </span>|<span class="string"> The target’s first name                                      </span>|</span><br><span class="line">|<span class="string"> &#123;&#123;.LastName&#125;&#125;    </span>|<span class="string"> The target’s last name                                       </span>|</span><br><span class="line">|<span class="string"> &#123;&#123;.Position&#125;&#125;    </span>|<span class="string"> The target’s position                                        </span>|</span><br><span class="line">|<span class="string"> &#123;&#123;.Email&#125;&#125;       </span>|<span class="string"> The target’s email address                                   </span>|</span><br><span class="line">|<span class="string"> &#123;&#123;.From&#125;&#125;        </span>|<span class="string"> The spoofed sender                                           </span>|</span><br><span class="line">|<span class="string"> &#123;&#123;.TrackingURL&#125;&#125; </span>|<span class="string"> The URL to the tracking handler                              </span>|</span><br><span class="line">|<span class="string"> &#123;&#123;.Tracker&#125;&#125;     </span>|<span class="string"> An alias for `&lt;img src=&quot;&#123;&#123;.TrackingURL&#125;&#125;&quot;/&gt;`                 </span>|</span><br><span class="line">|<span class="string"> &#123;&#123;.URL&#125;&#125;         </span>|<span class="string"> The phishing URL                                             </span>|</span><br><span class="line">|<span class="string"> &#123;&#123;.BaseURL&#125;&#125;     </span>|<span class="string"> The base URL with the path and `rid` parameter stripped. Useful for making links to static files. </span>|</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-Landing-Pages（钓鱼页面）配置"><a href="#2-3-Landing-Pages（钓鱼页面）配置" class="headerlink" title="2.3 Landing Pages（钓鱼页面）配置"></a>2.3 Landing Pages（钓鱼页面）配置</h3><p>两种方式：</p>
+<ul>
+<li>直接从目录地址的网页自动制作</li>
+</ul>
+<p>点击Import Site</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979386868-5e5b6af0-8879-4f42-b607-89f3c52451c2.png" alt="img"></p>
+<p>输入想被伪造的目标</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979393932-c80823ed-92c2-4939-bec9-8aeda1f5c803.png" alt="img"></p>
+<p>此方法伪造一般页面都不正常</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979404245-3e44fd22-9815-47ca-870c-5b6bb312baee.png" alt="img"></p>
+<p>自行写入html代码</p>
+<ul>
+<li>自行写入html代码</li>
+</ul>
+<p>使用浏览器插件SingleFile保存想要被克隆的页面</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979409933-c46c7dfc-23cd-4ba8-a761-2f4190869674.png" alt="img"></p>
+<p>然后修改html代码，再将htmld代码拷贝到gophish中</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979416591-0c0a2fb5-b62d-4c87-9222-af01ae0ac19e.png" alt="img"></p>
+<p>页面正常</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979427856-b35c7f47-1b57-4a5d-8fff-157f8b94fc01.png" alt="img"></p>
+<p>勾选<code>Capture Submitted Data</code>，用户输入文字到表单中并点击提交，gophish可以获取内容</p>
+<p>勾选<code>Capture Passwords</code>，用户输入密码，gophish可获取密码内容</p>
+<p><code>Redirect to</code>中填入自定义url，当用户提交表单，自动跳转</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979433459-3c2ba8f2-b026-4323-882c-62837a352a4d.png" alt="img"></p>
+<h2 id="2-4-添加目标"><a href="#2-4-添加目标" class="headerlink" title="2.4 添加目标"></a>2.4 添加目标</h2><p>在Users &amp; Groups中可导入目标的</p>
+<p>姓名、email地址、其他描述</p>
+<p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979441936-19e6d83f-77b5-42a3-826a-3922382656d8.png" alt="img"></p>
+<h2 id="2-5-创建任务Campaigns"><a href="#2-5-创建任务Campaigns" class="headerlink" title="2.5 创建任务Campaigns"></a>2.5 创建任务Campaigns</h2><p><img src="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/1672979497150-b6df838f-bdce-4007-ae4b-17e4af3a37eb.png" alt="img"></p>
+
+      
+    </div>
+    
+    
+    
+	
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Ax-x
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/" title="gophish搭建&使用">https://ax-x.github.io/2023/04/21/gophish%E6%90%AD%E5%BB%BA-%E4%BD%BF%E7%94%A8/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"><i class="fa fa-tag"></i> 学习笔记</a>
+          
+            <a href="/tags/gophish/" rel="tag"><i class="fa fa-tag"></i> gophish</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/04/21/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/" rel="next" title="邮件服务器搭建">
+                <i class="fa fa-chevron-left"></i> 邮件服务器搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+		
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+		
+      
+		
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/head_portrait.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+		
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Ax-x" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA"><span class="nav-number">1.</span> <span class="nav-text">1. 服务搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E9%A1%B9%E7%9B%AE%E5%9C%B0%E5%9D%80"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 项目地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%B9%B6%E8%BF%90%E8%A1%8C"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 修改配置文件并运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%BC%80%E5%90%AF%E4%B8%80%E6%AC%A1%E9%92%93%E9%B1%BC"><span class="nav-number">2.</span> <span class="nav-text">2. 开启一次钓鱼</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Sending-Profiles%E9%85%8D%E7%BD%AE"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Sending Profiles配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2%E6%B3%A8%E5%86%8C%E9%82%AE%E7%AE%B1"><span class="nav-number">2.2.</span> <span class="nav-text">2.2注册邮箱</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Email-Templates%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">2.2 Email Templates配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Landing-Pages%EF%BC%88%E9%92%93%E9%B1%BC%E9%A1%B5%E9%9D%A2%EF%BC%89%E9%85%8D%E7%BD%AE"><span class="nav-number">3.1.</span> <span class="nav-text">2.3 Landing Pages（钓鱼页面）配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-%E6%B7%BB%E5%8A%A0%E7%9B%AE%E6%A0%87"><span class="nav-number">4.</span> <span class="nav-text">2.4 添加目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-%E5%88%9B%E5%BB%BA%E4%BB%BB%E5%8A%A1Campaigns"><span class="nav-number">5.</span> <span class="nav-text">2.5 创建任务Campaigns</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ax-x</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">79.4k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
