@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script>
+
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/hacker-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/hacker-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习笔记,小程序反编译," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Ax-x" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="1、小程序反编译">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何在不进行审计的情况下对小程序加密数据进行解密">
+<meta property="og:url" content="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/index.html">
+<meta property="og:site_name" content="Ax-x">
+<meta property="og:description" content="1、小程序反编译">
+<meta property="og:locale">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/安全学习资料\文稿\4、代码审计\小程序反编译\微信小程序反编译—PC微信版\image-20220829114303810.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106090703262.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/安全学习资料/文稿/4、代码审计/小程序反编译/微信小程序反编译—PC微信版/image-20220829114344379.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/安全学习资料/文稿/4、代码审计/小程序反编译/微信小程序反编译—PC微信版/image-20220829114403452.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106091106182.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106091542808.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106091347260.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106091632796.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106091933099.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106092648855.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106092804280.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106100548094.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106100732998.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106100834930.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106101026429.png">
+<meta property="og:image" content="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106101100274.png">
+<meta property="article:published_time" content="2023-04-21T09:21:26.000Z">
+<meta property="article:modified_time" content="2023-04-21T09:27:37.361Z">
+<meta property="article:author" content="Ax-x">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="小程序反编译">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/安全学习资料\文稿\4、代码审计\小程序反编译\微信小程序反编译—PC微信版\image-20220829114303810.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://ax-x.github.io/2023/04/21/如何在不进行审计的情况下对小程序加密数据进行解密/"/>
+
+
+
+
+
+  <title>如何在不进行审计的情况下对小程序加密数据进行解密 | Ax-x</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ax-x</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">以有限的时间，做无限的事情</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head_portrait.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ax-x">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">如何在不进行审计的情况下对小程序加密数据进行解密</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-04-21T17:21:26+08:00">
+                2023-04-21
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2023-04-21T17:27:37+08:00">
+                2023-04-21
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%92%93%E9%B1%BC/" itemprop="url" rel="index">
+                    <span itemprop="name">钓鱼</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  714
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1、小程序反编译"><a href="#1、小程序反编译" class="headerlink" title="1、小程序反编译"></a>1、小程序反编译</h2><span id="more"></span>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><h4 id="1、-node-环境准备"><a href="#1、-node-环境准备" class="headerlink" title="1、 node 环境准备"></a>1、 node 环境准备</h4><p>下载链接：<a target="_blank" rel="noopener" href="https://nodejs.org/en/">https://nodejs.org/en/</a></p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/安全学习资料\文稿\4、代码审计\小程序反编译\微信小程序反编译—PC微信版\image-20220829114303810.png" alt="image-20220829114303810"></p>
+<h4 id="2、反编译工具"><a href="#2、反编译工具" class="headerlink" title="2、反编译工具"></a>2、反编译工具</h4><p>项目地址来自于：<a target="_blank" rel="noopener" href="https://github.com/xuedingmiaojun/wxappUnpacker">https://github.com/xuedingmiaojun/wxappUnpacker</a></p>
+<h3 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h3><h4 id="1、微信PC获取小程序"><a href="#1、微信PC获取小程序" class="headerlink" title="1、微信PC获取小程序"></a>1、微信PC获取小程序</h4><p>在通过微信PC打开小程序前，我们最好先找到缓存到本地的小程序包路径，一般都是在 微信PC安装目录\WeChat Files\WeChat Files\Applet</p>
+<p>比如我的就是安装到 <code>D盘根目录的</code>，所以路径为：D:\WeChat\WeChat Files\Applet</p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106090703262.png" alt="image-20230106090703262"></p>
+<p>上图中每个wx开头的文件夹代表一个小程序，一般最新打开的小程序都是在第一个，如果不确定可以排序一下修改日期</p>
+<p>找到路径了我们就可以用微信PC打开小程序了，打开后就会发现当前目录新增了一个文件夹，里面存放的就是加密后的小程序包</p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/安全学习资料/文稿/4、代码审计/小程序反编译/微信小程序反编译—PC微信版/image-20220829114344379.png" alt="image-20220829114344379"></p>
+<h4 id="2、解密包"><a href="#2、解密包" class="headerlink" title="2、解密包"></a>2、解密包</h4><p>刚获取到的包我们还不能进行反编译，必须要通过 <code>解密软件</code> 修改一下才能反编译</p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/安全学习资料/文稿/4、代码审计/小程序反编译/微信小程序反编译—PC微信版/image-20220829114403452.png" alt="image-20220829114403452"></p>
+<p>本篇就演示一个主包和一个分包反编译的过程就可以了，先通过解密工具修改一下主包</p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106091106182.png" alt="image-20230106091106182"></p>
+<p>解密的主包自动到 wxpack 这个包里面来了，同样的步骤解密一个分包，下图是我解密好</p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106091542808.png" alt="image-20230106091542808"></p>
+<h4 id="3、反编译"><a href="#3、反编译" class="headerlink" title="3、反编译"></a>3、反编译</h4><p>进入 wxpack的同级目录 wxappUnpacker-master，在路径栏输入 cmd 自动打开当前目录的 命令窗口了</p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106091347260.png" alt="image-20230106091347260"></p>
+<p>先反编译一下主包，把反编译后的文件夹放到 <code>wxpack</code> 同级目录中</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">node</span> wuWxapkg.js ..\wxpack\wx<span class="number">464</span>f<span class="number">1</span>fef<span class="number">86</span>a<span class="number">25927</span>.wxapkg</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-s</code> 表示分包</li>
+<li>第一个<code>..\</code> 表示输出位置</li>
+<li><code>..\wxpack\_pages_app.wxapkg</code> 需要反编译的分包位置</li>
+</ul>
+<p><img src="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106091632796.png" alt="image-20230106091632796"></p>
+<p>然后把我们得到的文件夹导入开发者工具或者notepad++查看代码，这里导入开发者工具</p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106091933099.png" alt="image-20230106091933099"></p>
+<h2 id="2、找漏洞相关js"><a href="#2、找漏洞相关js" class="headerlink" title="2、找漏洞相关js"></a>2、找漏洞相关js</h2><p>全局搜索解密，通过查看代码最终定位到request.js中的代码块</p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106092648855.png" alt="image-20230106092648855"></p>
+<p>进入request.js的文件夹</p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106092804280.png" alt="image-20230106092804280"></p>
+<h2 id="3、模块化加载"><a href="#3、模块化加载" class="headerlink" title="3、模块化加载"></a>3、模块化加载</h2><p>事先安装好browserify</p>
+<h3 id="3-1、Browserify"><a href="#3-1、Browserify" class="headerlink" title="3.1、Browserify"></a>3.1、Browserify</h3><p>Browserify 可以让你使用类似于 node 的 require() 的方式来组织浏览器端的 Javascript 代码，通过预编译让前端 Javascript 可以直接使用 Node NPM 安装的一些库。</p>
+<h3 id="3-2、安装"><a href="#3-2、安装" class="headerlink" title="3.2、安装"></a>3.2、安装</h3><p>管理员打开cmd（普通用户有可能会安装失败）</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> -g browserify</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3、打包js文件"><a href="#3-3、打包js文件" class="headerlink" title="3.3、打包js文件"></a>3.3、打包js文件</h3><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">browserify </span>request.<span class="keyword">js </span>&gt; myboundle.<span class="keyword">js</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106100548094.png" alt="image-20230106100548094"></p>
+<h3 id="3-4、修改js代码"><a href="#3-4、修改js代码" class="headerlink" title="3.4、修改js代码"></a>3.4、修改js代码</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data=<span class="string">&quot;WVMNBlsFBgQKWVEPBVgABAFXUFEKVlAGBlRWXVdeWlxRAQcBWQRQUA0GUgcGWwcMAFsBVARRDVkMU1kCBgALWFlfAltQCQIDDFheBV9RB1dXUAMPB1gBAwYHXlZdUA0LVgEDCVlcAF4KCFYAX1ALB1oDBQcAUVQNV1AHUwAAXANYAgwHCABTCVELWg8LAVAFUFAPV19TCQoLWFVdVwpRBAMLDVJYUFFQCQRQXQNbWggDBlADX1UIVg1TCAIDDlBbBggFUVELWlRRAF8FBQoDUAVcUQxWVFRRCQdaUFFWAQMFUVQNAVwAAQoHCVFaW1ABBgZQX1MNUVoEVQUBXAQKUAoLBgQDUVVaBQoKUQFWWQcNVQsABlcKX1AIAg0CUQMFWFcKBlwLUVEHDlBaVF0HCFQDDlULUV0ABQUCXQUNVwg=&quot;</span></span><br><span class="line"><span class="keyword">var</span> t = <span class="built_in">JSON</span>.parse(u.decryptSM4(data, u.createGenkey(<span class="string">&quot;202300&quot;</span>)));</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(t)</span><br></pre></td></tr></table></figure>
+
+<p>将以上代码放置在我们定位到的代码块中</p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106100732998.png" alt="image-20230106100732998"></p>
+<p>在下方找个合适的位置放进去，注意不要插入到其他函数内，否则在访问页面时不会启动</p>
+<p><img src="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106100834930.png" alt="image-20230106100834930"></p>
+<h3 id="3-5、编写html文件，将js文件导入"><a href="#3-5、编写html文件，将js文件导入" class="headerlink" title="3.5、编写html文件，将js文件导入"></a>3.5、编写html文件，将js文件导入</h3><p><img src="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106101026429.png" alt="image-20230106101026429"></p>
+<h3 id="3-6、访问页面，查看控制台"><a href="#3-6、访问页面，查看控制台" class="headerlink" title="3.6、访问页面，查看控制台"></a>3.6、访问页面，查看控制台</h3><p><img src="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/image-20230106101100274.png" alt="image-20230106101100274"></p>
+
+      
+    </div>
+    
+    
+    
+	
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Ax-x
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/" title="如何在不进行审计的情况下对小程序加密数据进行解密">https://ax-x.github.io/2023/04/21/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%AE%A1%E8%AE%A1%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%B9%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"><i class="fa fa-tag"></i> 学习笔记</a>
+          
+            <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/" rel="tag"><i class="fa fa-tag"></i> 小程序反编译</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/04/19/%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/" rel="next" title="委派攻击">
+                <i class="fa fa-chevron-left"></i> 委派攻击
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+		
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+		
+      
+		
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/head_portrait.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+		
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Ax-x" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91"><span class="nav-number">1.</span> <span class="nav-text">1、小程序反编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">1.1.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81-node-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">1.1.1.</span> <span class="nav-text">1、 node 环境准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E5%8F%8D%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7"><span class="nav-number">1.1.2.</span> <span class="nav-text">2、反编译工具</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E6%93%8D%E4%BD%9C"><span class="nav-number">1.2.</span> <span class="nav-text">具体操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E5%BE%AE%E4%BF%A1PC%E8%8E%B7%E5%8F%96%E5%B0%8F%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">1、微信PC获取小程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E8%A7%A3%E5%AF%86%E5%8C%85"><span class="nav-number">1.2.2.</span> <span class="nav-text">2、解密包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E5%8F%8D%E7%BC%96%E8%AF%91"><span class="nav-number">1.2.3.</span> <span class="nav-text">3、反编译</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E6%89%BE%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3js"><span class="nav-number">2.</span> <span class="nav-text">2、找漏洞相关js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8A%A0%E8%BD%BD"><span class="nav-number">3.</span> <span class="nav-text">3、模块化加载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1%E3%80%81Browserify"><span class="nav-number">3.1.</span> <span class="nav-text">3.1、Browserify</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2%E3%80%81%E5%AE%89%E8%A3%85"><span class="nav-number">3.2.</span> <span class="nav-text">3.2、安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3%E3%80%81%E6%89%93%E5%8C%85js%E6%96%87%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">3.3、打包js文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4%E3%80%81%E4%BF%AE%E6%94%B9js%E4%BB%A3%E7%A0%81"><span class="nav-number">3.4.</span> <span class="nav-text">3.4、修改js代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5%E3%80%81%E7%BC%96%E5%86%99html%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B0%86js%E6%96%87%E4%BB%B6%E5%AF%BC%E5%85%A5"><span class="nav-number">3.5.</span> <span class="nav-text">3.5、编写html文件，将js文件导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6%E3%80%81%E8%AE%BF%E9%97%AE%E9%A1%B5%E9%9D%A2%EF%BC%8C%E6%9F%A5%E7%9C%8B%E6%8E%A7%E5%88%B6%E5%8F%B0"><span class="nav-number">3.6.</span> <span class="nav-text">3.6、访问页面，查看控制台</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ax-x</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">77.7k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
