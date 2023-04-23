@@ -6,7 +6,7 @@
   <link href="https://ax-x.github.io/atom.xml" rel="self"/>
   
   <link href="https://ax-x.github.io/"/>
-  <updated>2023-04-21T15:12:14.502Z</updated>
+  <updated>2023-04-23T08:46:40.761Z</updated>
   <id>https://ax-x.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>安全开发之Ax_url_interface</title>
+    <link href="https://ax-x.github.io/2023/04/23/%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91%E4%B9%8BAx-url-interface/"/>
+    <id>https://ax-x.github.io/2023/04/23/%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91%E4%B9%8BAx-url-interface/</id>
+    <published>2023-04-23T08:44:14.000Z</published>
+    <updated>2023-04-23T08:46:40.761Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;一、背景&quot;&gt;&lt;a href=&quot;#一、背景&quot; class=&quot;headerlink&quot; title=&quot;一、背景&quot;&gt;&lt;/a&gt;一、背景&lt;/h1&gt;&lt;p&gt;前些阵子有个需求是搞个图形化的工具，功能是在信息收集阶段之后能够批量导入获取到的url然后进行扫描，获取页面状态以及大小再在工具上显示页面，简单易懂，了解完需求就开搞！实现得不是很好，大佬轻点喷。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="安全开发" scheme="https://ax-x.github.io/categories/%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="自开发工具" scheme="https://ax-x.github.io/tags/%E8%87%AA%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
+    
+    <category term="python" scheme="https://ax-x.github.io/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>gophish搭建&amp;使用</title>
@@ -401,25 +422,6 @@
     
     
     <summary type="html">&lt;h2 id=&quot;1、错误的HTTP请求头&quot;&gt;&lt;a href=&quot;#1、错误的HTTP请求头&quot; class=&quot;headerlink&quot; title=&quot;1、错误的HTTP请求头&quot;&gt;&lt;/a&gt;1、错误的HTTP请求头&lt;/h2&gt;&lt;figure class=&quot;highlight css&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;类似文件上传时的绕过，通过畸形的HTTP协议头绕过WAF检测。比如绕过某些老版本WAF可以加入请求头：&lt;span class=&quot;attribute&quot;&gt;Content&lt;/span&gt;-Encoding:deflate就可以绕过WAF（此方法在文件上传绕过WAF中也适用）&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
-    
-    
-    
-    <category term="web安全" scheme="https://ax-x.github.io/categories/web%E5%AE%89%E5%85%A8/"/>
-    
-    
-    <category term="学习笔记" scheme="https://ax-x.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>RCE漏洞</title>
-    <link href="https://ax-x.github.io/2022/03/08/RCE%E6%BC%8F%E6%B4%9E/"/>
-    <id>https://ax-x.github.io/2022/03/08/RCE%E6%BC%8F%E6%B4%9E/</id>
-    <published>2022-03-08T12:33:37.000Z</published>
-    <updated>2022-03-08T12:34:18.279Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;原理&quot;&gt;&lt;a href=&quot;#原理&quot; class=&quot;headerlink&quot; title=&quot;原理&quot;&gt;&lt;/a&gt;原理&lt;/h2&gt;&lt;p&gt;RCE漏洞是对命令执行/代码执行类漏洞的统称。这类漏洞因为可以通过网络远程执行命令或代码，可以直接获取一定权限，会造成较严重的影响，因此属于较高危的一类漏洞&lt;/p&gt;</summary>
     
     
     
